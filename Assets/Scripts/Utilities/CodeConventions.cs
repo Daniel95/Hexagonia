@@ -31,10 +31,20 @@ public class CodeConventions : MonoBehaviour
         }
     }
 
+#region Singleton
+	private static CodeConventions instance;
 
-    private static CodeConventions instance;
+	private CodeConventions GetInstance()
+	{
+		if (instance == null)
+		{
+			instance = FindObjectOfType<CodeConventions>();
+		}
+		return instance;
+	}
+#endregion
 
-    private const string CONST_TEST = "TEST123";
+	private const string CONST_TEST = "TEST123";
 
     [SerializeField] private int serializeFieldTest;
 
@@ -89,14 +99,7 @@ public class CodeConventions : MonoBehaviour
         Event -= OnEvent;
     }
 
-    private CodeConventions GetInstance() 
-    {
-        if(instance == null) 
-        {
-            instance = FindObjectOfType<CodeConventions>();
-        }
-        return instance;
-    }
+    
 
 }
 
