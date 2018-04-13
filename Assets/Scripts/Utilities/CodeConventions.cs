@@ -99,3 +99,10 @@ public class CodeConventions : MonoBehaviour
     }
 
 }
+
+public enum Testtype
+{
+	First,
+	Second,
+	Third
+}
