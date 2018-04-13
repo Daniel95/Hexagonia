@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
         if (transform.position == targetPosition)
             return;
 
-        transform.DOMove(targetPosition, 1);
+        transform.DOMove(targetPosition, 1).SetEase(Ease.OutElastic);
     }
 
     private void UpdateTargetPosition(Vector3 _targetPosition)
