@@ -194,17 +194,6 @@ public static class VectorHelper
         return axisesHaveSameSign;
     }
 
-    //??
-    //returns positive when to the right (local) and negative when to the left
-    public static float AngleDir(Vector3 fwd, Vector3 targetDir, Vector3 up)
-    {
-        Vector3 right = Vector3.Cross(fwd, targetDir);
-        float dir = Vector3.Dot(right, up);
-
-        return dir;
-    }
-    //??
-
     public static float DirectionToAngle(Vector2 direction)
     {
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
@@ -227,40 +216,6 @@ public static class VectorHelper
     {
         bool isBiggerOrEquals = vector.x <= compareVector.x && vector.y <= compareVector.y;
         return isBiggerOrEquals;
-    }
-
-    public static bool IsBetweenVectors(this Vector2 vector, Vector2 compareVector1, Vector2 compareVector2)
-    {
-        float lowestX = MathHelper.GetLowestNumber(compareVector1.x, compareVector2.x);
-        if (vector.x < lowestX) { return false; }
-
-        float highestX = MathHelper.GetHighestNumber(compareVector1.x, compareVector2.x);
-        if (vector.x > highestX) { return false; }
-
-        float lowestY = MathHelper.GetLowestNumber(compareVector1.y, compareVector2.y);
-        if (vector.y < lowestY) { return false; }
-
-        float highestY = MathHelper.GetHighestNumber(compareVector1.y, compareVector2.y);
-        if (vector.y > highestY) { return false; }
-
-        return true;
-    }
-
-    public static bool IsBetweenVectors(this Vector3 vector, Vector3 compareVector1, Vector3 compareVector2)
-    {
-        float lowestX = MathHelper.GetLowestNumber(compareVector1.x, compareVector2.x);
-        if (vector.x < lowestX) { return false; }
-
-        float highestX = MathHelper.GetHighestNumber(compareVector1.x, compareVector2.x);
-        if (vector.x > highestX) { return false; }
-
-        float lowestY = MathHelper.GetLowestNumber(compareVector1.y, compareVector2.y);
-        if (vector.y < lowestY) { return false; }
-
-        float highestY = MathHelper.GetHighestNumber(compareVector1.y, compareVector2.y);
-        if (vector.y > highestY) { return false; }
-
-        return true;
     }
 
 }
