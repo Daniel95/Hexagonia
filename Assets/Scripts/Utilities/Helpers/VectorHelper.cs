@@ -138,6 +138,14 @@ public static class VectorHelper
         return new Vector3(Mathf.Clamp(v1.x, min, max), Mathf.Clamp(v1.y, min, max), Mathf.Clamp(v1.z, min, max));
     }
 
+    public static Vector2 Clamp(Vector2 v1, Vector2 min, Vector2 max) {
+        return new Vector2(Mathf.Clamp(v1.x, min.x, max.x), Mathf.Clamp(v1.y, min.y, max.y));
+    }
+
+    public static Vector3 Clamp(Vector3 v1, Vector3 min, Vector3 max) {
+        return new Vector3(Mathf.Clamp(v1.x, min.x, max.x), Mathf.Clamp(v1.y, min.y, max.y), Mathf.Clamp(v1.z, min.z, max.z));
+    }
+
     public static Vector2 Abs(Vector2 vector)
     {
         return new Vector2(Mathf.Abs(vector.x), Mathf.Abs(vector.y));

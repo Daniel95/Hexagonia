@@ -4,19 +4,28 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
 
-    private Vector3 targetPosition;
-
-    private void Update()
-    {
-        if (transform.position == targetPosition)
-            return;
-
-        transform.DOMove(targetPosition, 1).SetEase(Ease.OutElastic);
-    }
+    [SerializeField] private float maxSpeed = 0.3f;
 
     private void UpdateTargetPosition(Vector3 _targetPosition)
     {
-        targetPosition = _targetPosition;
+        if (transform.position == _targetPosition)
+            return;
+
+        transform.position = _targetPosition;
+
+
+
+        //Vector3 offset = transform.position - pointOnPlane;
+        //Vector3 direction = offset.normalized;
+        /*
+        Vector3 offset = _targetPosition - transform.position;
+
+        Vector3 move = VectorHelper.Clamp(offset, -maxSpeed, maxSpeed);
+
+        transform.Translate(move);
+
+        //transform.DOMove(_targetPosition, 90).SetEase(Ease.InElastic);
+        */
     }
 
     private void OnEnable()
