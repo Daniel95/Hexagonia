@@ -48,7 +48,6 @@ public class ChunkPool : MonoBehaviour
 
     private void SpawnChunk()
     {
-        Debug.Log(totalChunkLengths);
         Vector3 _spawnPosition = new Vector3(0, 0, (chunksZStartPosition + totalChunkLengths));
 
         GameObject _spawnedChunkGameObject = Instantiate(GenerateRandomChunk().gameObject, _spawnPosition, Quaternion.identity);
