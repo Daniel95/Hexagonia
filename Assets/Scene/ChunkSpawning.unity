@@ -188,7 +188,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 142846824}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalPosition: {x: 0, y: 10, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -222,10 +222,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7af4661f09446e3418772b0d410ddd20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amountOfChunks: 3
-  chunkStartPosition: -10
+  amountOfChunks: 10
+  chunksZStartPosition: -50
   availableChunkPrefabs:
-  - {fileID: 114138119420671896, guid: f1a2974968876c24a908520b110dad70, type: 2}
+  - {fileID: 114795842565148934, guid: e3bc473cda1f4de4c9cc6e705e7f47ab, type: 2}
+  - {fileID: 114491083695083410, guid: eb1ca3a9f123c8c4bafdc8a93fc05c79, type: 2}
 --- !u!4 &204582388
 Transform:
   m_ObjectHideFlags: 0
@@ -251,7 +252,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  despawnZPosition: -20
 --- !u!1 &1449307688
 GameObject:
   m_ObjectHideFlags: 0
@@ -283,7 +283,7 @@ Light:
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 2
+    m_Type: 0
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1

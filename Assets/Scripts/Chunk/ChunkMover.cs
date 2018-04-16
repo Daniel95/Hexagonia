@@ -14,14 +14,12 @@ public class ChunkMover : MonoBehaviour
 
     [SerializeField] private float speed;
 
-    [SerializeField] private float despawnZPosition;
-
     private List<Chunk> currentChunks = new List<Chunk>();
 	
 	void Update () {
 	    for (int i = 0; i < currentChunks.Count; i++)
 	    {
-	        if (currentChunks[i].transform.position.z < despawnZPosition)
+	        if (currentChunks[i].transform.position.z < ChunkPool.Instance.ChunksZStartPosition)
 	        {
 	            RemoveChunk();
 	        }
@@ -51,4 +49,5 @@ public class ChunkMover : MonoBehaviour
     {
         ChunkPool.ChunkSpawnedAction -= AddChunk;
     }
+
 }
