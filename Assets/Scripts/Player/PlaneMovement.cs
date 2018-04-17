@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider))]
 public class PlaneMovement : MonoBehaviour {
 
-    public static Action<Vector3> RaycastPointOnPlaneEvent;
+    public static Action<Vector3> MovePointOnPlaneEvent;
 
     [SerializeField] private Transform hmdTransform;
     [SerializeField] private int maxDistance;
@@ -31,9 +31,9 @@ public class PlaneMovement : MonoBehaviour {
         Vector3 planePoint = GetRaycastPointOnPlane(out hit);
         if(!hit) { return; }
 
-        if(RaycastPointOnPlaneEvent != null)
+        if(MovePointOnPlaneEvent != null)
         {
-            RaycastPointOnPlaneEvent(planePoint);
+            MovePointOnPlaneEvent(planePoint);
         }
     }
 
