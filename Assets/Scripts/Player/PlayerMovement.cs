@@ -19,12 +19,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnEnable()
     {
-        //MovementPlane.RaycastPointOnPlaneEvent += UpdateTargetPosition;
+        PlaneMovement.RaycastPointOnPlaneEvent += UpdateTargetPosition;
     }
 
     private void OnDisable()
     {
-        //MovementPlane.RaycastPointOnPlaneEvent -= UpdateTargetPosition;
+        PlaneMovement.RaycastPointOnPlaneEvent -= UpdateTargetPosition;
     }
 
 }
