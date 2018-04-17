@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// This script contains the information of a specific chunk.
-/// More specific how long the chunk is and where the available coin positions are
+/// This script contains the information of a specific chunk and a function to remove itself.
+/// More specific how long the chunk is and where the available coin positions are.
 /// </summary>
 
 public class Chunk : MonoBehaviour

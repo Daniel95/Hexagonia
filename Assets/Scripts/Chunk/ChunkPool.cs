@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 /// <summary>
-/// The chunkpool has a list with all the available chunk prefabs
-/// This script is responsible for Initialising the next chunk when asked
+/// The chunkpool has a list with all the available chunk prefabs.
+/// This script is responsible for spawning the chunks when needed. 
+/// In the editor is defined which, where and how many chunks are being spawned.
 /// </summary>
 
 public class ChunkPool : MonoBehaviour
@@ -30,9 +30,9 @@ public class ChunkPool : MonoBehaviour
 
     [SerializeField] private List<Chunk> availableChunkPrefabs;
 
-    private float totalChunkLengths;
+    private Vector3 spawnPosition;
 
-    void Start()
+    private void Start()
     {
         for (int i = 0; i < amountOfChunks; i++)
         {
@@ -43,17 +43,22 @@ public class ChunkPool : MonoBehaviour
     private void OnRemovedChunk(Chunk _chunk)
     {
         SpawnChunk();
-        totalChunkLengths -= _chunk.Length;
     }
 
     private void SpawnChunk()
     {
-        Vector3 _spawnPosition = new Vector3(0, 0, (chunksZStartPosition + totalChunkLengths));
+        if (ChunkMover.Instance.CurrentChunks().Count != 0)
+        {
+            Chunk _newestChunk = ChunkMover.Instance.CurrentChunks()[ChunkMover.Instance.CurrentChunks().Count-1];
+            spawnPosition = new Vector3(0, 0, _newestChunk.transform.position.z +_newestChunk.Length);
+        }
+        else
+        {
+            spawnPosition = new Vector3(0, 0, chunksZStartPosition);
+        }
 
-        GameObject _spawnedChunkGameObject = Instantiate(GenerateRandomChunk().gameObject, _spawnPosition, Quaternion.identity);
+        GameObject _spawnedChunkGameObject = Instantiate(GenerateRandomChunk().gameObject, spawnPosition, Quaternion.identity);
         Chunk _spawnedChunk = _spawnedChunkGameObject.GetComponent<Chunk>();
-
-        totalChunkLengths += _spawnedChunk.Length;
 
         ChunkSpawnedAction(_spawnedChunk);
 
