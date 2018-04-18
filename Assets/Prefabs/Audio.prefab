@@ -19,8 +19,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4959316850382378}
-  - component: {fileID: 114803539333053132}
   - component: {fileID: 114261910940160688}
+  - component: {fileID: 114081021219859648}
   - component: {fileID: 82640575770356706}
   m_Layer: 0
   m_Name: Audio
@@ -51,8 +51,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 0
+  m_audioClip: {fileID: 8300000, guid: 64fd140ebc57a0144b27a96d2373105d, type: 3}
+  m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -122,6 +122,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &114081021219859648
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1906092827714180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3708a132719388499ebee3efe548104, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 82640575770356706}
+  decreaseSpeed: 0.1
 --- !u!114 &114261910940160688
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -133,15 +146,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 530138764895f1840ab10556399e8141, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  songList: []
---- !u!114 &114803539333053132
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1906092827714180}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: abe5b0b530f358b408189a6102f8a4e7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  songList:
+  - priority: 0
+    clip: {fileID: 8300000, guid: 5497ec20af5428b47ab0a0996c6e711b, type: 3}
+  - priority: 0
+    clip: {fileID: 8300000, guid: 38973134088274b4daebcbdc2abb5b51, type: 3}
+  - priority: 0
+    clip: {fileID: 8300000, guid: 5681fb824b803874cb01d4367ae4e146, type: 3}
+  - priority: 0
+    clip: {fileID: 8300000, guid: 64fd140ebc57a0144b27a96d2373105d, type: 3}
+  - priority: 0
+    clip: {fileID: 8300000, guid: 3df80e82713609b498374048adb35469, type: 3}
+  - priority: 0
+    clip: {fileID: 8300000, guid: 27f7adc5b17e12141a5e45baa87def07, type: 3}
+  fadeTime: 1

@@ -28,7 +28,7 @@ public class AudioEffectManager : MonoBehaviour
             }
         }
         if (_audioSource.clip == null)
-            Debug.LogError("Could not find a matching sound clip"); return;
+            Debug.LogError("Could not find a matching sound clip");
 
         _audioSource.loop = false;
         _audioSource.Play();

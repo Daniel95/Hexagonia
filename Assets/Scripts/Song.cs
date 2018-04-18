@@ -4,6 +4,6 @@ using System;
 [Serializable]
 public class Song
 {
-    public AudioClip Intro;
-    public AudioClip Main;
+    public int priority = 0;
+    public AudioClip clip;
 }
