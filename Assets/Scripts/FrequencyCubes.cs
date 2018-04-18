@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// Displays the current song's audio frequency as 512 scaled cubes
+/// </summary>
 public class FrequencyCubes : MonoBehaviour
 {
     [SerializeField] private GameObject cubePrefab;
@@ -18,6 +21,14 @@ public class FrequencyCubes : MonoBehaviour
 
     private void Start()
     {
+        InstantiateCubes();
+    }
+
+    /// <summary>
+    /// Instantiates all the cubes needed for the audio visualisation.
+    /// </summary>
+    private void InstantiateCubes()
+    {
         for (int i = 0; i < cubes.Length; i++)
         {
             cubes[i] = Instantiate(cubePrefab, transform);
@@ -25,11 +36,9 @@ public class FrequencyCubes : MonoBehaviour
         }
     }
 
-    private void Awake()
-    {
-        AudioPeer.Instance.TransmitAudioData += UpdateCubes;
-    }
-
+    /// <summary>
+    /// Updates the cubes scale based on the average frequency.
+    /// </summary>
     private void UpdateCubes (AudioPeer _audioPeer)
     {
         for (int i = 0; i < cubes.Length; i++)
@@ -44,4 +53,14 @@ public class FrequencyCubes : MonoBehaviour
             }
         }
 	}
+    
+    private void OnEnable()
+    {
+        AudioPeer.Instance.TransmitAudioData += UpdateCubes;
+    }
+
+    private void OnDisable()
+    {
+        AudioPeer.Instance.TransmitAudioData -= UpdateCubes;
+    }
 }

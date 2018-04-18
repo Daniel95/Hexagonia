@@ -11,8 +11,6 @@ public class AudioEffectManager : MonoBehaviour
 
     [SerializeField] private List<AudioEffect> audioEffects = new List<AudioEffect>();
 
-
-    //TODO: add check for if audio is null
     void PlayAudio(AudioEffectType _audioType, Transform _transform)
     {
         AudioSource _audioSource = prefab;

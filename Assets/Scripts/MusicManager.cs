@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Plays and switches the current playing song
+/// </summary>
 [RequireComponent(typeof(AudioSource))]
 public class MusicManager : MonoBehaviour
 {
@@ -41,9 +44,10 @@ public class MusicManager : MonoBehaviour
         if (songList.Count == 0 || switching)
             return;
 
-        switching = true;
-        UpPriority();
         Song _randomSong = RandomSong();
+        switching = true;
+
+        GivePriority();
         
         if (_fade)
         {
@@ -73,6 +77,7 @@ public class MusicManager : MonoBehaviour
     {
         source.volume = 1;
         float _timePassed = 0;
+
         while (_timePassed < fadeTime/2f)
         {
             source.volume = 1 - (_timePassed / (fadeTime / 2f));
@@ -86,6 +91,7 @@ public class MusicManager : MonoBehaviour
     {
         source.volume = 0;
         float _timePassed = 0;
+
         while (_timePassed < fadeTime / 2f)
         {
             source.volume = (_timePassed / (fadeTime / 2f));
@@ -97,29 +103,36 @@ public class MusicManager : MonoBehaviour
         switching = false;
     }
 
+    /// <summary>
+    /// Loops trough all the songs in the songlist, trying to find one with a high (low number) priority
+    /// </summary>
+    /// <returns>A random song to use</returns>
     private Song RandomSong()
     {
         Song _randomSong = null;
-        int count = 0;
+        int _count = 0;
         
         while (_randomSong == null)
         {
             Song _potentialSong = songList[Random.Range(0, songList.Count)];
 
-            if (_potentialSong.priority <= count)
+            if (_potentialSong.priority <= _count)
             {
                 _randomSong = _potentialSong;
                 _potentialSong.priority += songList.Count;
             }
-            count += 1;
+            _count += 1;
 
-            if (count >= 1000)
+            if (_count >= 1000)
                 break;
         }
         return _randomSong;
     }
 
-    private void UpPriority()
+    /// <summary>
+    /// Lowers the number of    
+    /// </summary>
+    private void GivePriority()
     {
         foreach (Song _song in songList)
         {
