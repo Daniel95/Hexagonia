@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class AudioEffectManager : MonoBehaviour
@@ -11,6 +10,9 @@ public class AudioEffectManager : MonoBehaviour
 
     [SerializeField] private List<AudioEffect> audioEffects = new List<AudioEffect>();
 
+    /// <summary>
+    /// Play's an audio effect at a certain position
+    /// </summary>
     void PlayAudio(AudioEffectType _audioType, Transform _transform)
     {
         AudioSource _audioSource = prefab;

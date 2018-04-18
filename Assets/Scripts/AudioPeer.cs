@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System;
 
+/// <summary>
+/// Converts raw GetSpectrumData to array's and sends it out
+/// </summary>
 public class AudioPeer : MonoBehaviour
 {
     public static AudioPeer Instance
@@ -68,11 +71,17 @@ public class AudioPeer : MonoBehaviour
             TransmitAudioData(instance);
     }
 
+    /// <summary>
+    /// Reads the audio for SpectrumData and sets the samples array t that data
+    /// </summary>
     void GetSpectrumAudioSource()
     {
         audioSource.GetSpectrumData(samples, 0, FFTWindow.Blackman);
     }
 
+    /// <summary>
+    /// Takes the audio Frequency and reduces it to 8 averages
+    /// </summary>
     void MakeFrequencyband()
     {
         int count = 0;
@@ -99,6 +108,9 @@ public class AudioPeer : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Buffers the audio FrequencyBand to fall down slow instead if instantly
+    /// </summary>
     void MakeFreqBandBuffer()
     {
         for (int i = 0; i < bandBuffer.Length; i++)
