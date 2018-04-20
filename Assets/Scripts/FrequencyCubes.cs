@@ -33,6 +33,7 @@ public class FrequencyCubes : MonoBehaviour
         {
             cubes[i] = Instantiate(cubePrefab, transform);
             cubes[i].transform.localPosition = new Vector3(-cubes.Length / 2 + (offset * i), 0, 0);
+            cubes[i].name = "SampleCube " + i;
         }
     }
 
