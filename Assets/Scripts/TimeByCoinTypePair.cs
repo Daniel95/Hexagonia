@@ -1,7 +1,7 @@
 ﻿using System;
 
 [Serializable]
-public class TimeTypeData
+public class TimeByCoinTypePair
 {
 	public float Time;
 	public CoinType CoinType;

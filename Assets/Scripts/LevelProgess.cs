@@ -20,18 +20,28 @@ public class LevelProgess : MonoBehaviour {
 
 	public static Action<int> ScoreUpdatedEvent;
 
-	public float Timer; //Unused Variable
+	public float Timer { get { return Time.realtimeSinceStartup - startUpTime; }  }
+	private float startUpTime;
 
 	public void AddScore(int _score)
 	{
-		Debug.Log("LevelProgress::AddScore " + _score);
 		if(ScoreUpdatedEvent != null)
 		{
 			ScoreUpdatedEvent(_score);
 		}
 	}
 
-	private void OnEnable()
+	private void Update()
+	{
+		CoinTypeByTimeLibrary.Instance.GetCoinType(Timer);
+	}
+
+	private void Awake()
+	{
+		startUpTime = Time.realtimeSinceStartup;
+	}
+
+	private void OnEnable()  
 	{
 		Coin.CollectedEvent += AddScore;
 	}

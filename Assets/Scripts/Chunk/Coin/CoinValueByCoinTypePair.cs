@@ -1,7 +1,7 @@
 ﻿using System;
 
 [Serializable]
-public class CoinTypeValueData
+public class CoinValueByCoinTypePair
 {
 	public int CoinValue;
 	public CoinType CoinType;

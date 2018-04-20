@@ -8,9 +8,8 @@ public class Coin : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
 	{
-		if (other.gameObject.tag == "Player")
+		if (other.gameObject.tag == Tags.Player)
 		{
-			Debug.Log("Collision with" + other.gameObject.name);
 			if(CollectedEvent != null)
 			{
 				CollectedEvent(amount);

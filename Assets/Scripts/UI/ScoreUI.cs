@@ -9,7 +9,6 @@ public class ScoreUI : MonoBehaviour {
 	private void UpdateScore(int _score)
 	{
 		updateScore += _score;
-		Debug.Log("ScoreUI::UpdateScore::TotalScore" + updateScore);
 		scoreText.text = "Score: " + updateScore;
 	}
 
