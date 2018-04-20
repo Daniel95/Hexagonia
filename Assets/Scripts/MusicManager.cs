@@ -39,6 +39,10 @@ public class MusicManager : MonoBehaviour
         source = GetComponent<AudioSource>();
     }
     
+    /// <summary>
+    /// Switches to a random song in the songlist
+    /// </summary>
+    /// <param name="_fade">Depending on this the song fades or switches instantly</param>
     public void SwitchSong(bool _fade = true)
     {
         if (songList.Count == 0 || switching)
@@ -130,7 +134,7 @@ public class MusicManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Lowers the number of    
+    /// Makes it more likely for all songs to be picked again 
     /// </summary>
     private void GivePriority()
     {
