@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 124251077828178920}
   - component: {fileID: 92834241496957422}
   - component: {fileID: 81830324959978930}
+  - component: {fileID: 114148213289787224}
   m_Layer: 0
   m_Name: HMD Camera
   m_TagString: MainCamera
@@ -60,7 +61,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.03
-  far clip plane: 1000
+  far clip plane: 150
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -68,7 +69,7 @@ Camera:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_RenderingPath: -1
+  m_RenderingPath: 1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
@@ -93,6 +94,18 @@ Behaviour:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1454721325088908}
   m_Enabled: 1
+--- !u!114 &114148213289787224
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1454721325088908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profile: {fileID: 11400000, guid: 769a682ad24b5514fb0fc4e818c3dfe4, type: 2}
 --- !u!124 &124251077828178920
 Behaviour:
   m_ObjectHideFlags: 1
