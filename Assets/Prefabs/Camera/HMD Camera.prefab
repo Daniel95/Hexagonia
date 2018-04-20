@@ -23,8 +23,7 @@ GameObject:
   - component: {fileID: 124251077828178920}
   - component: {fileID: 92834241496957422}
   - component: {fileID: 81830324959978930}
-  - component: {fileID: 114509553326793142}
-  - component: {fileID: 114609604750978016}
+  - component: {fileID: 114148213289787224}
   m_Layer: 0
   m_Name: HMD Camera
   m_TagString: MainCamera
@@ -62,7 +61,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.03
-  far clip plane: 250
+  far clip plane: 150
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -95,28 +94,7 @@ Behaviour:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1454721325088908}
   m_Enabled: 1
---- !u!114 &114509553326793142
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1454721325088908}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e202823588cd86741a208233bec8bafa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startRect:
-    serializedVersion: 2
-    x: 60
-    y: 60
-    width: 75
-    height: 50
-  updateColor: 1
-  allowDrag: 1
-  frequency: 0.5
-  nbDecimal: 1
---- !u!114 &114609604750978016
+--- !u!114 &114148213289787224
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
