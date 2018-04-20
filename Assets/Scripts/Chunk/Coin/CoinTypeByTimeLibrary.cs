@@ -29,7 +29,7 @@ public class CoinTypeByTimeLibrary : MonoBehaviour
 
 		for (int i = 0; i < timeTypeValues.Count; i++)
 		{
-			if (timeTypeValues[i].Time <= _time)
+			if (timeTypeValues[i].Time >= _time)
 			{
 				_coinType = timeTypeValues[i].CoinType;
 				break;

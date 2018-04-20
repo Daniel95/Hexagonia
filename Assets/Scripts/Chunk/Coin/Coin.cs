@@ -4,23 +4,7 @@ using UnityEngine;
 public class Coin : MonoBehaviour
 {
 	public static Action<int> CollectedEvent;
-	public int amount { get { return amount; } set { amount; } }
-
-	public static Coin Instance { get { return GetInstance(); } }
-
-	#region Singleton
-	private static Coin instance;
-
-	private static Coin GetInstance()
-	{
-		if (instance == null)
-		{
-			instance = FindObjectOfType<Coin>();
-		}
-		return instance;
-	}
-	#endregion
-
+	[SerializeField] private int amount;
 
 	private void OnTriggerEnter(Collider other)
 	{

@@ -51,14 +51,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f4ad5bb69653dc4688a19af9d00bfac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coinTypeValues:
-  - CoinValue: 1
-    CoinType: 0
-  - CoinValue: 2
+  coinPrefabByCoinTypePairs:
+  - CoinPrefab: {fileID: 1361906189622608, guid: 185a843c90b02ea4bbee36f2c1b599cd,
+      type: 2}
     CoinType: 1
-  - CoinValue: 3
+  - CoinPrefab: {fileID: 1361906189622608, guid: de71628dd85da674ab016e0617bd58e9,
+      type: 2}
     CoinType: 2
-  - CoinValue: 4
+  - CoinPrefab: {fileID: 1361906189622608, guid: d865dd44edd4c6949bebda028acdd72b,
+      type: 2}
     CoinType: 3
-  - CoinValue: 5
+  - CoinPrefab: {fileID: 1361906189622608, guid: 4a9b93d3ca801ed40856f820691601d6,
+      type: 2}
     CoinType: 4
+  - CoinPrefab: {fileID: 1361906189622608, guid: a7d0487d22ea99b4d94bed52079cbaf5,
+      type: 2}
+    CoinType: 5
