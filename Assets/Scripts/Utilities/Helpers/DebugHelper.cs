@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
 
 public class DebugHelper
@@ -27,7 +26,7 @@ public class DebugHelper
         else
         {
             GameObject prefab = GetDebugVisualPrefab();
-            positionVisual = UnityEngine.Object.Instantiate(prefab, position, new Quaternion());
+            positionVisual = Object.Instantiate(prefab, position, new Quaternion());
             positionVisual.name = "Debug " + id;
             positionVisual.GetComponent<Renderer>().material.color = (Color)color;
             positionVisualsById.Add(id, positionVisual);
@@ -43,7 +42,7 @@ public class DebugHelper
 
     public static void RemoveDebugPosition(string id)
     {
-        UnityEngine.Object.Destroy(positionVisualsById[id].gameObject);
+        Object.Destroy(positionVisualsById[id].gameObject);
         positionVisualsById.Remove(id);
     }
 
@@ -51,7 +50,7 @@ public class DebugHelper
     {
         foreach (GameObject debugVisualGameObject in positionVisualsById.Values)
         {
-            UnityEngine.Object.Destroy(debugVisualGameObject);
+            Object.Destroy(debugVisualGameObject);
         }
         positionVisualsById.Clear();
     }
