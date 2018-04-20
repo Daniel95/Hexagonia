@@ -34,6 +34,8 @@ public class LevelProgess : MonoBehaviour {
 	private void Update()
 	{
 		CoinTypeByTimeLibrary.Instance.GetCoinType(Timer);
+		CoinValueByCoinTypeLibrary.Instance.GetCoin();
+		Coin.Instance.amount = Timer;
 	}
 
 	private void Awake()
