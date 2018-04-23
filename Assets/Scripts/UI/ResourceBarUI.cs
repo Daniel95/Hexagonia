@@ -1,19 +1,28 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class ResourceBarUI : MonoBehaviour
 {
 
-    private Vector3 startScale;
+	private float startValue = 0f;
+	private Image image;
+	private float yVelocity = 0.0F;
 
-    private void Update()
+	private void Awake()
+	{
+		image = GetComponent<Image>();
+	}
+
+	private void Update()
     {
-        transform.localScale = new Vector3(startScale.x * ResourceValue.Instance.Value, startScale.y, startScale.z);
-        
+		UpdateResourceBar();
     }
 
-    private void Awake()
-    {
-        startScale = transform.localScale;
-    }
+	private void UpdateResourceBar()
+	{
+		float _speed = 0.5f;
+		float newValue = startValue + ResourceValue.Instance.Value;
 
+		image.fillAmount = startValue + ResourceValue.Instance.Value;
+	}
 }
