@@ -3,8 +3,25 @@ using UnityEngine;
 
 public class AudioEffectManager : MonoBehaviour
 {
-    public static AudioEffectManager Instance { get { return GetInstance(); } }
+    private static AudioEffectManager GetInstance()
+    {
+        if (instance == null)
+        {
+            instance = FindObjectOfType<AudioEffectManager>();
+        }
+        return instance;
+    }
+    #region SingleTon
+
+    public static AudioEffectManager Instance
+    {
+        get
+        {
+            return GetInstance();
+        }
+    }
     private static AudioEffectManager instance;
+    #endregion
 
     [SerializeField] private AudioSource prefab;
 
@@ -34,12 +51,4 @@ public class AudioEffectManager : MonoBehaviour
         _audioSource.Play();
     }
 
-    private static AudioEffectManager GetInstance()
-    {
-        if (instance == null)
-        {
-            instance = FindObjectOfType<AudioEffectManager>();
-        }
-        return instance;
-    }
 }

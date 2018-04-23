@@ -15,7 +15,19 @@ public class MusicManager : MonoBehaviour
             return GetInstance();
         }
     }
+    #region SingleTon
     private static MusicManager instance;
+
+    private static MusicManager GetInstance()
+    {
+        if (instance == null)
+        {
+            instance = FindObjectOfType<MusicManager>();
+        }
+        return instance;
+    }
+    #endregion
+
 
     private AudioSource source;
     private AudioClip currentClip;
@@ -147,12 +159,4 @@ public class MusicManager : MonoBehaviour
         }
     }
 
-    private static MusicManager GetInstance()
-    {
-        if (instance == null)
-        {
-            instance = FindObjectOfType<MusicManager>();
-        }
-        return instance;
-    }
 }

@@ -13,7 +13,17 @@ public class AudioPeer : MonoBehaviour
             return GetInstance();
         }
     }
+    #region SingleTon
     private static AudioPeer instance;
+    private static AudioPeer GetInstance()
+    {
+        if (instance == null)
+        {
+            instance = FindObjectOfType<AudioPeer>();
+        }
+        return instance;
+    }
+    #endregion
 
     [SerializeField] private AudioSource audioSource;
 
@@ -127,12 +137,4 @@ public class AudioPeer : MonoBehaviour
         }
     }
 
-    private static AudioPeer GetInstance()
-    {
-        if (instance == null)
-        {
-            instance = FindObjectOfType<AudioPeer>();
-        }
-        return instance;
-    }
 }
