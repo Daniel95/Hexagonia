@@ -47,17 +47,19 @@ public class ChunkPool : MonoBehaviour
 
     private void SpawnChunk()
     {
+        Chunk _randomChunk = GenerateRandomChunk();
+
         if (ChunkMover.Instance.CurrentChunks().Count != 0)
         {
             Chunk _newestChunk = ChunkMover.Instance.CurrentChunks()[ChunkMover.Instance.CurrentChunks().Count-1];
-            spawnPosition = new Vector3(transform.position.x, transform.position.y, _newestChunk.transform.position.z +_newestChunk.Length);
+            spawnPosition = new Vector3(transform.position.x, transform.position.y, _newestChunk.transform.position.z + _newestChunk.Length/2 + _randomChunk.Length/2);
         }
         else
         {
             spawnPosition = new Vector3(transform.position.x, transform.position.y, chunksZStartPosition);
         }
 
-        GameObject _spawnedChunkGameObject = Instantiate(GenerateRandomChunk().gameObject, spawnPosition, Quaternion.identity, transform);
+        GameObject _spawnedChunkGameObject = Instantiate(_randomChunk.gameObject, spawnPosition, Quaternion.identity, transform);
         Chunk _spawnedChunk = _spawnedChunkGameObject.GetComponent<Chunk>();
 
         ChunkSpawnedAction(_spawnedChunk);
