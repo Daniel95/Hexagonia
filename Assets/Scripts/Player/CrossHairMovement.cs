@@ -3,8 +3,6 @@
 public class CrossHairMovement : MonoBehaviour
 {
 
-    [SerializeField] private Vector3 offset;
-
     private void UpdateTargetPosition(Vector3 _targetPosition)
     {
         transform.position = _targetPosition;
@@ -19,5 +17,4 @@ public class CrossHairMovement : MonoBehaviour
     {
         PlaneMovement.MovePointOnPlaneEvent -= UpdateTargetPosition;
     }
-
 }
