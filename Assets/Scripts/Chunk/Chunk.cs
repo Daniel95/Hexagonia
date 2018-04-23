@@ -7,26 +7,42 @@ using UnityEngine;
 /// More specific how long the chunk is and where the available coin positions are.
 /// </summary>
 
+[RequireComponent(typeof(Renderer))]
 public class Chunk : MonoBehaviour
 {
-    public int Length
+
+    public float Length
     {
         get
         {
-            return length;
+            if(length == null)
+            {
+                length = GetLength();
+            }
+            return (float)length;
         }
     }
 
     [SerializeField] private List<GameObject> coinPositions;
+    [SerializeField] private GameObject ground;
 
-    [SerializeField] private int length;
+    private float? length;
 
-	private void Awake()
+    private void Awake()
 	{
-		InstantiateCoins();
+        InstantiateCoins();
 	}
 
-	private void InstantiateCoins()
+    private float GetLength()
+    {
+        Renderer _renderer = ground.GetComponent<Renderer>();
+        float _minZ = _renderer.bounds.min.z;
+        float _maxZ = _renderer.bounds.max.z;
+        float _length = _maxZ - _minZ;
+        return _length;
+    }
+
+    private void InstantiateCoins()
     {
 		CoinType _coinType = CoinTypeByTimeLibrary.Instance.GetCoinType(LevelProgess.Instance.Timer);
 		GameObject _coinPrefab = CoinPrefabByCoinTypeLibrary.Instance.GetCoinPrefab(_coinType);
@@ -54,4 +70,5 @@ public class Chunk : MonoBehaviour
     {
         ChunkMover.ChunkRemovedAction -= DestroyMe;
     }
+
 }

@@ -23,11 +23,21 @@ public class ChunkPool : MonoBehaviour
         }
     }
 
+    #region Singleton
     private static ChunkPool instance;
+
+    private static ChunkPool GetInstance()
+    {
+        if (instance == null)
+        {
+            instance = FindObjectOfType<ChunkPool>();
+        }
+        return instance;
+    }
+    #endregion
 
     [SerializeField] private int amountOfChunks;
     [SerializeField] private float chunksZStartPosition;
-
     [SerializeField] private List<Chunk> availableChunkPrefabs;
 
     private Vector3 spawnPosition;
@@ -47,30 +57,35 @@ public class ChunkPool : MonoBehaviour
 
     private void SpawnChunk()
     {
-        Chunk _randomChunk = GenerateRandomChunk();
+        float _lengthOfRandomChunk;
+        GameObject _randomChunkPrefab = GetRandomChunkPrefab(out _lengthOfRandomChunk);
 
         if (ChunkMover.Instance.CurrentChunks().Count != 0)
         {
-            Chunk _newestChunk = ChunkMover.Instance.CurrentChunks()[ChunkMover.Instance.CurrentChunks().Count-1];
-            spawnPosition = new Vector3(transform.position.x, transform.position.y, _newestChunk.transform.position.z + _newestChunk.Length/2 + _randomChunk.Length/2);
+            List<Chunk> currentChunks = ChunkMover.Instance.CurrentChunks();
+            Chunk _newestChunk = currentChunks[ChunkMover.Instance.CurrentChunks().Count - 1];
+            float spawnZPosition = _newestChunk.transform.position.z + _newestChunk.Length / 2 + _lengthOfRandomChunk / 2;
+            spawnPosition = new Vector3(transform.position.x, transform.position.y, spawnZPosition);
         }
         else
         {
             spawnPosition = new Vector3(transform.position.x, transform.position.y, chunksZStartPosition);
         }
 
-        GameObject _spawnedChunkGameObject = Instantiate(_randomChunk.gameObject, spawnPosition, Quaternion.identity, transform);
+        GameObject _spawnedChunkGameObject = Instantiate(_randomChunkPrefab, spawnPosition, Quaternion.identity, transform);
         Chunk _spawnedChunk = _spawnedChunkGameObject.GetComponent<Chunk>();
 
         ChunkSpawnedAction(_spawnedChunk);
-
     }
 
-    private Chunk GenerateRandomChunk()
+    private GameObject GetRandomChunkPrefab(out float length)
     {
         int _randomNumber = Random.Range(0, availableChunkPrefabs.Count);
-        return availableChunkPrefabs[_randomNumber];
+        Chunk chunk = availableChunkPrefabs[_randomNumber];
+        length = chunk.Length;
+        return availableChunkPrefabs[_randomNumber].gameObject;
     }
+
 
     private void OnEnable()
     {
@@ -82,12 +97,4 @@ public class ChunkPool : MonoBehaviour
         ChunkMover.ChunkRemovedAction -= OnRemovedChunk;
     }
 
-    private static ChunkPool GetInstance()
-    {
-        if (instance == null)
-        {
-            instance = FindObjectOfType<ChunkPool>();
-        }
-        return instance;
-    }
 }
