@@ -4,7 +4,7 @@ using UnityEngine;
 public class Coin : MonoBehaviour
 {
 	public static Action<int> CollectedEvent;
-	[SerializeField] private int amount;
+	[SerializeField] private int value;
 
 	private void OnTriggerEnter(Collider other)
 	{
@@ -13,7 +13,7 @@ public class Coin : MonoBehaviour
 			Destroy(this.gameObject);
 			if (CollectedEvent != null)
 			{
-				CollectedEvent(amount);
+				CollectedEvent(value);
 			}
 		}
 	}
