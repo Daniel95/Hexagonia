@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-public static class Tags
+﻿public static class Tags
 {
-
+	public const string Player = "Player";
 }

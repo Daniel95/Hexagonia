@@ -3,13 +3,12 @@ using UnityEngine;
 
 [RequireComponent(typeof(MeshRenderer))]
 [RequireComponent(typeof(BoxCollider))]
-public class PlaneMovement : MonoBehaviour {
+public class PlaneMovement : MonoBehaviour
+{
 
     public static Action<Vector3> MovePointOnPlaneEvent;
 
     [SerializeField] private Transform hmdTransform;
-    [SerializeField] private int maxDistance;
-    [SerializeField] private LayerMask layerMask;
     [SerializeField] [Range(0, 1)] private float scaledInput = 0;
 
     private Vector2 maxBounds;
@@ -18,47 +17,46 @@ public class PlaneMovement : MonoBehaviour {
 
     private void Awake()
     {
-        BoxCollider boxCollider = GetComponent<BoxCollider>();
-        minBounds = boxCollider.bounds.min;
-        maxBounds = boxCollider.bounds.max;
+        BoxCollider _boxCollider = GetComponent<BoxCollider>();
+        minBounds = _boxCollider.bounds.min;
+        maxBounds = _boxCollider.bounds.max;
 
         plane = new Plane(Vector3.forward, transform.position);
     }
 
     private void Update()
     {
-        bool hit;
-        Vector3 planePoint = GetRaycastPointOnPlane(out hit);
-        if(!hit) { return; }
+        bool _hit;
+        Vector3 _planePoint = GetRaycastPointOnPlane(out _hit);
+        if(!_hit) { return; }
 
         if(MovePointOnPlaneEvent != null)
         {
-            MovePointOnPlaneEvent(planePoint);
+            MovePointOnPlaneEvent(_planePoint);
         }
     }
 
     private Vector3 GetRaycastPointOnPlane(out bool _hit)
     {
-        Vector3 lookOriginPosition = hmdTransform.position;
-        Vector3 lookDirection = hmdTransform.forward;
+        Vector3 _lookOriginPosition = hmdTransform.position;
+        Vector3 _lookDirection = hmdTransform.forward;
 
-        float enter = 0.0f;
-        Ray ray = new Ray(lookOriginPosition, lookDirection);
+        float _enter = 0.0f;
+        Ray _ray = new Ray(_lookOriginPosition, _lookDirection);
 
-        Vector3 pointOnPlane = new Vector3();
-        _hit = plane.Raycast(ray, out enter);
+        Vector3 _pointOnPlane = new Vector3();
+        _hit = plane.Raycast(_ray, out _enter);
 
         if (_hit)
         {
-            Vector3 hitPoint = ray.GetPoint(enter);
-            Vector2 centerOffset = transform.position - hitPoint;
-            Vector2 scaleOffset = ((Vector2)hitPoint - centerOffset) * scaledInput;
-            Vector2 scaledPointOnPlane = (Vector2)hitPoint + scaleOffset;
-            Vector2 clampedPointOnPlane = VectorHelper.Clamp(scaledPointOnPlane, minBounds, maxBounds);
-            pointOnPlane = new Vector3(clampedPointOnPlane.x, clampedPointOnPlane.y, hitPoint.z);
+            Vector3 _hitPoint = _ray.GetPoint(_enter);
+            Vector2 _centerOffset = transform.position - _hitPoint;
+            Vector2 _scaleOffset = ((Vector2)_hitPoint - _centerOffset) * scaledInput;
+            Vector2 _scaledPointOnPlane = (Vector2)_hitPoint + _scaleOffset;
+            Vector2 _clampedPointOnPlane = VectorHelper.Clamp(_scaledPointOnPlane, minBounds, maxBounds);
+            _pointOnPlane = new Vector3(_clampedPointOnPlane.x, _clampedPointOnPlane.y, _hitPoint.z);
         }
 
-        return pointOnPlane;
+        return _pointOnPlane;
     }
-
 }

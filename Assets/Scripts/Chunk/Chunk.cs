@@ -21,12 +21,23 @@ public class Chunk : MonoBehaviour
 
     [SerializeField] private int length;
 
-    private void InstantiateCoins()
+	private void Awake()
+	{
+		InstantiateCoins();
+	}
+
+	private void InstantiateCoins()
     {
+		CoinType _coinType = CoinTypeByTimeLibrary.Instance.GetCoinType(LevelProgess.Instance.Timer);
+		GameObject _coinPrefab = CoinPrefabByCoinTypeLibrary.Instance.GetCoinPrefab(_coinType);
 
-    }
+		for (int i = 0; i < coinPositions.Count; i++)
+		{
+			Instantiate(_coinPrefab, coinPositions[i].transform.position, transform.rotation, transform);
+		}
+	}
 
-    private void DestroyMe(Chunk _chunk)
+	private void DestroyMe(Chunk _chunk)
     {
         if (_chunk == this)
         {
