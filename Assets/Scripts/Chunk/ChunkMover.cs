@@ -18,13 +18,23 @@ public class ChunkMover : MonoBehaviour
         return currentChunks;
     }
 
+    #region Singleton
     private static ChunkMover instance;
+
+    private static ChunkMover GetInstance()
+    {
+        if (instance == null)
+        {
+            instance = FindObjectOfType<ChunkMover>();
+        }
+        return instance;
+    }
+    #endregion
 
     [SerializeField] private float speed;
 
     private List<Chunk> currentChunks = new List<Chunk>();
 
-	
 	private void Update () {
 	    for (int i = 0; i < currentChunks.Count; i++)
 	    {
@@ -32,7 +42,6 @@ public class ChunkMover : MonoBehaviour
 	        {
                 RemoveChunk();
             }
-
 	    }
 
 	    for (int i = 0; i < currentChunks.Count; i++)
@@ -52,7 +61,6 @@ public class ChunkMover : MonoBehaviour
         Chunk _removedChunk = currentChunks[0];
         ChunkRemovedAction(_removedChunk);
         currentChunks.Remove(_removedChunk);
-
     }
 
     private void OnEnable()
@@ -63,15 +71,6 @@ public class ChunkMover : MonoBehaviour
     private void OnDisable()
     {
         ChunkPool.ChunkSpawnedAction -= AddChunk;
-    }
-
-    private static ChunkMover GetInstance()
-    {
-        if (instance == null)
-        {
-            instance = FindObjectOfType<ChunkMover>();
-        }
-        return instance;
     }
 
 }

@@ -1,6 +1,6 @@
 ﻿/// <summary>
-/// CoinType is an enum with 5 types: Common, Uncommon, Rare,
-/// It is used in multiple classes. One of them is the RedirectAbility class.
+/// CoinType is an enum with different types.
+/// It is used to define the value of a coin. The further the game progresses, the higher value a coin has.
 /// </summary>
 
 public enum CoinType {
