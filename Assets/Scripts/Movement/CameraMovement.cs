@@ -7,14 +7,12 @@ public class CameraMovement : MonoBehaviour
 
     private void UpdateTargetPosition(Vector3 _targetPosition)
     {
-        if (transform.position == _targetPosition)
-            return;
+        Vector2 _delta = _targetPosition - transform.position;
+        Vector2 _direction = _delta.normalized;
+        float _distance = Vector2.Distance(_targetPosition, transform.position);
 
-        Vector3 _delta = _targetPosition - transform.position;
-        Vector3 _direction = _delta.normalized;
-        float _distance = Vector3.Distance(_targetPosition, transform.position);
-
-        transform.position += _direction * (_distance * speed);
+        Vector3 newPosition = _direction * (_distance * speed);
+        transform.position += newPosition;
     }
 
     private void OnEnable()
