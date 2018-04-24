@@ -26,13 +26,13 @@ public class LevelProgess : MonoBehaviour {
 	private float startUpTime;
 	private int score;
 
-    public void AddScore(int _score)
+    public void AddScore(int _scoreIncrement)
 	{
-        score += _score;
+        score += _scoreIncrement;
 
         if (ScoreUpdatedEvent != null)
 		{
-			ScoreUpdatedEvent(_score);
+			ScoreUpdatedEvent(score);
 		}
 	}
 
