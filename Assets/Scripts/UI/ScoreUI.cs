@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class ScoreUI : MonoBehaviour {
 
-	[SerializeField] private Text scoreText;
+	[SerializeField] private TextMesh scoreText;
 
 	private void UpdateScore(int _score)
 	{

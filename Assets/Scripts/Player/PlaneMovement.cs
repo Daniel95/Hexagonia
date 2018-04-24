@@ -6,13 +6,34 @@ using UnityEngine;
 public class PlaneMovement : MonoBehaviour
 {
 
+    public static PlaneMovement Instance { get { return GetInstance(); } }
+
     public static Action<Vector3> MovePointOnPlaneEvent;
+
+    #region Singeton
+    private static PlaneMovement instance;
+
+    private static PlaneMovement GetInstance()
+    {
+        if(instance == null)
+        {
+            instance = FindObjectOfType<PlaneMovement>();
+        }
+        return instance;
+    }
+    #endregion
+
+    public Vector3 MinBounds { get { return maxBounds; } }
+    public Vector3 MaxBounds { get { return minBounds; } }
+
+    public Vector3 Size { get { return size; } }
 
     [SerializeField] private Transform hmdTransform;
     [SerializeField] [Range(0, 1)] private float scaledInput = 0;
 
     private Vector2 maxBounds;
     private Vector2 minBounds;
+    private Vector2 size;
     private Plane plane;
 
     private void Awake()
@@ -21,6 +42,7 @@ public class PlaneMovement : MonoBehaviour
         minBounds = _boxCollider.bounds.min;
         maxBounds = _boxCollider.bounds.max;
 
+        size = new Vector2(maxBounds.x - minBounds.x, maxBounds.y - minBounds.y);
         plane = new Plane(Vector3.forward, transform.position);
     }
 
@@ -59,4 +81,5 @@ public class PlaneMovement : MonoBehaviour
 
         return _pointOnPlane;
     }
+
 }
