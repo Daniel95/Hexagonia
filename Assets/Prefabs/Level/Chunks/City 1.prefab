@@ -36,6 +36,7 @@ GameObject:
   - component: {fileID: 4131790167047462}
   - component: {fileID: 33881822415998684}
   - component: {fileID: 23012110402654814}
+  - component: {fileID: 114871252458507582}
   m_Layer: 0
   m_Name: Building 01
   m_TagString: Untagged
@@ -53,6 +54,8 @@ GameObject:
   - component: {fileID: 4756344729471106}
   - component: {fileID: 33450185315611170}
   - component: {fileID: 23561760030895604}
+  - component: {fileID: 114027404678985214}
+  - component: {fileID: 114426411038227472}
   m_Layer: 0
   m_Name: Building 01
   m_TagString: Untagged
@@ -86,6 +89,7 @@ GameObject:
   - component: {fileID: 4037708537875364}
   - component: {fileID: 33408018037334450}
   - component: {fileID: 23056027410855876}
+  - component: {fileID: 114892248238642084}
   m_Layer: 0
   m_Name: Building 01
   m_TagString: Untagged
@@ -118,6 +122,7 @@ GameObject:
   - component: {fileID: 4929412038741138}
   - component: {fileID: 33288437110875120}
   - component: {fileID: 23656573029066924}
+  - component: {fileID: 114040020303278126}
   m_Layer: 0
   m_Name: Building 01
   m_TagString: Untagged
@@ -135,6 +140,7 @@ GameObject:
   - component: {fileID: 4683769381164546}
   - component: {fileID: 33771742295328958}
   - component: {fileID: 23556507271215880}
+  - component: {fileID: 114808831415445194}
   m_Layer: 0
   m_Name: Building 01
   m_TagString: Untagged
@@ -200,6 +206,8 @@ GameObject:
   - component: {fileID: 4206834521846828}
   - component: {fileID: 33570257064738392}
   - component: {fileID: 23948757229172314}
+  - component: {fileID: 114309725031354462}
+  - component: {fileID: 114333891938405894}
   m_Layer: 0
   m_Name: Building 01
   m_TagString: Untagged
@@ -704,6 +712,106 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &114027404678985214
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1158933430456002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d287a757b512b004e928059da2a30510, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_mask: {fileID: 0}
+  mode: 0
+  m_includeChildren: 1
+  customMesh: {fileID: 0}
+  overrideGlobalOptions: 1
+  opacity: 1
+  scale: {x: 1, y: 1, z: 1}
+  extrude: 0
+  texture: {fileID: 0}
+--- !u!114 &114040020303278126
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1335538669280452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d287a757b512b004e928059da2a30510, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_mask: {fileID: 0}
+  mode: 0
+  m_includeChildren: 1
+  customMesh: {fileID: 0}
+  overrideGlobalOptions: 1
+  opacity: 1
+  scale: {x: 1, y: 1, z: 1}
+  extrude: 0
+  texture: {fileID: 0}
+--- !u!114 &114309725031354462
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1879920634222802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d287a757b512b004e928059da2a30510, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_mask: {fileID: 0}
+  mode: 0
+  m_includeChildren: 1
+  customMesh: {fileID: 0}
+  overrideGlobalOptions: 1
+  opacity: 1
+  scale: {x: 1, y: 1, z: 1}
+  extrude: 0
+  texture: {fileID: 0}
+--- !u!114 &114333891938405894
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1879920634222802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d287a757b512b004e928059da2a30510, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_mask: {fileID: 0}
+  mode: 0
+  m_includeChildren: 1
+  customMesh: {fileID: 0}
+  overrideGlobalOptions: 1
+  opacity: 1
+  scale: {x: 1, y: 1, z: 1}
+  extrude: 0
+  texture: {fileID: 0}
+--- !u!114 &114426411038227472
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1158933430456002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d287a757b512b004e928059da2a30510, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_mask: {fileID: 0}
+  mode: 0
+  m_includeChildren: 1
+  customMesh: {fileID: 0}
+  overrideGlobalOptions: 1
+  opacity: 1
+  scale: {x: 1, y: 1, z: 1}
+  extrude: 0
+  texture: {fileID: 0}
 --- !u!114 &114795842565148934
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -721,3 +829,63 @@ MonoBehaviour:
   - {fileID: 1720309601742266}
   ground: {fileID: 1577964433574152}
   amountOfCoins: 2
+--- !u!114 &114808831415445194
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1444637259197334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d287a757b512b004e928059da2a30510, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_mask: {fileID: 0}
+  mode: 0
+  m_includeChildren: 1
+  customMesh: {fileID: 0}
+  overrideGlobalOptions: 1
+  opacity: 1
+  scale: {x: 1, y: 1, z: 1}
+  extrude: 0
+  texture: {fileID: 0}
+--- !u!114 &114871252458507582
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1087784013515354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d287a757b512b004e928059da2a30510, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_mask: {fileID: 0}
+  mode: 0
+  m_includeChildren: 1
+  customMesh: {fileID: 0}
+  overrideGlobalOptions: 1
+  opacity: 1
+  scale: {x: 1, y: 1, z: 1}
+  extrude: 0
+  texture: {fileID: 0}
+--- !u!114 &114892248238642084
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1232734947475424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d287a757b512b004e928059da2a30510, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_mask: {fileID: 0}
+  mode: 0
+  m_includeChildren: 1
+  customMesh: {fileID: 0}
+  overrideGlobalOptions: 1
+  opacity: 1
+  scale: {x: 1, y: 1, z: 1}
+  extrude: 0
+  texture: {fileID: 0}
