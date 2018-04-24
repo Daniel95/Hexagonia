@@ -37,22 +37,20 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector2 _ratio = VectorHelper.Divide(_delta, (Vector2)PlaneMovement.Instance.Size);
 
-        int x = 0; 
+        int _x = 0; 
         if (Mathf.Abs(_ratio.x) > animateThreshold)
         {
-            x = RoundingHelper.InvertOnNegativeCeil(_ratio.x);
+            _x = RoundingHelper.InvertOnNegativeCeil(_ratio.x);
         }
 
-        int y = 0;
+        int _y = 0;
         if(Mathf.Abs(_ratio.y) > animateThreshold)
         {
-           y = RoundingHelper.InvertOnNegativeCeil(_ratio.y);
+           _y = RoundingHelper.InvertOnNegativeCeil(_ratio.y);
         }
 
-        Vector2Int _roundedDirection = VectorHelper.Round(_ratio);
-
-        animator.SetInteger(xAnimatorParameter, x);
-        animator.SetInteger(yAnimatorParameter, y);
+        animator.SetInteger(xAnimatorParameter, _x);
+        animator.SetInteger(yAnimatorParameter, _y);
     }
 
 }
