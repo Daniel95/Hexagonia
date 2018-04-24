@@ -125,8 +125,6 @@ public class PostEffectMaskRenderer : MonoBehaviour {
         }
         else
         {
-            Debug.Log("Linked");
-            Debug.Log(PostProcessingLink.Instance.PostEffectMask().transform.name);
             mask = PostProcessingLink.Instance.PostEffectMask();
         }
     }
