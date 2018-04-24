@@ -1,16 +1,16 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 
 public class ResourceBarUI : MonoBehaviour
 {
 
-	private float startValue = 0f;
-	private Image image;
-	private float yVelocity = 0.0F;
+	private float scaleX = 0f;
+	private float scaleBarByScore;
+	private float offset = 1f;
+	[SerializeField] private GameObject resourceBar;
 
 	private void Awake()
 	{
-		image = GetComponent<Image>();
+		resourceBar.transform.localScale = new Vector3(0, resourceBar.transform.localScale.y, resourceBar.transform.localScale.z);
 	}
 
 	private void Update()
@@ -20,9 +20,12 @@ public class ResourceBarUI : MonoBehaviour
 
 	private void UpdateResourceBar()
 	{
-		float _speed = 0.5f;
-		float newValue = startValue + ResourceValue.Instance.Value;
+		if (scaleBarByScore < 1)
+		{
+			scaleBarByScore = scaleX + ResourceValue.Instance.Value;
+			resourceBar.transform.position = new Vector3((scaleBarByScore - offset) / 0.5f, resourceBar.transform.position.y, resourceBar.transform.position.z);
 
-		image.fillAmount = startValue + ResourceValue.Instance.Value;
+			resourceBar.transform.localScale = new Vector3(scaleBarByScore, resourceBar.transform.localScale.y, resourceBar.transform.localScale.z);
+		}
 	}
 }
