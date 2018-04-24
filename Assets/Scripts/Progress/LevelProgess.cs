@@ -5,6 +5,8 @@ public class LevelProgess : MonoBehaviour {
 
 	public static LevelProgess Instance { get { return GetInstance(); } }
 
+	public static Action<int> ScoreUpdatedEvent;
+
 	#region Singleton
 	private static LevelProgess instance;
 
@@ -18,14 +20,17 @@ public class LevelProgess : MonoBehaviour {
 	}
 #endregion 
 
-	public static Action<int> ScoreUpdatedEvent;
-
+    public int Score { get { return score; } }
 	public float Timer { get { return Time.realtimeSinceStartup - startUpTime; }  }
-	private float startUpTime;
 
-	public void AddScore(int _score)
+	private float startUpTime;
+	private int score;
+
+    public void AddScore(int _score)
 	{
-		if(ScoreUpdatedEvent != null)
+        score += _score;
+
+        if (ScoreUpdatedEvent != null)
 		{
 			ScoreUpdatedEvent(_score);
 		}
