@@ -51,8 +51,8 @@ public class PlayerMovement : MonoBehaviour
 
         Vector2Int _roundedDirection = VectorHelper.Round(_ratio);
 
-        animator.SetInteger("X", x);
-        animator.SetInteger("Y", y);
+        animator.SetInteger(xAnimatorParameter, x);
+        animator.SetInteger(yAnimatorParameter, y);
     }
 
 }
