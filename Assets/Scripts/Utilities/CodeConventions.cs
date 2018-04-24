@@ -31,7 +31,7 @@ public class CodeConventions : MonoBehaviour
         }
     }
 
-#region Singleton
+    #region Singleton
 	private static CodeConventions instance;
 
 	private CodeConventions GetInstance()
