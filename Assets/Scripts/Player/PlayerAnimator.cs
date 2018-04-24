@@ -11,7 +11,7 @@ public class PlayerAnimator : MonoBehaviour
     private void Animate(Vector3 _targetPosition)
     {
         Vector2 _delta = _targetPosition - transform.position;
-        Vector2 _ratio = VectorHelper.Divide(_delta, LookPositionOnPlane.Instance.Size);
+        Vector2 _ratio = VectorHelper.Divide(_delta, (Vector2)LookPositionOnPlane.Instance.Size);
 
         int _x = 0;
         if (Mathf.Abs(_ratio.x) > animateThreshold)
@@ -31,12 +31,12 @@ public class PlayerAnimator : MonoBehaviour
 
     private void OnEnable()
     {
-        LookPositionOnPlane.LookPositionUpdate += Animate;
+        LookPositionOnPlane.LookPositionUpdatedEvent += Animate;
     }
 
     private void OnDisable()
     {
-        LookPositionOnPlane.LookPositionUpdate -= Animate;
+        LookPositionOnPlane.LookPositionUpdatedEvent -= Animate;
     }
 
 }

@@ -8,7 +8,7 @@ public class LookPositionOnPlane : MonoBehaviour
 
     public static LookPositionOnPlane Instance { get { return GetInstance(); } }
 
-    public static Action<Vector3> LookPositionUpdate;
+    public static Action<Vector3> LookPositionUpdatedEvent;
 
     #region Singeton
     private static LookPositionOnPlane instance;
@@ -26,7 +26,7 @@ public class LookPositionOnPlane : MonoBehaviour
     public Vector3 MinBounds { get { return maxBounds; } }
     public Vector3 MaxBounds { get { return minBounds; } }
 
-    public Vector2 Size { get { return size; } }
+    public Vector3 Size { get { return size; } }
 
     [SerializeField] private Transform hmdTransform;
     [SerializeField] [Range(0, 1)] private float scaledInput = 0;
@@ -52,9 +52,9 @@ public class LookPositionOnPlane : MonoBehaviour
         Vector3 _planePoint = GetRaycastPointOnPlane(out _hit);
         if(!_hit) { return; }
 
-        if(LookPositionUpdate != null)
+        if(LookPositionUpdatedEvent != null)
         {
-            LookPositionUpdate(_planePoint);
+            LookPositionUpdatedEvent(_planePoint);
         }
     }
 

@@ -19,12 +19,12 @@ public class SmoothPlaneMovement : MonoBehaviour
 
     private void OnEnable()
     {
-        LookPositionOnPlane.LookPositionUpdate += UpdateTargetPosition;
+        LookPositionOnPlane.LookPositionUpdatedEvent += UpdateTargetPosition;
     }
 
     private void OnDisable()
     {
-        LookPositionOnPlane.LookPositionUpdate -= UpdateTargetPosition;
+        LookPositionOnPlane.LookPositionUpdatedEvent -= UpdateTargetPosition;
     }
 
 }
