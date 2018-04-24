@@ -88,34 +88,34 @@ public static class VectorHelper
         return new Vector3(RoundingHelper.RoundTo(v1.x, v2.x), RoundingHelper.RoundTo(v1.y, v2.y), RoundingHelper.RoundTo(v1.z, v2.z));
     }
 
-    public static Vector2 Round(Vector2 v1)
+    public static Vector2Int Round(Vector2 v1)
     {
-        return new Vector2(Mathf.Round(v1.x), Mathf.Round(v1.y));
+        return new Vector2Int(Mathf.RoundToInt(v1.x), Mathf.RoundToInt(v1.y));
     }
 
-    public static Vector3 Round(Vector3 v1)
+    public static Vector3Int Round(Vector3 v1)
     {
-        return new Vector3(Mathf.Round(v1.x), Mathf.Round(v1.y), Mathf.Round(v1.z));
+        return new Vector3Int(Mathf.RoundToInt(v1.x), Mathf.RoundToInt(v1.y), Mathf.RoundToInt(v1.z));
     }
 
-    public static Vector2 Floor(Vector2 v1)
+    public static Vector2Int Floor(Vector2 v1)
     {
-        return new Vector2(Mathf.Floor(v1.x), Mathf.Floor(v1.y));
+        return new Vector2Int(Mathf.FloorToInt(v1.x), Mathf.FloorToInt(v1.y));
     }
 
-    public static Vector3 Floor(Vector3 v1)
+    public static Vector3Int Floor(Vector3 v1)
     {
-        return new Vector3(Mathf.Floor(v1.x), Mathf.Floor(v1.y), Mathf.Floor(v1.z));
+        return new Vector3Int(Mathf.FloorToInt(v1.x), Mathf.FloorToInt(v1.y), Mathf.FloorToInt(v1.z));
     }
 
-    public static Vector2 Ceil(Vector2 v1)
+    public static Vector2Int Ceil(Vector2 v1)
     {
-        return new Vector2(Mathf.Ceil(v1.x), Mathf.Ceil(v1.y));
+        return new Vector2Int(Mathf.CeilToInt(v1.x), Mathf.CeilToInt(v1.y));
     }
 
-    public static Vector3 Ceil(Vector3 v1)
+    public static Vector3Int Ceil(Vector3 v1)
     {
-        return new Vector3(Mathf.Ceil(v1.x), Mathf.Ceil(v1.y), Mathf.Ceil(v1.z));
+        return new Vector3Int(Mathf.CeilToInt(v1.x), Mathf.CeilToInt(v1.y), Mathf.CeilToInt(v1.z));
     }
 
     public static Vector2 InvertOnNegativeCeil(Vector2 vector)
