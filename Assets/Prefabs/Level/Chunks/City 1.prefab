@@ -53,7 +53,6 @@ GameObject:
   - component: {fileID: 4756344729471106}
   - component: {fileID: 33450185315611170}
   - component: {fileID: 23561760030895604}
-  - component: {fileID: 114426411038227472}
   m_Layer: 0
   m_Name: Building 01
   m_TagString: Untagged
@@ -201,7 +200,6 @@ GameObject:
   - component: {fileID: 4206834521846828}
   - component: {fileID: 33570257064738392}
   - component: {fileID: 23948757229172314}
-  - component: {fileID: 114333891938405894}
   m_Layer: 0
   m_Name: Building 01
   m_TagString: Untagged
@@ -706,46 +704,6 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &114333891938405894
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1879920634222802}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d287a757b512b004e928059da2a30510, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_mask: {fileID: 0}
-  mode: 0
-  m_includeChildren: 1
-  customMesh: {fileID: 0}
-  overrideGlobalOptions: 1
-  opacity: 1
-  scale: {x: 1, y: 1, z: 1}
-  extrude: 0
-  texture: {fileID: 0}
---- !u!114 &114426411038227472
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1158933430456002}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d287a757b512b004e928059da2a30510, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_mask: {fileID: 0}
-  mode: 0
-  m_includeChildren: 1
-  customMesh: {fileID: 0}
-  overrideGlobalOptions: 1
-  opacity: 1
-  scale: {x: 1, y: 1, z: 1}
-  extrude: 0
-  texture: {fileID: 0}
 --- !u!114 &114795842565148934
 MonoBehaviour:
   m_ObjectHideFlags: 1
