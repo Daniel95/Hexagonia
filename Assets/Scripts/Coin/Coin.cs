@@ -10,7 +10,8 @@ public class Coin : MonoBehaviour
 	{
 		if (other.gameObject.tag == Tags.Player)
 		{
-			if(CollectedEvent != null)
+			Destroy(this.gameObject);
+			if (CollectedEvent != null)
 			{
 				CollectedEvent(value);
 			}
