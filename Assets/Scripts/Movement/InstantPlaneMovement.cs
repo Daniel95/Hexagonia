@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class CrossHairMovement : MonoBehaviour
+public class InstantPlaneMovement : MonoBehaviour
 {
 
     private void UpdateTargetPosition(Vector3 _targetPosition)
@@ -10,11 +10,11 @@ public class CrossHairMovement : MonoBehaviour
 
     private void OnEnable()
     {
-        PlaneMovement.MovePointOnPlaneEvent += UpdateTargetPosition;
+        LookPositionOnPlane.LookPositionUpdate += UpdateTargetPosition;
     }
 
     private void OnDisable()
     {
-        PlaneMovement.MovePointOnPlaneEvent -= UpdateTargetPosition;
+        LookPositionOnPlane.LookPositionUpdate -= UpdateTargetPosition;
     }
 }
