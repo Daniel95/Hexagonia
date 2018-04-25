@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 
-public class SmoothPlaneMovement : MonoBehaviour
+public class SmoothPlaneMovement3D : MonoBehaviour
 {
 
-    [SerializeField] [Range(0, 1)] private float speed = 0.3f;
+    [SerializeField] [Range(0, 20)] private float speed = 0.3f;
 
     private void UpdateTargetPosition(Vector3 _targetPosition)
     {
@@ -13,8 +13,10 @@ public class SmoothPlaneMovement : MonoBehaviour
         Vector3 _delta = _targetPosition - transform.position;
         Vector3 _direction = _delta.normalized;
         float _distance = Vector3.Distance(_targetPosition, transform.position);
+        float deltaSpeed = speed * Time.deltaTime;
 
-        transform.position += _direction * (_distance * speed);
+        Vector3 positionIncrement = _direction * (_distance * deltaSpeed);
+        transform.position += positionIncrement;
     }
 
     private void OnEnable()
