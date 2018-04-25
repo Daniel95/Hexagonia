@@ -28,6 +28,11 @@ public class Chunk : MonoBehaviour
 
     private float? length;
 
+	public void DestroyChunk()
+    {
+        Destroy(gameObject);
+    }
+
     private void Awake()
 	{
         InstantiateCoins();
@@ -55,29 +60,20 @@ public class Chunk : MonoBehaviour
             do
             {
                 _randomCoinPositionIndex = Random.Range(0, coinPositions.Count);
-            } while (_randomCoinPositionIndexes.Contains(_randomCoinPositionIndex));
+            }
+            while (_randomCoinPositionIndexes.Contains(_randomCoinPositionIndex));
 
             _randomCoinPositionIndexes.Add(_randomCoinPositionIndex);
             Instantiate(_coinPrefab, coinPositions[_randomCoinPositionIndex].transform.position, transform.rotation, transform);
         }
     }
 
-	private void DestroyMe(Chunk _chunk)
+    private void OnValidate()
     {
-        if (_chunk == this)
+        if(amountOfCoins >= coinPositions.Count)
         {
-            Destroy(gameObject);
+            Debug.LogWarning("amountOfCoins (" + amountOfCoins + ") is higher then the amount of coinPositions (" + coinPositions.Count + ") in chunk " + name, this);
         }
-    }
-
-    private void OnEnable()
-    {
-        ChunkMover.ChunkRemovedAction += DestroyMe;
-    }
-
-    private void OnDisable()
-    {
-        ChunkMover.ChunkRemovedAction -= DestroyMe;
     }
 
 }
