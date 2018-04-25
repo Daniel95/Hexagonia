@@ -40,7 +40,6 @@ public class ChunkMover : MonoBehaviour
 
 	private void Update ()
 	{
-        Debug.Log(LevelProgess.Instance.Timer);
         if (speed < maximumSpeed)
 	    {
 	        float _speedOffset = maximumSpeed - minimumSpeed;
