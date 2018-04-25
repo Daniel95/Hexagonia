@@ -23,18 +23,18 @@ public class CoinTypeByTimeLibrary : MonoBehaviour
 	}
 	#endregion
 
+    private CoinType coinType;
+
 	public CoinType GetCoinType(float _time)
 	{
-		CoinType _coinType = CoinType.Common;
-
 		for (int i = 0; i < timeTypeValues.Count; i++)
 		{
 			if (timeTypeValues[i].Time >= _time)
 			{
-				_coinType = timeTypeValues[i].CoinType;
+			    coinType = timeTypeValues[i].CoinType;
 				break;
 			}
 		}
-		return _coinType;
+		return coinType;
 	}
 }
