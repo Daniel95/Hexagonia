@@ -31,11 +31,19 @@ public class ChunkMover : MonoBehaviour
     }
     #endregion
 
-    [SerializeField] private float speed;
+    [SerializeField] private float minimumSpeed;
+    [SerializeField] private float maximumSpeed;
+
+    private float speed;
 
     private List<Chunk> currentChunks = new List<Chunk>();
 
 	private void Update () {
+	    if (speed < maximumSpeed)
+	    {
+	        speed = minimumSpeed + LevelProgess.Instance.Timer * 0.25f;
+	    }
+
 	    for (int i = 0; i < currentChunks.Count; i++)
 	    {
             if (currentChunks[i].transform.position.z <= ChunkPool.Instance.ChunksZStartPosition)
@@ -48,7 +56,6 @@ public class ChunkMover : MonoBehaviour
 	    {
 	        currentChunks[i].transform.Translate(Vector3.back * (speed * Time.deltaTime));
         }
-
     }
 
     private void AddChunk(Chunk _chunk)
