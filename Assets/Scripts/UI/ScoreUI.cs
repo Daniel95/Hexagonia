@@ -6,7 +6,7 @@ public class ScoreUI : MonoBehaviour {
 
 	private void UpdateScore(int _score)
 	{
-		scoreText.text = "Score: " + _score;
+		scoreText.text = "" + _score;
 	}
 
 	private void OnEnable()
