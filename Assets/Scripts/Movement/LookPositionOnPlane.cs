@@ -3,21 +3,21 @@ using UnityEngine;
 
 [RequireComponent(typeof(MeshRenderer))]
 [RequireComponent(typeof(BoxCollider))]
-public class PlaneMovement : MonoBehaviour
+public class LookPositionOnPlane : MonoBehaviour
 {
 
-    public static PlaneMovement Instance { get { return GetInstance(); } }
+    public static LookPositionOnPlane Instance { get { return GetInstance(); } }
 
-    public static Action<Vector3> MovePointOnPlaneEvent;
+    public static Action<Vector3> LookPositionUpdatedEvent;
 
     #region Singeton
-    private static PlaneMovement instance;
+    private static LookPositionOnPlane instance;
 
-    private static PlaneMovement GetInstance()
+    private static LookPositionOnPlane GetInstance()
     {
         if(instance == null)
         {
-            instance = FindObjectOfType<PlaneMovement>();
+            instance = FindObjectOfType<LookPositionOnPlane>();
         }
         return instance;
     }
@@ -52,9 +52,9 @@ public class PlaneMovement : MonoBehaviour
         Vector3 _planePoint = GetRaycastPointOnPlane(out _hit);
         if(!_hit) { return; }
 
-        if(MovePointOnPlaneEvent != null)
+        if(LookPositionUpdatedEvent != null)
         {
-            MovePointOnPlaneEvent(_planePoint);
+            LookPositionUpdatedEvent(_planePoint);
         }
     }
 
