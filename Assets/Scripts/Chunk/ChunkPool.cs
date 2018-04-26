@@ -11,7 +11,7 @@ using Random = UnityEngine.Random;
 
 public class ChunkPool : MonoBehaviour
 {
-    public static Action<Chunk> ChunkSpawnedAction;
+    public static Action<Chunk> ChunkSpawnedEvent;
 
     public static ChunkPool Instance { get { return GetInstance(); } }
 
@@ -36,65 +36,81 @@ public class ChunkPool : MonoBehaviour
     }
     #endregion
 
-    [SerializeField] private int amountOfChunks;
+    [SerializeField] private int startChunksCount;
+    [SerializeField] private int maxActiveChunkCount;
     [SerializeField] private float chunksZStartPosition;
-    [SerializeField] private List<Chunk> availableChunkPrefabs;
+    [SerializeField] private List<Chunk> startChunkPrefabs;
+    [SerializeField] private List<Chunk> coreChunkPrefabs;
 
-    private Vector3 spawnPosition;
-
-    private void Start()
+    private void SpawnRandomStartChunks()
     {
-        for (int i = 0; i < amountOfChunks; i++)
+        for (int i = 0; i < startChunksCount; i++)
         {
-            SpawnChunk();
+            SpawnRandomChunk(startChunkPrefabs);
+        }
+
+        int _coreChunksLeftToSpawn = maxActiveChunkCount - startChunksCount;
+        for (int i = 0; i < _coreChunksLeftToSpawn; i++) 
+        {
+            SpawnRandomChunk(coreChunkPrefabs);
+        }
+    }
+
+    private void SpawnRandomCoreChunk()
+    {
+        SpawnRandomChunk(coreChunkPrefabs);
+    }
+
+    private void SpawnRandomChunk(List<Chunk> chunkPrefabs)
+    {
+        int _randomNumber = Random.Range(0, chunkPrefabs.Count);
+        Chunk _chunk = chunkPrefabs[_randomNumber];
+        SpawnChunk(_chunk.gameObject, _chunk.Length);
+    }
+
+    private void SpawnChunk(GameObject _chunkPrefab, float _chunkLength)
+    {
+        Vector3 _spawnPosition;
+
+        if (ChunkMover.Instance.ChunkCount != 0)
+        {
+            Chunk _latestChunk = ChunkMover.Instance.LastestChunk;
+            float _offset = _latestChunk.Length / 2 + _chunkLength / 2;
+            float spawnZPosition = _latestChunk.transform.position.z + _offset;
+            _spawnPosition = new Vector3(transform.position.x, transform.position.y, spawnZPosition);
+        }
+        else
+        {
+            _spawnPosition = new Vector3(transform.position.x, transform.position.y, chunksZStartPosition);
+        }
+
+        GameObject _spawnedChunkGameObject = Instantiate(_chunkPrefab, _spawnPosition, Quaternion.identity, transform);
+        Chunk _spawnedChunk = _spawnedChunkGameObject.GetComponent<Chunk>();
+
+        if(ChunkSpawnedEvent != null)
+        {
+            ChunkSpawnedEvent(_spawnedChunk);
         }
     }
 
     private void OnRemovedChunk(Chunk _chunk)
     {
-        SpawnChunk();
+        SpawnRandomCoreChunk();
     }
 
-    private void SpawnChunk()
+    private void Start() 
     {
-        float _lengthOfRandomChunk;
-        GameObject _randomChunkPrefab = GetRandomChunkPrefab(out _lengthOfRandomChunk);
-
-        if (ChunkMover.Instance.CurrentChunks().Count != 0)
-        {
-            List<Chunk> currentChunks = ChunkMover.Instance.CurrentChunks();
-            Chunk _newestChunk = currentChunks[ChunkMover.Instance.CurrentChunks().Count - 1];
-            float spawnZPosition = _newestChunk.transform.position.z + _newestChunk.Length / 2 + _lengthOfRandomChunk / 2;
-            spawnPosition = new Vector3(transform.position.x, transform.position.y, spawnZPosition);
-        }
-        else
-        {
-            spawnPosition = new Vector3(transform.position.x, transform.position.y, chunksZStartPosition);
-        }
-
-        GameObject _spawnedChunkGameObject = Instantiate(_randomChunkPrefab, spawnPosition, Quaternion.identity, transform);
-        Chunk _spawnedChunk = _spawnedChunkGameObject.GetComponent<Chunk>();
-
-        ChunkSpawnedAction(_spawnedChunk);
+        SpawnRandomStartChunks();
     }
-
-    private GameObject GetRandomChunkPrefab(out float length)
-    {
-        int _randomNumber = Random.Range(0, availableChunkPrefabs.Count);
-        Chunk chunk = availableChunkPrefabs[_randomNumber];
-        length = chunk.Length;
-        return availableChunkPrefabs[_randomNumber].gameObject;
-    }
-
 
     private void OnEnable()
     {
-        ChunkMover.ChunkRemovedAction += OnRemovedChunk;
+        ChunkMover.ChunkRemovedEvent += OnRemovedChunk;
     }
 
     private void OnDisable()
     {
-        ChunkMover.ChunkRemovedAction -= OnRemovedChunk;
+        ChunkMover.ChunkRemovedEvent -= OnRemovedChunk;
     }
 
 }

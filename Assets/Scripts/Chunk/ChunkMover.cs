@@ -9,13 +9,24 @@ using UnityEngine;
 
 public class ChunkMover : MonoBehaviour
 {
-    public static Action<Chunk> ChunkRemovedAction;
+    public static Action<Chunk> ChunkRemovedEvent;
 
     public static ChunkMover Instance { get { return GetInstance(); } }
 
-    public List<Chunk> CurrentChunks()
+    public int ChunkCount
     {
-        return currentChunks;
+        get 
+        {
+            return currentChunks.Count;
+        }
+    }
+
+    public Chunk LastestChunk 
+    {
+        get 
+        {
+            return currentChunks[currentChunks.Count - 1];
+        }
     }
 
     #region Singleton
@@ -48,17 +59,16 @@ public class ChunkMover : MonoBehaviour
             speed = minimumSpeed + _speedIncrement;
         }
 
-        for (int i = 0; i < currentChunks.Count; i++)
-	    {
+        for (int i = currentChunks.Count - 1; i >= 0; i--) 
+        {
             if (currentChunks[i].transform.position.z <= ChunkPool.Instance.ChunksZStartPosition)
-	        {
+            {
                 RemoveChunk();
             }
-	    }
-
-	    for (int i = 0; i < currentChunks.Count; i++)
-	    {
-	        currentChunks[i].transform.Translate(Vector3.back * (speed * Time.deltaTime));
+            else 
+            {
+                currentChunks[i].transform.Translate(Vector3.back * (speed * Time.deltaTime));
+            }
         }
     }
 
@@ -70,18 +80,22 @@ public class ChunkMover : MonoBehaviour
     private void RemoveChunk()
     {
         Chunk _removedChunk = currentChunks[0];
-        ChunkRemovedAction(_removedChunk);
         currentChunks.Remove(_removedChunk);
+
+        if (ChunkRemovedEvent != null) 
+        {
+            ChunkRemovedEvent(_removedChunk);
+        }
     }
 
     private void OnEnable()
     {
-        ChunkPool.ChunkSpawnedAction += AddChunk;
+        ChunkPool.ChunkSpawnedEvent += AddChunk;
     }
 
     private void OnDisable()
     {
-        ChunkPool.ChunkSpawnedAction -= AddChunk;
+        ChunkPool.ChunkSpawnedEvent -= AddChunk;
     }
 
 }
