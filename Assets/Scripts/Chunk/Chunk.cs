@@ -68,6 +68,16 @@ public class Chunk : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        ChunkMover.ChunkRemovedEvent += Destroy;
+    }
+
+    private void OnDisable()
+    {
+        ChunkMover.ChunkRemovedEvent -= Destroy;
+    }
+
     private void OnValidate()
     {
         if(amountOfCoins >= coinPositions.Count)

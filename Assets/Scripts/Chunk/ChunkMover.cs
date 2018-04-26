@@ -81,7 +81,6 @@ public class ChunkMover : MonoBehaviour
     {
         Chunk _removedChunk = currentChunks[0];
         currentChunks.Remove(_removedChunk);
-        _removedChunk.DestroyChunk();
 
         if (ChunkRemovedEvent != null) 
         {
