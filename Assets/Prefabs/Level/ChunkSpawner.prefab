@@ -52,9 +52,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7af4661f09446e3418772b0d410ddd20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amountOfChunks: 5
+  startChunksCount: 4
+  maxActiveChunkCount: 5
   chunksZStartPosition: -90
-  availableChunkPrefabs:
+  startChunkPrefabs:
+  - {fileID: 114748031683125688, guid: 61f665f70da5d244fb1d7da45f101f9d, type: 2}
+  coreChunkPrefabs:
   - {fileID: 114795842565148934, guid: e3bc473cda1f4de4c9cc6e705e7f47ab, type: 2}
   - {fileID: 114990523725370460, guid: eb1ca3a9f123c8c4bafdc8a93fc05c79, type: 2}
   - {fileID: 114987510365591414, guid: e15581e3ee14cff499bcaf9d5397a3fc, type: 2}
