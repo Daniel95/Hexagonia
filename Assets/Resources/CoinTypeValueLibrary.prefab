@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1827170904202744}
+  m_IsPrefabParent: 1
+--- !u!1 &1827170904202744
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4974495366032680}
+  - component: {fileID: 114565923707512040}
+  m_Layer: 0
+  m_Name: CoinTypeValueLibrary
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4974495366032680
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1827170904202744}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114565923707512040
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1827170904202744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f4ad5bb69653dc4688a19af9d00bfac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coinPrefabByCoinTypePairs:
+  - CoinPrefab: {fileID: 1590101957905198, guid: 06f13bd54bd7d4e4ea57d8d86cbf991f,
+      type: 2}
+    CoinType: 0
+  - CoinPrefab: {fileID: 1590101957905198, guid: bd67364c83836e744ad8b8c4d2732698,
+      type: 2}
+    CoinType: 1
+  - CoinPrefab: {fileID: 1590101957905198, guid: e9c2051b723eff24c9cce4899df1ab57,
+      type: 2}
+    CoinType: 2
+  - CoinPrefab: {fileID: 1590101957905198, guid: 1a315f09f1f3f06429e3e87adf4ad6e4,
+      type: 2}
+    CoinType: 3
+  - CoinPrefab: {fileID: 1590101957905198, guid: fd594b28b0e72a649a6a820c4cd3dc42,
+      type: 2}
+    CoinType: 4

@@ -88,34 +88,34 @@ public static class VectorHelper
         return new Vector3(RoundingHelper.RoundTo(v1.x, v2.x), RoundingHelper.RoundTo(v1.y, v2.y), RoundingHelper.RoundTo(v1.z, v2.z));
     }
 
-    public static Vector2 Round(Vector2 v1)
+    public static Vector2Int Round(Vector2 v1)
     {
-        return new Vector2(Mathf.Round(v1.x), Mathf.Round(v1.y));
+        return new Vector2Int(Mathf.RoundToInt(v1.x), Mathf.RoundToInt(v1.y));
     }
 
-    public static Vector3 Round(Vector3 v1)
+    public static Vector3Int Round(Vector3 v1)
     {
-        return new Vector3(Mathf.Round(v1.x), Mathf.Round(v1.y), Mathf.Round(v1.z));
+        return new Vector3Int(Mathf.RoundToInt(v1.x), Mathf.RoundToInt(v1.y), Mathf.RoundToInt(v1.z));
     }
 
-    public static Vector2 Floor(Vector2 v1)
+    public static Vector2Int Floor(Vector2 v1)
     {
-        return new Vector2(Mathf.Floor(v1.x), Mathf.Floor(v1.y));
+        return new Vector2Int(Mathf.FloorToInt(v1.x), Mathf.FloorToInt(v1.y));
     }
 
-    public static Vector3 Floor(Vector3 v1)
+    public static Vector3Int Floor(Vector3 v1)
     {
-        return new Vector3(Mathf.Floor(v1.x), Mathf.Floor(v1.y), Mathf.Floor(v1.z));
+        return new Vector3Int(Mathf.FloorToInt(v1.x), Mathf.FloorToInt(v1.y), Mathf.FloorToInt(v1.z));
     }
 
-    public static Vector2 Ceil(Vector2 v1)
+    public static Vector2Int Ceil(Vector2 v1)
     {
-        return new Vector2(Mathf.Ceil(v1.x), Mathf.Ceil(v1.y));
+        return new Vector2Int(Mathf.CeilToInt(v1.x), Mathf.CeilToInt(v1.y));
     }
 
-    public static Vector3 Ceil(Vector3 v1)
+    public static Vector3Int Ceil(Vector3 v1)
     {
-        return new Vector3(Mathf.Ceil(v1.x), Mathf.Ceil(v1.y), Mathf.Ceil(v1.z));
+        return new Vector3Int(Mathf.CeilToInt(v1.x), Mathf.CeilToInt(v1.y), Mathf.CeilToInt(v1.z));
     }
 
     public static Vector2 InvertOnNegativeCeil(Vector2 vector)
@@ -136,6 +136,14 @@ public static class VectorHelper
     public static Vector3 Clamp(Vector3 v1, float min, float max)
     {
         return new Vector3(Mathf.Clamp(v1.x, min, max), Mathf.Clamp(v1.y, min, max), Mathf.Clamp(v1.z, min, max));
+    }
+
+    public static Vector2 Clamp(Vector2 v1, Vector2 min, Vector2 max) {
+        return new Vector2(Mathf.Clamp(v1.x, min.x, max.x), Mathf.Clamp(v1.y, min.y, max.y));
+    }
+
+    public static Vector3 Clamp(Vector3 v1, Vector3 min, Vector3 max) {
+        return new Vector3(Mathf.Clamp(v1.x, min.x, max.x), Mathf.Clamp(v1.y, min.y, max.y), Mathf.Clamp(v1.z, min.z, max.z));
     }
 
     public static Vector2 Abs(Vector2 vector)
@@ -186,17 +194,6 @@ public static class VectorHelper
         return axisesHaveSameSign;
     }
 
-    //??
-    //returns positive when to the right (local) and negative when to the left
-    public static float AngleDir(Vector3 fwd, Vector3 targetDir, Vector3 up)
-    {
-        Vector3 right = Vector3.Cross(fwd, targetDir);
-        float dir = Vector3.Dot(right, up);
-
-        return dir;
-    }
-    //??
-
     public static float DirectionToAngle(Vector2 direction)
     {
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
@@ -219,40 +216,6 @@ public static class VectorHelper
     {
         bool isBiggerOrEquals = vector.x <= compareVector.x && vector.y <= compareVector.y;
         return isBiggerOrEquals;
-    }
-
-    public static bool IsBetweenVectors(this Vector2 vector, Vector2 compareVector1, Vector2 compareVector2)
-    {
-        float lowestX = MathHelper.GetLowestNumber(compareVector1.x, compareVector2.x);
-        if (vector.x < lowestX) { return false; }
-
-        float highestX = MathHelper.GetHighestNumber(compareVector1.x, compareVector2.x);
-        if (vector.x > highestX) { return false; }
-
-        float lowestY = MathHelper.GetLowestNumber(compareVector1.y, compareVector2.y);
-        if (vector.y < lowestY) { return false; }
-
-        float highestY = MathHelper.GetHighestNumber(compareVector1.y, compareVector2.y);
-        if (vector.y > highestY) { return false; }
-
-        return true;
-    }
-
-    public static bool IsBetweenVectors(this Vector3 vector, Vector3 compareVector1, Vector3 compareVector2)
-    {
-        float lowestX = MathHelper.GetLowestNumber(compareVector1.x, compareVector2.x);
-        if (vector.x < lowestX) { return false; }
-
-        float highestX = MathHelper.GetHighestNumber(compareVector1.x, compareVector2.x);
-        if (vector.x > highestX) { return false; }
-
-        float lowestY = MathHelper.GetLowestNumber(compareVector1.y, compareVector2.y);
-        if (vector.y < lowestY) { return false; }
-
-        float highestY = MathHelper.GetHighestNumber(compareVector1.y, compareVector2.y);
-        if (vector.y > highestY) { return false; }
-
-        return true;
     }
 
 }
