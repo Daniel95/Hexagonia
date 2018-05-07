@@ -38,10 +38,20 @@ public class MusicManager : MonoBehaviour
     [Space(5)]
 
     [SerializeField] private float fadeTime = .5f;
+    
+    [Range(0,1)]
+    [SerializeField] private float maxVolume = .5f;
 
     //Remove, is for debug
     private void Update()
     {
+        if (source != null)
+        {
+            source.volume = maxVolume;
+            if (source.isPlaying == false)
+                SwitchSong();
+        }
+
         if (Input.GetKeyDown(KeyCode.Space))
             SwitchSong();
     }
@@ -49,6 +59,7 @@ public class MusicManager : MonoBehaviour
     private void Awake()
     {
         source = GetComponent<AudioSource>();
+        source.volume = maxVolume;
     }
     
     /// <summary>
@@ -75,6 +86,7 @@ public class MusicManager : MonoBehaviour
             source.Play();
             switching = false;
         }
+        return;
     }
 
     private IEnumerator FadeToNewSong(Song _song)
@@ -91,12 +103,12 @@ public class MusicManager : MonoBehaviour
 
     private IEnumerator FadeOut()
     {
-        source.volume = 1;
+        source.volume = maxVolume;
         float _timePassed = 0;
 
         while (_timePassed < fadeTime/2f)
         {
-            source.volume = 1 - (_timePassed / (fadeTime / 2f));
+            source.volume = maxVolume - (maxVolume * (_timePassed / (fadeTime / 2f)));
 
             _timePassed += Time.deltaTime;
             yield return null;
@@ -110,12 +122,12 @@ public class MusicManager : MonoBehaviour
 
         while (_timePassed < fadeTime / 2f)
         {
-            source.volume = (_timePassed / (fadeTime / 2f));
+            source.volume = (maxVolume * (_timePassed / (fadeTime / 2f)));
 
             _timePassed += Time.deltaTime;
             yield return null;
         }
-        source.volume = 1;
+        source.volume = maxVolume;
         switching = false;
     }
 
