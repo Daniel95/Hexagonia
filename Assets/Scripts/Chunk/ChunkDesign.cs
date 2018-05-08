@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 /// <summary>
@@ -7,7 +8,7 @@ using UnityEngine;
 /// </summary>
 
 [RequireComponent(typeof(Renderer))]
-public class Chunk : MonoBehaviour
+public class ChunkDesign : MonoBehaviour
 {
 
     public float Length
@@ -23,12 +24,13 @@ public class Chunk : MonoBehaviour
     }
 
     [SerializeField] private List<GameObject> coinPositions;
+    [SerializeField] [HideInInspector] private List<Transform> pooledObjects;
     [SerializeField] private GameObject ground;
     [SerializeField] private int amountOfCoins;
 
     private float? length;
 
-	public void DestroyChunk(Chunk _chunk)
+	public void DestroyChunk(GameObject _chunk)
     {
         if (_chunk == this)
         {
@@ -36,8 +38,27 @@ public class Chunk : MonoBehaviour
         }
     }
 
+    [ContextMenu("UpdatePoolableObjects")]
+    private void UpdatePoolableObjects()
+    {
+        foreach (Transform child in transform)
+        {
+            foreach (ObjectPool.ObjectPoolEntry objectPoolEntry in ObjectPool.Instance.Entries)
+            {
+                if (objectPoolEntry.Prefab.name == child.name)
+                {
+                    pooledObjects.Add(child);
+                    break;
+                }
+            }
+        }
+    }
+
     private void Awake()
 	{
+        CoroutineHelper.Delay(2, UpdatePoolableObjects);
+
+
         InstantiateCoins();
 	}
 

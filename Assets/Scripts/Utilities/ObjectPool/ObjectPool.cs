@@ -5,16 +5,29 @@ using UnityEngine;
 /// <summary>
 /// Repository of commonly used prefabs.
 /// </summary>
-[AddComponentMenu("Gameplay/ObjectPool")]
+
 public class ObjectPool : MonoBehaviour {
 
-	public static ObjectPool instance { get; private set; }
+	public static ObjectPool Instance { get { return GetInstance(); } }
 
-	#region member
-	/// <summary>
-	/// Member class for a prefab entered into the object pool
-	/// </summary>
-	[Serializable]
+    #region Singleton
+    private static ObjectPool instance;
+
+    private static ObjectPool GetInstance()
+    {
+        if (instance == null)
+        {
+            instance = FindObjectOfType<ObjectPool>();
+        }
+        return instance;
+    }
+    #endregion
+
+    #region member
+    /// <summary>
+    /// Member class for a prefab entered into the object pool
+    /// </summary>
+    [Serializable]
 	public class ObjectPoolEntry {
 		/// <summary>
 		/// the object to pre instantiate

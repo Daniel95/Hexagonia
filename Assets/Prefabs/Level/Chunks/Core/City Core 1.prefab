@@ -69,7 +69,7 @@ GameObject:
   - component: {fileID: 4080224956696488}
   m_Layer: 0
   m_Name: coin position 1 (1)
-  m_TagString: Obstacle
+  m_TagString: NotPoolable
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 4845387908628614}
   m_Layer: 0
   m_Name: coin position 2 (4)
-  m_TagString: Obstacle
+  m_TagString: NotPoolable
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -170,7 +170,7 @@ GameObject:
   - component: {fileID: 4685811625044436}
   m_Layer: 0
   m_Name: coin position 2
-  m_TagString: Obstacle
+  m_TagString: NotPoolable
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -185,7 +185,7 @@ GameObject:
   - component: {fileID: 4412032801293494}
   m_Layer: 0
   m_Name: coin position 1
-  m_TagString: Obstacle
+  m_TagString: NotPoolable
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -220,7 +220,7 @@ GameObject:
   - component: {fileID: 23983409051892492}
   m_Layer: 0
   m_Name: Billboard_Board1
-  m_TagString: Obstacle
+  m_TagString: NotPoolable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -235,7 +235,7 @@ GameObject:
   - component: {fileID: 4668365834269340}
   m_Layer: 0
   m_Name: coin position 2 (3)
-  m_TagString: Obstacle
+  m_TagString: NotPoolable
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -283,7 +283,7 @@ GameObject:
   - component: {fileID: 4311464384877268}
   m_Layer: 0
   m_Name: coin position 2 (5)
-  m_TagString: Obstacle
+  m_TagString: NotPoolable
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -298,7 +298,7 @@ GameObject:
   - component: {fileID: 4778731370415440}
   m_Layer: 0
   m_Name: Buildings
-  m_TagString: Obstacle
+  m_TagString: NotPoolable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -334,7 +334,7 @@ GameObject:
   - component: {fileID: 65550923401459764}
   m_Layer: 0
   m_Name: Billboard_Frame1
-  m_TagString: Obstacle
+  m_TagString: NotPoolable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -349,7 +349,7 @@ GameObject:
   - component: {fileID: 4506642879593090}
   m_Layer: 0
   m_Name: coin position 2 (2)
-  m_TagString: Obstacle
+  m_TagString: NotPoolable
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -364,7 +364,7 @@ GameObject:
   - component: {fileID: 4468711127027210}
   m_Layer: 0
   m_Name: coin position 3
-  m_TagString: Obstacle
+  m_TagString: NotPoolable
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -379,7 +379,7 @@ GameObject:
   - component: {fileID: 4038301117502342}
   m_Layer: 0
   m_Name: coin position 2 (1)
-  m_TagString: Obstacle
+  m_TagString: NotPoolable
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -412,7 +412,7 @@ GameObject:
   - component: {fileID: 4493844578170064}
   m_Layer: 0
   m_Name: coin position 3 (1)
-  m_TagString: Obstacle
+  m_TagString: NotPoolable
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -445,7 +445,7 @@ GameObject:
   - component: {fileID: 114467002289869018}
   m_Layer: 0
   m_Name: City Core 1
-  m_TagString: Obstacle
+  m_TagString: NotPoolable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -511,7 +511,7 @@ GameObject:
   - component: {fileID: 4034659422201286}
   m_Layer: 0
   m_Name: Coins
-  m_TagString: Obstacle
+  m_TagString: NotPoolable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1679,5 +1679,17 @@ MonoBehaviour:
   - {fileID: 1510946530302176}
   - {fileID: 1347356535693990}
   - {fileID: 1593965091413658}
+  pooledObjects:
+  - {fileID: 1357129117669540}
+  - {fileID: 1564795937471070}
+  - {fileID: 1401486099581248}
+  - {fileID: 1018340694369174}
+  - {fileID: 1755685504794518}
+  - {fileID: 1184205998012670}
+  - {fileID: 1315591780424404}
+  - {fileID: 1037224792058834}
+  - {fileID: 1884973433778438}
+  - {fileID: 1079105965032768}
+  - {fileID: 1530088997444268}
   ground: {fileID: 1315591780424404}
   amountOfCoins: 3
