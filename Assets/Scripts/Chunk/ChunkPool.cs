@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -36,29 +37,31 @@ public class ChunkPool : MonoBehaviour
     }
     #endregion
 
+    private const string CHUNK_PATH = "Chunks/";
+
     [SerializeField] private int startChunksCount;
     [SerializeField] private int maxActiveChunkCount;
     [SerializeField] private float chunksZStartPosition;
-    [SerializeField] private List<ChunkDesign> startChunkPrefabs;
-    [SerializeField] private List<ChunkDesign> coreChunkPrefabs;
+
+    private Dictionary<ChunkType, List<ChunkDesign>> chunkListsByChunkType;
 
     private void SpawnRandomStartChunks()
     {
         for (int i = 0; i < startChunksCount; i++)
         {
-            SpawnRandomChunk(startChunkPrefabs);
+            SpawnRandomChunk(chunkListsByChunkType[ChunkType.Start]);
         }
 
         int _coreChunksLeftToSpawn = maxActiveChunkCount - startChunksCount;
         for (int i = 0; i < _coreChunksLeftToSpawn; i++) 
         {
-            SpawnRandomChunk(coreChunkPrefabs);
+            SpawnRandomChunk(chunkListsByChunkType[ChunkType.Core]);
         }
     }
 
     private void SpawnRandomCoreChunk()
     {
-        SpawnRandomChunk(coreChunkPrefabs);
+        SpawnRandomChunk(chunkListsByChunkType[ChunkType.Core]);
     }
 
     private void SpawnRandomChunk(List<ChunkDesign> chunkPrefabs)
@@ -100,6 +103,18 @@ public class ChunkPool : MonoBehaviour
         */
     }
 
+    private void GetChunkListsByChunkType()
+    {
+        List<ChunkType> _chunkTypes = EnumHelper.GetValues<ChunkType>();
+
+        foreach (ChunkType _chunkType in _chunkTypes)
+        {
+            string _path = CHUNK_PATH + _chunkType.ToString() + "/";
+            List<ChunkDesign> _chunks = Resources.LoadAll<ChunkDesign>(_path).ToList();
+            chunkListsByChunkType.Add(_chunkType, _chunks);
+        }
+    }
+
     private void OnRemovedChunk(GameObject _chunk)
     {
         SpawnRandomCoreChunk();
@@ -107,6 +122,7 @@ public class ChunkPool : MonoBehaviour
 
     private void Start() 
     {
+        GetChunkListsByChunkType();
         SpawnRandomStartChunks();
     }
 
