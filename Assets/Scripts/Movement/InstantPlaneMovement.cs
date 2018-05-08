@@ -3,9 +3,11 @@
 public class InstantPlaneMovement : MonoBehaviour
 {
 
+    [SerializeField] private Vector3 offset;
+
     private void UpdateTargetPosition(Vector3 _targetPosition)
     {
-        transform.position = _targetPosition;
+        transform.position = _targetPosition + offset;
     }
 
     private void OnEnable()
@@ -17,4 +19,5 @@ public class InstantPlaneMovement : MonoBehaviour
     {
         LookPositionOnPlane.LookPositionUpdatedEvent -= UpdateTargetPosition;
     }
+
 }
