@@ -6,7 +6,7 @@ using UnityEngine;
 public class SceneWindow : EditorWindow
 {
 
-    private const string BUILD_SCENE_PATH = "Assets/Scenes/Build/";
+    private const string BUILD_SCENE_PATH = "Assets/Scenes/";
     private const string SCENE_EXTENSION = ".unity";
     private const string AUTO_OPEN_KEY = "AutoOpenScene";
 
