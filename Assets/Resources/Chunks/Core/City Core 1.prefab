@@ -38,7 +38,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4944941191109804}
   m_Layer: 0
-  m_Name: Billboard (1)
+  m_Name: Billboard Floating 1
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -53,7 +53,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4082139579132660}
   m_Layer: 0
-  m_Name: R Billboard Building 1
+  m_Name: Billboard Right Building 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -103,7 +103,7 @@ GameObject:
   - component: {fileID: 23834442628409102}
   - component: {fileID: 65637541414689360}
   m_Layer: 0
-  m_Name: Building 03 (1)
+  m_Name: Building 03
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -249,7 +249,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4176984145820692}
   m_Layer: 0
-  m_Name: Billboard Building 1
+  m_Name: Billboard Left Building 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -477,7 +477,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4408020782211214}
   m_Layer: 0
-  m_Name: Billboard (2)
+  m_Name: Billboard Floating 1
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1679,17 +1679,6 @@ MonoBehaviour:
   - {fileID: 1510946530302176}
   - {fileID: 1347356535693990}
   - {fileID: 1593965091413658}
-  pooledObjects:
-  - {fileID: 1357129117669540}
-  - {fileID: 1564795937471070}
-  - {fileID: 1401486099581248}
-  - {fileID: 1018340694369174}
-  - {fileID: 1755685504794518}
-  - {fileID: 1184205998012670}
-  - {fileID: 1315591780424404}
-  - {fileID: 1037224792058834}
-  - {fileID: 1884973433778438}
-  - {fileID: 1079105965032768}
-  - {fileID: 1530088997444268}
+  objectsToPool: []
   ground: {fileID: 1315591780424404}
   amountOfCoins: 3

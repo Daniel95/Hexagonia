@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -9,6 +10,8 @@ using UnityEngine;
 public class ObjectPool : MonoBehaviour {
 
 	public static ObjectPool Instance { get { return GetInstance(); } }
+
+    public static Action PoolingCompletedEvent;
 
     #region Singleton
     private static ObjectPool instance;
@@ -42,7 +45,7 @@ public class ObjectPool : MonoBehaviour {
 		public int Count;
 
 		[HideInInspector]
-		public GameObject[] pool;
+		public List<GameObject> pool;
 
 		[HideInInspector]
 		public int objectsInPool = 0;
@@ -84,7 +87,7 @@ public class ObjectPool : MonoBehaviour {
 			ObjectPoolEntry objectPrefab = Entries[i];
 
 			//create the repository
-			objectPrefab.pool = new GameObject[objectPrefab.Count];
+			objectPrefab.pool = new List<GameObject>(objectPrefab.Count);
 
 			//fill it                      
 			for (int n = 0; n < objectPrefab.Count; n++)
@@ -94,6 +97,11 @@ public class ObjectPool : MonoBehaviour {
 				PoolObject(newObj);
 			}
 		}
+
+	    if (PoolingCompletedEvent != null)
+	    {
+	        PoolingCompletedEvent();
+        }
 	}
 
 	/// <summary>
@@ -114,7 +122,8 @@ public class ObjectPool : MonoBehaviour {
 
 		for (int i = 0; i < Entries.Length; i++)
 		{
-			GameObject prefab = Entries[i].Prefab;
+		    ObjectPoolEntry objectPoolEntry = Entries[i];
+            GameObject prefab = objectPoolEntry.Prefab;
 
 			if (prefab.name != objectType)
 				continue;
@@ -130,9 +139,13 @@ public class ObjectPool : MonoBehaviour {
 			}
             else if (!onlyPooled)
 			{
-				GameObject obj = (GameObject)Instantiate(Entries[i].Prefab);
-				obj.name = obj.name+"_not_pooled";
-				return obj;
+				GameObject obj = Instantiate(objectPoolEntry.Prefab);
+				//obj.name = obj.name+"_not_pooled";
+                //string objName = obj.name;
+                obj.name = obj.name.Substring(0, obj.name.Length - 7);
+			    objectPoolEntry.pool.Add(obj);
+
+                return obj;
 			}
 		}
 
@@ -155,10 +168,11 @@ public class ObjectPool : MonoBehaviour {
 
 			obj.SetActive(false);
 			obj.transform.parent = ContainerObject.transform;
+            /*
 			if (obj.GetComponent<Rigidbody>() != null) {
 				obj.GetComponent<Rigidbody>().velocity = Vector3.zero;
 			}
-
+            */
 			Entries[i].pool[Entries[i].objectsInPool++] = obj;
 			return;
 		}

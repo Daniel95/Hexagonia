@@ -10,7 +10,6 @@ using UnityEngine;
 [RequireComponent(typeof(Renderer))]
 public class ChunkDesign : MonoBehaviour
 {
-
     public List<Transform> ObjectsToPool { get { return objectsToPool; } }
 
     public float Length
@@ -43,7 +42,8 @@ public class ChunkDesign : MonoBehaviour
     [ContextMenu("UpdatePoolableObjects")]
     private void UpdatePoolableObjects()
     {
-        foreach (Transform child in transform)
+        objectsToPool = new List<Transform>();
+        foreach (Transform child in transform.AllChildren())
         {
             foreach (ObjectPool.ObjectPoolEntry objectPoolEntry in ObjectPool.Instance.Entries)
             {

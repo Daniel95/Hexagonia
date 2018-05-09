@@ -37,14 +37,14 @@ public class ChunkPool : MonoBehaviour
     }
     #endregion
 
-    private const string CHUNK_NAME = "Chunks";
-    private const string CHUNK_PATH = CHUNK_NAME+ "/";
+    private const string CHUNK_NAME = "Chunk";
+    private const string CHUNK_PATH = "Chunks/";
 
     [SerializeField] private int startChunksCount;
     [SerializeField] private int maxActiveChunkCount;
     [SerializeField] private float chunksZStartPosition;
 
-    private Dictionary<ChunkType, List<ChunkDesign>> chunkListsByChunkType;
+    private Dictionary<ChunkType, List<ChunkDesign>> chunkListsByChunkType = new Dictionary<ChunkType, List<ChunkDesign>>();
 
     private void SpawnRandomStartChunks()
     {
@@ -75,28 +75,28 @@ public class ChunkPool : MonoBehaviour
     private void SpawnChunk(ChunkDesign _chunkDesign)
     {
         Vector3 _spawnPosition;
-
         if (ChunkMover.Instance.ChunkCount != 0)
         {
             float _latestChunkLength;
             GameObject _latestChunk = ChunkMover.Instance.GetLastestChunk(out _latestChunkLength);
             float _offset = _latestChunkLength / 2 + _chunkDesign.Length / 2;
             float spawnZPosition = _latestChunk.transform.position.z + _offset;
+
             _spawnPosition = new Vector3(transform.position.x, transform.position.y, spawnZPosition);
         }
         else
         {
             _spawnPosition = new Vector3(transform.position.x, transform.position.y, chunksZStartPosition);
         }
-
         GameObject _chunkParent = ObjectPool.Instance.GetObjectForType(CHUNK_NAME, false);
+        _chunkParent.transform.position = _spawnPosition;
+        _chunkParent.transform.parent = transform;
 
         foreach (Transform _transform in _chunkDesign.ObjectsToPool)
         {
-            GameObject _object = ObjectPool.Instance.GetObjectForType(CHUNK_NAME, false);
-
+            GameObject _object = ObjectPool.Instance.GetObjectForType(_transform.name, false);
             _object.transform.parent = _chunkParent.transform;
-            _object.transform.position = _transform.position;
+            _object.transform.position = new Vector3(_transform.position.x, _transform.position.y, _transform.position.z + _chunkParent.transform.position.z);
             _object.transform.localScale = _transform.localScale;
             _object.transform.rotation = _transform.rotation;
         }
@@ -107,24 +107,34 @@ public class ChunkPool : MonoBehaviour
         }
     }
 
+    private void PoolChunkObjects(GameObject _chunk)
+    {
+        foreach (Transform _transform in _chunk.transform)
+        {
+            ObjectPool.Instance.PoolObject(_transform.gameObject);
+        }
+        ObjectPool.Instance.PoolObject(_chunk);
+    }
+
     private void GetChunkListsByChunkType()
     {
         List<ChunkType> _chunkTypes = EnumHelper.GetValues<ChunkType>();
 
         foreach (ChunkType _chunkType in _chunkTypes)
         {
-            string _path = CHUNK_PATH + _chunkType.ToString() + "/";
+            string _path = CHUNK_PATH + _chunkType + "/";
             List<ChunkDesign> _chunks = Resources.LoadAll<ChunkDesign>(_path).ToList();
             chunkListsByChunkType.Add(_chunkType, _chunks);
         }
     }
 
-    private void OnRemovedChunk(GameObject _chunk)
+    private void OnMoverRemovedChunk(GameObject _chunk)
     {
+        PoolChunkObjects(_chunk);
         SpawnRandomCoreChunk();
     }
 
-    private void Start() 
+    private void OnPoolingCompleted() 
     {
         GetChunkListsByChunkType();
         SpawnRandomStartChunks();
@@ -132,12 +142,14 @@ public class ChunkPool : MonoBehaviour
 
     private void OnEnable()
     {
-        ChunkMover.ChunkRemovedEvent += OnRemovedChunk;
+        ChunkMover.ChunkRemovedEvent += OnMoverRemovedChunk;
+        ObjectPool.PoolingCompletedEvent += OnPoolingCompleted;
     }
 
     private void OnDisable()
     {
-        ChunkMover.ChunkRemovedEvent -= OnRemovedChunk;
+        ChunkMover.ChunkRemovedEvent -= OnMoverRemovedChunk;
+        ObjectPool.PoolingCompletedEvent -= OnPoolingCompleted;
     }
 
 }

@@ -144,7 +144,7 @@ GameObject:
   - component: {fileID: 23556358903203024}
   - component: {fileID: 65702087636165060}
   m_Layer: 0
-  m_Name: Building 03 (1)
+  m_Name: Building 03
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -246,7 +246,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1294715538178616}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.4103346, y: 40.420986, z: 176.19957}
+  m_LocalPosition: {x: 0, y: -6.43, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4187927725481642}
@@ -678,5 +678,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coinPositions: []
+  objectsToPool:
+  - {fileID: 4517545033383780}
+  - {fileID: 4511623729792184}
+  - {fileID: 4868547297481864}
+  - {fileID: 4515576318370666}
+  - {fileID: 4775623508109020}
+  - {fileID: 4745025413216942}
+  - {fileID: 4552823769105578}
   ground: {fileID: 1913426996245012}
   amountOfCoins: 0
