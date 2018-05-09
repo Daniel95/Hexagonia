@@ -11,7 +11,7 @@ public class ObjectPool : MonoBehaviour {
 
 	public static ObjectPool Instance { get { return GetInstance(); } }
 
-    public static Action PoolingCompletedEvent;
+    public static Action PoolingInitialisationCompletedEvent;
 
     #region Singleton
     private static ObjectPool instance;
@@ -98,9 +98,9 @@ public class ObjectPool : MonoBehaviour {
 			}
 		}
 
-	    if (PoolingCompletedEvent != null)
+	    if (PoolingInitialisationCompletedEvent != null)
 	    {
-	        PoolingCompletedEvent();
+	        PoolingInitialisationCompletedEvent();
         }
 	}
 

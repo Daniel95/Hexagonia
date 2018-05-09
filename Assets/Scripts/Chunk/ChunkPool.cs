@@ -135,7 +135,7 @@ public class ChunkPool : MonoBehaviour
         SpawnRandomCoreChunk();
     }
 
-    private void OnPoolingCompleted() 
+    private void OnPoolInitialisationCompleted() 
     {
         GetChunkListsByChunkType();
         SpawnRandomStartChunks();
@@ -144,13 +144,13 @@ public class ChunkPool : MonoBehaviour
     private void OnEnable()
     {
         ChunkMover.ChunkRemovedEvent += OnMoverRemovedChunk;
-        ObjectPool.PoolingCompletedEvent += OnPoolingCompleted;
+        ObjectPool.PoolingInitialisationCompletedEvent += OnPoolInitialisationCompleted;
     }
 
     private void OnDisable()
     {
         ChunkMover.ChunkRemovedEvent -= OnMoverRemovedChunk;
-        ObjectPool.PoolingCompletedEvent -= OnPoolingCompleted;
+        ObjectPool.PoolingInitialisationCompletedEvent -= OnPoolInitialisationCompleted;
     }
 
 }
