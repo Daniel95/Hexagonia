@@ -21,7 +21,7 @@ public class SceneLoader : MonoBehaviour {
 
     private Scenes? currentScene;
 
-    public void SwitchScene(Scenes newScene)
+    public void SwitchScene(Scenes _newScene)
     {
         if (startScene == Scenes.Default)
         {
@@ -29,16 +29,16 @@ public class SceneLoader : MonoBehaviour {
             return;
         }
 
-        Scenes? previousScene = currentScene;
-        currentScene = newScene;
+        Scenes? _previousScene = currentScene;
+        currentScene = _newScene;
 
-        if (previousScene != null)
+        if (_previousScene != null)
         {
-            SceneHelper.UnloadSceneOverTime(previousScene.ToString(), () => SceneHelper.LoadSceneOverTime(newScene.ToString()));
+            SceneHelper.UnloadSceneOverTime(_previousScene.ToString(), () => SceneHelper.LoadSceneOverTime(_newScene.ToString()));
         }
         else
         {
-            SceneHelper.LoadSceneOverTime(newScene.ToString());
+            SceneHelper.LoadSceneOverTime(_newScene.ToString());
         }
 
     }
