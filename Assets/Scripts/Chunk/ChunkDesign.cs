@@ -111,7 +111,7 @@ public class ChunkDesign : MonoBehaviour
 
     private void OnValidate()
     {
-        if(amountOfCoins >= coinPositions.Count)
+        if(amountOfCoins > coinPositions.Count)
         {
             Debug.LogWarning("amountOfCoins (" + amountOfCoins + ") is higher then the amount of coinPositions (" + coinPositions.Count + ") in chunk " + name, this);
         }
