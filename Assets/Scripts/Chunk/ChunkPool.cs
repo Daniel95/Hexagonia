@@ -88,13 +88,14 @@ public class ChunkPool : MonoBehaviour
         {
             _spawnPosition = new Vector3(transform.position.x, transform.position.y, chunksZStartPosition);
         }
+
         GameObject _chunkParent = ObjectPool.Instance.GetObjectForType(CHUNK_NAME, false);
         _chunkParent.transform.position = _spawnPosition;
         _chunkParent.transform.parent = transform;
+        _chunkParent.name = _chunkDesign.name;
 
         foreach (Transform _transform in _chunkDesign.ObjectsToPool)
         {
-            Debug.Log(_chunkDesign.gameObject.name + " + " + _transform);
             GameObject _object = ObjectPool.Instance.GetObjectForType(_transform.name, false);
             _object.transform.parent = _chunkParent.transform;
             _object.transform.position = new Vector3(_transform.position.x, _transform.position.y, _transform.position.z + _chunkParent.transform.position.z);
@@ -102,7 +103,7 @@ public class ChunkPool : MonoBehaviour
             _object.transform.rotation = _transform.rotation;
         }
 
-        if(ChunkSpawnedEvent != null)
+        if (ChunkSpawnedEvent != null)
         {
             ChunkSpawnedEvent(_chunkParent, _chunkDesign.Length);
         }
@@ -110,10 +111,11 @@ public class ChunkPool : MonoBehaviour
 
     private void PoolChunkObjects(GameObject _chunk)
     {
-        foreach (Transform _transform in _chunk.transform)
-        {
-            ObjectPool.Instance.PoolObject(_transform.gameObject);
+        List<Transform> children = _chunk.transform.FirstLayerChildren();
+        for (int i = children.Count - 1; i >= 0; i--) {
+            ObjectPool.Instance.PoolObject(children[i].gameObject);
         }
+
         ObjectPool.Instance.PoolObject(_chunk);
     }
 

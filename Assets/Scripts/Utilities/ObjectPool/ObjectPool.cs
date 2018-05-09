@@ -63,11 +63,6 @@ public class ObjectPool : MonoBehaviour {
 	/// Indexed by the index of the objectPrefabs
 	/// </summary>
 
-	/// <summary>
-	/// The container object that we will keep unused pooled objects so we dont clog up the editor with objects.
-	/// </summary>
-	protected GameObject ContainerObject;
-
 	void OnEnable()
 	{
 		instance = this;
@@ -76,8 +71,6 @@ public class ObjectPool : MonoBehaviour {
 	// Use this for initialization
 	void Start()
 	{
-		ContainerObject = new GameObject("ObjectPool");
-
 		//Loop through the object prefabs and make a new list for each one.
 		//We do this because the pool can only support prefabs set to it in the editor,
 		//so we can assume the lists of pooled objects are in the same order as object prefabs in the array
@@ -167,7 +160,7 @@ public class ObjectPool : MonoBehaviour {
 				continue;
 
 			obj.SetActive(false);
-			obj.transform.parent = ContainerObject.transform;
+			obj.transform.parent = transform;
             /*
 			if (obj.GetComponent<Rigidbody>() != null) {
 				obj.GetComponent<Rigidbody>().velocity = Vector3.zero;
