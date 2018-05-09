@@ -47,7 +47,7 @@ public class ChunkMover : MonoBehaviour
         return _chunkMoverEntry.Chunk;
     }
 
-    public GameObject GetLastestChunk(out int _length)
+    public GameObject GetLastestChunk(out float _length)
     {
         ChunkMoverEntry _chunkMoverEntry = currentChunks[currentChunks.Count - 1];
         _length = _chunkMoverEntry.Length;
@@ -77,7 +77,7 @@ public class ChunkMover : MonoBehaviour
         }
     }
 
-    private void AddChunk(GameObject _chunk, int _length)
+    private void AddChunk(GameObject _chunk, float _length)
     {
         ChunkMoverEntry _chunkMoverEntry = new ChunkMoverEntry
         {
@@ -112,6 +112,6 @@ public class ChunkMover : MonoBehaviour
 
 public class ChunkMoverEntry
 {
-    public int Length;
+    public float Length;
     public GameObject Chunk;
 }

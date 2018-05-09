@@ -11,6 +11,8 @@ using UnityEngine;
 public class ChunkDesign : MonoBehaviour
 {
 
+    public List<Transform> ObjectsToPool { get { return objectsToPool; } }
+
     public float Length
     {
         get
@@ -24,7 +26,7 @@ public class ChunkDesign : MonoBehaviour
     }
 
     [SerializeField] private List<GameObject> coinPositions;
-    [SerializeField] [HideInInspector] private List<Transform> pooledObjects;
+    [SerializeField] [HideInInspector] private List<Transform> objectsToPool;
     [SerializeField] private GameObject ground;
     [SerializeField] private int amountOfCoins;
 
@@ -47,7 +49,7 @@ public class ChunkDesign : MonoBehaviour
             {
                 if (objectPoolEntry.Prefab.name == child.name)
                 {
-                    pooledObjects.Add(child);
+                    objectsToPool.Add(child);
                     break;
                 }
             }

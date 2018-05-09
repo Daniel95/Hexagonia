@@ -12,7 +12,7 @@ using Random = UnityEngine.Random;
 
 public class ChunkPool : MonoBehaviour
 {
-    public static Action<GameObject, int> ChunkSpawnedEvent;
+    public static Action<GameObject, float> ChunkSpawnedEvent;
 
     public static ChunkPool Instance { get { return GetInstance(); } }
 
@@ -37,7 +37,8 @@ public class ChunkPool : MonoBehaviour
     }
     #endregion
 
-    private const string CHUNK_PATH = "Chunks/";
+    private const string CHUNK_NAME = "Chunks";
+    private const string CHUNK_PATH = CHUNK_NAME+ "/";
 
     [SerializeField] private int startChunksCount;
     [SerializeField] private int maxActiveChunkCount;
@@ -77,7 +78,7 @@ public class ChunkPool : MonoBehaviour
 
         if (ChunkMover.Instance.ChunkCount != 0)
         {
-            int _latestChunkLength;
+            float _latestChunkLength;
             GameObject _latestChunk = ChunkMover.Instance.GetLastestChunk(out _latestChunkLength);
             float _offset = _latestChunkLength / 2 + _chunkDesign.Length / 2;
             float spawnZPosition = _latestChunk.transform.position.z + _offset;
@@ -88,19 +89,22 @@ public class ChunkPool : MonoBehaviour
             _spawnPosition = new Vector3(transform.position.x, transform.position.y, chunksZStartPosition);
         }
 
+        GameObject _chunkParent = ObjectPool.Instance.GetObjectForType(CHUNK_NAME, false);
 
+        foreach (Transform _transform in _chunkDesign.ObjectsToPool)
+        {
+            GameObject _object = ObjectPool.Instance.GetObjectForType(CHUNK_NAME, false);
 
-
-
-        /*
-        GameObject _spawnedChunkGameObject = Instantiate(_chunkDesign, _spawnPosition, Quaternion.identity, transform);
-        ChunkDesign _spawnedChunk = _spawnedChunkGameObject.GetComponent<ChunkDesign>();
+            _object.transform.parent = _chunkParent.transform;
+            _object.transform.position = _transform.position;
+            _object.transform.localScale = _transform.localScale;
+            _object.transform.rotation = _transform.rotation;
+        }
 
         if(ChunkSpawnedEvent != null)
         {
-            ChunkSpawnedEvent(_spawnedChunk);
+            ChunkSpawnedEvent(_chunkParent, _chunkDesign.Length);
         }
-        */
     }
 
     private void GetChunkListsByChunkType()
