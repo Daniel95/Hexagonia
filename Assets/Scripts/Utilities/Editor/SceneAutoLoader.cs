@@ -19,7 +19,9 @@ static class SceneAutoLoader {
     // Static constructor binds a playmode-changed callback.
     // [InitializeOnLoad] above makes sure this gets executed.
     static SceneAutoLoader() {
+#pragma warning disable CS0618 // Type or member is obsolete
         EditorApplication.playmodeStateChanged += OnPlayModeChanged;
+#pragma warning restore CS0618 // Type or member is obsolete
     }
 
     // Menu items to select the "master" scene and control whether or not to load it.
