@@ -4,6 +4,7 @@ using UnityEngine;
 public class Coin : MonoBehaviour
 {
 	public static Action<int> CollectedEvent;
+	public static Action CoinCollectedEvent;
 	[SerializeField] private int value;
 
 	private void OnTriggerEnter(Collider other)
@@ -14,6 +15,10 @@ public class Coin : MonoBehaviour
 			if (CollectedEvent != null)
 			{
 				CollectedEvent(value);
+			}
+			if (CoinCollectedEvent != null)
+			{
+				CoinCollectedEvent();
 			}
 		}
 	}

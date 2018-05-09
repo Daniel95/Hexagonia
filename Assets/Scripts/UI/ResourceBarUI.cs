@@ -1,45 +1,85 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class ResourceBarUI : MonoBehaviour
 {
-	private float scaleX = 0f;
-	private float scaleBarByScore = 0f;
-	private float offset = -2.3f;
-	private float waitTime = 4f;
+	private float maxValue = 1f; //Maximum Resource Value 
+	private float minValue = 0f; //Minumum Resource Value
+	private float currentValue; //Current Resource Value
+
+	private Coroutine coroutineIncrease, coroutineDecrease;
+
+
+	private float waitTime = 0.5f;
 	[SerializeField] private GameObject resourceBar;
 
 	private void Awake()
 	{
-		resourceBar.transform.localScale = new Vector3(0, resourceBar.transform.localScale.y, resourceBar.transform.localScale.z);
+		resourceBar.transform.localScale = new Vector3(minValue, resourceBar.transform.localScale.y, resourceBar.transform.localScale.z);
 	}
-
-	private void Update()
-    {
-		UpdateResourceBar();
-    }
 
 	private void UpdateResourceBar()
 	{
-		if (scaleBarByScore < 1)
+		//-----------------------------
+		coroutineIncrease = StartCoroutine(IncreaseOverTime());
+		//-----------------------------
+
+		/*
+		currentValue = _score;
+
+		if (currentValue > minValue)
 		{
-			scaleBarByScore = scaleX + ResourceValue.Instance.Value; //Chained with the coin pick-up
+			currentValue = Mathf.Clamp(currentValue - (0.1f * Time.deltaTime), minValue, maxValue);
+			//StartCoroutine("DecreaseOverTime");
 		}
-		if(scaleBarByScore != 0)
+		if (currentValue <= minValue)
 		{
-			StartCoroutine("DecreaseOverTime");
+			currentValue = 0;
+			Debug.Log("resourcebar is " + currentValue + " empty?");
 		}
-		if(scaleBarByScore > 1) //BUG, Bar not decreasing when over 1 / when full
-		{
-			scaleX = 1f;
-		}
-		resourceBar.transform.position = new Vector3(offset, resourceBar.transform.position.y, resourceBar.transform.position.z);
-		resourceBar.transform.localScale = new Vector3(scaleBarByScore, resourceBar.transform.localScale.y, resourceBar.transform.localScale.z);
+		resourceBar.transform.localScale = new Vector3(currentValue, resourceBar.transform.localScale.y, resourceBar.transform.localScale.z);
+		Debug.Log("Currentvalue is: " + currentValue);
+		*/
 	}
 
 	private IEnumerator DecreaseOverTime()
 	{
-		scaleX -= 0.05f * Time.deltaTime;
+		currentValue = currentValue - 0.1f;
+		Debug.Log("DecreaseOverTime CurrentValue: " + currentValue);
+		resourceBar.transform.localScale = new Vector3(Mathf.Clamp(currentValue - (0.01f * Time.deltaTime), minValue, maxValue), resourceBar.transform.localScale.y , resourceBar.transform.localScale.z);
+		//resourceBar.transform.localScale = new Vector3(currentValue, resourceBar.transform.localScale.y, resourceBar.transform.localScale.z);
+
 		yield return new WaitForSeconds(waitTime);
+
+		StopCoroutine(coroutineDecrease);
+	}
+
+	private IEnumerator IncreaseOverTime()
+	{
+		if(currentValue < maxValue)
+		{
+			currentValue = ResourceValue.Instance.Value;
+		}
+		Debug.Log("increaseOverTime CurrentValue: " + currentValue);
+
+		resourceBar.transform.localScale = new Vector3(Mathf.Clamp(currentValue, minValue, maxValue), resourceBar.transform.localScale.y, resourceBar.transform.localScale.z);
+
+		//resourceBar.transform.localScale = new Vector3(currentValue, resourceBar.transform.localScale.y, resourceBar.transform.localScale.z);
+
+		yield return new WaitForSeconds(waitTime);
+
+		coroutineDecrease = StartCoroutine(DecreaseOverTime());
+		StopCoroutine(coroutineIncrease);
+	}
+
+	private void OnEnable()
+	{
+		Coin.CoinCollectedEvent += UpdateResourceBar;
+	}
+
+	private void OnDisable()
+	{
+		Coin.CoinCollectedEvent -= UpdateResourceBar;
 	}
 }
