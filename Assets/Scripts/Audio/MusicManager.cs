@@ -42,7 +42,7 @@ public class MusicManager : MonoBehaviour
     [Range(0,1)]
     [SerializeField] private float maxVolume = .5f;
 
-    //Remove, is for debug
+    //Remove input, is for debug
     private void Update()
     {
         if (source != null)

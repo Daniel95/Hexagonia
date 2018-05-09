@@ -64,11 +64,6 @@ public class AudioPeer : MonoBehaviour
     {
         bandBuffer = new float[freqBand.Length];
         bufferDecrease = new float[freqBand.Length];
-
-        if (audioSource == null)
-        {
-            UnityEditor.EditorUtility.DisplayDialog("Error", "Cannot visualise audio", "OK");
-        }
     }
     
     void Update()
