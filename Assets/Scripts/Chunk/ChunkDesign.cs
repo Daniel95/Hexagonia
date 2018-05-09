@@ -25,7 +25,7 @@ public class ChunkDesign : MonoBehaviour
     }
 
     [SerializeField] private List<GameObject> coinPositions;
-    [SerializeField] [HideInInspector] private List<Transform> objectsToPool;
+    [SerializeField] private List<Transform> objectsToPool;
     [SerializeField] private GameObject ground;
     [SerializeField] private int amountOfCoins;
 

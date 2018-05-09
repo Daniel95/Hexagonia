@@ -94,6 +94,7 @@ public class ChunkPool : MonoBehaviour
 
         foreach (Transform _transform in _chunkDesign.ObjectsToPool)
         {
+            Debug.Log(_chunkDesign.gameObject.name + " + " + _transform);
             GameObject _object = ObjectPool.Instance.GetObjectForType(_transform.name, false);
             _object.transform.parent = _chunkParent.transform;
             _object.transform.position = new Vector3(_transform.position.x, _transform.position.y, _transform.position.z + _chunkParent.transform.position.z);
