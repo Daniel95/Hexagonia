@@ -57,7 +57,12 @@ public class ResourceBarUI : MonoBehaviour
 
 	private IEnumerator IncreaseOverTime()
 	{
-		if(currentValue < maxValue)
+		if(currentValue >= maxValue)
+		{
+			Debug.Log("BAR IS FULL");
+			currentValue = 1f;
+		}
+		else
 		{
 			currentValue = ResourceValue.Instance.Value;
 		}
