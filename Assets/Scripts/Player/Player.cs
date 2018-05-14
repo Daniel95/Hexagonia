@@ -1,7 +1,23 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class PlayerAnimator : MonoBehaviour
+public class Player : MonoBehaviour
 {
+
+    public static Player Instance { get { return GetInstance(); } }
+
+    #region Singleton
+    private static Player instance;
+
+    private static Player GetInstance()
+    {
+        if (instance == null)
+        {
+            instance = FindObjectOfType<Player>();
+        }
+        return instance;
+    }
+    #endregion
 
     [SerializeField] private Animator animator;
     [SerializeField] [Range(0, 1)] private float animateThreshold = 0.05f;
@@ -37,6 +53,19 @@ public class PlayerAnimator : MonoBehaviour
     private void OnDisable()
     {
         LookPositionOnPlane.LookPositionUpdatedEvent -= Animate;
+    }
+
+    private void OnTriggerEnter(Collider _otherCollider)
+    {
+        if (_otherCollider.tag == Tags.Obstacle)
+        {
+            Destroy(gameObject);
+            CoroutineHelper.Delay(60, () =>
+            {
+                SceneManager.LoadScene(0);
+            });
+        }
+
     }
 
 }

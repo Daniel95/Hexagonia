@@ -38,9 +38,7 @@ GameObject:
   - component: {fileID: 65741816133731576}
   - component: {fileID: 54209924105857420}
   - component: {fileID: 114895000244077636}
-  - component: {fileID: 114958135377570714}
   - component: {fileID: 114978635711108654}
-  - component: {fileID: 114101958381947170}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -237,21 +235,6 @@ TrailRenderer:
     generateLightingData: 0
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
---- !u!114 &114101958381947170
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1112214052218788}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8fe69ef57303ba448aa213553b02ef80, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 95832091193532650}
-  animateThreshold: 0.05
-  xAnimatorParameter: X
-  yAnimatorParameter: Y
 --- !u!114 &114895000244077636
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -265,17 +248,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   offset: {x: 0, y: 0, z: -3}
---- !u!114 &114958135377570714
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1112214052218788}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6c3a8b4d82a675439e01a6bb90538f1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114978635711108654
 MonoBehaviour:
   m_ObjectHideFlags: 1
