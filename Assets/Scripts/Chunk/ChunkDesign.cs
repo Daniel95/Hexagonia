@@ -59,7 +59,18 @@ public class ChunkDesign : MonoBehaviour
     [ContextMenu("UpdatePoolableObjects")]
     private void UpdatePoolableObjects()
     {
+        if (!gameObject.activeInHierarchy)
+        {
+            Debug.LogError("CAN'T DO THIS IN FOLDER!");
+            return;
+        }
+
         Transform pooled = transform.Find(POOLED_NAME);
+        if (!pooled)
+        {
+            Debug.LogError("THERE IS NO 'POOLED' GAMEOBJECT IN THE CHUNK");
+            return;
+        }
 
         objectsToPool = new List<Transform>();
         foreach (Transform _child in pooled.FirstLayerChildren())
@@ -84,16 +95,29 @@ public class ChunkDesign : MonoBehaviour
     [ContextMenu("UpdateChunkFromPool")]
     private void UpdateChunkFromPool()
     {
+        if (!gameObject.activeInHierarchy)
+        {
+            Debug.LogError("CAN'T DO THIS IN FOLDER!");
+            return;
+        }
+
         Transform pooled = transform.Find(POOLED_NAME);
+
+        if (!pooled)
+        {
+            Debug.LogError("THERE IS NO 'POOLED' GAMEOBJECT IN THE CHUNK");
+            return;
+        }
 
         foreach (Transform _objectToPool in pooled.FirstLayerChildren())
         {
-            ObjectPool.ObjectPoolEntry _objectPoolEntry = ObjectPool.Instance.Entries.Find(x => x.Prefab.name == _objectToPool.name);
+            ObjectPool.ObjectPoolEntry _objectPoolEntry =
+                ObjectPool.Instance.Entries.Find(x => x.Prefab.name == _objectToPool.name);
 
             if (_objectPoolEntry == null)
             {
-                Debug.LogError("GameObject " + _objectToPool.name + " does not exists in pool!", _objectToPool);
-                continue; 
+                Debug.LogError("GAMEOBJECT " + _objectToPool.name + " DOES NOT EXIST IN THE POOL!", _objectToPool);
+                continue;
             }
 
             GameObject _instantiatedGameObject = Instantiate(_objectPoolEntry.Prefab, _objectToPool);
@@ -104,8 +128,9 @@ public class ChunkDesign : MonoBehaviour
             _instantiatedGameObject.transform.rotation = _objectToPool.rotation;
             _instantiatedGameObject.transform.localScale = _objectToPool.localScale;
 
-            DestroyImmediate(_objectToPool.gameObject);
+            Undo.DestroyObjectImmediate(_objectToPool.gameObject);
         }
+
         EditorUtility.SetDirty(this);
     }
 #endif
