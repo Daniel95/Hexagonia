@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityToolbag;
 
 /// <summary>
 /// Repository of commonly used prefabs.
@@ -56,7 +56,7 @@ public class ObjectPool : MonoBehaviour {
 	/// The object prefabs which the pool can handle
 	/// by The amount of objects of each type to buffer.
 	/// </summary>
-	public ObjectPoolEntry[] Entries;
+	[Reorderable] public List<ObjectPoolEntry> Entries;
 
 	/// <summary>
 	/// The pooled objects currently available.
@@ -75,7 +75,7 @@ public class ObjectPool : MonoBehaviour {
 		//We do this because the pool can only support prefabs set to it in the editor,
 		//so we can assume the lists of pooled objects are in the same order as object prefabs in the array
 
-		for (int i = 0; i < Entries.Length; i++)
+		for (int i = 0; i < Entries.Count; i++)
 		{
 			ObjectPoolEntry objectPrefab = Entries[i];
 
@@ -113,7 +113,7 @@ public class ObjectPool : MonoBehaviour {
 	public GameObject GetObjectForType(string objectType, bool onlyPooled)
 	{
 
-		for (int i = 0; i < Entries.Length; i++)
+		for (int i = 0; i < Entries.Count; i++)
 		{
 		    ObjectPoolEntry objectPoolEntry = Entries[i];
             GameObject prefab = objectPoolEntry.Prefab;
@@ -154,7 +154,7 @@ public class ObjectPool : MonoBehaviour {
 	/// </param>
 	public void PoolObject(GameObject obj)
 	{
-		for (int i = 0; i < Entries.Length; i++)
+		for (int i = 0; i < Entries.Count; i++)
 		{
 			if (Entries[i].Prefab.name != obj.name)
 				continue;

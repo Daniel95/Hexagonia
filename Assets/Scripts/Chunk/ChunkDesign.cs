@@ -32,12 +32,24 @@ public class ChunkDesign : MonoBehaviour
 
     private float? length;
 
-	public void DestroyChunk(GameObject _chunk)
+    public List<Vector3> GetCoinLocalPositions()
     {
-        if (_chunk == this)
+        List<Vector3> _randomCoinPositions = new List<Vector3>();
+
+        for (int i = 0; i < amountOfCoins; i++)
         {
-            Destroy(gameObject);
+            Vector3 _coinPosition;
+            do
+            {
+                int _randomCoinPositionIndex = Random.Range(0, coinPositions.Count);
+                _coinPosition = coinPositions[_randomCoinPositionIndex].transform.position;
+            }
+            while (_randomCoinPositions.Contains(_coinPosition));
+
+            _randomCoinPositions.Add(_coinPosition);
         }
+
+        return _randomCoinPositions;
     }
 
     [ContextMenu("UpdatePoolableObjects")]
@@ -61,14 +73,6 @@ public class ChunkDesign : MonoBehaviour
 #endif
     }
 
-    private void Awake()
-	{
-        CoroutineHelper.Delay(2, UpdatePoolableObjects);
-
-
-        InstantiateCoins();
-	}
-
     private float GetLength()
     {
         Renderer _renderer = ground.GetComponent<Renderer>();
@@ -76,37 +80,6 @@ public class ChunkDesign : MonoBehaviour
         float _maxZ = _renderer.bounds.max.z;
         float _length = _maxZ - _minZ;
         return _length;
-    }
-
-    private void InstantiateCoins()
-    {
-		CoinType _coinType = CoinTypeByTimeLibrary.Instance.GetCoinType(LevelProgess.Instance.Timer);
-		GameObject _coinPrefab = CoinPrefabByCoinTypeLibrary.Instance.GetCoinPrefab(_coinType);
-
-        List<int> _randomCoinPositionIndexes = new List<int>();
-
-        for (int i = 0; i < amountOfCoins; i++)
-        {
-            int _randomCoinPositionIndex;
-            do
-            {
-                _randomCoinPositionIndex = Random.Range(0, coinPositions.Count);
-            }
-            while (_randomCoinPositionIndexes.Contains(_randomCoinPositionIndex));
-
-            _randomCoinPositionIndexes.Add(_randomCoinPositionIndex);
-            Instantiate(_coinPrefab, coinPositions[_randomCoinPositionIndex].transform.position, transform.rotation, transform);
-        }
-    }
-
-    private void OnEnable()
-    {
-        ChunkMover.ChunkRemovedEvent += DestroyChunk;
-    }
-
-    private void OnDisable()
-    {
-        ChunkMover.ChunkRemovedEvent -= DestroyChunk;
     }
 
     private void OnValidate()

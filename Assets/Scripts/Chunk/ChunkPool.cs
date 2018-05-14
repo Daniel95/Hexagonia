@@ -103,6 +103,8 @@ public class ChunkPool : MonoBehaviour
             _object.transform.rotation = _transform.rotation;
         }
 
+        SpawnCoins(_chunkDesign, _chunkParent.transform);
+
         if (ChunkSpawnedEvent != null)
         {
             ChunkSpawnedEvent(_chunkParent, _chunkDesign.Length);
@@ -128,6 +130,21 @@ public class ChunkPool : MonoBehaviour
             string _path = CHUNK_PATH + _chunkType + "/";
             List<ChunkDesign> _chunks = Resources.LoadAll<ChunkDesign>(_path).ToList();
             chunkListsByChunkType.Add(_chunkType, _chunks);
+        }
+    }
+
+    private void SpawnCoins(ChunkDesign _chunkDesign, Transform _chunkParent)
+    {
+        List<Vector3> _coinLocalPositions = _chunkDesign.GetCoinLocalPositions();
+
+        CoinType _coinType = CoinTypeByTimeLibrary.Instance.GetCoinType(LevelProgess.Instance.Timer);
+        GameObject _coinPrefab = CoinPrefabByCoinTypeLibrary.Instance.GetCoinPrefab(_coinType);
+
+        foreach (Vector3 _localPosition in _coinLocalPositions)
+        {
+            GameObject _object = ObjectPool.Instance.GetObjectForType(_coinPrefab.name, false);
+            _object.transform.parent = _chunkParent.transform;
+            _object.transform.position = new Vector3(_localPosition.x, _localPosition.y, _localPosition.z + _chunkParent.transform.position.z);
         }
     }
 
