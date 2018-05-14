@@ -24,6 +24,8 @@ public class ResourceBarUI : MonoBehaviour
 	
 	public void UpdateResourceBar()
 	{
+		//resourceBar.transform.localScale = new Vector3(Mathf.Clamp(ResourceValue.Instance.Value, ResourceValue.Instance.minValue, ResourceValue.Instance.maxValue), resourceBar.transform.localScale.y, resourceBar.transform.localScale.z);
+		//resourceBar.transform.localScale = new Vector3(Mathf.MoveTowards(ResourceValue.Instance.Value, ResourceValue.Instance.maxValue, 0.5f), resourceBar.transform.localScale.y, resourceBar.transform.localScale.z);
 		resourceBar.transform.localScale = new Vector3(Mathf.Lerp(ResourceValue.Instance.Value, ResourceValue.Instance.maxValue, 2f * Time.deltaTime), resourceBar.transform.localScale.y, resourceBar.transform.localScale.z);
-	}
+	} 
 }
