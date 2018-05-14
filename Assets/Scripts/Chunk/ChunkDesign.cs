@@ -11,6 +11,7 @@ using UnityEngine;
 [RequireComponent(typeof(Renderer))]
 public class ChunkDesign : MonoBehaviour
 {
+    
     public List<Transform> ObjectsToPool { get { return objectsToPool; } }
 
     public float Length
@@ -24,6 +25,8 @@ public class ChunkDesign : MonoBehaviour
             return (float)length;
         }
     }
+
+    private string POOLED_NAME = "Pooled";
 
     [SerializeField] private List<GameObject> coinPositions;
     [SerializeField] private List<Transform> objectsToPool;
@@ -52,26 +55,60 @@ public class ChunkDesign : MonoBehaviour
         return _randomCoinPositions;
     }
 
+#if UNITY_EDITOR
     [ContextMenu("UpdatePoolableObjects")]
     private void UpdatePoolableObjects()
     {
+        Transform pooled = transform.Find(POOLED_NAME);
+
         objectsToPool = new List<Transform>();
-        foreach (Transform child in transform.AllChildren())
+        foreach (Transform _child in pooled.FirstLayerChildren())
         {
-            foreach (ObjectPool.ObjectPoolEntry objectPoolEntry in ObjectPool.Instance.Entries)
+            foreach (ObjectPool.ObjectPoolEntry _objectPoolEntry in ObjectPool.Instance.Entries)
             {
-                if (objectPoolEntry.Prefab.name == child.name)
+                if (_objectPoolEntry.Prefab.name == _child.name)
                 {
-                    objectsToPool.Add(child);
+                    objectsToPool.Add(_child);
+                    if (_child.name == "Ground")
+                    {
+                        ground = _child.gameObject;
+                    }
+
                     break;
                 }
             }
         }
-
-#if UNITY_EDITOR
         EditorUtility.SetDirty(this);
-#endif
     }
+
+    [ContextMenu("UpdateChunkFromPool")]
+    private void UpdateChunkFromPool()
+    {
+        Transform pooled = transform.Find(POOLED_NAME);
+
+        foreach (Transform _objectToPool in pooled.FirstLayerChildren())
+        {
+            ObjectPool.ObjectPoolEntry _objectPoolEntry = ObjectPool.Instance.Entries.Find(x => x.Prefab.name == _objectToPool.name);
+
+            if (_objectPoolEntry == null)
+            {
+                Debug.LogError("GameObject " + _objectToPool.name + " does not exists in pool!", _objectToPool);
+                continue; 
+            }
+
+            GameObject _instantiatedGameObject = Instantiate(_objectPoolEntry.Prefab, _objectToPool);
+            _instantiatedGameObject.transform.parent = pooled;
+            _instantiatedGameObject.transform.name = _objectPoolEntry.Prefab.name;
+
+            _instantiatedGameObject.transform.position = _objectToPool.position;
+            _instantiatedGameObject.transform.rotation = _objectToPool.rotation;
+            _instantiatedGameObject.transform.localScale = _objectToPool.localScale;
+
+            DestroyImmediate(_objectToPool.gameObject);
+        }
+        EditorUtility.SetDirty(this);
+    }
+#endif
 
     private float GetLength()
     {
