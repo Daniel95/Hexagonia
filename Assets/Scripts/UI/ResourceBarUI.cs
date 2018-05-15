@@ -19,7 +19,7 @@ public class ResourceBarUI : MonoBehaviour
 	}
 	#endregion
 
-	[SerializeField] private Image resourceBar;
+	public Image resourceBar;
 	
 	public void UpdateResourceBar()
 	{

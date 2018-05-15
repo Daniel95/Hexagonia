@@ -18,12 +18,12 @@ public class ResourceValue : MonoBehaviour
     }
     #endregion
 
-    public float Value { get { return value; } }
+    public float Value { get { return resourceValue; } set { resourceValue = value; } }
 
 	public float maxValue = 1f; 
 	public float minValue = 0f; 
 
-	private float value;
+	private float resourceValue;
 	private float waitTime = 0.5f;
 
 	[SerializeField] private float resouceIncreaseOnPickup = 0.3f;
@@ -33,7 +33,7 @@ public class ResourceValue : MonoBehaviour
 
 	private void Awake()
 	{
-		value = 0;
+		resourceValue = 0;
 		ResourceBarUI.Instance.UpdateResourceBar();
 	}
 
@@ -44,10 +44,10 @@ public class ResourceValue : MonoBehaviour
 
 	private IEnumerator DecreaseOverTime()
 	{
-		while(value > minValue)
+		while(resourceValue > minValue)
 		{
 			float _decreaseByFrame = adjustBySpeed * Time.deltaTime;
-			value -= _decreaseByFrame;
+			resourceValue -= _decreaseByFrame;
 			ResourceBarUI.Instance.UpdateResourceBar();
 			yield return null;
 		}
@@ -59,16 +59,16 @@ public class ResourceValue : MonoBehaviour
 
 	private IEnumerator IncreaseOverTime()
 	{		
-		float _newValue = Mathf.Clamp(value + resouceIncreaseOnPickup, minValue, maxValue);
+		float _newValue = Mathf.Clamp(resourceValue + resouceIncreaseOnPickup, minValue, maxValue);
 		
-		while (value < _newValue)
+		while (resourceValue < _newValue)
 		{ 
 			float _increaseByFrame = adjustBySpeed * Time.deltaTime;
-			value += _increaseByFrame;
+			resourceValue += _increaseByFrame;
 			ResourceBarUI.Instance.UpdateResourceBar();
-			
 			yield return null;
 		}
+		Multiplier.Instance.Mutliplier();
 
 		yield return new WaitForSeconds(waitTime);
 
