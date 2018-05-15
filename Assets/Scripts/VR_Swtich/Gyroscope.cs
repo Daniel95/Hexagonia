@@ -16,12 +16,12 @@ public class Gyroscope : MonoBehaviour
             fontSize = 100,
         };
 
-        GUILayout.Label("Acceleration x: " + Input.acceleration.x, _myStyle);
-        //GUILayout.Label("Acceleration y: " + Input.acceleration.y, myStyle);
-        GUILayout.Label("Acceleration z: " + Input.acceleration.z, _myStyle);
-        GUILayout.Label("z: " + zDisplay, _myStyle);
+        //GUILayout.Label("Acceleration x: " + Input.acceleration.x, _myStyle);
+        //GUILayout.Label("Acceleration y: " + Input.acceleration.y, _myStyle);
+        //GUILayout.Label("Acceleration z: " + Input.acceleration.z, _myStyle);
+        //GUILayout.Label("z: " + zDisplay, _myStyle);
     }
-    
+    /*
     private void Update()
     {
         Vector3 _acceleration = Input.acceleration;
@@ -34,6 +34,7 @@ public class Gyroscope : MonoBehaviour
 
         float _z = float.Parse(Math.Round(-_acceleration.z, 1).ToString());
         zDisplay = _z;
-        Camera.main.transform.rotation = Quaternion.Euler(_z, /*acceleration.x * 18*/0, 0);
+        //Camera.main.transform.rotation = Quaternion.Euler(_z, acceleration.x * 180, 0);
     }
+    */
 }

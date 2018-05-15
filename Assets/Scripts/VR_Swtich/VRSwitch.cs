@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.XR;
+using System.Collections;
 
 public class VRSwitch : MonoBehaviour
 {
@@ -10,7 +11,6 @@ public class VRSwitch : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("Switching");
         XRSettings.enabled = false;
     }
 }
