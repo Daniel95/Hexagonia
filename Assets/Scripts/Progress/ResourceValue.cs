@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System;
 
 public class ResourceValue : MonoBehaviour
 {
@@ -21,25 +20,16 @@ public class ResourceValue : MonoBehaviour
 
     public float Value { get { return value; } }
 
-	public float maxValue = 1f; //Maximum Resource Value 
-	public float minValue = 0f; //Minumum Resource Value
+	public float maxValue = 1f; 
+	public float minValue = 0f; 
 
 	private float value;
 	private float waitTime = 0.5f;
 
-	[Space(10)]
 	[SerializeField] private float resouceIncreaseOnPickup = 0.3f;
-
-	[Space(10)]
-	[SerializeField] private float decreaseAmount = 0.1f;
-	[SerializeField] private float decreaseTime = 4f;
-
-	[Space(10)]
-	[SerializeField] private float increaseAmount = 0.1f;
-	[SerializeField] private float increaseTime = 0.5f;
+	[SerializeField] private float adjustBySpeed = 0.1f;
 
 	private Coroutine coroutineIncrease, coroutineDecrease;
-
 
 	private void Awake()
 	{
@@ -49,17 +39,14 @@ public class ResourceValue : MonoBehaviour
 
 	private void OnScoreUpdatedEvent(int _score)
     {
-		coroutineIncrease = StartCoroutine(IncreaseOverTime(increaseAmount, increaseTime));
+		coroutineIncrease = StartCoroutine(IncreaseOverTime());
 	}
 
-	private IEnumerator DecreaseOverTime(float __decrementAmount, float decreaseTime)
+	private IEnumerator DecreaseOverTime()
 	{
-		float _decreaseByTime = __decrementAmount / decreaseTime;
-
-
 		while(value > minValue)
 		{
-			float _decreaseByFrame = _decreaseByTime * Time.deltaTime;
+			float _decreaseByFrame = adjustBySpeed * Time.deltaTime;
 			value -= _decreaseByFrame;
 			ResourceBarUI.Instance.UpdateResourceBar();
 			yield return null;
@@ -70,36 +57,24 @@ public class ResourceValue : MonoBehaviour
 		StopCoroutine(coroutineDecrease);
 	}
 
-	private IEnumerator IncreaseOverTime(float _increaseAmount, float _increaseTime)
-	{
-		float _increaseByTime = _increaseAmount / _increaseTime;
-		
-		float _newValue = value + resouceIncreaseOnPickup;
+	private IEnumerator IncreaseOverTime()
+	{		
+		float _newValue = Mathf.Clamp(value + resouceIncreaseOnPickup, minValue, maxValue);
 		
 		while (value < _newValue)
 		{ 
-			if (value > maxValue)
-			{
-				value = maxValue;
-				ResourceBarUI.Instance.UpdateResourceBar();
-				Debug.Log("MaxValue has been reached: " + value);
-			}
-			else if(value < maxValue)
-			{
-				float _increaseByFrame = _increaseByTime * Time.deltaTime;
-				value += _increaseByFrame;
-				ResourceBarUI.Instance.UpdateResourceBar();
-			}
-
+			float _increaseByFrame = adjustBySpeed * Time.deltaTime;
+			value += _increaseByFrame;
+			ResourceBarUI.Instance.UpdateResourceBar();
+			
 			yield return null;
 		}
 
 		yield return new WaitForSeconds(waitTime);
 
-		coroutineDecrease = StartCoroutine(DecreaseOverTime(decreaseAmount, decreaseTime));
+		coroutineDecrease = StartCoroutine(DecreaseOverTime());
 		StopCoroutine(coroutineIncrease);
 	}
-
 
 	private void OnEnable()
     {
