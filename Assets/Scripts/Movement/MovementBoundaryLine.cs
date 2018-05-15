@@ -11,6 +11,7 @@ public class MovementBoundaryLine : MonoBehaviour {
 
     [SerializeField] private PositionType positionType;
     [SerializeField] [Range(0, 1)] private float threshold = 0.4f;
+    [SerializeField] private float yOffset = 0.2f;
 
     private float movementPlaneBottomYPosition;
     private float movementPlaneTopPosition;
@@ -36,20 +37,20 @@ public class MovementBoundaryLine : MonoBehaviour {
 
     private void Start()
     {
-        Vector3 halfSize = LookPositionOnPlane.Instance.Size / 2;
+        Vector3 halfPlaneSize = LookPositionOnPlane.Instance.Size / 2;
 
         if (positionType == PositionType.Top)
         {
-            transform.position = new Vector3(transform.position.x, LookPositionOnPlane.Instance.transform.position.y + halfSize.y, Player.Instance.transform.position.z);
+            transform.position = new Vector3(transform.position.x, LookPositionOnPlane.Instance.transform.position.y + halfPlaneSize.y + yOffset, transform.position.z);
         }
         else if(positionType == PositionType.Bottom)
         {
-            transform.position = new Vector3(transform.position.x, LookPositionOnPlane.Instance.transform.position.y - halfSize.y, Player.Instance.transform.position.z);
+            transform.position = new Vector3(transform.position.x, LookPositionOnPlane.Instance.transform.position.y - halfPlaneSize.y + yOffset, transform.position.z);
             ratioPositionTypeMultiplier = 1;
         }
 
-        movementPlaneBottomYPosition = LookPositionOnPlane.Instance.transform.position.y - halfSize.y;
-        movementPlaneTopPosition = LookPositionOnPlane.Instance.transform.position.y + halfSize.y;
+        movementPlaneBottomYPosition = LookPositionOnPlane.Instance.transform.position.y - halfPlaneSize.y;
+        movementPlaneTopPosition = LookPositionOnPlane.Instance.transform.position.y + halfPlaneSize.y;
 
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
