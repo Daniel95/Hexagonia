@@ -28,9 +28,12 @@ public class Chunk : MonoBehaviour
 
     private float? length;
 
-	public void DestroyChunk()
+	public void DestroyChunk(Chunk _chunk)
     {
-        Destroy(gameObject);
+        if (_chunk == this)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void Awake()
@@ -70,12 +73,12 @@ public class Chunk : MonoBehaviour
 
     private void OnEnable()
     {
-        ChunkMover.ChunkRemovedEvent += Destroy;
+        ChunkMover.ChunkRemovedEvent += DestroyChunk;
     }
 
     private void OnDisable()
     {
-        ChunkMover.ChunkRemovedEvent -= Destroy;
+        ChunkMover.ChunkRemovedEvent -= DestroyChunk;
     }
 
     private void OnValidate()
