@@ -52,14 +52,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7af4661f09446e3418772b0d410ddd20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amountOfChunks: 5
+  startChunksCount: 4
+  maxActiveChunkCount: 5
   chunksZStartPosition: -90
-  availableChunkPrefabs:
-  - {fileID: 114795842565148934, guid: e3bc473cda1f4de4c9cc6e705e7f47ab, type: 2}
+  startChunkPrefabs:
+  - {fileID: 114748031683125688, guid: 61f665f70da5d244fb1d7da45f101f9d, type: 2}
+  coreChunkPrefabs:
+  - {fileID: 114467002289869018, guid: e3bc473cda1f4de4c9cc6e705e7f47ab, type: 2}
   - {fileID: 114990523725370460, guid: eb1ca3a9f123c8c4bafdc8a93fc05c79, type: 2}
   - {fileID: 114987510365591414, guid: e15581e3ee14cff499bcaf9d5397a3fc, type: 2}
-  - {fileID: 114406739258092420, guid: d601aaed4c4ceef46905bc044cfe59ca, type: 2}
-  - {fileID: 114941395229993256, guid: f45a0f995ac28834a9bb1a78c2c180ec, type: 2}
+  - {fileID: 114445976041122276, guid: d601aaed4c4ceef46905bc044cfe59ca, type: 2}
+  - {fileID: 114108144298769438, guid: f45a0f995ac28834a9bb1a78c2c180ec, type: 2}
 --- !u!114 &114530383592437236
 MonoBehaviour:
   m_ObjectHideFlags: 1

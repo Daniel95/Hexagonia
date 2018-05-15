@@ -9,13 +9,16 @@ using UnityEngine;
 
 public class ChunkMover : MonoBehaviour
 {
-    public static Action<Chunk> ChunkRemovedAction;
+    public static Action<GameObject> ChunkRemovedEvent;
 
     public static ChunkMover Instance { get { return GetInstance(); } }
 
-    public List<Chunk> CurrentChunks()
+    public int ChunkCount
     {
-        return currentChunks;
+        get 
+        {
+            return currentChunks.Count;
+        }
     }
 
     #region Singleton
@@ -36,11 +39,23 @@ public class ChunkMover : MonoBehaviour
     [SerializeField] private float timeForMaximumSpeed = 60;
 
     private float speed;
-    private List<Chunk> currentChunks = new List<Chunk>();
+    private List<ChunkMoverEntry> currentChunks = new List<ChunkMoverEntry>();
 
-	private void Update ()
+    public GameObject GetLastestChunk()
+    {
+        ChunkMoverEntry _chunkMoverEntry = currentChunks[currentChunks.Count - 1];
+        return _chunkMoverEntry.Chunk;
+    }
+
+    public GameObject GetLastestChunk(out float _length)
+    {
+        ChunkMoverEntry _chunkMoverEntry = currentChunks[currentChunks.Count - 1];
+        _length = _chunkMoverEntry.Length;
+        return _chunkMoverEntry.Chunk;
+    }
+
+    private void Update ()
 	{
-        Debug.Log(LevelProgess.Instance.Timer);
         if (speed < maximumSpeed)
 	    {
 	        float _speedOffset = maximumSpeed - minimumSpeed;
@@ -49,40 +64,54 @@ public class ChunkMover : MonoBehaviour
             speed = minimumSpeed + _speedIncrement;
         }
 
-        for (int i = 0; i < currentChunks.Count; i++)
-	    {
-            if (currentChunks[i].transform.position.z <= ChunkPool.Instance.ChunksZStartPosition)
-	        {
-                RemoveChunk();
+        for (int i = currentChunks.Count - 1; i >= 0; i--) 
+        {
+            if (currentChunks[i].Chunk.transform.position.z <= ChunkPool.Instance.ChunksZStartPosition)
+            {
+                RemoveFirstChunk();
             }
-	    }
-
-	    for (int i = 0; i < currentChunks.Count; i++)
-	    {
-	        currentChunks[i].transform.Translate(Vector3.back * (speed * Time.deltaTime));
+            else 
+            {
+                currentChunks[i].Chunk.transform.Translate(Vector3.back * (speed * Time.deltaTime));
+            }
         }
     }
 
-    private void AddChunk(Chunk _chunk)
+    private void AddChunk(GameObject _chunk, float _length)
     {
-        currentChunks.Add(_chunk);
+        ChunkMoverEntry _chunkMoverEntry = new ChunkMoverEntry
+        {
+            Chunk = _chunk,
+            Length = _length,
+        };
+        currentChunks.Add(_chunkMoverEntry);
     }
 
-    private void RemoveChunk()
+    private void RemoveFirstChunk()
     {
-        Chunk _removedChunk = currentChunks[0];
-        ChunkRemovedAction(_removedChunk);
-        currentChunks.Remove(_removedChunk);
+        ChunkMoverEntry _chunkMoverEntry = currentChunks[0];
+        currentChunks.Remove(_chunkMoverEntry);
+
+        if (ChunkRemovedEvent != null) 
+        {
+            ChunkRemovedEvent(_chunkMoverEntry.Chunk);
+        }
     }
 
     private void OnEnable()
     {
-        ChunkPool.ChunkSpawnedAction += AddChunk;
+        ChunkPool.ChunkSpawnedEvent += AddChunk;
     }
 
     private void OnDisable()
     {
-        ChunkPool.ChunkSpawnedAction -= AddChunk;
+        ChunkPool.ChunkSpawnedEvent -= AddChunk;
     }
 
+}
+
+public class ChunkMoverEntry
+{
+    public float Length;
+    public GameObject Chunk;
 }
