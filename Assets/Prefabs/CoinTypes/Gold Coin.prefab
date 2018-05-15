@@ -22,6 +22,8 @@ GameObject:
   - component: {fileID: 33664720615650610}
   - component: {fileID: 23077695442535834}
   - component: {fileID: 95073392766247752}
+  - component: {fileID: 114346603024908546}
+  - component: {fileID: 65042289763098920}
   m_Layer: 0
   m_Name: Gold Coin
   m_TagString: Untagged
@@ -36,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1156151635917336}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 3.24, y: 4.99, z: -5.03}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 50.26759, y: 47.36536, z: 77.508354}
   m_Children: []
   m_Father: {fileID: 0}
@@ -83,6 +85,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1156151635917336}
   m_Mesh: {fileID: 4300000, guid: 9da915d5f6714d04d8e541b08c7b5a64, type: 3}
+--- !u!65 &65042289763098920
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1156151635917336}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.002536677, y: 0.032727864, z: 0.017320514}
+  m_Center: {x: 0, y: 0, z: -4.656614e-10}
 --- !u!95 &95073392766247752
 Animator:
   serializedVersion: 3
@@ -100,3 +114,15 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114346603024908546
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1156151635917336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 804e28709d036b54a8036cda43a8dbf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  value: 50
