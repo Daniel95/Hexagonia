@@ -11,7 +11,7 @@ public class CodeConventions : MonoBehaviour
 
     public static Action Event;
 
-    public CodeConventions Instance
+    public static CodeConventions Instance
     {
         get 
         {
@@ -34,7 +34,7 @@ public class CodeConventions : MonoBehaviour
     #region Singleton
 	private static CodeConventions instance;
 
-	private CodeConventions GetInstance()
+	private static CodeConventions GetInstance()
 	{
 		if (instance == null)
 		{
@@ -42,7 +42,7 @@ public class CodeConventions : MonoBehaviour
 		}
 		return instance;
 	}
-#endregion
+    #endregion
 
 	private const string CONST_TEST = "TEST123";
 
