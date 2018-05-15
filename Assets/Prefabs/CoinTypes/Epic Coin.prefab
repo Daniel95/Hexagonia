@@ -19,11 +19,26 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4886382992008322}
-  - component: {fileID: 33912909660159524}
-  - component: {fileID: 23828915365159502}
-  - component: {fileID: 95496032727750366}
-  - component: {fileID: 65415390729006574}
-  - component: {fileID: 114278627109931140}
+  - component: {fileID: 65164204293302166}
+  - component: {fileID: 114079888769750464}
+  m_Layer: 0
+  m_Name: Epic Coin
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1694212635958198
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4888086600176074}
+  - component: {fileID: 33138062712292056}
+  - component: {fileID: 23424627749387326}
+  - component: {fileID: 95861224618000474}
   m_Layer: 0
   m_Name: Purple Coin 1
   m_TagString: Untagged
@@ -37,19 +52,33 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1421609595325244}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 6.4453754, y: 2.4505453, z: -5.9282236}
-  m_LocalScale: {x: 50.26759, y: 47.36536, z: 77.508354}
-  m_Children: []
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.6974118, y: -6.283388, z: 2.8564773}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4888086600176074}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
---- !u!23 &23828915365159502
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4888086600176074
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1694212635958198}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 50.26765, y: 47.36536, z: 77.508415}
+  m_Children: []
+  m_Father: {fileID: 4886382992008322}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!23 &23424627749387326
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1421609595325244}
+  m_GameObject: {fileID: 1694212635958198}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -78,14 +107,14 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!33 &33912909660159524
+--- !u!33 &33138062712292056
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1421609595325244}
+  m_GameObject: {fileID: 1694212635958198}
   m_Mesh: {fileID: 4300000, guid: 9da915d5f6714d04d8e541b08c7b5a64, type: 3}
---- !u!65 &65415390729006574
+--- !u!65 &65164204293302166
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -95,15 +124,15 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.002536677, y: 0.032727864, z: 0.017320514}
-  m_Center: {x: 0, y: 0, z: -4.656614e-10}
---- !u!95 &95496032727750366
+  m_Size: {x: 1.25, y: 1.25, z: 1.25}
+  m_Center: {x: 0.00016891706, y: 0, z: -7.690093e-10}
+--- !u!95 &95861224618000474
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1421609595325244}
+  m_GameObject: {fileID: 1694212635958198}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 97e97cd221a69e84fa4674c017dd93c6, type: 2}
@@ -114,7 +143,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114278627109931140
+--- !u!114 &114079888769750464
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
