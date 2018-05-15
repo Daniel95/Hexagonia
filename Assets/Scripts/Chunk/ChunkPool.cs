@@ -142,9 +142,9 @@ public class ChunkPool : MonoBehaviour
 
         foreach (Vector3 _localPosition in _coinLocalPositions)
         {
-            GameObject _object = ObjectPool.Instance.GetObjectForType(_coinPrefab.name, false);
-            _object.transform.parent = _chunkParent.transform;
-            _object.transform.position = new Vector3(_localPosition.x, _localPosition.y, _localPosition.z + _chunkParent.transform.position.z);
+            GameObject _coinGameObject = ObjectPool.Instance.GetObjectForType(_coinPrefab.name, false);
+            _coinGameObject.transform.parent = _chunkParent.transform;
+            _coinGameObject.transform.position = new Vector3(_localPosition.x, _localPosition.y, _localPosition.z + _chunkParent.transform.position.z);
         }
     }
 
