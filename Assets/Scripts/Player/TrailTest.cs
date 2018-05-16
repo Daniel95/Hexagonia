@@ -24,11 +24,18 @@ public class TrailTest : MonoBehaviour {
 
         GameObject bottomLeftTrail = Instantiate(prefab, transform);
         trailsByName.Add("bottomLeftTrail", bottomLeftTrail.transform);
+
+        UpdateTrailPositions();
     }
 
-    private void Update() {
+    private void UpdateTrailPositions()
+    {
         List<Vector2Int> pixelCoordinates = spriteRenderer.sprite.texture.GetPixelCoordinatesWithColor(targetColor);
-        if(pixelCoordinates.Count == 0) { return; }
+        if (pixelCoordinates.Count == 0)
+        {
+            Debug.Log("zero");
+            return;
+        }
 
         Vector2 _combinedTopRight = new Vector2();
         int _topRightCount = 0;
@@ -71,7 +78,7 @@ public class TrailTest : MonoBehaviour {
             }
         }
 
-        if(_topRightCount != 0)
+        if (_topRightCount != 0)
         {
             Vector2 averageTopRight = _combinedTopRight / _topRightCount;
             Vector3 topRightWorldPosition = spriteRenderer.PixelCoordinateToWorldPosition(averageTopRight);
@@ -85,14 +92,14 @@ public class TrailTest : MonoBehaviour {
             trailsByName["topLeftTrail"].transform.position = topLeftWorldPosition;
         }
 
-        if(_bottomRightCount != 0)
+        if (_bottomRightCount != 0)
         {
             Vector2 averageBottomRight = _combinedBottomRight / _bottomRightCount;
             Vector3 bottomRightWorldPosition = spriteRenderer.PixelCoordinateToWorldPosition(averageBottomRight);
             trailsByName["bottomRightTrail"].transform.position = bottomRightWorldPosition;
         }
 
-        if(_bottomLeftCount != 0)
+        if (_bottomLeftCount != 0)
         {
             Vector2 averageBottomLeft = _combinedBottomLeft / _bottomLeftCount;
             Vector3 bottomLeftWorldPosition = spriteRenderer.PixelCoordinateToWorldPosition(averageBottomLeft);
