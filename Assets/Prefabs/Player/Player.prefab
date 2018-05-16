@@ -56,7 +56,7 @@ GameObject:
   - component: {fileID: 4073178871234698}
   - component: {fileID: 212037232534344754}
   - component: {fileID: 95832091193532650}
-  - component: {fileID: 114376702485741614}
+  - component: {fileID: 114713299452994984}
   m_Layer: 0
   m_Name: Character_mid
   m_TagString: Untagged
@@ -236,7 +236,7 @@ TrailRenderer:
     generateLightingData: 0
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
---- !u!114 &114376702485741614
+--- !u!114 &114713299452994984
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -244,11 +244,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1768670053967548}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8356d430c8f09e349afefe046760110b, type: 3}
+  m_Script: {fileID: 11500000, guid: edac89854c3d4124b9b7ed3b6534d837, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetColor: {r: 1, g: 0, b: 1, a: 1}
-  prefab: {fileID: 1740064904973816, guid: 79c28323427add541a08bc9cc2ff3ca5, type: 2}
+  trailPrefabByLabelDatas:
+  - Prefab: {fileID: 1740064904973816, guid: 79c28323427add541a08bc9cc2ff3ca5, type: 2}
+    Label: 0
+  - Prefab: {fileID: 1740064904973816, guid: 79c28323427add541a08bc9cc2ff3ca5, type: 2}
+    Label: 1
 --- !u!114 &114895000244077636
 MonoBehaviour:
   m_ObjectHideFlags: 1

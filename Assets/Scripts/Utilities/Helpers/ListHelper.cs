@@ -73,7 +73,14 @@ public static class ListHelper
         return combinedVector;
     }
 
-    public static Vector2 CombineVectors(this List<Vector3> list)
+    public static Vector2Int CombineVectors(this List<Vector2Int> list)
+    {
+        Vector2Int combinedVector = new Vector2Int();
+        list.ForEach(x => combinedVector += x);
+        return combinedVector;
+    }
+
+    public static Vector3 CombineVectors(this List<Vector3> list)
     {
         Vector3 combinedVector = new Vector3();
         list.ForEach(x => combinedVector += x);
@@ -87,7 +94,7 @@ public static class ListHelper
         return center;
     }
 
-    public static Vector2 Average(this List<Vector3> vectors)
+    public static Vector3 Average(this List<Vector3> vectors)
     {
         Vector3 combinedVector = vectors.CombineVectors();
         Vector3 center = combinedVector / vectors.Count;
