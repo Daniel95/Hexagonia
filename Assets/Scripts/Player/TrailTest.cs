@@ -5,32 +5,31 @@ using UnityEngine;
 public class TrailTest : MonoBehaviour {
 
     [SerializeField] private Color targetColor;
+    [SerializeField] private GameObject prefab;
 
+    private Dictionary<string, Transform> trailsByName = new Dictionary<string, Transform>();
     private SpriteRenderer spriteRenderer;
 
     private void Awake() {
         spriteRenderer = GetComponent<SpriteRenderer>();
+
+        GameObject topRightTrail = Instantiate(prefab, transform);
+        trailsByName.Add("topRightTrail", topRightTrail.transform);
+
+        GameObject topLeftTrail = Instantiate(prefab, transform);
+        trailsByName.Add("topLeftTrail", topLeftTrail.transform);
+
+        GameObject bottomRightTrail = Instantiate(prefab, transform);
+        trailsByName.Add("bottomRightTrail", bottomRightTrail.transform);
+
+        GameObject bottomLeftTrail = Instantiate(prefab, transform);
+        trailsByName.Add("bottomLeftTrail", bottomLeftTrail.transform);
     }
 
     private void Update() {
         List<Vector2Int> pixelCoordinates = spriteRenderer.sprite.texture.GetPixelCoordinatesWithColor(targetColor);
         if(pixelCoordinates.Count == 0) { return; }
 
-        Vector2 combinedPixelCoordinates = new Vector2();
-
-        foreach (Vector2Int pixelCoordinate in pixelCoordinates)
-        {
-            combinedPixelCoordinates += pixelCoordinate;
-        }
-
-        float pixelsPerUnit = spriteRenderer.sprite.pixelsPerUnit;
-        Vector2 averagePixelPosition = combinedPixelCoordinates / pixelCoordinates.Count;
-
-        Vector3 worldPosition = spriteRenderer.PixelCoordinateToWorldPosition(averagePixelPosition);
-
-        DebugHelper.SetDebugPosition(worldPosition, "worldPosition");
-
-        /*
         Vector2 _combinedTopRight = new Vector2();
         int _topRightCount = 0;
 
@@ -43,12 +42,12 @@ public class TrailTest : MonoBehaviour {
         Vector2 _combinedBottomLeft = new Vector2();
         int _bottomLeftCount = 0;
 
-        Vector2 _tranformPosition = transform.position;
+        Vector2 center = new Vector2(spriteRenderer.sprite.texture.height, spriteRenderer.sprite.texture.height) / 2;
 
         foreach (Vector2Int _position in pixelCoordinates)
         {
-            bool top = _position.y > _tranformPosition.y;
-            bool right = _position.x > _tranformPosition.x;
+            bool top = _position.y > center.y;
+            bool right = _position.x > center.x;
 
             if (top && right)
             {
@@ -64,7 +63,6 @@ public class TrailTest : MonoBehaviour {
             {
                 _combinedBottomRight += _position;
                 _bottomRightCount++;
-
             }
             else
             {
@@ -73,29 +71,33 @@ public class TrailTest : MonoBehaviour {
             }
         }
 
-        Vector2 averageTopRight = _combinedTopRight / _topRightCount;
-        Vector2 averageTopLeft = _combinedTopLeft / _topLeftCount;
-        Vector2 averageBottomRight = _combinedBottomRight / _bottomRightCount;
-        Vector2 averageBottomLeft = _combinedBottomLeft / _bottomLeftCount;
+        if(_topRightCount != 0)
+        {
+            Vector2 averageTopRight = _combinedTopRight / _topRightCount;
+            Vector3 topRightWorldPosition = spriteRenderer.PixelCoordinateToWorldPosition(averageTopRight);
+            trailsByName["topRightTrail"].transform.position = topRightWorldPosition;
+        }
 
-        DebugHelper.SetDebugPosition(averageTopRight, "averageTopRight");
-        DebugHelper.SetDebugPosition(averageTopLeft, "averageTopLeft");
-        DebugHelper.SetDebugPosition(averageBottomRight, "averageBottomRight");
-        DebugHelper.SetDebugPosition(averageBottomLeft, "averageBottomLeft");
-        */
+        if (_topLeftCount != 0)
+        {
+            Vector2 averageTopLeft = _combinedTopLeft / _topLeftCount;
+            Vector3 topLeftWorldPosition = spriteRenderer.PixelCoordinateToWorldPosition(averageTopLeft);
+            trailsByName["topLeftTrail"].transform.position = topLeftWorldPosition;
+        }
 
+        if(_bottomRightCount != 0)
+        {
+            Vector2 averageBottomRight = _combinedBottomRight / _bottomRightCount;
+            Vector3 bottomRightWorldPosition = spriteRenderer.PixelCoordinateToWorldPosition(averageBottomRight);
+            trailsByName["bottomRightTrail"].transform.position = bottomRightWorldPosition;
+        }
 
-        //List<Vector3> _worldPositionsOfColor = spriteRenderer.GetWorldPositionsOfColor(targetColor);
-
-        //Vector3 average = _worldPositionsOfColor.Average();
-        //Debug.Log(average);
-
-        //DebugHelper.SetDebugPosition(averageTopRight, "averageTopRight");
-        //DebugHelper.SetDebugPosition(averageTopLeft, "averageTopLeft");
-        //DebugHelper.SetDebugPosition(averageBottomRight, "averageBottomRight");
-        //DebugHelper.SetDebugPosition(averageBottomLeft, "averageBottomLeft");
-
-        //Debug.Break();
+        if(_bottomLeftCount != 0)
+        {
+            Vector2 averageBottomLeft = _combinedBottomLeft / _bottomLeftCount;
+            Vector3 bottomLeftWorldPosition = spriteRenderer.PixelCoordinateToWorldPosition(averageBottomLeft);
+            trailsByName["bottomLeftTrail"].transform.position = bottomLeftWorldPosition;
+        }
     }
 
 }
