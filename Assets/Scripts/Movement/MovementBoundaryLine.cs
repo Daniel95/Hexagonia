@@ -12,6 +12,7 @@ public class MovementBoundaryLine : MonoBehaviour {
     [SerializeField] private PositionType positionType;
     [SerializeField] [Range(0, 1)] private float threshold = 0.4f;
     [SerializeField] private float yOffset = 0.2f;
+    [SerializeField] private float maximumOpacity = 0.75f;
 
     private float movementPlaneBottomYPosition;
     private float movementPlaneTopPosition;
@@ -27,12 +28,12 @@ public class MovementBoundaryLine : MonoBehaviour {
         float _ratioToPositionType = Mathf.Abs(_ratioInPlane - ratioPositionTypeMultiplier);
 
         float _currentWithThreshold = Mathf.Clamp01(_ratioToPositionType - threshold);
-        float _maxWithThreshold = 1 - threshold;
+        float _maxWithThreshold = 1f - threshold;
         float _ratioWithThreshold = _currentWithThreshold / _maxWithThreshold;
 
-        Color color = spriteRenderer.color;
-        color.a = _ratioWithThreshold;
-        spriteRenderer.color = color;
+        Color _color = spriteRenderer.material.color;
+        _color.a = _ratioWithThreshold - maximumOpacity;
+        spriteRenderer.material.color = _color;
     }
 
     private void Start()
