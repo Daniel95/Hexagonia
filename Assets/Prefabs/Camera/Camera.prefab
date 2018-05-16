@@ -182,6 +182,7 @@ GameObject:
   - component: {fileID: 92005263265969034}
   - component: {fileID: 81450340841683524}
   - component: {fileID: 114523516456151028}
+  - component: {fileID: 114238028435064986}
   m_Layer: 0
   m_Name: HMD Camera
   m_TagString: MainCamera
@@ -392,6 +393,19 @@ Behaviour:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1996840816067228}
   m_Enabled: 1
+--- !u!114 &114238028435064986
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1996840816067228}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d973937113a200449824818b82974b52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  YSensitivity: 0.9
+  XSensitivity: 1.5
 --- !u!114 &114523516456151028
 MonoBehaviour:
   m_ObjectHideFlags: 1

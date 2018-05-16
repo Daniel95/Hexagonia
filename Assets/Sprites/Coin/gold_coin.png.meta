@@ -1,15 +1,17 @@
 fileFormatVersion: 2
-guid: b275d1ff70c49c749b66e910f871f344
-timeCreated: 1524491455
+guid: 955d4f0c4731e854bb3ffac1f38c7169
+timeCreated: 1525783211
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Coin Design CSP_0
-    21300002: Coin Design CSP_1
-    21300004: Coin Design CSP_2
-    21300006: Coin Design CSP_3
-    21300008: Coin Design CSP_4
-    21300010: Coin Design CSP_5
+    21300000: gold_coin_0
+    21300002: gold_coin_1
+    21300004: gold_coin_2
+    21300006: gold_coin_3
+    21300008: gold_coin_4
+    21300010: gold_coin_5
+    21300012: gold_coin_6
+    21300014: gold_coin_7
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -63,7 +65,7 @@ TextureImporter:
   textureFormatSet: 0
   platformSettings:
   - buildTarget: DefaultTexturePlatform
-    maxTextureSize: 512
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -73,7 +75,7 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
   - buildTarget: Standalone
-    maxTextureSize: 512
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -93,17 +95,7 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
   - buildTarget: Android
-    maxTextureSize: 512
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-  - buildTarget: WebGL
-    maxTextureSize: 512
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -116,13 +108,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Coin Design CSP_0
+      name: gold_coin_0
       rect:
         serializedVersion: 2
-        x: 53
-        y: 139
-        width: 234
-        height: 269
+        x: 84
+        y: 66
+        width: 506
+        height: 581
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -130,13 +122,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Coin Design CSP_1
+      name: gold_coin_1
       rect:
         serializedVersion: 2
-        x: 370
-        y: 139
-        width: 201
-        height: 270
+        x: 714
+        y: 87
+        width: 510
+        height: 584
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -144,13 +136,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Coin Design CSP_2
+      name: gold_coin_2
       rect:
         serializedVersion: 2
-        x: 652
-        y: 139
-        width: 138
-        height: 269
+        x: 1348
+        y: 87
+        width: 503
+        height: 584
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -158,13 +150,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Coin Design CSP_3
+      name: gold_coin_3
       rect:
         serializedVersion: 2
-        x: 897
-        y: 141
-        width: 24
-        height: 268
+        x: 1924
+        y: 87
+        width: 431
+        height: 584
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -172,13 +164,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Coin Design CSP_4
+      name: gold_coin_4
       rect:
         serializedVersion: 2
-        x: 1040
-        y: 139
-        width: 138
-        height: 269
+        x: 2470
+        y: 87
+        width: 264
+        height: 584
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -186,13 +178,41 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Coin Design CSP_5
+      name: gold_coin_5
       rect:
         serializedVersion: 2
-        x: 1283
-        y: 139
-        width: 201
-        height: 270
+        x: 2895
+        y: 87
+        width: 136
+        height: 584
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: gold_coin_6
+      rect:
+        serializedVersion: 2
+        x: 3197
+        y: 87
+        width: 362
+        height: 584
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: gold_coin_7
+      rect:
+        serializedVersion: 2
+        x: 3636
+        y: 87
+        width: 491
+        height: 584
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
