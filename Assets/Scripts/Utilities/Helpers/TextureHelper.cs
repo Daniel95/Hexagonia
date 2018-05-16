@@ -29,15 +29,12 @@ public static class TextureHelper {
         for (int i = 0; i < colors.Length; i++) {
             if (colors[i] == targetColor) {
                 Vector2Int pixelCoordinate = new Vector2Int();
-                pixelCoordinate.y = i % width; 
-                pixelCoordinate.x = i % height;
-
-                //Debug.Log("pixelcoordinate = " + pixelCoordinate);
+                pixelCoordinate.x = i % width;
+                pixelCoordinate.y = (i - pixelCoordinate.x) / width;
 
                 pixelCoordinates.Add(pixelCoordinate);
             }
         }
-        Debug.Log("__________________");
 
         return pixelCoordinates;
     }
@@ -61,6 +58,15 @@ public static class TextureHelper {
         }
 
         return worldPositions;
+    }
+
+    public static Vector3 PixelCoordinateToWorldPosition(this SpriteRenderer spriteRenderer, Vector2 pixelCoordinate)
+    {
+        Vector2 textureSize = new Vector2(spriteRenderer.sprite.texture.width, spriteRenderer.sprite.texture.height);
+        Vector3 localPosition = (pixelCoordinate - (textureSize / 2)) / spriteRenderer.sprite.pixelsPerUnit;
+        Vector3 worldPosition = spriteRenderer.transform.TransformPoint(localPosition);
+
+        return worldPosition;
     }
 
 }
