@@ -23,6 +23,6 @@ public class ResourceBarUI : MonoBehaviour
 	
 	public void UpdateResourceBar()
 	{
-		resourceBar.fillAmount = Mathf.Lerp(ResourceValue.Instance.Value, ResourceValue.Instance.maxValue, 2f * Time.deltaTime);
+		resourceBar.fillAmount = Mathf.Lerp(ResourceValue.Instance.Value, 1, 2f * Time.deltaTime);
 	} 
 }

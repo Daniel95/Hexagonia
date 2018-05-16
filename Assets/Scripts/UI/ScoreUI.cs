@@ -1,12 +1,14 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class ScoreUI : MonoBehaviour {
 
-	[SerializeField] private TextMesh scoreText;
+	[SerializeField] private Text scoreText;
 
 	private void UpdateScore(int _score)
 	{
-		scoreText.text = "" + _score;
+		Debug.Log(scoreText, gameObject);
+		scoreText.text = "Score: " + _score;
 	}
 
 	private void OnEnable()
