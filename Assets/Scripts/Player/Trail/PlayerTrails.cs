@@ -35,7 +35,15 @@ public class PlayerTrails : MonoBehaviour
             {
                 Vector2 _pixelCoordinate = _pixelCoordinates[i];
                 Vector3 _worldPosition = spriteRenderer.PixelCoordinateToWorldPosition(_pixelCoordinate);
-                _trails[i].position = _worldPosition;
+
+                try
+                {
+                    _trails[i].position = _worldPosition;
+
+                } catch
+                {
+                    Debug.Log("Trail " + _trails[i].name + " Error " + _worldPosition);
+                }
             }
         }
     }
@@ -53,6 +61,8 @@ public class PlayerTrails : MonoBehaviour
                 Vector3 _worldPosition = spriteRenderer.PixelCoordinateToWorldPosition(_pixelCoordinate);
 
                 Transform trail = Instantiate(trailPrefabByLabelData.Prefab, transform).transform;
+
+                trail.name = trailPrefabByLabelData.Label + " Trail " + i;
 
                 trail.position = _worldPosition;
 

@@ -19,9 +19,11 @@ public class TargetPixelCoordinatesData
         List<Vector2Int> _pixelCoordinatesWithTargetColor = Sprite.texture.GetPixelCoordinatesWithColor(TargetColor);
         if (_pixelCoordinatesWithTargetColor.Count == 0)
         {
-            Debug.LogWarning("Zero pixelcoordinates found in Sprite " + Sprite.name + " with color " + TargetColor + ".");
+            Debug.LogError("Zero pixelcoordinates found in Sprite " + Sprite.name + " with color " + TargetColor + ".");
             return;
         }
+
+        Debug.Log("Found " + _pixelCoordinatesWithTargetColor.Count + " pixelcoordinates in Sprite " + Sprite.name + " with color " + TargetColor + ".");
 
         switch (AverageType)
         {
@@ -41,15 +43,25 @@ public class TargetPixelCoordinatesData
 
                 GetCornerAverages(_pixelCoordinatesWithTargetColor, out _averageTopRight, out _averageTopLeft, out _averageBottomRight, out _averageBottomLeft);
 
-                TargetPixelCoordinates.Add(_averageTopRight);
-                TargetPixelCoordinates.Add(_averageTopLeft);
-                TargetPixelCoordinates.Add(_averageBottomRight);
-                TargetPixelCoordinates.Add(_averageBottomLeft);
+                if(_averageTopRight != Vector2.zero)
+                {
+                    TargetPixelCoordinates.Add(_averageTopRight);
+                }
+                if (_averageTopLeft != Vector2.zero)
+                {
+                    TargetPixelCoordinates.Add(_averageTopLeft);
+                }
+                if (_averageBottomRight != Vector2.zero)
+                {
+                    TargetPixelCoordinates.Add(_averageBottomRight);
+                }
+                if (_averageBottomLeft != Vector2.zero)
+                {
+                    TargetPixelCoordinates.Add(_averageBottomLeft);
+                }
 
                 break;
         }
-
-        Debug.Log(TargetPixelCoordinates.Count + " pixelcoordinates found in Sprite " + Sprite.name + " with color " + TargetColor + ".");
     }
 
     private void GetCornerAverages(List<Vector2Int> _pixelCoordinates, out Vector2 _averageTopRight, out Vector2 _averageTopLeft, out Vector2 _averageBottomRight, out Vector2 _averageBottomLeft)
@@ -95,10 +107,46 @@ public class TargetPixelCoordinatesData
             }
         }
 
-        _averageTopRight = _combinedTopRight / _topRightCount;
-        _averageTopLeft = _combinedTopLeft / _topLeftCount;
-        _averageBottomRight = _combinedBottomRight / _bottomRightCount;
-        _averageBottomLeft = _combinedBottomLeft / _bottomLeftCount;
+        if (_topRightCount != 0)
+        {
+            _averageTopRight = _combinedTopRight / _topRightCount;
+        }
+        else
+        {
+            _averageTopRight = Vector2.zero;
+            Debug.LogError("topRight pixelcoordinates not found in Sprite " + Sprite.name + " with color " + TargetColor + ".");
+        }
+
+        if (_topLeftCount != 0)
+        {
+            _averageTopLeft = _combinedTopLeft / _topLeftCount;
+        }
+        else
+        {
+            _averageTopLeft = Vector2.zero;
+            Debug.LogError("topLeft pixelcoordinates not found in Sprite " + Sprite.name + " with color " + TargetColor + ".");
+        }
+
+        if (_bottomRightCount != 0)
+        {
+            _averageBottomRight = _combinedBottomRight / _bottomRightCount;
+        }
+        else
+        {
+            _averageBottomRight = Vector2.zero;
+            Debug.LogError("bottomRight pixelcoordinates not found in Sprite " + Sprite.name + " with color " + TargetColor + ".");
+        }
+
+        if (_bottomLeftCount != 0)
+        {
+            _averageBottomLeft = _combinedBottomLeft / _bottomLeftCount;
+        }
+        else
+        {
+            _averageBottomLeft = Vector2.zero;
+            Debug.LogError("bottomLeft pixelcoordinates not found in Sprite " + Sprite.name + " with color " + TargetColor + ".");
+        }
+
     }
 
 }
