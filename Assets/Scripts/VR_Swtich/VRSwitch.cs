@@ -1,16 +1,20 @@
 ﻿using UnityEngine;
 using UnityEngine.XR;
-using System.Collections;
+using System;
 
 public class VRSwitch : MonoBehaviour
 {
-    public void Switch()
-    {
-        XRSettings.enabled = !XRSettings.enabled;
-    }
+    [SerializeField] Gyro gyro;
 
     private void Start()
     {
         XRSettings.enabled = false;
+        gyro.enabled = !XRSettings.enabled;
+    }
+
+    public void Switch()
+    {
+        XRSettings.enabled = !XRSettings.enabled;
+        gyro.enabled = !XRSettings.enabled;
     }
 }
