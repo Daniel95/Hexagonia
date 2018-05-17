@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using System;
 
 /// <summary>
 /// Plays and switches the current playing song
@@ -33,14 +35,19 @@ public class MusicManager : MonoBehaviour
     private AudioClip currentClip;
 
     private bool switching = false;
-    [SerializeField] private List<Song> songList = new List<Song>();
-    
+    private List<Song> currentSongList = new List<Song>();
+
+    [Space(5)]
+
+    [SerializeField] private Songlist[] songlists;
+
     [Space(5)]
 
     [SerializeField] private float fadeTime = .5f;
     
     [Range(0,1)]
     [SerializeField] private float maxVolume = .5f;
+    
 
     //Remove input, is for debug
     private void Update()
@@ -56,10 +63,12 @@ public class MusicManager : MonoBehaviour
             SwitchSong();
     }
 
+    //TODO, add SceneSwitch() To the new sceneswitch
     private void Awake()
     {
         source = GetComponent<AudioSource>();
         source.volume = maxVolume;
+        SceneSwitch();
     }
     
     /// <summary>
@@ -68,7 +77,7 @@ public class MusicManager : MonoBehaviour
     /// <param name="_fade">Depending on this the song fades or switches instantly</param>
     public void SwitchSong(bool _fade = true)
     {
-        if (songList.Count == 0 || switching)
+        if (currentSongList.Count == 0 || switching)
             return;
 
         Song _randomSong = RandomSong();
@@ -142,12 +151,12 @@ public class MusicManager : MonoBehaviour
         
         while (_randomSong == null)
         {
-            Song _potentialSong = songList[Random.Range(0, songList.Count)];
+            Song _potentialSong = currentSongList[UnityEngine.Random.Range(0, currentSongList.Count)];
 
             if (_potentialSong.priority <= _count)
             {
                 _randomSong = _potentialSong;
-                _potentialSong.priority += songList.Count;
+                _potentialSong.priority += currentSongList.Count;
             }
             _count += 1;
 
@@ -162,7 +171,7 @@ public class MusicManager : MonoBehaviour
     /// </summary>
     private void GivePriority()
     {
-        foreach (Song _song in songList)
+        foreach (Song _song in currentSongList)
         {
             if (_song.priority > 0)
             {
@@ -171,4 +180,25 @@ public class MusicManager : MonoBehaviour
         }
     }
 
+    private void SceneSwitch()
+    {
+        string _current = SceneManager.GetActiveScene().ToString();
+
+        foreach (Songlist _list in songlists)
+        {
+            if (_list.Scene.ToString() == _current)
+            {
+                currentSongList = _list.SongList;
+            }
+        }
+
+        SwitchSong();
+    }
+}
+
+[Serializable]
+class Songlist
+{
+    public Scenes Scene;
+    public List<Song> SongList;
 }
