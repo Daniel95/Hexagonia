@@ -10,7 +10,9 @@ public class TargetPixelCoordinatesData
     public TargetPixelCoordinatesLabel Label;
     public Color TargetColor;
     public TargetPixelsCoordinatesType TargetPixelCoordinatesType;
-    [SerializeField] [HideInInspector] public List<SpriteAndPixelCoordinatesPair> spriteAndPixelCoordinatesPairs;
+
+    [Header("Data")]
+    public List<SpriteAndPixelCoordinatesPair> spriteAndPixelCoordinatesPairs;
 
     public List<Vector2> GetTargetPixelCoordinates(Sprite _sprite)
     {
