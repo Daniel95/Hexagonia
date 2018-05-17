@@ -30,8 +30,15 @@ public class Multiplier : MonoBehaviour {
 
 	public void Mutliplier()
 	{
-		if(ResourceBarUI.Instance.resourceBar.fillAmount == 1 && counter == 0)
+		if(coroutine != null)
 		{
+			StopCoroutine(coroutine);
+		}
+
+		if (ResourceBarUI.Instance.resourceBar.fillAmount == 1 && counter == 0)
+		{
+			//StopCoroutine(coroutine);
+
 			multiplier = 2;
 			counter = 1;
 
@@ -40,10 +47,14 @@ public class Multiplier : MonoBehaviour {
 			multiplierText.text = "X" + multiplier;
 			Debug.Log("Multiplier: " + multiplier);
 
-			ResourceBarUI.Instance.resourceBar.fillAmount = 0;
+			//ResourceBarUI.Instance.resourceBar.fillAmount = 0.01f;
+			ResourceValue.Instance.Value = 0f;
+
 		}
 		else if(ResourceBarUI.Instance.resourceBar.fillAmount == 1 && counter == 1)
 		{
+			//StopCoroutine(coroutine);
+
 			multiplier = 3;
 			counter = 2;
 
@@ -52,12 +63,14 @@ public class Multiplier : MonoBehaviour {
 			multiplierText.text = "X" + multiplier;
 			Debug.Log("Multiplier: " + multiplier);
 
-			StopCoroutine(ResetMultiplier());
+			//ResourceBarUI.Instance.resourceBar.fillAmount = 0.01f;
+			ResourceValue.Instance.Value = 0f;
 
-			ResourceBarUI.Instance.resourceBar.fillAmount = 0;
 		}
 		else if (ResourceBarUI.Instance.resourceBar.fillAmount == 1 && counter == 2)
 		{
+			//StopCoroutine(coroutine);
+
 			multiplier = 4;
 			counter = 3;
 
@@ -67,11 +80,12 @@ public class Multiplier : MonoBehaviour {
 
 			Debug.Log("Multiplier: " + multiplier);
 
-			StopCoroutine(ResetMultiplier());
-
-			ResourceBarUI.Instance.resourceBar.fillAmount = 0;
+			//ResourceBarUI.Instance.resourceBar.fillAmount = 0.01f;
+			ResourceValue.Instance.Value = 0f;
 		}
-		
+		ResourceBarUI.Instance.UpdateResourceBar();
+		coroutine = StartCoroutine(ResetMultiplier());
+
 	}
 
 	private IEnumerator ResetMultiplier()
@@ -81,7 +95,6 @@ public class Multiplier : MonoBehaviour {
 		counter = 0; //Reset
 		multiplierText.text = "";
 
-		Debug.Log("Multiplier::ResetMultiplier" + multiplier);
-		Debug.Log("Counter::ResetMultiplier" + counter);
+		coroutine = null;
 	}
 }
