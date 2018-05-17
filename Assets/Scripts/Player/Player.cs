@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using System;
 
 public class Player : MonoBehaviour
 {
+	public static Action PlayerDiedEvent;
 
     public static Player Instance { get { return GetInstance(); } }
 
@@ -60,7 +62,11 @@ public class Player : MonoBehaviour
         if (_otherCollider.tag == Tags.Obstacle)
         {
             Destroy(gameObject);
-            CoroutineHelper.Delay(60, () =>
+			if(PlayerDiedEvent != null)
+			{
+				PlayerDiedEvent();
+			}
+			CoroutineHelper.Delay(60, () =>
             {
                 SceneManager.LoadScene(0);
             });
