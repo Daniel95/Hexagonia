@@ -4,7 +4,6 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Button))]
 public class SceneLoaderButtonListener : MonoBehaviour
 {
-
     [SerializeField] private Scenes scene;
 
     private string levelName;

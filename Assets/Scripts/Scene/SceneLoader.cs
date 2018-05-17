@@ -1,6 +1,10 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
-public class SceneLoader : MonoBehaviour {
+public class SceneLoader : MonoBehaviour
+{
+
+    public static Action SwitchedSceneEvent;
 
     public static SceneLoader Instance { get { return GetInstance(); } }
 
@@ -41,6 +45,10 @@ public class SceneLoader : MonoBehaviour {
             SceneHelper.LoadSceneOverTime(_newScene.ToString());
         }
 
+        if (SwitchedSceneEvent != null)
+        {
+            SwitchedSceneEvent();
+        }
     }
 
     private void Awake()
