@@ -21,19 +21,16 @@ public class Multiplier : MonoBehaviour {
 
 	public int MultiplierGet { get { return multiplier; } }
 
-	[SerializeField] private int multiplier = 1;
+	private int multiplier = 1;
 	[SerializeField] private float resetTime = 2f;
 	[SerializeField] private Text multiplierText;
 	private int counter;
 
-	private Coroutine coroutine;
+	private Coroutine resetCoroutine;
 
 	public void Mutliplier()
 	{
-		if(coroutine != null)
-		{
-			StopCoroutine(coroutine);
-		}
+		ResetCoroutines();
 
 		if (ResourceBarUI.Instance.resourceBar.fillAmount == 1 && counter == 0)
 		{
@@ -42,7 +39,7 @@ public class Multiplier : MonoBehaviour {
 
 			UpdateMultiplierUI();
 
-			ResourceBarUI.Instance.ChangeColor(Color.green);
+			ResourceBarUI.Instance.ChangeColor(Color.grey);
 
 			ResourceValue.Instance.Value = 0f;
 
@@ -65,12 +62,23 @@ public class Multiplier : MonoBehaviour {
 
 			UpdateMultiplierUI();
 
-			ResourceBarUI.Instance.ChangeColor(Color.blue);
+			ResourceBarUI.Instance.ChangeColor(Color.green);
+
+			ResourceValue.Instance.Value = 0f;
+		}
+		else if (ResourceBarUI.Instance.resourceBar.fillAmount == 1 && counter == 3)
+		{
+			multiplier = 5;
+			counter = 4;
+
+			UpdateMultiplierUI();
+
+			ResourceBarUI.Instance.ChangeColor(Color.magenta);
 
 			ResourceValue.Instance.Value = 0f;
 		}
 		ResourceBarUI.Instance.UpdateResourceBar();
-		coroutine = StartCoroutine(ResetMultiplier());
+		resetCoroutine = StartCoroutine(ResetMultiplier());
 
 	}
 
@@ -82,11 +90,29 @@ public class Multiplier : MonoBehaviour {
 		multiplierText.text = "";
 		ResourceBarUI.Instance.ChangeColor(Color.white);
 
-		coroutine = null;
+		resetCoroutine = null;
 	}
 
 	private void UpdateMultiplierUI()
 	{
 		multiplierText.text = "X" + multiplier;
+	}
+
+	private void ResetCoroutines()
+	{
+		if(resetCoroutine != null)
+		{
+			StopCoroutine(resetCoroutine);
+		}
+	}
+
+	private void OnEnable()
+	{
+		Player.PlayerDiedEvent += ResetCoroutines;
+	}
+
+	private void OnDisable()
+	{
+		Player.PlayerDiedEvent -= ResetCoroutines;
 	}
 }

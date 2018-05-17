@@ -25,7 +25,7 @@ public class ResourceValue : MonoBehaviour
 
 	private float resourceValue;
 
-	private float waitTime = 10f;
+	private float waitTime = 1f;
 
 	[SerializeField] private float resouceIncreaseOnPickup = 0.3f;
 	[SerializeField] private float decreaseSpeed, increaseSpeed = 0.5f;
@@ -48,9 +48,10 @@ public class ResourceValue : MonoBehaviour
 	private IEnumerator DecreaseOverTime()
 	{
 		Debug.Log("DecreaseOverTime");
+		float _decreaseByFrame = decreaseSpeed * Time.deltaTime;
+
 		while (resourceValue > MINVALUE)
 		{
-			float _decreaseByFrame = decreaseSpeed * Time.deltaTime;
 			resourceValue -= _decreaseByFrame;
 			ResourceBarUI.Instance.UpdateResourceBar();
 			Debug.Log("DecreaseOverTime::WHILELOOP");
@@ -66,10 +67,10 @@ public class ResourceValue : MonoBehaviour
 	{
 		Debug.Log("IncreaseOverTime");
 		float _newValue = Mathf.Clamp(resourceValue + resouceIncreaseOnPickup, MINVALUE, MAXVALUE);
-		
+		float _increaseByFrame = increaseSpeed * Time.deltaTime;
+
 		while (resourceValue < _newValue)
 		{ 
-			float _increaseByFrame = increaseSpeed * Time.deltaTime;
 			resourceValue += _increaseByFrame;
 			ResourceBarUI.Instance.UpdateResourceBar();
 			Debug.Log("IncreaseOverTime::WHILELOOP");
