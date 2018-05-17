@@ -4,7 +4,7 @@ using UnityEngine;
 public class PlayerTrails : MonoBehaviour
 {
 
-    [SerializeField] private List<TrailPrefabByLabelData> trailPrefabByLabelDatas;
+    [SerializeField] private List<TrailPrefabAndLabelPair> trailPrefabByLabelDatas;
 
     private Dictionary<TargetPixelCoordinatesLabel, List<Transform>> trailsByLabel = new Dictionary<TargetPixelCoordinatesLabel, List<Transform>>();
     private SpriteRenderer spriteRenderer;
@@ -26,7 +26,7 @@ public class PlayerTrails : MonoBehaviour
 
     private void UpdateTrailPositions()
     {
-        foreach (TrailPrefabByLabelData trailPrefabByLabelData in trailPrefabByLabelDatas)
+        foreach (TrailPrefabAndLabelPair trailPrefabByLabelData in trailPrefabByLabelDatas)
         {
             List<Vector2> _pixelCoordinates = TargetPixelCoordinatesDataLibrary.Instance.GetTargetPixelCoordinates(spriteRenderer.sprite, trailPrefabByLabelData.Label);
             List<Transform> _trails = trailsByLabel[trailPrefabByLabelData.Label];
@@ -36,21 +36,14 @@ public class PlayerTrails : MonoBehaviour
                 Vector2 _pixelCoordinate = _pixelCoordinates[i];
                 Vector3 _worldPosition = spriteRenderer.PixelCoordinateToWorldPosition(_pixelCoordinate);
 
-                try
-                {
-                    _trails[i].position = _worldPosition;
-
-                } catch
-                {
-                    Debug.Log("Trail " + _trails[i].name + " Error " + _worldPosition);
-                }
+                _trails[i].position = _worldPosition;
             }
         }
     }
 
     private void InitiateTrailPositions()
     {
-        foreach (TrailPrefabByLabelData trailPrefabByLabelData in trailPrefabByLabelDatas)
+        foreach (TrailPrefabAndLabelPair trailPrefabByLabelData in trailPrefabByLabelDatas)
         {
             List<Vector2> _pixelCoordinates = TargetPixelCoordinatesDataLibrary.Instance.GetTargetPixelCoordinates(spriteRenderer.sprite, trailPrefabByLabelData.Label);
             List<Transform> _trails = new List<Transform>();

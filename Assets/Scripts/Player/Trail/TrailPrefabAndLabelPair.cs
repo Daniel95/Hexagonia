@@ -2,7 +2,7 @@
 using UnityEngine;
 
 [Serializable]
-public class TrailPrefabByLabelData
+public class TrailPrefabAndLabelPair
 {
 
     public GameObject Prefab;

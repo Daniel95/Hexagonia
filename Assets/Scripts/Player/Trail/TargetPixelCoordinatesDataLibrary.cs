@@ -20,16 +20,17 @@ public class TargetPixelCoordinatesDataLibrary : MonoBehaviour
 
     [Reorderable] [SerializeField] private List<TargetPixelCoordinatesData> targetPixelCoordinatesDatas;
 
-    public List<Vector2> GetTargetPixelCoordinates(Sprite sprite, TargetPixelCoordinatesLabel targetPixelCoordinatesLabel)
+    public List<Vector2> GetTargetPixelCoordinates(Sprite _sprite, TargetPixelCoordinatesLabel _targetPixelCoordinatesLabel)
     {
-        TargetPixelCoordinatesData _targetPixelCoordinatesData = targetPixelCoordinatesDatas.Find(x => x.Sprite == sprite && x.Label == targetPixelCoordinatesLabel);
-        if(_targetPixelCoordinatesData == null)
+        TargetPixelCoordinatesData _targetPixelCoordinatesData = targetPixelCoordinatesDatas.Find(x => x.Label == _targetPixelCoordinatesLabel);
+        if (_targetPixelCoordinatesData == null)
         {
-            Debug.LogError("targetPixelCoordinates with sprite " + sprite.name + " and label " + targetPixelCoordinatesLabel + " does not exist");
+            Debug.LogError("TargetPixelCoordinatesData with label " + _targetPixelCoordinatesLabel + " does not exist");
             return null;
         }
 
-        return _targetPixelCoordinatesData.TargetPixelCoordinates;
+        List<Vector2> _targetPixelCoordinates = _targetPixelCoordinatesData.GetTargetPixelCoordinates(_sprite);
+        return _targetPixelCoordinates;
     }
 
     [ContextMenu("Update")]
