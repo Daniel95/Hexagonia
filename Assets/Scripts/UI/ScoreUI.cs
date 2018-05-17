@@ -7,7 +7,6 @@ public class ScoreUI : MonoBehaviour {
 
 	private void UpdateScore(int _score)
 	{
-		Debug.Log(scoreText, gameObject);
 		scoreText.text = "" + _score;
 	}
 

@@ -38,7 +38,7 @@ public class ResourceValue : MonoBehaviour
 		ResourceBarUI.Instance.UpdateResourceBar();
 	}
 
-	private void OnScoreUpdatedEvent(int _score)
+	private void OnStartCoroutine(int _score)
     {
 		coroutineIncrease = StartCoroutine(IncreaseOverTime());
 	}
@@ -77,13 +77,28 @@ public class ResourceValue : MonoBehaviour
 		StopCoroutine(coroutineIncrease);
 	}
 
+	private void StopResources()
+	{
+
+		if(coroutineDecrease != null)
+		{
+			StopCoroutine(coroutineDecrease);
+		}
+		if(coroutineIncrease != null)
+		{
+			StopCoroutine(coroutineIncrease);
+		}
+	}
+
 	private void OnEnable()
     {
-        LevelProgess.ScoreUpdatedEvent += OnScoreUpdatedEvent;
+        LevelProgess.ScoreUpdatedEvent += OnStartCoroutine;
+		Player.PlayerDiedEvent += StopResources;
     }
 
     private void OnDisable()
     {
-        LevelProgess.ScoreUpdatedEvent -= OnScoreUpdatedEvent;
-    }
+        LevelProgess.ScoreUpdatedEvent -= OnStartCoroutine;
+		Player.PlayerDiedEvent -= StopResources;
+	}
 }
