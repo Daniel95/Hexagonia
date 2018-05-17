@@ -39,6 +39,7 @@ public class MusicManager : MonoBehaviour
 
     [Space(5)]
 
+    [SerializeField] private Scenes defaultSongList;
     [SerializeField] private Songlist[] songlists;
 
     [Space(5)]
@@ -68,7 +69,7 @@ public class MusicManager : MonoBehaviour
     {
         source = GetComponent<AudioSource>();
         source.volume = maxVolume;
-        SceneSwitch();
+        SceneSwitch(Scenes.Default, defaultSongList);
     }
     
     /// <summary>
@@ -180,19 +181,29 @@ public class MusicManager : MonoBehaviour
         }
     }
 
-    private void SceneSwitch()
+    private void SceneSwitch(Scenes _oldScene, Scenes _newScene)
     {
-        string _current = SceneManager.GetActiveScene().ToString();
+        Debug.Log("Switching");
+        Debug.Log(_newScene);
 
         foreach (Songlist _list in songlists)
         {
-            if (_list.Scene.ToString() == _current)
+            if (_list.Scene == _newScene)
             {
                 currentSongList = _list.SongList;
             }
         }
 
         SwitchSong();
+    }
+
+    private void OnEnable()
+    {
+        SceneLoader.SwitchedSceneEvent += SceneSwitch;
+    }
+    private void OnDisable()
+    {
+        SceneLoader.SwitchedSceneEvent -= SceneSwitch;
     }
 }
 
