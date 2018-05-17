@@ -49,8 +49,13 @@ public class MusicManager : MonoBehaviour
     [Range(0,1)]
     [SerializeField] private float maxVolume = .5f;
     
-
-    //Remove input, is for debug
+    private void Awake()
+    {
+        source = GetComponent<AudioSource>();
+        source.volume = maxVolume;
+        SceneSwitch(Scenes.Default, defaultSongList);
+    }
+    
     private void Update()
     {
         if (source != null)
@@ -59,19 +64,8 @@ public class MusicManager : MonoBehaviour
             if (source.isPlaying == false)
                 SwitchSong();
         }
-
-        if (Input.GetKeyDown(KeyCode.Space))
-            SwitchSong();
     }
 
-    //TODO, add SceneSwitch() To the new sceneswitch
-    private void Awake()
-    {
-        source = GetComponent<AudioSource>();
-        source.volume = maxVolume;
-        SceneSwitch(Scenes.Default, defaultSongList);
-    }
-    
     /// <summary>
     /// Switches to a random song in the songlist
     /// </summary>
