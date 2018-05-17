@@ -65,10 +65,9 @@ public class LookPositionOnPlane : MonoBehaviour
 
         float _enter = 0.0f;
         Ray _ray = new Ray(_lookOriginPosition, _lookDirection);
-
-        Vector3 _pointOnPlane = new Vector3();
         _hit = plane.Raycast(_ray, out _enter);
 
+        Vector3 _pointOnPlane = new Vector3();
         if (_hit)
         {
             Vector3 _hitPoint = _ray.GetPoint(_enter);
