@@ -5,6 +5,7 @@ public class PlayerTrails : MonoBehaviour
 {
 
     [SerializeField] private List<TrailPrefabAndLabelPair> trailPrefabByLabelDatas;
+    [SerializeField] private Vector3 offset;
 
     private Dictionary<TargetPixelCoordinatesLabel, List<Transform>> trailsByLabel = new Dictionary<TargetPixelCoordinatesLabel, List<Transform>>();
     private SpriteRenderer spriteRenderer;
@@ -36,7 +37,7 @@ public class PlayerTrails : MonoBehaviour
                 Vector2 _pixelCoordinate = _pixelCoordinates[i];
                 Vector3 _worldPosition = spriteRenderer.PixelCoordinateToWorldPosition(_pixelCoordinate);
 
-                _trails[i].position = _worldPosition;
+                _trails[i].position = _worldPosition + offset;
             }
         }
     }
