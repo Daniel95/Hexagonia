@@ -13,8 +13,15 @@ public class Gyro : MonoBehaviour
 
     void Start()
     {
-        Input.gyro.enabled = true;
-        baseGyro = Input.gyro.attitude;
+        if (!VRSwitch.Instance.VrState)
+        {
+            Input.gyro.enabled = true;
+            baseGyro = Input.gyro.attitude;
+        }
+        else
+        {
+            this.enabled = false;
+        }
     }
 
     protected void Update()
