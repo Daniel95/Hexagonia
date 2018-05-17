@@ -20,9 +20,14 @@ public class ResourceBarUI : MonoBehaviour
 	#endregion
 
 	public Image resourceBar;
-	
+
 	public void UpdateResourceBar()
 	{
 		resourceBar.fillAmount = Mathf.Lerp(ResourceValue.Instance.Value, 1, 2f * Time.deltaTime);
 	} 
+
+	public void ChangeColor(Color _color)
+	{
+		resourceBar.color = _color;
+	}
 }

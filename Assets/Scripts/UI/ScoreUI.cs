@@ -8,7 +8,7 @@ public class ScoreUI : MonoBehaviour {
 	private void UpdateScore(int _score)
 	{
 		Debug.Log(scoreText, gameObject);
-		scoreText.text = "Score: " + _score;
+		scoreText.text = "" + _score;
 	}
 
 	private void OnEnable()

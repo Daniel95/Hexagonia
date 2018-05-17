@@ -37,50 +37,36 @@ public class Multiplier : MonoBehaviour {
 
 		if (ResourceBarUI.Instance.resourceBar.fillAmount == 1 && counter == 0)
 		{
-			//StopCoroutine(coroutine);
-
 			multiplier = 2;
 			counter = 1;
 
-			Debug.Log(counter);
-
 			multiplierText.text = "X" + multiplier;
-			Debug.Log("Multiplier: " + multiplier);
 
-			//ResourceBarUI.Instance.resourceBar.fillAmount = 0.01f;
+			ResourceBarUI.Instance.ChangeColor(Color.green);
+
 			ResourceValue.Instance.Value = 0f;
 
 		}
 		else if(ResourceBarUI.Instance.resourceBar.fillAmount == 1 && counter == 1)
 		{
-			//StopCoroutine(coroutine);
-
 			multiplier = 3;
 			counter = 2;
 
-			Debug.Log(counter);
-
 			multiplierText.text = "X" + multiplier;
-			Debug.Log("Multiplier: " + multiplier);
 
-			//ResourceBarUI.Instance.resourceBar.fillAmount = 0.01f;
+			ResourceBarUI.Instance.ChangeColor(Color.yellow);
+
 			ResourceValue.Instance.Value = 0f;
-
 		}
 		else if (ResourceBarUI.Instance.resourceBar.fillAmount == 1 && counter == 2)
 		{
-			//StopCoroutine(coroutine);
-
 			multiplier = 4;
 			counter = 3;
 
-			Debug.Log(counter);
-
 			multiplierText.text = "X" + multiplier;
 
-			Debug.Log("Multiplier: " + multiplier);
+			ResourceBarUI.Instance.ChangeColor(Color.blue);
 
-			//ResourceBarUI.Instance.resourceBar.fillAmount = 0.01f;
 			ResourceValue.Instance.Value = 0f;
 		}
 		ResourceBarUI.Instance.UpdateResourceBar();
@@ -94,6 +80,7 @@ public class Multiplier : MonoBehaviour {
 		multiplier = 1; //Reset
 		counter = 0; //Reset
 		multiplierText.text = "";
+		ResourceBarUI.Instance.ChangeColor(Color.white);
 
 		coroutine = null;
 	}
