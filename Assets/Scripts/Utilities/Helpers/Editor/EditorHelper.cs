@@ -5,6 +5,12 @@ using UnityEngine;
 public static class EditorHelper
 {
 
+    [MenuItem("Tools/Generate Scene List", priority = 800)]
+    public static void GenerateSceneList()
+    {
+        SceneListCheck.Generate();
+    }
+
     [MenuItem("Tools/Delete PlayerPrefs", priority = 800)]
     public static void DeletePlayerPrefs()
     {
