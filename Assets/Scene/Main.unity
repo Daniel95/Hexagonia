@@ -291,7 +291,7 @@ Prefab:
     - target: {fileID: 224327015553456604, guid: d8ca45a4074d8c84991331651e110d3f,
         type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224327015553456604, guid: d8ca45a4074d8c84991331651e110d3f,
         type: 2}
@@ -348,6 +348,29 @@ Prefab:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 79789393}
+    - target: {fileID: 1230582571039224, guid: d8ca45a4074d8c84991331651e110d3f, type: 2}
+      propertyPath: m_Name
+      value: ResourceBarFillAmountFilter
+      objectReference: {fileID: 0}
+    - target: {fileID: 1862882764446034, guid: d8ca45a4074d8c84991331651e110d3f, type: 2}
+      propertyPath: m_Name
+      value: ResourceBarFilter
+      objectReference: {fileID: 0}
+    - target: {fileID: 224401620497771058, guid: d8ca45a4074d8c84991331651e110d3f,
+        type: 2}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 224173802735088084, guid: d8ca45a4074d8c84991331651e110d3f,
+        type: 2}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 224386373265045438, guid: d8ca45a4074d8c84991331651e110d3f,
+        type: 2}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d8ca45a4074d8c84991331651e110d3f, type: 2}
   m_IsPrefabParent: 0
@@ -815,7 +838,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   multiplier: 1
-  resetTime: 4
+  resetTime: 2
   multiplierText: {fileID: 816606842}
 --- !u!114 &2107316888
 MonoBehaviour:
@@ -828,6 +851,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 555e058e9291ff746af814410a34355f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resouceIncreaseOnPickup: 0.6
-  decreaseSpeed: 0.5
+  resouceIncreaseOnPickup: 0.3
+  decreaseSpeed: 0.1
   increaseSpeed: 1

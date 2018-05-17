@@ -40,7 +40,7 @@ public class Multiplier : MonoBehaviour {
 			multiplier = 2;
 			counter = 1;
 
-			multiplierText.text = "X" + multiplier;
+			UpdateMultiplierUI();
 
 			ResourceBarUI.Instance.ChangeColor(Color.green);
 
@@ -52,7 +52,7 @@ public class Multiplier : MonoBehaviour {
 			multiplier = 3;
 			counter = 2;
 
-			multiplierText.text = "X" + multiplier;
+			UpdateMultiplierUI();
 
 			ResourceBarUI.Instance.ChangeColor(Color.yellow);
 
@@ -63,7 +63,7 @@ public class Multiplier : MonoBehaviour {
 			multiplier = 4;
 			counter = 3;
 
-			multiplierText.text = "X" + multiplier;
+			UpdateMultiplierUI();
 
 			ResourceBarUI.Instance.ChangeColor(Color.blue);
 
@@ -83,5 +83,10 @@ public class Multiplier : MonoBehaviour {
 		ResourceBarUI.Instance.ChangeColor(Color.white);
 
 		coroutine = null;
+	}
+
+	private void UpdateMultiplierUI()
+	{
+		multiplierText.text = "X" + multiplier;
 	}
 }

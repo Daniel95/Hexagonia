@@ -41,25 +41,30 @@ public class ResourceValue : MonoBehaviour
 	private void OnStartCoroutine(int _score)
     {
 		coroutineIncrease = StartCoroutine(IncreaseOverTime());
+
+		Debug.Log("OnStartCoroutine");
 	}
 
 	private IEnumerator DecreaseOverTime()
 	{
-		while(resourceValue > MINVALUE)
+		Debug.Log("DecreaseOverTime");
+		while (resourceValue > MINVALUE)
 		{
 			float _decreaseByFrame = decreaseSpeed * Time.deltaTime;
 			resourceValue -= _decreaseByFrame;
 			ResourceBarUI.Instance.UpdateResourceBar();
+			Debug.Log("DecreaseOverTime::WHILELOOP");
 			yield return null;
 		}
 
-		yield return new WaitForSeconds(waitTime);
+		yield return new WaitForSeconds(0);
 
 		StopCoroutine(coroutineDecrease);
 	}
 
 	private IEnumerator IncreaseOverTime()
-	{		
+	{
+		Debug.Log("IncreaseOverTime");
 		float _newValue = Mathf.Clamp(resourceValue + resouceIncreaseOnPickup, MINVALUE, MAXVALUE);
 		
 		while (resourceValue < _newValue)
@@ -67,9 +72,11 @@ public class ResourceValue : MonoBehaviour
 			float _increaseByFrame = increaseSpeed * Time.deltaTime;
 			resourceValue += _increaseByFrame;
 			ResourceBarUI.Instance.UpdateResourceBar();
+			Debug.Log("IncreaseOverTime::WHILELOOP");
 			yield return null;
 		}
 		Multiplier.Instance.Mutliplier();
+		Debug.Log("IncreaseOverTime::MultiplierActivated");
 
 		yield return new WaitForSeconds(waitTime);
 
@@ -79,7 +86,6 @@ public class ResourceValue : MonoBehaviour
 
 	private void StopResources()
 	{
-
 		if(coroutineDecrease != null)
 		{
 			StopCoroutine(coroutineDecrease);
