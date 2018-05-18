@@ -25,7 +25,8 @@ public class ResourceValue : MonoBehaviour
 
 	private float resourceValue;
 
-	private float waitTime = 1f;
+	[Tooltip("Wait for seconds(timeBetweenCoroutines), A higher number increases the wait time.")]
+	[SerializeField] private float timeBetweenCoroutines = 1f;
 
 	[SerializeField] private float resouceIncreaseOnPickup = 0.3f;
 	[SerializeField] private float decreaseSpeed, increaseSpeed = 0.5f;
@@ -40,9 +41,8 @@ public class ResourceValue : MonoBehaviour
 
 	private void OnStartCoroutine(int _score)
     {
-		coroutineIncrease = StartCoroutine(IncreaseOverTime());
-
 		Debug.Log("OnStartCoroutine");
+		coroutineIncrease = StartCoroutine(IncreaseOverTime());
 	}
 
 	private IEnumerator DecreaseOverTime()
@@ -52,37 +52,41 @@ public class ResourceValue : MonoBehaviour
 
 		while (resourceValue > MINVALUE)
 		{
-			resourceValue -= _decreaseByFrame;
-			ResourceBarUI.Instance.UpdateResourceBar();
 			Debug.Log("DecreaseOverTime::WHILELOOP");
+			resourceValue -= _decreaseByFrame;
+			Debug.Log("DecreaseByFrame: " + _decreaseByFrame);
+			ResourceBarUI.Instance.UpdateResourceBar();
 			yield return null;
 		}
 
-		yield return new WaitForSeconds(0);
-
-		StopCoroutine(coroutineDecrease);
+		coroutineDecrease = null;
 	}
 
 	private IEnumerator IncreaseOverTime()
 	{
+		if (coroutineDecrease != null)
+		{
+			StopCoroutine(coroutineDecrease);
+		}
+
 		Debug.Log("IncreaseOverTime");
 		float _newValue = Mathf.Clamp(resourceValue + resouceIncreaseOnPickup, MINVALUE, MAXVALUE);
 		float _increaseByFrame = increaseSpeed * Time.deltaTime;
 
 		while (resourceValue < _newValue)
-		{ 
+		{
+			Debug.Log("IncreaseOverTime::WHILELOOP");
 			resourceValue += _increaseByFrame;
 			ResourceBarUI.Instance.UpdateResourceBar();
-			Debug.Log("IncreaseOverTime::WHILELOOP");
 			yield return null;
 		}
-		Multiplier.Instance.Mutliplier();
 		Debug.Log("IncreaseOverTime::MultiplierActivated");
+		Multiplier.Instance.Mutliplier();
 
-		yield return new WaitForSeconds(waitTime);
+		yield return new WaitForSeconds(timeBetweenCoroutines);
 
 		coroutineDecrease = StartCoroutine(DecreaseOverTime());
-		StopCoroutine(coroutineIncrease);
+		coroutineIncrease = null; 
 	}
 
 	private void StopResources()

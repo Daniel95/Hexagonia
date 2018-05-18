@@ -25,8 +25,15 @@ public class Multiplier : MonoBehaviour {
 	[SerializeField] private float resetTime = 2f;
 	[SerializeField] private Text multiplierText;
 	private int counter;
+	[SerializeField] private Animator anim;
+	[SerializeField] private string animTriggerName = "MultiplierChanged";
 
 	private Coroutine resetCoroutine;
+
+	private void Start()
+	{
+		anim = GetComponent<Animator>();
+	}
 
 	public void Mutliplier()
 	{
@@ -34,6 +41,7 @@ public class Multiplier : MonoBehaviour {
 
 		if (ResourceBarUI.Instance.resourceBar.fillAmount == 1 && counter == 0)
 		{
+			anim.SetTrigger(animTriggerName);
 			multiplier = 2;
 			counter = 1;
 
@@ -46,6 +54,7 @@ public class Multiplier : MonoBehaviour {
 		}
 		else if(ResourceBarUI.Instance.resourceBar.fillAmount == 1 && counter == 1)
 		{
+			anim.SetTrigger(animTriggerName);
 			multiplier = 3;
 			counter = 2;
 
@@ -57,6 +66,8 @@ public class Multiplier : MonoBehaviour {
 		}
 		else if (ResourceBarUI.Instance.resourceBar.fillAmount == 1 && counter == 2)
 		{
+			anim.SetTrigger(animTriggerName);
+
 			multiplier = 4;
 			counter = 3;
 
@@ -68,6 +79,8 @@ public class Multiplier : MonoBehaviour {
 		}
 		else if (ResourceBarUI.Instance.resourceBar.fillAmount == 1 && counter == 3)
 		{
+			anim.SetTrigger(animTriggerName);
+
 			multiplier = 5;
 			counter = 4;
 
