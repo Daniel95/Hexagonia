@@ -30,7 +30,9 @@ public class ResourceValue : MonoBehaviour
 	[Tooltip("Wait for seconds(timeBetweenCoroutines), A higher number increases the wait time.")]
 	[SerializeField] private float timeBetweenCoroutines = 1f;
 	[SerializeField] private float resouceIncreaseOnPickup = 0.3f;
-	[SerializeField] private float decreaseSpeed, increaseSpeed = 0.5f;
+	[SerializeField] private float increaseSpeed = 0.5f;
+	[SerializeField] private float decreaseSpeed = 0.5f;
+	[SerializeField] private float maxValue = 5;
 
 	private float targetValue;
 	private Coroutine coroutineIncrease, coroutineDecrease;
@@ -43,13 +45,21 @@ public class ResourceValue : MonoBehaviour
 
 	private void OnScoreUpdated(int _score)
 	{
-		float _offsetToPreviousTargetValue = targetValue - resourceValue;
-		float _currentTargetValue = resourceValue + _offsetToPreviousTargetValue + resouceIncreaseOnPickup;
+        if(coroutineDecrease == null)
+        {
+            float _newValue = targetValue + resouceIncreaseOnPickup;
+            targetValue = Mathf.Clamp(_newValue, 0, maxValue);
+        }
+        else
+        {
+            targetValue = resourceValue + resouceIncreaseOnPickup;
+        }
 
-		StartIncreaseCoroutine(_currentTargetValue);
+
+        StartIncreaseCoroutine(targetValue);
 	}
 
-	private void StartIncreaseCoroutine(float _increase)
+	private void StartIncreaseCoroutine(float _targetValue)
     {
 		if(coroutineIncrease != null)
 		{
@@ -60,9 +70,9 @@ public class ResourceValue : MonoBehaviour
 			StopCoroutine(coroutineDecrease);
 		}
 
-		coroutineIncrease = StartCoroutine(IncreaseOverTime(_increase, () => {
-			StartDecreaseCoroutine();
-		}));
+		coroutineIncrease = StartCoroutine(IncreaseToTargetValueOverTime(_targetValue, () => {
+            StartDecreaseCoroutine();
+        }));
 	}
 
 	private void StartDecreaseCoroutine()
@@ -75,20 +85,17 @@ public class ResourceValue : MonoBehaviour
 		coroutineDecrease = StartCoroutine(DecreaseToZeroOverTime());
 	}
 
-	private IEnumerator IncreaseOverTime(float _increase, Action onCompleted = null)
+	private IEnumerator IncreaseToTargetValueOverTime(float _targetValue, Action onCompleted = null)
 	{
-		targetValue = resourceValue + _increase;
-
-		while (resourceValue < targetValue)
+		while (resourceValue < _targetValue)
 		{
 			resourceValue += increaseSpeed * Time.deltaTime;
 			ResourceBarUI.Instance.UpdateResourceBar();
 			yield return null;
 		}
 
-		resourceValue = targetValue;
-
-		//yield return new WaitForSeconds(timeBetweenCoroutines);
+		resourceValue = _targetValue;
+		yield return new WaitForSeconds(timeBetweenCoroutines);
 
 		coroutineIncrease = null; 
 		if(onCompleted != null)

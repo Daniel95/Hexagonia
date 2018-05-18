@@ -19,11 +19,11 @@ public class ResourceBarUI : MonoBehaviour
 	}
 	#endregion
 
-	public Image resourceBar;
+	[SerializeField] private Image resourceBar;
 
 	public void UpdateResourceBar()
 	{
-		float _barValue = ResourceValue.Instance.Value - ScoreMultiplier.Instance.Multiplier;
+        float _barValue = ResourceValue.Instance.Value % 1;
 		resourceBar.fillAmount = _barValue;
 	} 
 
