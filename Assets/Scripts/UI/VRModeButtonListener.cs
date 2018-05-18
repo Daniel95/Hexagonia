@@ -5,9 +5,10 @@ using UnityEngine.UI;
 
 public class VRModeButtonListener : MonoBehaviour
 {
-
     private Color defaultColor = Color.white;
     private Color pressedColor = Color.yellow;
+
+    [SerializeField] private GameObject eventSystemGameobject;
 
     [SerializeField] private Image buttonImage;
 
@@ -26,11 +27,17 @@ public class VRModeButtonListener : MonoBehaviour
         if (VRSwitch.Instance.Switch())
         {
             buttonImage.color = pressedColor;
+            eventSystemGameobject.SetActive(false);
+
+
         }
-        else
+        else if(!VRSwitch.Instance.Switch())
         {
             buttonImage.color = defaultColor;
+            eventSystemGameobject.SetActive(true);
+
+
         }
-        
+
     }
 }

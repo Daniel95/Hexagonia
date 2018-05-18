@@ -44,9 +44,9 @@ public class VRSwitch : MonoBehaviour
     private void Start()
     {
         //TODO Set starting VRState according to playerprefs
-        XRSettings.enabled = false;
-        gvrGameObject.SetActive(false);
-        vrState = false;
+        //XRSettings.enabled = false;
+        //gvrGameObject.SetActive(false);
+        //vrState = false;
         //gyro.enabled = !XRSettings.enabled;
     }
 
@@ -54,8 +54,8 @@ public class VRSwitch : MonoBehaviour
     {
         XRSettings.enabled = !XRSettings.enabled;
         vrState = !vrState;
-
-        gvrGameObject.SetActive(vrState);
+        Debug.Log("switched");
+        //gvrGameObject.SetActive(vrState);
 
         if (VRModeSwitchedEvent != null)
         {
