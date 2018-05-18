@@ -30,4 +30,4 @@ public class ResourceBarUI : MonoBehaviour
 	{
 		resourceBar.color = _color;
 	}
-}
+}	

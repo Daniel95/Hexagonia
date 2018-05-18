@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class Multiplier : MonoBehaviour {
 
@@ -25,7 +26,8 @@ public class Multiplier : MonoBehaviour {
 	[SerializeField] private float resetTime = 2f;
 	[SerializeField] private Text multiplierText;
 	private int counter;
-	[SerializeField] private Animator anim;
+	private Animator anim;
+	[SerializeField] private List<Color> multiplierColors = new List<Color>(); 
 	[SerializeField] private string animTriggerName = "MultiplierChanged";
 
 	private Coroutine resetCoroutine;
@@ -38,58 +40,19 @@ public class Multiplier : MonoBehaviour {
 	public void Mutliplier()
 	{
 		ResetCoroutines();
-
-		if (ResourceBarUI.Instance.resourceBar.fillAmount == 1 && counter == 0)
+		if(ResourceBarUI.Instance.resourceBar.fillAmount == 1)
 		{
 			anim.SetTrigger(animTriggerName);
-			multiplier = 2;
-			counter = 1;
+			counter++;
+			multiplier = counter + 1;
 
 			UpdateMultiplierUI();
 
-			ResourceBarUI.Instance.ChangeColor(Color.grey);
-
-			ResourceValue.Instance.Value = 0f;
-
-		}
-		else if(ResourceBarUI.Instance.resourceBar.fillAmount == 1 && counter == 1)
-		{
-			anim.SetTrigger(animTriggerName);
-			multiplier = 3;
-			counter = 2;
-
-			UpdateMultiplierUI();
-
-			ResourceBarUI.Instance.ChangeColor(Color.yellow);
+			ResourceBarUI.Instance.ChangeColor(multiplierColors[counter]);
 
 			ResourceValue.Instance.Value = 0f;
 		}
-		else if (ResourceBarUI.Instance.resourceBar.fillAmount == 1 && counter == 2)
-		{
-			anim.SetTrigger(animTriggerName);
-
-			multiplier = 4;
-			counter = 3;
-
-			UpdateMultiplierUI();
-
-			ResourceBarUI.Instance.ChangeColor(Color.green);
-
-			ResourceValue.Instance.Value = 0f;
-		}
-		else if (ResourceBarUI.Instance.resourceBar.fillAmount == 1 && counter == 3)
-		{
-			anim.SetTrigger(animTriggerName);
-
-			multiplier = 5;
-			counter = 4;
-
-			UpdateMultiplierUI();
-
-			ResourceBarUI.Instance.ChangeColor(Color.magenta);
-
-			ResourceValue.Instance.Value = 0f;
-		}
+		
 		ResourceBarUI.Instance.UpdateResourceBar();
 		resetCoroutine = StartCoroutine(ResetMultiplier());
 
@@ -98,10 +61,10 @@ public class Multiplier : MonoBehaviour {
 	private IEnumerator ResetMultiplier()
 	{
 		yield return new WaitForSeconds(resetTime);
-		multiplier = 1; //Reset
-		counter = 0; //Reset
+		multiplier = 1; 
+		counter = 0; 
 		multiplierText.text = "";
-		ResourceBarUI.Instance.ChangeColor(Color.white);
+		ResourceBarUI.Instance.ChangeColor(multiplierColors[0]);
 
 		resetCoroutine = null;
 	}
