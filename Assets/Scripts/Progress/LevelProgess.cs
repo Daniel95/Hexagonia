@@ -28,7 +28,7 @@ public class LevelProgess : MonoBehaviour {
 
     public void AddScore(int _scoreIncrement)
 	{
-		score += _scoreIncrement * Multiplier.Instance.MultiplierGet;
+		score += _scoreIncrement * ScoreMultiplier.Instance.Multiplier;
 
         if (ScoreUpdatedEvent != null)
 		{

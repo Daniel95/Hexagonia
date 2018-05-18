@@ -23,7 +23,8 @@ public class ResourceBarUI : MonoBehaviour
 
 	public void UpdateResourceBar()
 	{
-		resourceBar.fillAmount = Mathf.Lerp(ResourceValue.Instance.Value, 1, 2f * Time.deltaTime);
+		float _barValue = ResourceValue.Instance.Value - ScoreMultiplier.Instance.Multiplier;
+		resourceBar.fillAmount = _barValue;
 	} 
 
 	public void ChangeColor(Color _color)

@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class ResourceValue : MonoBehaviour
 {
-    public static ResourceValue Instance { get { return GetInstance(); } }
+
+	public static ResourceValue Instance { get { return GetInstance(); } }
 
     #region Instance
     private static ResourceValue instance;
@@ -27,10 +29,10 @@ public class ResourceValue : MonoBehaviour
 
 	[Tooltip("Wait for seconds(timeBetweenCoroutines), A higher number increases the wait time.")]
 	[SerializeField] private float timeBetweenCoroutines = 1f;
-
 	[SerializeField] private float resouceIncreaseOnPickup = 0.3f;
 	[SerializeField] private float decreaseSpeed, increaseSpeed = 0.5f;
 
+	private float targetValue;
 	private Coroutine coroutineIncrease, coroutineDecrease;
 
 	private void Awake()
@@ -39,47 +41,76 @@ public class ResourceValue : MonoBehaviour
 		ResourceBarUI.Instance.UpdateResourceBar();
 	}
 
-	private void OnStartCoroutine(int _score)
-    {
-		coroutineIncrease = StartCoroutine(IncreaseOverTime());
+	private void OnScoreUpdated(int _score)
+	{
+		float _offsetToPreviousTargetValue = targetValue - resourceValue;
+		float _currentTargetValue = resourceValue + _offsetToPreviousTargetValue + resouceIncreaseOnPickup;
+
+		StartIncreaseCoroutine(_currentTargetValue);
 	}
 
-	private IEnumerator DecreaseOverTime()
-	{
-		float _decreaseByFrame = decreaseSpeed * Time.deltaTime;
-
-		while (resourceValue > MINVALUE)
+	private void StartIncreaseCoroutine(float _increase)
+    {
+		if(coroutineIncrease != null)
 		{
-			resourceValue -= _decreaseByFrame;
-			ResourceBarUI.Instance.UpdateResourceBar();
-			yield return null;
+			StopCoroutine(coroutineIncrease);
+		}
+		if (coroutineDecrease != null)
+		{
+			StopCoroutine(coroutineDecrease);
 		}
 
-		coroutineDecrease = null;
+		coroutineIncrease = StartCoroutine(IncreaseOverTime(_increase, () => {
+			StartDecreaseCoroutine();
+		}));
 	}
 
-	private IEnumerator IncreaseOverTime()
+	private void StartDecreaseCoroutine()
 	{
 		if (coroutineDecrease != null)
 		{
 			StopCoroutine(coroutineDecrease);
 		}
 
-		float _newValue = Mathf.Clamp(resourceValue + resouceIncreaseOnPickup, MINVALUE, MAXVALUE);
-		float _increaseByFrame = increaseSpeed * Time.deltaTime;
+		coroutineDecrease = StartCoroutine(DecreaseToZeroOverTime());
+	}
 
-		while (resourceValue < _newValue)
+	private IEnumerator IncreaseOverTime(float _increase, Action onCompleted = null)
+	{
+		targetValue = resourceValue + _increase;
+
+		while (resourceValue < targetValue)
 		{
-			resourceValue += _increaseByFrame;
+			resourceValue += increaseSpeed * Time.deltaTime;
 			ResourceBarUI.Instance.UpdateResourceBar();
 			yield return null;
 		}
-		Multiplier.Instance.Mutliplier();
 
-		yield return new WaitForSeconds(timeBetweenCoroutines);
+		resourceValue = targetValue;
 
-		coroutineDecrease = StartCoroutine(DecreaseOverTime());
+		//yield return new WaitForSeconds(timeBetweenCoroutines);
+
 		coroutineIncrease = null; 
+		if(onCompleted != null)
+		{
+			onCompleted();
+		}
+	}
+
+	private IEnumerator DecreaseToZeroOverTime(Action onCompleted = null)
+	{
+		while (resourceValue > MINVALUE)
+		{
+			resourceValue -= decreaseSpeed * Time.deltaTime;
+			ResourceBarUI.Instance.UpdateResourceBar();
+			yield return null;
+		}
+
+		coroutineDecrease = null;
+		if (onCompleted != null)
+		{
+			onCompleted();
+		}
 	}
 
 	private void StopResources()
@@ -96,13 +127,13 @@ public class ResourceValue : MonoBehaviour
 
 	private void OnEnable()
     {
-        LevelProgess.ScoreUpdatedEvent += OnStartCoroutine;
+        LevelProgess.ScoreUpdatedEvent += OnScoreUpdated;
 		Player.PlayerDiedEvent += StopResources;
     }
 
     private void OnDisable()
     {
-        LevelProgess.ScoreUpdatedEvent -= OnStartCoroutine;
+        LevelProgess.ScoreUpdatedEvent -= OnScoreUpdated;
 		Player.PlayerDiedEvent -= StopResources;
 	}
 }
