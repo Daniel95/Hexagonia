@@ -21,19 +21,16 @@ public class ResourceValue : MonoBehaviour
     #endregion
 
     public float Value { get { return resourceValue; } set { resourceValue = value; } }
-
-	private const float MAXVALUE = 1f; 
-	private const float MINVALUE = 0f; 
-
-	private float resourceValue;
+    public int MaxValue { get { return maxValue; } set { maxValue = value; } }
 
 	[Tooltip("Wait for seconds(timeBetweenCoroutines), A higher number increases the wait time.")]
 	[SerializeField] private float timeBetweenCoroutines = 1f;
 	[SerializeField] private float resouceIncreaseOnPickup = 0.3f;
 	[SerializeField] private float increaseSpeed = 0.5f;
 	[SerializeField] private float decreaseSpeed = 0.5f;
-	[SerializeField] private float maxValue = 5;
+	[SerializeField] private int maxValue = 5;
 
+	private float resourceValue;
 	private float targetValue;
 	private Coroutine coroutineIncrease, coroutineDecrease;
 
@@ -106,7 +103,7 @@ public class ResourceValue : MonoBehaviour
 
 	private IEnumerator DecreaseToZeroOverTime(Action onCompleted = null)
 	{
-		while (resourceValue > MINVALUE)
+		while (resourceValue > 0)
 		{
 			resourceValue -= decreaseSpeed * Time.deltaTime;
 			ResourceBarUI.Instance.UpdateResourceBar();

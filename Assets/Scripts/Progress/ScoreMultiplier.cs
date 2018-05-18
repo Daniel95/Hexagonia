@@ -1,8 +1,7 @@
-﻿using UnityEngine;
-using System.Collections;
-using UnityEngine.UI;
+﻿using System;
 using System.Collections.Generic;
-using System;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class ScoreMultiplier : MonoBehaviour
 {
@@ -32,20 +31,29 @@ public class ScoreMultiplier : MonoBehaviour
 	[SerializeField] private string animTriggerName = "MultiplierChanged";
 
 	private Animator anim;
-	private int multiplier;
-	private Coroutine resetAfterDelayCoroutine;
+	private int multiplier = 1;
+	private int previousMultiplier = 1;
 
-	private void Start()
+	private void Awake()
 	{
 		anim = GetComponent<Animator>();
+        if(multiplierColors.Count != ResourceValue.Instance.MaxValue) {
+            Debug.LogError("multiplierColors should have " + ResourceValue.Instance.MaxValue + " colors!", gameObject);
+        }
 	}
 
 	private void Update()
 	{
-		multiplier = Mathf.FloorToInt(ResourceValue.Instance.Value + 1);
-		ResourceBarUI.Instance.ChangeColor(multiplierColors[0]);
+		multiplier = Mathf.Clamp(Mathf.FloorToInt(ResourceValue.Instance.Value + 1), 1, ResourceValue.Instance.MaxValue);
+        int colorIndex = multiplier - 1;
+        ResourceBarUI.Instance.ChangeColor(multiplierColors[colorIndex]);
 		UpdateMultiplierUI();
-	}
+
+        if(multiplier > previousMultiplier) {
+            anim.SetTrigger(animTriggerName);
+        }
+        previousMultiplier = multiplier;
+    }
 
 	private void UpdateMultiplierUI()
 	{
