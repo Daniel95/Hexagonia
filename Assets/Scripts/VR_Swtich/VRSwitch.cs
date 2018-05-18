@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.XR;
 using System;
+using System.Collections;
 
 public class VRSwitch : MonoBehaviour
 {
@@ -14,13 +15,7 @@ public class VRSwitch : MonoBehaviour
         }
     }
 
-    public bool VrState
-    {
-        get
-        {
-            return vrState;
-        }
-    }
+    public bool VrState { get; private set; }
 
     #region Singleton
     private static VRSwitch instance;
@@ -36,32 +31,56 @@ public class VRSwitch : MonoBehaviour
     #endregion
 
     [SerializeField] private GameObject gvrGameObject;
-
-    //[SerializeField] Gyro gyro;
-    private bool vrState;
+    private bool clicked;
 
 
     private void Start()
     {
         //TODO Set starting VRState according to playerprefs
-        //XRSettings.enabled = false;
-        //gvrGameObject.SetActive(false);
-        //vrState = false;
+
+        XRSettings.enabled = false;
+        gvrGameObject.SetActive(false);
+        VrState = false;
+
         //gyro.enabled = !XRSettings.enabled;
     }
 
     public bool Switch()
     {
-        XRSettings.enabled = !XRSettings.enabled;
-        vrState = !vrState;
-        Debug.Log("switched");
-        //gvrGameObject.SetActive(vrState);
+        
+        if (clicked)
+        {
+            return VrState;
+        }
+        clicked = true;
 
+        XRSettings.enabled = !XRSettings.enabled;
+        VrState = !VrState;
+
+        gvrGameObject.SetActive(VrState);
+
+        if (VrState)
+        {
+            GvrCardboardHelpers.Recenter();
+        }
+
+
+
+        /*
         if (VRModeSwitchedEvent != null)
         {
             VRModeSwitchedEvent(vrState);
         }
+        */
         //gyro.enabled = !XRSettings.enabled;
-        return vrState;
+
+        StartCoroutine(ClickedToFalseAfterFrame());
+        return VrState;
+    }
+
+    private IEnumerator ClickedToFalseAfterFrame()
+    {
+        yield return new WaitForSeconds(0);
+        clicked = false;
     }
 }
