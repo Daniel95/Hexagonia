@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityToolbag;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class TargetPixelCoordinatesDataLibrary : MonoBehaviour
 {
@@ -40,6 +43,10 @@ public class TargetPixelCoordinatesDataLibrary : MonoBehaviour
         {
             _targetPixelCoordinatesData.UpdateTargetPixelCoordinates();
         }
+
+#if UNITY_EDITOR
+        EditorUtility.SetDirty(this);
+#endif
     }
 
 }
