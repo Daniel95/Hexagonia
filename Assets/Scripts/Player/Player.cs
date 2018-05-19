@@ -23,29 +23,39 @@ public class Player : MonoBehaviour
 
     [SerializeField] private Animator animator;
     [SerializeField] [Range(0, 30)] private float animateSensitivity = 3;
+    [SerializeField] [Range(0, 1)] private float turnAnimateThreshold = 0.05f;
 
+    private int middleStateIndex = Animator.StringToHash("middle");
     private int rightStateIndex = Animator.StringToHash("right");
     private int leftStateIndex = Animator.StringToHash("left");
     private int upStateIndex = Animator.StringToHash("up");
     private int downStateIndex = Animator.StringToHash("down");
+    private bool playingMiddleState;
 
     private void Animate(Vector3 _targetPosition)
     {
         Vector2 _delta = _targetPosition - transform.position;
         Vector2 _ratio = VectorHelper.Divide(_delta, (Vector2)LookPositionOnPlane.Instance.Size) * animateSensitivity;
 
-        if(Mathf.Abs(_ratio.x) > Mathf.Abs(_ratio.y)) {
+        float absRatioX = Mathf.Abs(_ratio.x);
+        float absRatioY = Mathf.Abs(_ratio.y);
+        if (absRatioX > turnAnimateThreshold && absRatioX > absRatioY) {
+            playingMiddleState = false;
             if (_ratio.x > 0) {
                 animator.Play(rightStateIndex, 0, _ratio.x);
             } else {
                 animator.Play(leftStateIndex, 0, _ratio.x * -1);
             }
-        } else {
+        } else if(absRatioY > turnAnimateThreshold) {
+            playingMiddleState = false;
             if (_ratio.y > 0) {
-                animator.Play(rightStateIndex, 0, _ratio.y);
+                animator.Play(upStateIndex, 0, _ratio.y);
             } else {
-                animator.Play(leftStateIndex, 0, _ratio.y * -1);
+                animator.Play(downStateIndex, 0, _ratio.y * -1);
             }
+        } else if(!playingMiddleState) {
+            playingMiddleState = true;
+            animator.Play(middleStateIndex);
         }
     }
 
