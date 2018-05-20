@@ -54,7 +54,7 @@ GameObject:
   - component: {fileID: 223422464122558608}
   - component: {fileID: 114095985122109814}
   - component: {fileID: 114735364789465188}
-  - component: {fileID: 114673054265057340}
+  - component: {fileID: 114534458255993462}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -281,6 +281,18 @@ MonoBehaviour:
   - {r: 0.7956388, g: 0.52205884, b: 1, a: 1}
   - {r: 0.94482756, g: 1, b: 0, a: 1}
   animTriggerName: MultiplierChanged
+--- !u!114 &114534458255993462
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1590044281914128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 743e8987e4fe57144b340521536c0768, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offset: {x: 0, y: 0, z: 0}
 --- !u!114 &114584796607601148
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -341,19 +353,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114673054265057340
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1590044281914128}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ec434af7a6fc8040b67e12f138d96b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 10
-  offset: {x: 0, y: 0, z: -3}
 --- !u!114 &114722447934463134
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -652,6 +651,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 48.78, y: 51.07}
+  m_AnchoredPosition: {x: 48.78, y: 51}
   m_SizeDelta: {x: 5, y: 3}
   m_Pivot: {x: 0.5, y: 0.5}

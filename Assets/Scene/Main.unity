@@ -590,16 +590,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 7
       objectReference: {fileID: 0}
-    - target: {fileID: 114530383592437236, guid: 4376c0a2a93f9a84a99c670d8c04025e,
-        type: 2}
-      propertyPath: minimumSpeed
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114530383592437236, guid: 4376c0a2a93f9a84a99c670d8c04025e,
-        type: 2}
-      propertyPath: maximumSpeed
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4376c0a2a93f9a84a99c670d8c04025e, type: 2}
   m_IsPrefabParent: 0
@@ -797,24 +787,3 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 74b86f006deb21745ad4de2d7e9b7a25, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &2107316886 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1806420664186640, guid: 74b86f006deb21745ad4de2d7e9b7a25,
-    type: 2}
-  m_PrefabInternal: {fileID: 2107316885}
---- !u!114 &2107316888
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2107316886}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 555e058e9291ff746af814410a34355f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timeBetweenCoroutines: 0.1
-  resouceIncreaseOnPickup: 0.4
-  increaseSpeed: 0.5
-  decreaseSpeed: 0.1
-  maxValue: 5
