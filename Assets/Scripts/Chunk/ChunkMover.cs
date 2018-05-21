@@ -34,11 +34,13 @@ public class ChunkMover : MonoBehaviour
     }
     #endregion
 
-    [SerializeField] private float minimumSpeed = 15;
-    [SerializeField] private float maximumSpeed = 35;
+    [SerializeField] private float minSpeed = 15;
+    [SerializeField] private float maxSpeed = 35;
     [SerializeField] private float timeForMaximumSpeed = 60;
 
+    private bool maxTimeReached;
     private float speed;
+    private float speedRange;
     private List<ChunkMoverEntry> currentChunks = new List<ChunkMoverEntry>();
 
     public GameObject GetLastestChunk()
@@ -56,12 +58,15 @@ public class ChunkMover : MonoBehaviour
 
     private void Update ()
 	{
-        if (speed < maximumSpeed)
+        if (!maxTimeReached)
 	    {
-	        float _speedOffset = maximumSpeed - minimumSpeed;
+	        float _speedOffset = maxSpeed - minSpeed;
 	        float _speedTimeMultiplier = LevelProgess.Instance.Timer / timeForMaximumSpeed;
-	        float _speedIncrement = _speedOffset * _speedTimeMultiplier;
-            speed = minimumSpeed + _speedIncrement;
+            maxTimeReached = _speedTimeMultiplier >= 1;
+
+	        float _speedTimeIncrement = speedRange * _speedTimeMultiplier;
+            float _speedResourceIncrement = speedRange * ResourceValue.Instance.ResourceRatio;
+            speed = Mathf.Clamp(minSpeed + _speedTimeIncrement + _speedResourceIncrement, 0, maxSpeed);
         }
 
         for (int i = currentChunks.Count - 1; i >= 0; i--) 
@@ -96,6 +101,11 @@ public class ChunkMover : MonoBehaviour
         {
             ChunkRemovedEvent(_chunkMoverEntry.Chunk);
         }
+    }
+
+    private void Awake() 
+    {
+        speedRange = maxSpeed - minSpeed;
     }
 
     private void OnEnable()

@@ -22,8 +22,9 @@ public class ResourceValue : MonoBehaviour
 
     public float Value { get { return resourceValue; } set { resourceValue = value; } }
     public int MaxValue { get { return maxValue; } set { maxValue = value; } }
+    public float ResourceRatio { get { return resourceValue / maxValue; } }
 
-	[Tooltip("Wait for seconds(timeBetweenCoroutines), A higher number increases the wait time.")]
+    [Tooltip("Wait for seconds(timeBetweenCoroutines), A higher number increases the wait time.")]
 	[SerializeField] private float timeBetweenCoroutines = 1f;
 	[SerializeField] private float resouceIncreaseOnPickup = 0.3f;
 	[SerializeField] private float increaseSpeed = 0.5f;
