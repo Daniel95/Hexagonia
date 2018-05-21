@@ -9,7 +9,7 @@ public class DebugLibrary : MonoBehaviour
 
     private static DebugLibrary instance;
 
-    private const string DEBUG_LIBRARY_PATH = "DebugLibrary";
+    private const string DEBUG_LIBRARY_PATH = "Debug/DebugLibrary";
 
     private static DebugLibrary GetInstance()
     {
