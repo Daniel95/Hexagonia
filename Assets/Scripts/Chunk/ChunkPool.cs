@@ -137,7 +137,7 @@ public class ChunkPool : MonoBehaviour
     {
         List<Vector3> _coinLocalPositions = _chunkDesign.GetCoinLocalPositions();
 
-        CoinType _coinType = CoinTypeByTimeLibrary.Instance.GetCoinType(LevelProgess.Instance.Timer);
+        CoinType _coinType = CoinSpawnChancesByTimeLibrary.Instance.GetCoinTypesToSpawn(LevelProgess.Instance.Timer);
         GameObject _coinPrefab = CoinPrefabByCoinTypeLibrary.Instance.GetCoinPrefab(_coinType);
 
         foreach (Vector3 _localPosition in _coinLocalPositions)
