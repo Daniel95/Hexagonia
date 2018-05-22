@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityToolbag;
 
@@ -9,7 +8,7 @@ public class CoinSpawnChancesByTimeLibrary : MonoBehaviour
 
 	public static CoinSpawnChancesByTimeLibrary Instance { get { return GetInstance(); } }
 
-	private const string TIME_BY_COINTYPE_LIBRARY_PATH = "TimeLibrary";
+	private const string COIN_SPAWN_CHANCES_BY_TIME_LIBRARY = "CoinSpawnChancesByTimeLibrary";
 
 	#region Singleton
 	private static CoinSpawnChancesByTimeLibrary instance;
@@ -18,7 +17,7 @@ public class CoinSpawnChancesByTimeLibrary : MonoBehaviour
 	{
 		if (instance == null)
 		{
-			instance = Resources.Load<CoinSpawnChancesByTimeLibrary>(TIME_BY_COINTYPE_LIBRARY_PATH);
+			instance = Resources.Load<CoinSpawnChancesByTimeLibrary>(COIN_SPAWN_CHANCES_BY_TIME_LIBRARY);
 		}
 		return instance;
 	}
@@ -32,11 +31,23 @@ public class CoinSpawnChancesByTimeLibrary : MonoBehaviour
 
         for (int i = 0; i < coinTypeBySpawnChancesByTimePairs.Count; i++)
 		{
-			if (coinTypeBySpawnChancesByTimePairs[i].Time >= _time)
-			{
-                _coinTypeBySpawnChancesByTimePair = coinTypeBySpawnChancesByTimePairs[i];
-				break;
-			}
+            CoinTypeBySpawnChancesByTimePair _currentCoinTypeBySpawnChancesByTimePair = coinTypeBySpawnChancesByTimePairs[i];
+
+            if (i >= coinTypeBySpawnChancesByTimePairs.Count - 1)
+            {
+                _coinTypeBySpawnChancesByTimePair = _currentCoinTypeBySpawnChancesByTimePair;
+            }
+            else
+            {
+                float _currentTime = _currentCoinTypeBySpawnChancesByTimePair.Time;
+                float _nextTime = coinTypeBySpawnChancesByTimePairs[i + 1].Time;
+
+                if (_time >= _currentTime && _time < _nextTime)
+                {
+                    _coinTypeBySpawnChancesByTimePair = _currentCoinTypeBySpawnChancesByTimePair;
+                    break;
+                }
+            }
 		}
 
         List<CoinType> _coinTypes = new List<CoinType>();
@@ -58,7 +69,7 @@ public class CoinSpawnChancesByTimeLibrary : MonoBehaviour
             float _combinedChance = 0;
 
             CoinTypeBySpawnChancesByTimePair _coinTypeBySpawnChancesByTimePair = coinTypeBySpawnChancesByTimePairs[i];
-            _coinTypeBySpawnChancesByTimePair.CoinTypeBySpawnChancePair.ForEach(x => _combinedChance += x.Chance);
+            _coinTypeBySpawnChancesByTimePair.CoinTypeBySpawnChancePairs.ForEach(x => _combinedChance += x.Chance);
 
             if (_combinedChance != 1)
             {

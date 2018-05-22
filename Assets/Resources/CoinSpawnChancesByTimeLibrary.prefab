@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4547030116368370}
   - component: {fileID: 114742732372710176}
   m_Layer: 0
-  m_Name: TimeLibrary
+  m_Name: CoinSpawnChancesByTimeLibrary
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -51,14 +51,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52469e7f061733f4fac0319a10cf907a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeTypeValues:
+  coinTypeBySpawnChancesByTimePairs:
+  - Time: 0
+    CoinTypeBySpawnChancePairs:
+    - Chance: 0.9
+      CoinType: 0
+    - Chance: 0.1
+      CoinType: 1
   - Time: 15
-    CoinType: 0
+    CoinTypeBySpawnChancePairs:
+    - Chance: 0.7
+      CoinType: 0
+    - Chance: 0.2
+      CoinType: 1
+    - Chance: 0.1
+      CoinType: 2
   - Time: 30
-    CoinType: 1
+    CoinTypeBySpawnChancePairs:
+    - Chance: 0.55
+      CoinType: 0
+    - Chance: 0.25
+      CoinType: 1
+    - Chance: 0.15
+      CoinType: 2
+    - Chance: 0.05
+      CoinType: 3
   - Time: 45
-    CoinType: 2
+    CoinTypeBySpawnChancePairs:
+    - Chance: 0.4
+      CoinType: 0
+    - Chance: 0.3
+      CoinType: 1
+    - Chance: 0.15
+      CoinType: 2
+    - Chance: 0.1
+      CoinType: 3
+    - Chance: 0.05
+      CoinType: 4
   - Time: 60
-    CoinType: 3
-  - Time: 75
-    CoinType: 4
+    CoinTypeBySpawnChancePairs:
+    - Chance: 0.25
+      CoinType: 0
+    - Chance: 0.3
+      CoinType: 1
+    - Chance: 0.2
+      CoinType: 2
+    - Chance: 0.15
+      CoinType: 3
+    - Chance: 0.1
+      CoinType: 4

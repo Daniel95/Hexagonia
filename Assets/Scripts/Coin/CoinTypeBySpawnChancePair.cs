@@ -1,6 +1,8 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
-public class CoinTypeBySpawnChancePair : MonoBehaviour
+[Serializable]
+public class CoinTypeBySpawnChancePair
 {
 
     public float Chance;
