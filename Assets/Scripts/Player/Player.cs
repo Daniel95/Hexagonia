@@ -25,6 +25,7 @@ public class Player : MonoBehaviour
     [SerializeField] [Range(0, 1)] private float animateThreshold = 0.05f;
     [SerializeField] private string xAnimatorParameter = "X";
     [SerializeField] private string yAnimatorParameter = "Y";
+    [SerializeField] private GameObject gameOverUI;
 
     private void Animate(Vector3 _targetPosition)
     {
@@ -61,15 +62,13 @@ public class Player : MonoBehaviour
     {
         if (_otherCollider.tag == Tags.Obstacle)
         {
-            Destroy(gameObject);
+            LookPositionOnPlane.Instance.enabled = false;
+
 			if(PlayerDiedEvent != null)
 			{
 				PlayerDiedEvent();
 			}
-			CoroutineHelper.Delay(60, () =>
-            {
-                SceneManager.LoadScene(0);
-            });
+            Destroy(gameObject);
         }
     }
 
