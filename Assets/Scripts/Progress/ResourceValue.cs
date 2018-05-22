@@ -28,7 +28,8 @@ public class ResourceValue : MonoBehaviour
 	[SerializeField] private float timeBetweenCoroutines = 1f;
 	[SerializeField] private float resouceIncreaseOnPickup = 0.3f;
 	[SerializeField] private float increaseSpeed = 0.5f;
-	[SerializeField] private float decreaseSpeed = 0.5f;
+	[SerializeField] private float minDecreaseSpeed = 0.5f;
+	[SerializeField] private float maxDecreaseSpeed = 1f;
 	[SerializeField] private int maxValue = 5;
 
 	private float resourceValue;
@@ -43,15 +44,8 @@ public class ResourceValue : MonoBehaviour
 
 	private void OnScoreUpdated(int _score)
 	{
-        if(coroutineDecrease == null)
-        {
-            float _newValue = targetValue + resouceIncreaseOnPickup;
-            targetValue = Mathf.Clamp(_newValue, 0, maxValue);
-        }
-        else
-        {
-            targetValue = resourceValue + resouceIncreaseOnPickup;
-        }
+			float _newValue = targetValue + resouceIncreaseOnPickup;
+			targetValue = Mathf.Clamp(_newValue, 0, maxValue);
 
 
         StartIncreaseCoroutine(targetValue);
@@ -104,9 +98,14 @@ public class ResourceValue : MonoBehaviour
 
 	private IEnumerator DecreaseToZeroOverTime(Action onCompleted = null)
 	{
+		float _decreaseRange = maxDecreaseSpeed - minDecreaseSpeed;
+
 		while (resourceValue > 0)
 		{
-			resourceValue -= decreaseSpeed * Time.deltaTime;
+			float _decreaseSpeed = minDecreaseSpeed + (_decreaseRange * ResourceRatio);
+			resourceValue -= _decreaseSpeed * Time.deltaTime;
+			targetValue = resourceValue;
+
 			ResourceBarUI.Instance.UpdateResourceBar();
 			yield return null;
 		}
