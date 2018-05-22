@@ -1,7 +1,9 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
-public class SmoothPlaneMovement3D : MonoBehaviour
+public class PlayerSmoothPlaneMovement : MonoBehaviour
 {
+    public static Action<Vector3> OnMoved;
 
     [SerializeField] [Range(0, 20)] private float speed = 0.3f;
     [SerializeField] private Vector3 offset;
@@ -20,6 +22,10 @@ public class SmoothPlaneMovement3D : MonoBehaviour
 
         Vector3 positionIncrement = _direction * (_distance * deltaSpeed);
         transform.position += positionIncrement;
+
+        if (OnMoved != null) {
+            OnMoved(transform.position);
+        }
     }
 
     private void OnEnable()

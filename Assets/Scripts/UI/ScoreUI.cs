@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class ScoreUI : MonoBehaviour {
 
-	[SerializeField] private TextMesh scoreText;
+	[SerializeField] private Text scoreText;
 
 	private void UpdateScore(int _score)
 	{

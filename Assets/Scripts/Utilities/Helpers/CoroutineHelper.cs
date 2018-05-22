@@ -19,10 +19,15 @@ public class CoroutineHelper : MonoBehaviour
 
     public static void Delay(int frames, Action onDelayed)
     {
-        GetInstance().StartLocalCoroutine(GetInstance().DelayOverTime(onDelayed, frames));
+        GetInstance().StartLocalCoroutine(GetInstance().DelayOverFrames(onDelayed, frames));
     }
 
-    public Coroutine StartLocalCoroutine(IEnumerator routine)
+	public static void Delay(float time, Action onDelayed)
+	{
+		GetInstance().StartLocalCoroutine(GetInstance().DelayOverTime(onDelayed, time));
+	}
+
+	public Coroutine StartLocalCoroutine(IEnumerator routine)
     {
         return StartCoroutine(routine);
     }
@@ -42,7 +47,7 @@ public class CoroutineHelper : MonoBehaviour
         return instance;
     }
 
-    private IEnumerator DelayOverTime(Action onDelayed, int frames)
+    private IEnumerator DelayOverFrames(Action onDelayed, int frames)
     {
         for (int i = 0; i < frames; i++)
         {
@@ -54,5 +59,11 @@ public class CoroutineHelper : MonoBehaviour
             onDelayed();
         }
     }
+
+	private IEnumerator DelayOverTime(Action onDelayed, float time)
+	{
+		yield return new WaitForSeconds(time);
+		onDelayed();
+	}
 
 }
