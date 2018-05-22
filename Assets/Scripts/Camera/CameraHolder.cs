@@ -49,6 +49,9 @@ public class CameraHolder : MonoBehaviour
     {
         mainCameraGameObject.transform.parent.parent = defaultCameraHolderTransform;
 
+        mainCameraGameObject.transform.position = Vector3.zero;
+        mainCameraGameObject.transform.parent.transform.position = Vector3.zero;
+
         postProcessingBehaviour.enabled = false;
         gyro.enabled = false;
     }
