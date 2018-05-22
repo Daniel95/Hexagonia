@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,10 +7,20 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Button))]
 public class VRModeButtonListener : GazeButton
 {
+    public static Action InitializedEvent;
+
     private readonly Color defaultColor = Color.white;
     private readonly Color pressedColor = Color.yellow;
 
     [SerializeField] private GameObject eventSystemGameobject;
+
+    private void Start()
+    {
+        if (InitializedEvent != null)
+        {
+            InitializedEvent();
+        }
+    }
 
     protected override void OnGazeFilled()
     {
@@ -28,6 +39,17 @@ public class VRModeButtonListener : GazeButton
             buttonImage.color = defaultColor;
             eventSystemGameobject.SetActive(true);
         }
+    }
+
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        VRSwitch.VRModeSwitchedEvent += OnClick;
+    }
+    protected override void OnDisable()
+    {
+        base.OnDisable();
+        VRSwitch.VRModeSwitchedEvent -= OnClick;
     }
 
     

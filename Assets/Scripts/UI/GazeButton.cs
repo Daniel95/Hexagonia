@@ -16,7 +16,7 @@ public class GazeButton : MonoBehaviour {
 
     private void StartGazeHover(GameObject _hoveredGameObject)
     {
-        Debug.Log(_hoveredGameObject);
+        //Debug.Log(_hoveredGameObject.transform.parent + " " + buttonImage.gameObject.transform.parent);
         if (_hoveredGameObject == buttonImage.gameObject)
         {
             increaseGazeFillAmountOverTimeCoroutine = StartCoroutine(IncreaseGazeFillAmountOverTime());
@@ -45,13 +45,13 @@ public class GazeButton : MonoBehaviour {
         increaseGazeFillAmountOverTimeCoroutine = null;
     }
 
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
         GvrReticlePointer.OnButtonEnterEvent += StartGazeHover;
         GvrReticlePointer.OnButtonExitEvent += StopGazeHover;
     }
 
-    private void OnDisable()
+    protected virtual void OnDisable()
     {
         GvrReticlePointer.OnButtonEnterEvent -= StartGazeHover;
         GvrReticlePointer.OnButtonExitEvent -= StopGazeHover;
