@@ -32,21 +32,20 @@ public class ResourceValue : MonoBehaviour
 	[SerializeField] private float maxDecreaseSpeed = 1f;
 	[SerializeField] private int maxValue = 5;
 
-	private float resourceValue;
+    private float resourceValue;
 	private float targetValue;
 	private Coroutine coroutineIncrease, coroutineDecrease;
 
 	private void Awake()
 	{
 		resourceValue = 0;
-		ResourceBarUI.Instance.UpdateResourceBar();
+        ResourceBarUI.Instance.UpdateResourceBar();
 	}
 
 	private void OnScoreUpdated(int _score)
 	{
-			float _newValue = targetValue + resouceIncreaseOnPickup;
-			targetValue = Mathf.Clamp(_newValue, 0, maxValue);
-
+		float _newValue = targetValue + resouceIncreaseOnPickup;
+		targetValue = Mathf.Clamp(_newValue, 0, maxValue);
 
         StartIncreaseCoroutine(targetValue);
 	}
