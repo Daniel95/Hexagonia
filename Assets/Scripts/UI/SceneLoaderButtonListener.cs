@@ -2,33 +2,17 @@
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Button))]
-public class SceneLoaderButtonListener : MonoBehaviour
+public class SceneLoaderButtonListener : GazeButton
 {
     [SerializeField] private Scenes scene;
 
-    private string levelName;
+    protected override void OnGazeFilled()
+    {
+        OnClick();
+    }
 
-    private Button button;
-
-    private void OnClick()
+    public void OnClick()
     {
         SceneLoader.Instance.SwitchScene(scene);
     }
-
-    public void SetInteractable(bool interactable)
-    {
-        button.interactable = interactable;
-    }
-
-    private void OnEnable()
-    {
-        button = GetComponent<Button>();
-        button.onClick.AddListener(OnClick);
-    }
-
-    private void OnDisable()
-    {
-        button.onClick.RemoveListener(OnClick);
-    }
-
 }

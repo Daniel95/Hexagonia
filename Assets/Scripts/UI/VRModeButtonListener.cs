@@ -1,36 +1,55 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class VRModeButtonListener : MonoBehaviour
+[RequireComponent(typeof(Button))]
+public class VRModeButtonListener : GazeButton
 {
+    public static Action InitializedEvent;
 
-    private Color defaultColor = Color.white;
-    private Color pressedColor = Color.yellow;
+    private readonly Color defaultColor = Color.white;
+    private readonly Color pressedColor = Color.yellow;
 
-    [SerializeField] private Image buttonImage;
+    [SerializeField] private GameObject eventSystemGameobject;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    private void Start()
+    {
+        if (InitializedEvent != null)
+        {
+            InitializedEvent();
+        }
+    }
 
-    public void ToggleVRMode()
+    protected override void OnGazeFilled()
+    {
+        OnClick();
+    }
+
+    public void OnClick()
     {
         if (VRSwitch.Instance.Switch())
         {
             buttonImage.color = pressedColor;
+            eventSystemGameobject.SetActive(false);
         }
-        else
+        else if (!VRSwitch.Instance.Switch())
         {
             buttonImage.color = defaultColor;
+            eventSystemGameobject.SetActive(true);
         }
-        
     }
+
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        VRSwitch.VRModeSwitchedEvent += OnClick;
+    }
+    protected override void OnDisable()
+    {
+        base.OnDisable();
+        VRSwitch.VRModeSwitchedEvent -= OnClick;
+    }
+    
 }
