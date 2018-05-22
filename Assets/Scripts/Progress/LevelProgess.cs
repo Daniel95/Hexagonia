@@ -21,8 +21,9 @@ public class LevelProgess : MonoBehaviour {
 #endregion 
 
     public int Score { get { return score; } }
-	public float Timer { get { return Time.time; }  }
-    
+	public float Timer { get { return Time.realtimeSinceStartup - startUpTime; }  }
+
+	private float startUpTime;
 	private int score;
 
     public void AddScore(int _scoreIncrement)
@@ -35,7 +36,12 @@ public class LevelProgess : MonoBehaviour {
 		}
 	}
 
-    private void OnEnable()  
+	private void Awake()
+	{
+		startUpTime = Time.realtimeSinceStartup;
+	}
+
+	private void OnEnable()  
 	{
 		Coin.CollectedEvent += AddScore;
 	}
