@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,6 +22,18 @@ public class ChunkMover : MonoBehaviour
         }
     }
 
+    public bool MoveChunks
+    {
+        set
+        {
+            moveChunks = value;
+        }
+    }
+
+    public float stopTime;
+
+    [Space(5)]
+
     #region Singleton
     private static ChunkMover instance;
 
@@ -36,8 +49,13 @@ public class ChunkMover : MonoBehaviour
 
     [SerializeField] private float minimumSpeed = 15;
     [SerializeField] private float maximumSpeed = 35;
-    [SerializeField] private float timeForMaximumSpeed = 60;
+    [SerializeField] public float timeForMaximumSpeed = 60;
 
+    [Space(5)]
+
+    [SerializeField] private bool moveChunks = true;
+
+    private bool stopping = false;
     private float speed;
     private List<ChunkMoverEntry> currentChunks = new List<ChunkMoverEntry>();
 
@@ -56,7 +74,10 @@ public class ChunkMover : MonoBehaviour
 
     private void Update ()
 	{
-        if (speed < maximumSpeed)
+        if (!moveChunks)
+            return;
+
+        if (speed < maximumSpeed && !stopping)
 	    {
 	        float _speedOffset = maximumSpeed - minimumSpeed;
 	        float _speedTimeMultiplier = LevelProgess.Instance.Timer / timeForMaximumSpeed;
@@ -98,14 +119,38 @@ public class ChunkMover : MonoBehaviour
         }
     }
 
+    public void StopMovement()
+    {
+        StartCoroutine(StopMovementEnum());
+    }
+
+    private IEnumerator StopMovementEnum()
+    {
+        stopping = true;
+        float _maxSpeed = speed;
+        float _timeSpend = 0;
+
+        while (speed > 0.1)
+        {
+            speed = _maxSpeed - (_maxSpeed * (_timeSpend / stopTime));
+            _timeSpend += Time.deltaTime;
+            yield return new WaitForEndOfFrame(); ;
+        }
+
+        speed = 0;
+        MoveChunks = false;
+    }
+
     private void OnEnable()
     {
         ChunkPool.ChunkSpawnedEvent += AddChunk;
+        PlayerCollision.PlayerDiedEvent += StopMovement;
     }
 
     private void OnDisable()
     {
         ChunkPool.ChunkSpawnedEvent -= AddChunk;
+        PlayerCollision.PlayerDiedEvent -= StopMovement;
     }
 
 }
