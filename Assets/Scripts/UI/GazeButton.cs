@@ -7,7 +7,7 @@ public class GazeButton : MonoBehaviour {
     [SerializeField] protected Image buttonImage;
     [SerializeField] private Image gazeFillImage;
 
-    private float gazeSpeed = 1f; //0.006f <- old float without Time.deltaTime
+    private float gazeSpeed = 0.5f; //0.006f <- old float without Time.deltaTime
 
     private Coroutine increaseGazeFillAmountOverTimeCoroutine;
 
