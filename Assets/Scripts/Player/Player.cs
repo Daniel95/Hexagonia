@@ -4,7 +4,7 @@ using System;
 
 public class Player : MonoBehaviour
 {
-	public static Action PlayerDiedEvent;
+    public static Action PlayerDiedEvent;
 
     public static Player Instance { get { return GetInstance(); } }
 
@@ -39,21 +39,32 @@ public class Player : MonoBehaviour
 
         float absRatioX = Mathf.Abs(_ratio.x);
         float absRatioY = Mathf.Abs(_ratio.y);
-        if (absRatioX > turnAnimateThreshold && absRatioX > absRatioY) {
+        if (absRatioX > turnAnimateThreshold && absRatioX > absRatioY)
+        {
             playingMiddleState = false;
-            if (_ratio.x > 0) {
+            if (_ratio.x > 0)
+            {
                 animator.Play(rightStateIndex, 0, _ratio.x);
-            } else {
+            }
+            else
+            {
                 animator.Play(leftStateIndex, 0, _ratio.x * -1);
             }
-        } else if(absRatioY > turnAnimateThreshold) {
+        }
+        else if (absRatioY > turnAnimateThreshold)
+        {
             playingMiddleState = false;
-            if (_ratio.y > 0) {
+            if (_ratio.y > 0)
+            {
                 animator.Play(upStateIndex, 0, _ratio.y);
-            } else {
+            }
+            else
+            {
                 animator.Play(downStateIndex, 0, _ratio.y * -1);
             }
-        } else if(!playingMiddleState) {
+        }
+        else if (!playingMiddleState)
+        {
             playingMiddleState = true;
             animator.Play(middleStateIndex);
         }
@@ -73,15 +84,13 @@ public class Player : MonoBehaviour
     {
         if (_otherCollider.tag == Tags.Obstacle)
         {
-            Destroy(gameObject);
-			if(PlayerDiedEvent != null)
-			{
-				PlayerDiedEvent();
-			}
-			CoroutineHelper.Delay(60, () =>
+            LookPositionOnPlane.Instance.enabled = false;
+
+            if (PlayerDiedEvent != null)
             {
-                SceneManager.LoadScene(0);
-            });
+                PlayerDiedEvent();
+            }
+            Destroy(gameObject);
         }
     }
 
