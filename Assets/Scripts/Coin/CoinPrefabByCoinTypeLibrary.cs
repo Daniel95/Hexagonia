@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityToolbag;
 
-public class CoinPrefabByCoinTypeLibrary : MonoBehaviour
+public class CoinPrefabByCoinTypeLibrary : MonoBehaviour 
 {
 	public static CoinPrefabByCoinTypeLibrary Instance { get { return GetInstance(); } }
 

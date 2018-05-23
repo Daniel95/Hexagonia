@@ -56,8 +56,9 @@ public class CodeConventions : MonoBehaviour
     public void PublicExample()
     {
         bool _testBool = false;
-        if (_testBool)
-            return;
+
+        if (_testBool) { return; }
+
     }
 
     private void TodoExample()

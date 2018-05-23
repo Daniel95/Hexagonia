@@ -28,7 +28,7 @@ public class LookPositionOnPlane : MonoBehaviour
 
     public Vector3 Size { get { return size; } }
 
-    [SerializeField] private Transform hmdTransform;
+    private Transform hmdTransform;
     [SerializeField] [Range(0, 1)] private float scaledInput = 0;
 
     private Vector2 maxBounds;
@@ -44,6 +44,8 @@ public class LookPositionOnPlane : MonoBehaviour
 
         size = new Vector2(maxBounds.x - minBounds.x, maxBounds.y - minBounds.y);
         plane = new Plane(Vector3.forward, transform.position);
+
+        hmdTransform = Camera.main.transform;
     }
 
     private void Update()
@@ -79,6 +81,21 @@ public class LookPositionOnPlane : MonoBehaviour
         }
 
         return _pointOnPlane;
+    }
+
+    private void StopMovementOnPlane()
+    {
+        enabled = false;
+    }
+
+    private void OnEnable()
+    {
+        Player.PlayerDiedEvent += StopMovementOnPlane;
+    }
+
+    private void OnDisable()
+    {
+        Player.PlayerDiedEvent -= StopMovementOnPlane;
     }
 
 }
