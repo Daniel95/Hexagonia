@@ -1,5 +1,6 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.SceneManagement;
+using System;
 
 public class Player : MonoBehaviour
 {
@@ -21,8 +22,7 @@ public class Player : MonoBehaviour
     #endregion
 
     [SerializeField] private Animator animator;
-    [SerializeField] [Range(0, 30)] private float animateXSensitivity = 6;
-    [SerializeField] [Range(0, 30)] private float animateYSensitivity = 8;
+    [SerializeField] [Range(0, 30)] private float animateSensitivity = 3;
     [SerializeField] [Range(0, 1)] private float turnAnimateThreshold = 0.05f;
 
     private int middleStateIndex = Animator.StringToHash("middle");
@@ -35,7 +35,7 @@ public class Player : MonoBehaviour
     private void Animate(Vector3 _targetPosition)
     {
         Vector2 _delta = _targetPosition - transform.position;
-        Vector2 _ratio = VectorHelper.Multiply(VectorHelper.Divide(_delta, (Vector2)LookPositionOnPlane.Instance.Size), new Vector2(animateXSensitivity, animateYSensitivity));
+        Vector2 _ratio = VectorHelper.Divide(_delta, (Vector2)LookPositionOnPlane.Instance.Size) * animateSensitivity;
 
         float absRatioX = Mathf.Abs(_ratio.x);
         float absRatioY = Mathf.Abs(_ratio.y);
