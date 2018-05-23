@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Button))]
-public class VRModeButtonListener : GazeButton
+public class VRModeButton : GazeButton
 {
     public static Action InitializedEvent;
 

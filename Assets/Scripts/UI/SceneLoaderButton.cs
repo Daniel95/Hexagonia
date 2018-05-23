@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Button))]
-public class SceneLoaderButtonListener : GazeButton
+public class SceneLoaderButton : GazeButton
 {
     [SerializeField] private Scenes scene;
 
