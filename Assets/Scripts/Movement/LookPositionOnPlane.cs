@@ -81,4 +81,18 @@ public class LookPositionOnPlane : MonoBehaviour
         return _pointOnPlane;
     }
 
+    private void StopMovementOnPlane()
+    {
+        enabled = false;
+    }
+
+    private void OnEnable()
+    {
+        PlayerCollision.PlayerDiedEvent += StopMovementOnPlane;
+    }
+    private void OnDisable()
+    {
+        PlayerCollision.PlayerDiedEvent -= StopMovementOnPlane;
+    }
+
 }
