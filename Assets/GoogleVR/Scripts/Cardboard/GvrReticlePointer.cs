@@ -12,8 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 /// Draws a circular reticle in front of any object that the user points at.
 /// The circle dilates if the object is clickable.
@@ -39,10 +41,13 @@ public class GvrReticlePointer : GvrBasePointer {
   /// Growth speed multiplier for the reticle/
   public float reticleGrowthSpeed = 8.0f;
 
-  /// Sorting order to use for the reticle's renderer.
-  /// Range values come from https://docs.unity3d.com/ScriptReference/Renderer-sortingOrder.html.
-  /// Default value 32767 ensures gaze reticle is always rendered on top.
-  [Range(-32767, 32767)]
+    public static Action<GameObject> OnButtonEnterEvent;
+    public static Action<GameObject> OnButtonExitEvent;
+
+    /// Sorting order to use for the reticle's renderer.
+    /// Range values come from https://docs.unity3d.com/ScriptReference/Renderer-sortingOrder.html.
+    /// Default value 32767 ensures gaze reticle is always rendered on top.
+    [Range(-32767, 32767)]
   public int reticleSortingOrder = 32767;
 
   public Material MaterialComp { private get; set; }
@@ -68,7 +73,12 @@ public class GvrReticlePointer : GvrBasePointer {
   public override float MaxPointerDistance { get { return maxReticleDistance; } }
 
   public override void OnPointerEnter(RaycastResult raycastResultResult, bool isInteractive) {
-    SetPointerTarget(raycastResultResult.worldPosition, isInteractive);
+      if (isInteractive && OnButtonEnterEvent != null)
+      {
+          //Debug.Log("Entered: "+ raycastResultResult);
+          OnButtonEnterEvent(raycastResultResult.gameObject);
+      }
+        SetPointerTarget(raycastResultResult.worldPosition, isInteractive);
   }
 
   public override void OnPointerHover(RaycastResult raycastResultResult, bool isInteractive) {
@@ -76,6 +86,14 @@ public class GvrReticlePointer : GvrBasePointer {
   }
 
   public override void OnPointerExit(GameObject previousObject) {
+      if (previousObject != null)
+      {
+          if (previousObject.GetComponent<Button>() && OnButtonExitEvent != null)
+          {
+              //Debug.Log("Exited: "+ previousObject);
+              OnButtonExitEvent(previousObject.gameObject);
+          }
+        }
     ReticleDistanceInMeters = maxReticleDistance;
     ReticleInnerAngle = RETICLE_MIN_INNER_ANGLE;
     ReticleOuterAngle = RETICLE_MIN_OUTER_ANGLE;

@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class ScoreMultiplier : MonoBehaviour
 {
-
 	public static Action MultiplierIncreasedEvent;
 	public static Action MultiplierDecreasedEvent;
 
@@ -59,5 +58,4 @@ public class ScoreMultiplier : MonoBehaviour
 	{
 		multiplierText.text = "X" + Multiplier;
 	}
-
 }

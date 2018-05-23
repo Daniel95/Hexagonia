@@ -23,12 +23,19 @@ public class ResourceBarUI : MonoBehaviour
 
 	public void UpdateResourceBar()
 	{
-        float _barValue = ResourceValue.Instance.Value % 1;
-		resourceBar.fillAmount = _barValue;
-	} 
+        float _barValue = 1;
+
+        if(ResourceValue.Instance.Value < ResourceValue.Instance.MaxValue)
+        {
+            _barValue = ResourceValue.Instance.Value % 1;
+        }
+
+        resourceBar.fillAmount = _barValue;
+    } 
 
 	public void ChangeColor(Color _color)
 	{
 		resourceBar.color = _color;
 	}
+
 }	
