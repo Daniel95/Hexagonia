@@ -1,21 +1,22 @@
 ﻿using UnityEngine;
 
-public class GameOverMenu : MonoBehaviour
+public class GameOverUI : MonoBehaviour
 {
     [SerializeField] private GameObject menu;
 
     private void OnEnable()
     {
-        Player.PlayerDiedEvent += GameOver;
+        Player.PlayerDiedEvent += Activate;
     }
 
     private void OnDisable()
     {
-        Player.PlayerDiedEvent -= GameOver;
+        Player.PlayerDiedEvent -= Activate;
     }
 
-    private void GameOver()
+    private void Activate()
     {
         menu.SetActive(true);   
     }
+
 }
