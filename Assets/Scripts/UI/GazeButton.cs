@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,7 +7,7 @@ public class GazeButton : MonoBehaviour {
     [SerializeField] protected Image buttonImage;
     [SerializeField] private Image gazeFillImage;
 
-    [SerializeField] private float gazeSpeed = 0.006f;
+    private float gazeSpeed = 1f; //0.006f <- old float without Time.deltaTime
 
     private Coroutine increaseGazeFillAmountOverTimeCoroutine;
 
@@ -16,7 +15,6 @@ public class GazeButton : MonoBehaviour {
 
     private void StartGazeHover(GameObject _hoveredGameObject)
     {
-        //Debug.Log(_hoveredGameObject.transform.parent + " " + buttonImage.gameObject.transform.parent);
         if (_hoveredGameObject == buttonImage.gameObject)
         {
             increaseGazeFillAmountOverTimeCoroutine = StartCoroutine(IncreaseGazeFillAmountOverTime());
@@ -36,7 +34,7 @@ public class GazeButton : MonoBehaviour {
     {
         while (gazeFillImage.fillAmount < 1)
         {
-            gazeFillImage.fillAmount += gazeSpeed;
+            gazeFillImage.fillAmount += gazeSpeed * Time.deltaTime;
             yield return null;
         }
 
