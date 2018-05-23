@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class SceneLoader : MonoBehaviour
 {
-
-    public static Action SceneSwitchStartedEvent;
-    public static Action SceneSwitchCompletedEvent;
+    //Parameters: Old scene, New Scene
+    public static Action<Scenes, Scenes> SceneSwitchCompletedEvent;
+    public static Action<Scenes, Scenes> SceneSwitchStartedEvent;
 
     public static SceneLoader Instance { get { return GetInstance(); } }
 
@@ -28,6 +28,7 @@ public class SceneLoader : MonoBehaviour
 
     public void SwitchScene(Scenes _newScene)
     {
+        Debug.Log("Calling switchscene");
         if (startScene == Scenes.Default)
         {
             Debug.LogWarning("Cannot switch to the Default scene.");
@@ -39,7 +40,7 @@ public class SceneLoader : MonoBehaviour
 
         if (SceneSwitchStartedEvent != null)
         {
-            SceneSwitchStartedEvent();
+            SceneSwitchStartedEvent((Scenes)_previousScene, _newScene);
         }
 
         if (_previousScene != null)
@@ -52,12 +53,10 @@ public class SceneLoader : MonoBehaviour
             {
                 if (SceneSwitchCompletedEvent != null)
                 {
-                    SceneSwitchCompletedEvent();
+                    SceneSwitchCompletedEvent((Scenes)_previousScene, _newScene);
                 }
             });
         }
-
-
     }
 
     private void Awake()
