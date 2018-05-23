@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityToolbag;
 
@@ -58,12 +59,32 @@ public class ObjectPool : MonoBehaviour {
 	/// </summary>
 	[Reorderable] public List<ObjectPoolEntry> Entries;
 
-	/// <summary>
-	/// The pooled objects currently available.
-	/// Indexed by the index of the objectPrefabs
-	/// </summary>
+    /// <summary>
+    /// The pooled objects currently available.
+    /// Indexed by the index of the objectPrefabs
+    /// </summary>
+    /// 
+    private const string OBJECT_POOL_ENTRIES_PATH = "ChunkPoolEntries/";
 
-	void OnEnable()
+    [ContextMenu("UpdateObjectPoolEntry")]
+    private void UpdateObjectPoolEntry()
+    {
+        Entries.Clear();
+
+        List<GameObject> _prefabs = Resources.LoadAll<GameObject>(OBJECT_POOL_ENTRIES_PATH).ToList();
+
+        foreach (GameObject _prefab in _prefabs)
+        {
+            ObjectPoolEntry objectPoolEntry = new ObjectPoolEntry
+            {
+                Prefab = _prefab,
+            };
+
+            Entries.Add(objectPoolEntry);
+        }
+    }
+
+    void OnEnable()
 	{
 		instance = this;
 	}
