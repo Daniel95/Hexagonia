@@ -21,10 +21,12 @@ public class MovementBoundaryLine : MonoBehaviour {
 
     private void Update()
     {
-        if(Player.Instance == null) { return; }
+        if (Player.Instance == null) { return; }
+
+        float _topBottomOffset = movementPlaneTopPosition - movementPlaneBottomYPosition;
 
         float _playerPlaneLocalYPosition = Player.Instance.transform.position.y - movementPlaneBottomYPosition;
-        float _ratioInPlane = _playerPlaneLocalYPosition / movementPlaneTopPosition;
+        float _ratioInPlane = _playerPlaneLocalYPosition / _topBottomOffset;
         float _ratioToPositionType = Mathf.Abs(_ratioInPlane - ratioPositionTypeMultiplier);
 
         float _currentWithThreshold = Mathf.Clamp01(_ratioToPositionType - threshold);
@@ -32,7 +34,7 @@ public class MovementBoundaryLine : MonoBehaviour {
         float _ratioWithThreshold = _currentWithThreshold / _maxWithThreshold;
 
         Color _color = spriteRenderer.material.color;
-        _color.a = _ratioWithThreshold - maximumOpacity;
+        _color.a = _ratioWithThreshold * maximumOpacity;
         spriteRenderer.material.color = _color;
     }
 

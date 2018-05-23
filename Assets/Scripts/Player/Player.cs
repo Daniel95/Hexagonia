@@ -4,7 +4,7 @@ using System;
 
 public class Player : MonoBehaviour
 {
-	public static Action PlayerDiedEvent;
+    public static Action PlayerDiedEvent;
 
     public static Player Instance { get { return GetInstance(); } }
 
@@ -22,30 +22,52 @@ public class Player : MonoBehaviour
     #endregion
 
     [SerializeField] private Animator animator;
-    [SerializeField] [Range(0, 1)] private float animateThreshold = 0.05f;
-    [SerializeField] private string xAnimatorParameter = "X";
-    [SerializeField] private string yAnimatorParameter = "Y";
-    [SerializeField] private GameObject gameOverUI;
+    [SerializeField] [Range(0, 30)] private float animateSensitivity = 3;
+    [SerializeField] [Range(0, 1)] private float turnAnimateThreshold = 0.05f;
+
+    private int middleStateIndex = Animator.StringToHash("middle");
+    private int rightStateIndex = Animator.StringToHash("right");
+    private int leftStateIndex = Animator.StringToHash("left");
+    private int upStateIndex = Animator.StringToHash("up");
+    private int downStateIndex = Animator.StringToHash("down");
+    private bool playingMiddleState;
 
     private void Animate(Vector3 _targetPosition)
     {
         Vector2 _delta = _targetPosition - transform.position;
-        Vector2 _ratio = VectorHelper.Divide(_delta, (Vector2)LookPositionOnPlane.Instance.Size);
+        Vector2 _ratio = VectorHelper.Divide(_delta, (Vector2)LookPositionOnPlane.Instance.Size) * animateSensitivity;
 
-        int _x = 0;
-        if (Mathf.Abs(_ratio.x) > animateThreshold)
+        float absRatioX = Mathf.Abs(_ratio.x);
+        float absRatioY = Mathf.Abs(_ratio.y);
+        if (absRatioX > turnAnimateThreshold && absRatioX > absRatioY)
         {
-            _x = RoundingHelper.InvertOnNegativeCeil(_ratio.x);
+            playingMiddleState = false;
+            if (_ratio.x > 0)
+            {
+                animator.Play(rightStateIndex, 0, _ratio.x);
+            }
+            else
+            {
+                animator.Play(leftStateIndex, 0, _ratio.x * -1);
+            }
         }
-
-        int _y = 0;
-        if (Mathf.Abs(_ratio.y) > animateThreshold)
+        else if (absRatioY > turnAnimateThreshold)
         {
-            _y = RoundingHelper.InvertOnNegativeCeil(_ratio.y);
+            playingMiddleState = false;
+            if (_ratio.y > 0)
+            {
+                animator.Play(upStateIndex, 0, _ratio.y);
+            }
+            else
+            {
+                animator.Play(downStateIndex, 0, _ratio.y * -1);
+            }
         }
-
-        animator.SetInteger(xAnimatorParameter, _x);
-        animator.SetInteger(yAnimatorParameter, _y);
+        else if (!playingMiddleState)
+        {
+            playingMiddleState = true;
+            animator.Play(middleStateIndex);
+        }
     }
 
     private void OnEnable()
@@ -64,10 +86,10 @@ public class Player : MonoBehaviour
         {
             LookPositionOnPlane.Instance.enabled = false;
 
-			if(PlayerDiedEvent != null)
-			{
-				PlayerDiedEvent();
-			}
+            if (PlayerDiedEvent != null)
+            {
+                PlayerDiedEvent();
+            }
             Destroy(gameObject);
         }
     }
