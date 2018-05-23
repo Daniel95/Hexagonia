@@ -177,7 +177,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1518120743609682
 GameObject:
   m_ObjectHideFlags: 0
@@ -205,6 +205,7 @@ GameObject:
   - component: {fileID: 114095985122109814}
   - component: {fileID: 114735364789465188}
   - component: {fileID: 114534458255993462}
+  - component: {fileID: 114989424711492896}
   m_Layer: 5
   m_Name: Player Resources Canvas
   m_TagString: Untagged
@@ -364,7 +365,6 @@ GameObject:
   - component: {fileID: 222831980763687362}
   - component: {fileID: 114795252059419980}
   - component: {fileID: 114954534777388268}
-  - component: {fileID: 114722447934463134}
   m_Layer: 5
   m_Name: ResourceBarContainer
   m_TagString: Untagged
@@ -956,18 +956,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114722447934463134
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1984222528041312}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74bfa69af7276ce449e3f3e4e333c5d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  resourceBar: {fileID: 114096605155551324}
 --- !u!114 &114735364789465188
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1143,6 +1131,18 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Quit
+--- !u!114 &114989424711492896
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1590044281914128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74bfa69af7276ce449e3f3e4e333c5d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceBar: {fileID: 114096605155551324}
 --- !u!222 &222034658975730530
 CanvasRenderer:
   m_ObjectHideFlags: 1
