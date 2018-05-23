@@ -98,21 +98,18 @@ public class VRSwitch : MonoBehaviour
 
     private void SetReticlePointer()
     {
-        if (VrState)
-        {
-            gvrReticlePointerGameObject.SetActive(true);
-        }
+        gvrReticlePointerGameObject.SetActive(true);
     }
 
     private void OnEnable()
     {
-        VRModeButton.InitializedEvent += SetVRModeAfterInitialization;
+        VRModeButtonListener.InitializedEvent += SetVRModeAfterInitialization;
         Player.PlayerDiedEvent += SetReticlePointer;
     }
 
     private void OnDisable()
     {
-        VRModeButton.InitializedEvent -= SetVRModeAfterInitialization;
+        VRModeButtonListener.InitializedEvent -= SetVRModeAfterInitialization;
         Player.PlayerDiedEvent -= SetReticlePointer;
     }
 
