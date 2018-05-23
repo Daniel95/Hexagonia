@@ -45,7 +45,7 @@ public class CameraHolder : MonoBehaviour
         SceneLoader.SceneSwitchStartedEvent -= OnSceneSwitch;
     }
 
-    private void OnSceneSwitch()
+    private void OnSceneSwitch(Scenes _oldScene, Scenes _newScene)
     {
         mainCameraGameObject.transform.parent.parent = defaultCameraHolderTransform;
 
