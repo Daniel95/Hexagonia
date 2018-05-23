@@ -25,11 +25,8 @@ public class CameraHolder : MonoBehaviour
 	    {
 	        gyro.enabled = true;
         }
-	    else
-	    {
-	        VRSwitch.Instance.GvrReticlePointerGameObject.SetActive(false);
-        }
-	}
+	    VRSwitch.Instance.GvrReticlePointerGameObject.SetActive(false);
+    }
 	
 	private void Update () {
 		
