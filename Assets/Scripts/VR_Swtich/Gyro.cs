@@ -20,6 +20,7 @@ public class Gyro : MonoBehaviour
     {
         Input.gyro.enabled = true;
         baseGyro = Input.gyro.attitude;
+        
     }
 
     private void Update()
@@ -56,11 +57,11 @@ public class Gyro : MonoBehaviour
 
     private void OnEnable()
     {
-        SceneLoader.SceneSwitchCompletedEvent += Initialization;
+        SceneLoader.SceneSwitchStartedEvent += Initialization;
     }
 
     private void OnDisable()
     {
-        SceneLoader.SceneSwitchCompletedEvent -= Initialization;
+        SceneLoader.SceneSwitchStartedEvent -= Initialization;
     }
 }
