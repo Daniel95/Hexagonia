@@ -28,7 +28,6 @@ public class SceneLoader : MonoBehaviour
 
     public void SwitchScene(Scenes _newScene)
     {
-        Debug.Log("Calling switchscene");
         if (startScene == Scenes.Default)
         {
             Debug.LogWarning("Cannot switch to the Default scene.");
@@ -43,11 +42,8 @@ public class SceneLoader : MonoBehaviour
             SceneSwitchStartedEvent((Scenes)_previousScene, _newScene);
         }
 
-        Debug.Log("Kek");
-
         if (_previousScene != null)
         {
-            Debug.Log("Kek");
             SceneHelper.UnloadSceneOverTime(_previousScene.ToString(), () => SceneHelper.LoadSceneOverTime(_newScene.ToString(), () =>
             {
                 if (SceneSwitchCompletedEvent != null)
