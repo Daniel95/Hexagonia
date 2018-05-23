@@ -58,7 +58,6 @@ GameObject:
   - component: {fileID: 224553137422062256}
   - component: {fileID: 222842754462043352}
   - component: {fileID: 114456681846027216}
-  - component: {fileID: 114036920826650482}
   m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
@@ -432,20 +431,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonImage: {fileID: 114718627699462252}
   gazeFillImage: {fileID: 114975152220396350}
-  gazeSpeed: 0.006
   scene: 1
---- !u!114 &114036920826650482
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1135442509642502}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c8c2977c02601a4db7e1a1cc57215e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  comparison: 8
 --- !u!114 &114042923194207868
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -458,7 +444,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: a327013057de5154fbf22cfbdd0b4d66, type: 2}
-  m_Color: {r: 0.5588235, g: 0.5588235, b: 0.5588235, a: 1}
+  m_Color: {r: 0, g: 0.5647059, b: 0.7921569, a: 1}
   m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -923,7 +909,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonImage: {fileID: 114278996473296058}
   gazeFillImage: {fileID: 114042923194207868}
-  gazeSpeed: 0.006
   scene: 2
 --- !u!114 &114718627699462252
 MonoBehaviour:
@@ -1052,7 +1037,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: a327013057de5154fbf22cfbdd0b4d66, type: 2}
-  m_Color: {r: 0.5588235, g: 0.5588235, b: 0.5588235, a: 1}
+  m_Color: {r: 0, g: 0.5647059, b: 0.7921569, a: 1}
   m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
