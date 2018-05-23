@@ -176,8 +176,6 @@ public class MusicManager : MonoBehaviour
 
     private void SceneSwitch(Scenes _oldScene, Scenes _newScene)
     {
-        Debug.Log(_oldScene + " " + _newScene);
-
         if (_oldScene == _newScene) { return; }
 
         foreach (Songlist _list in songlists)
