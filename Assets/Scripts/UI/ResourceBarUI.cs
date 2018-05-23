@@ -38,4 +38,19 @@ public class ResourceBarUI : MonoBehaviour
 		resourceBar.color = _color;
 	}
 
+    private void Deactivate()
+    {
+        gameObject.SetActive(false);
+    }
+
+    private void OnEnable()
+    {
+        Player.PlayerDiedEvent += Deactivate;
+    }
+
+    private void OnDisable()
+    {
+        Player.PlayerDiedEvent += Deactivate;
+    }
+
 }	
