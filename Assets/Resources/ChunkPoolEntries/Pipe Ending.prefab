@@ -9,44 +9,44 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1853201200182290}
+  m_RootGameObject: {fileID: 1237563874247894}
   m_IsPrefabParent: 1
---- !u!1 &1853201200182290
+--- !u!1 &1237563874247894
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4606142306297030}
-  - component: {fileID: 33059124523213380}
-  - component: {fileID: 23595888090766672}
+  - component: {fileID: 4666536128285516}
+  - component: {fileID: 33371922523828516}
+  - component: {fileID: 23793244522177470}
   m_Layer: 0
-  m_Name: 'Pipe 1 '
+  m_Name: Pipe Ending
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4606142306297030
+--- !u!4 &4666536128285516
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1853201200182290}
-  m_LocalRotation: {x: -0.7071068, y: 0.7071068, z: 0.00000013240823, w: -0.00000013240823}
-  m_LocalPosition: {x: -0.18406618, y: 9.986601, z: -0.065167}
-  m_LocalScale: {x: 10.146118, y: 301.07666, z: 10.146111}
+  m_GameObject: {fileID: 1237563874247894}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: -0.46532, y: 2.7042007, z: 0.067076}
+  m_LocalScale: {x: 7.567202, y: 7.567197, z: 7.567197}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 180.00002, z: -90}
---- !u!23 &23595888090766672
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!23 &23793244522177470
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1853201200182290}
+  m_GameObject: {fileID: 1237563874247894}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -55,7 +55,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: e3f5d4fcd41c9a341aafd08c0b5a7ca9, type: 2}
+  - {fileID: 2100000, guid: a266f10802a81124595e93654a47045b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -75,10 +75,10 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!33 &33059124523213380
+--- !u!33 &33371922523828516
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1853201200182290}
-  m_Mesh: {fileID: 4300000, guid: 276be6c738c831e42aa10f479e8d8122, type: 3}
+  m_GameObject: {fileID: 1237563874247894}
+  m_Mesh: {fileID: 4300000, guid: 02e7b273b7c0b5344a976a1a1d836679, type: 3}
