@@ -43,14 +43,25 @@ public class SceneLoader : MonoBehaviour
             SceneSwitchStartedEvent((Scenes)_previousScene, _newScene);
         }
 
+        Debug.Log("Kek");
+
         if (_previousScene != null)
         {
-            SceneHelper.UnloadSceneOverTime(_previousScene.ToString(), () => SceneHelper.LoadSceneOverTime(_newScene.ToString()));
+            Debug.Log("Kek");
+            SceneHelper.UnloadSceneOverTime(_previousScene.ToString(), () => SceneHelper.LoadSceneOverTime(_newScene.ToString(), () =>
+            {
+                if (SceneSwitchCompletedEvent != null)
+                {
+                    SceneSwitchCompletedEvent((Scenes)_previousScene, _newScene);
+                }
+            }));
+            
         }
         else
         {
             SceneHelper.LoadSceneOverTime(_newScene.ToString(), () =>
             {
+                Debug.Log(SceneSwitchCompletedEvent);
                 if (SceneSwitchCompletedEvent != null)
                 {
                     SceneSwitchCompletedEvent((Scenes)_previousScene, _newScene);

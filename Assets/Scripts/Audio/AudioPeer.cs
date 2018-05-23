@@ -98,11 +98,6 @@ public class AudioPeer : MonoBehaviour
 
         if (TransmitAudioData != null)
             TransmitAudioData(instance);
-
-        for (int i = 0; i < NormalisedFreqBandBuffer.Length; i++)
-        {
-            Debug.Log(NormalisedFreqBandBuffer[i]);
-        }
     }
     
     private void NormaliseFreqBand()
