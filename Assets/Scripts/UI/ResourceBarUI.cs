@@ -3,7 +3,6 @@ using UnityEngine.UI;
 
 public class ResourceBarUI : MonoBehaviour
 {
-
 	public static ResourceBarUI Instance { get { return GetInstance(); } }
 
 	#region Instance
@@ -50,7 +49,6 @@ public class ResourceBarUI : MonoBehaviour
 
     private void OnDisable()
     {
-        Player.PlayerDiedEvent += Deactivate;
+        Player.PlayerDiedEvent -= Deactivate;
     }
-
 }	
