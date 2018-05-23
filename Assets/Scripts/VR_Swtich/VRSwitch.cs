@@ -98,7 +98,10 @@ public class VRSwitch : MonoBehaviour
 
     private void SetReticlePointer()
     {
-        gvrReticlePointerGameObject.SetActive(true);
+        if (VrState)
+        {
+            gvrReticlePointerGameObject.SetActive(true);
+        }
     }
 
     private void OnEnable()
