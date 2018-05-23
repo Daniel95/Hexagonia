@@ -73,7 +73,7 @@ namespace Gvr.Internal {
           phoneConnect();
         } catch(Exception e) {
           if (lastConnectionAttemptWasSuccessful) {
-            Debug.LogWarningFormat("{0}\n{1}", e.Message, e.StackTrace);
+            //Debug.LogWarningFormat("{0}\n{1}", e.Message, e.StackTrace);
             // Suppress additional failures until we have successfully reconnected.
             lastConnectionAttemptWasSuccessful = false;
           }
