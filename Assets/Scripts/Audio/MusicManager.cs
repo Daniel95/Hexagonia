@@ -192,11 +192,11 @@ public class MusicManager : MonoBehaviour
 
     private void OnEnable()
     {
-        SceneLoader.SwitchedSceneEvent += SceneSwitch;
+        SceneLoader.SceneSwitchCompletedEvent += SceneSwitch;
     }
     private void OnDisable()
     {
-        SceneLoader.SwitchedSceneEvent -= SceneSwitch;
+        SceneLoader.SceneSwitchCompletedEvent -= SceneSwitch;
     }
 }
 

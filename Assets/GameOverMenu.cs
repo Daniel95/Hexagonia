@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class GameOverMenu : MonoBehaviour
 {
@@ -8,11 +6,12 @@ public class GameOverMenu : MonoBehaviour
 
     private void OnEnable()
     {
-        PlayerCollision.PlayerDiedEvent += GameOver;
+        Player.PlayerDiedEvent += GameOver;
     }
+
     private void OnDisable()
     {
-        PlayerCollision.PlayerDiedEvent -= GameOver;
+        Player.PlayerDiedEvent -= GameOver;
     }
 
     private void GameOver()

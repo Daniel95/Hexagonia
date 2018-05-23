@@ -4,7 +4,8 @@ using UnityEngine;
 public class SceneLoader : MonoBehaviour
 {
     //Parameters: Old scene, New Scene
-    public static Action<Scenes,Scenes> SwitchedSceneEvent;
+    public static Action<Scenes, Scenes> SceneSwitchCompletedEvent;
+    public static Action<Scenes, Scenes> SceneSwitchStartedEvent;
 
     public static SceneLoader Instance { get { return GetInstance(); } }
 
@@ -37,19 +38,24 @@ public class SceneLoader : MonoBehaviour
         Scenes? _previousScene = currentScene;
         currentScene = _newScene;
 
+        if (SceneSwitchStartedEvent != null)
+        {
+            SceneSwitchStartedEvent((Scenes)_previousScene, _newScene);
+        }
+
         if (_previousScene != null)
         {
             SceneHelper.UnloadSceneOverTime(_previousScene.ToString(), () => SceneHelper.LoadSceneOverTime(_newScene.ToString()));
         }
         else
         {
-            SceneHelper.LoadSceneOverTime(_newScene.ToString());
-        }
-
-        if (SwitchedSceneEvent != null)
-        {
-            Debug.Log("SwitchedSceneEvent");
-            SwitchedSceneEvent((Scenes)_previousScene, _newScene);
+            SceneHelper.LoadSceneOverTime(_newScene.ToString(), () =>
+            {
+                if (SceneSwitchCompletedEvent != null)
+                {
+                    SceneSwitchCompletedEvent((Scenes)_previousScene, _newScene);
+                }
+            });
         }
     }
 
