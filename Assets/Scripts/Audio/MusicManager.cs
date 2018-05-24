@@ -44,9 +44,9 @@ public class MusicManager : MonoBehaviour
     [Space(5)]
 
     [SerializeField] private float fadeTime = .5f;
-    
-    [Range(0,1)]
-    [SerializeField] private float maxVolume = .5f;
+
+
+    [Range(0, 1)] [SerializeField] private float maxVolume = .5f;
     
     private void Awake()
     {
