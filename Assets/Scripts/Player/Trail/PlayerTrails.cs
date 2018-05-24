@@ -6,7 +6,7 @@ public class PlayerTrails : MonoBehaviour
 
     [SerializeField] private List<TrailPrefabAndLabelPair> trailPrefabByLabelDatas;
     [SerializeField] private Vector3 offset;
-    
+
     private Dictionary<TargetPixelCoordinatesLabel, List<Transform>> trailsByLabel = new Dictionary<TargetPixelCoordinatesLabel, List<Transform>>();
     private SpriteRenderer spriteRenderer;
     private Sprite previousSprite;
