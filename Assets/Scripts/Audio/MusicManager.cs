@@ -46,17 +46,26 @@ public class MusicManager : MonoBehaviour
     private bool switching = false;
     private List<Song> currentSongList = new List<Song>();
 
+    private Coroutine delayCoroutine;
+
     /// <summary>
     /// Switches to a random song in the songlist
     /// </summary>
     /// <param name="_fade">Depending on this the song fades or switches instantly</param>
     public void SwitchSong(bool _fade = true)
     {
+        Debug.Log("Switching song");
+        Debug.Log(switching);
+
         if (currentSongList.Count == 0) { return; }
 
         if (switching)
         {
             StopAllCoroutines();
+            if (delayCoroutine != null)
+            {
+                CoroutineHelper.Stop(delayCoroutine);
+            }
         }
 
         Song _randomSong = RandomSong();
@@ -75,10 +84,8 @@ public class MusicManager : MonoBehaviour
             switching = false;
         }
 
-        float delay = _randomSong.clip.length + 0.1f;
-        CoroutineHelper.DelayTime(delay, () => SwitchSong());
-
-        StartCoroutine(NewSong(_randomSong.clip.length));
+        float _delay = _randomSong.clip.length + 0.1f;
+        delayCoroutine = CoroutineHelper.DelayTime(_delay, () => SwitchSong());
 
         return;
     }
@@ -133,12 +140,6 @@ public class MusicManager : MonoBehaviour
         switching = false;
     }
 
-    private IEnumerator NewSong(float delay)
-    {
-        yield return new WaitForSeconds(delay +0.1f);
-        SwitchSong();
-    }
-
     /// <summary>
     /// Loops trough all the songs in the songlist, trying to find one with a high (low number) priority
     /// </summary>
@@ -160,7 +161,9 @@ public class MusicManager : MonoBehaviour
             _count += 1;
 
             if (_count >= 1000)
+            {
                 break;
+            }
         }
         return _randomSong;
     }
@@ -208,8 +211,8 @@ public class MusicManager : MonoBehaviour
 [Serializable]
 internal class Songlist
 {
-    #pragma warning disable CS0649, 
+    #pragma warning disable CS0649,
     public Scenes Scene;
     public List<Song> SongList;
-    #pragma warning restore CS0649, 
+    #pragma warning restore CS0649,
 }
