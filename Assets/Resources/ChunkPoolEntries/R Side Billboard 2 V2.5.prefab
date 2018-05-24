@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4050907909647686}
   - component: {fileID: 33600927138524954}
   - component: {fileID: 23260905616968324}
+  - component: {fileID: 65659630265786826}
   m_Layer: 0
   m_Name: R Side Billboard 2 V2.5
   m_TagString: Obstacle
@@ -82,3 +83,15 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1067182303975886}
   m_Mesh: {fileID: 4300000, guid: 7fa2e1625e671c048a268689b2e62f07, type: 3}
+--- !u!65 &65659630265786826
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1067182303975886}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.16597088, y: 0.17164144, z: 0.01670234}
+  m_Center: {x: -0.004729748, y: -0.0008643009, z: 0}
