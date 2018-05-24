@@ -29,13 +29,6 @@ public class MusicManager : MonoBehaviour
     }
     #endregion
 
-
-    private AudioSource source;
-    private AudioClip currentClip;
-
-    private bool switching = false;
-    private List<Song> currentSongList = new List<Song>();
-
     [Space(5)]
 
     [SerializeField] private Scenes defaultSongList;
@@ -45,25 +38,13 @@ public class MusicManager : MonoBehaviour
 
     [SerializeField] private float fadeTime = .5f;
 
-
     [Range(0, 1)] [SerializeField] private float maxVolume = .5f;
-    
-    private void Awake()
-    {
-        source = GetComponent<AudioSource>();
-        source.volume = maxVolume;
-        SceneSwitch(Scenes.Default, defaultSongList);
-    }
-    
-    private void Update()
-    {
-        if (source != null)
-        {
-            source.volume = maxVolume;
-            if (source.isPlaying == false) { }
-                //SwitchSong();
-        }
-    }
+
+    private AudioSource source;
+    private AudioClip currentClip;
+
+    private bool switching = false;
+    private List<Song> currentSongList = new List<Song>();
 
     /// <summary>
     /// Switches to a random song in the songlist
@@ -94,9 +75,19 @@ public class MusicManager : MonoBehaviour
             switching = false;
         }
 
+        float delay = _randomSong.clip.length + 0.1f;
+        CoroutineHelper.DelayTime(delay, () => SwitchSong());
+
         StartCoroutine(NewSong(_randomSong.clip.length));
 
         return;
+    }
+
+    private void Awake()
+    {
+        source = GetComponent<AudioSource>();
+        source.volume = maxVolume;
+        SceneSwitch(Scenes.Default, defaultSongList);
     }
 
     private IEnumerator FadeToNewSong(Song _song)
@@ -125,6 +116,7 @@ public class MusicManager : MonoBehaviour
         }
         source.volume = 0;
     }
+
     private IEnumerator FadeIn()
     {
         source.volume = 0;
@@ -143,7 +135,6 @@ public class MusicManager : MonoBehaviour
 
     private IEnumerator NewSong(float delay)
     {
-        Debug.Log("Waiting for new song");
         yield return new WaitForSeconds(delay +0.1f);
         SwitchSong();
     }
@@ -207,6 +198,7 @@ public class MusicManager : MonoBehaviour
     {
         SceneLoader.SceneSwitchCompletedEvent += SceneSwitch;
     }
+
     private void OnDisable()
     {
         SceneLoader.SceneSwitchCompletedEvent -= SceneSwitch;
