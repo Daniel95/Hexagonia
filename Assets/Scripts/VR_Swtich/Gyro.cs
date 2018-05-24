@@ -20,7 +20,7 @@ public class Gyro : MonoBehaviour
     {
         Input.gyro.enabled = true;
         baseGyro = Input.gyro.attitude;
-        
+
     }
 
     private void Update()

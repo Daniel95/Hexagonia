@@ -17,7 +17,6 @@ public class VRModeButton : GazeButton
 
     private void Start()
     {
-        //eventSystems = FindObjectsOfType<EventSystem>();
         eventSystems = Resources.FindObjectsOfTypeAll<EventSystem>();
         if (InitializedEvent != null)
         {
