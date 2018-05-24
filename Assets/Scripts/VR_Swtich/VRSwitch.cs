@@ -45,16 +45,14 @@ public class VRSwitch : MonoBehaviour
     private void Awake()
     {
         gvrReticlePointerGameObject = FindObjectOfType<GvrReticlePointer>().gameObject;
-        if (!XRSettings.enabled)
-        {
-            XRSettings.enabled = true;
-        }
-        gvrGameObject.SetActive(true);
-        VrState = true;
     }
 
     private void SetVRModeAfterInitialization()
     {
+        VrState = true;
+        XRSettings.enabled = true;
+        gvrGameObject.SetActive(true);
+
         if (PlayerPrefs.GetInt("VRMode") == 0)
         {
             if (VRModeSwitchedEvent != null)
@@ -72,10 +70,12 @@ public class VRSwitch : MonoBehaviour
         }
         clicked = true;
 
-        XRSettings.enabled = !XRSettings.enabled;
+        
         VrState = !VrState;
+        XRSettings.enabled = VrState;
 
         PlayerPrefs.SetInt("VRMode", Convert.ToInt32(VrState));
+        Debug.Log("Set VR mode to " + VrState);
         PlayerPrefs.Save();
 
         gvrGameObject.SetActive(VrState);
