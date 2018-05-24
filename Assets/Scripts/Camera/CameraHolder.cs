@@ -1,48 +1,33 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using SRF;
 using UnityEngine;
 using UnityEngine.PostProcessing;
 
 public class CameraHolder : MonoBehaviour
 {
+    [SerializeField] private GameObject eventSystemGameobject;
+
     private Transform defaultCameraHolderTransform;
     private GameObject mainCameraGameObject;
     private PostProcessingBehaviour postProcessingBehaviour;
     private Gyro gyro;
-    [SerializeField] private GameObject eventSystemGameobject;
 
-    void Start()
-    {
-        mainCameraGameObject.transform.position = Vector3.zero;
-        mainCameraGameObject.transform.rotation = Quaternion.identity;
-        mainCameraGameObject.transform.parent.transform.position = Vector3.zero;
-        transform.position = Vector3.zero;
-        if (VRSwitch.Instance.VrState)
-        {
-            GvrCardboardHelpers.Recenter();
-        }
-
-    }
-    
-	void Awake ()
+	private void Awake ()
 	{
 	    mainCameraGameObject = Camera.main.gameObject;
-	    mainCameraGameObject.transform.position = Vector3.zero;
-	    mainCameraGameObject.transform.rotation = Quaternion.identity;
-	    mainCameraGameObject.transform.parent.transform.position = Vector3.zero;
+
+	    mainCameraGameObject.transform.ResetLocal();
+        mainCameraGameObject.transform.parent.ResetLocal();
+	    transform.ResetLocal();
+
         defaultCameraHolderTransform = Camera.main.transform.root;
-	    defaultCameraHolderTransform.position = Vector3.zero;
+	    defaultCameraHolderTransform.ResetLocal();
+
         mainCameraGameObject.transform.parent.parent = transform;
 
 	    postProcessingBehaviour = mainCameraGameObject.GetComponent<PostProcessingBehaviour>();
 	    gyro = mainCameraGameObject.GetComponent<Gyro>();
 
 	    postProcessingBehaviour.enabled = true;
-
-	    mainCameraGameObject.transform.position = Vector3.zero;
-	    mainCameraGameObject.transform.rotation = Quaternion.identity;
-	    mainCameraGameObject.transform.parent.transform.position = Vector3.zero;
-	    transform.position = Vector3.zero;
 
         if (!VRSwitch.Instance.VrState)
 	    {
@@ -51,15 +36,13 @@ public class CameraHolder : MonoBehaviour
         }
         else
         {
+#if !UNITY_EDITOR
             GvrCardboardHelpers.Recenter();
+#endif
             eventSystemGameobject.SetActive(false);
         }
 	    VRSwitch.Instance.GvrReticlePointerGameObject.SetActive(false);
     }
-	
-	private void Update () {
-		
-	}
 
     private void OnEnable()
     {
@@ -73,25 +56,34 @@ public class CameraHolder : MonoBehaviour
 
     private void OnSceneSwitch(Scenes _oldScene, Scenes _newScene)
     {
-        mainCameraGameObject.transform.position = Vector3.zero;
-        mainCameraGameObject.transform.rotation = Quaternion.identity;
-        mainCameraGameObject.transform.parent.transform.position = Vector3.zero;
+        mainCameraGameObject.transform.ResetLocal();
+        mainCameraGameObject.transform.parent.ResetLocal();
 
         mainCameraGameObject.transform.parent.parent = defaultCameraHolderTransform;
         gyro.enabled = false;
 
-        mainCameraGameObject.transform.position = Vector3.zero;
-        mainCameraGameObject.transform.rotation = Quaternion.identity;
-        mainCameraGameObject.transform.parent.transform.position = Vector3.zero;
-        transform.position = Vector3.zero;
-        defaultCameraHolderTransform.position = Vector3.zero;
+        mainCameraGameObject.transform.ResetLocal();
+        mainCameraGameObject.transform.parent.ResetLocal();
+        transform.ResetLocal();
+        defaultCameraHolderTransform.ResetLocal();
 
         postProcessingBehaviour.enabled = false;
 
+#if !UNITY_EDITOR
         if (VRSwitch.Instance.VrState)
         {
             GvrCardboardHelpers.Recenter();
         }
+#endif
+    }
 
+    private void ResetTransforms()
+    {
+        mainCameraGameObject.transform.position = Vector3.zero;
+        mainCameraGameObject.transform.rotation = Quaternion.identity;
+        mainCameraGameObject.transform.parent.transform.position = Vector3.zero;
+
+        transform.position = Vector3.zero;
+        defaultCameraHolderTransform.position = Vector3.zero;
     }
 }

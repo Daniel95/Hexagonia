@@ -75,17 +75,16 @@ public class VRSwitch : MonoBehaviour
         XRSettings.enabled = VrState;
 
         PlayerPrefs.SetInt("VRMode", Convert.ToInt32(VrState));
-        Debug.Log("Set VR mode to " + VrState);
         PlayerPrefs.Save();
 
         gvrGameObject.SetActive(VrState);
         gvrReticlePointerGameObject.SetActive(VrState);
-
+#if !UNITY_EDITOR
         if (VrState)
         {
             GvrCardboardHelpers.Recenter();
         }
-
+#endif
         StartCoroutine(ClickedToFalseAfterFrame());
         return VrState;
     }
@@ -98,7 +97,10 @@ public class VRSwitch : MonoBehaviour
 
     private void SetReticlePointer()
     {
-        gvrReticlePointerGameObject.SetActive(true);
+        if (VrState)
+        {
+            gvrReticlePointerGameObject.SetActive(true);
+        }
     }
 
     private void OnEnable()
