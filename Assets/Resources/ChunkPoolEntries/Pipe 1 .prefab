@@ -21,6 +21,8 @@ GameObject:
   - component: {fileID: 4816535568601554}
   - component: {fileID: 33776393400247178}
   - component: {fileID: 23412364363821948}
+  - component: {fileID: 65108232838394200}
+  - component: {fileID: 65900814856894360}
   m_Layer: 0
   m_Name: 'Pipe 1 '
   m_TagString: Obstacle
@@ -35,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1528672331133312}
   m_LocalRotation: {x: -0.7071068, y: 0.7071068, z: -0, w: 0}
-  m_LocalPosition: {x: 3.32, y: 6.33, z: 7.16}
+  m_LocalPosition: {x: -3.8525012, y: 22.576546, z: -38.48771}
   m_LocalScale: {x: 32.688137, y: 969.9915, z: 32.688156}
   m_Children: []
   m_Father: {fileID: 0}
@@ -82,3 +84,27 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1528672331133312}
   m_Mesh: {fileID: 4300000, guid: 5d5740affd0ec7942ba65453783e69e7, type: 3}
+--- !u!65 &65108232838394200
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1528672331133312}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.035571706, y: 0.007769322, z: 0.03069373}
+  m_Center: {x: 0.04504425, y: -0.0026216328, z: 0.011539937}
+--- !u!65 &65900814856894360
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1528672331133312}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.03714414, y: 0.009042853, z: 0.03069373}
+  m_Center: {x: 0.003227182, y: 0.0075684865, z: 0.011539937}
