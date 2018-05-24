@@ -11,38 +11,22 @@ public class CameraHolder : MonoBehaviour
     private Gyro gyro;
     [SerializeField] private GameObject eventSystemGameobject;
 
-    void Start()
-    {
-        mainCameraGameObject.transform.position = Vector3.zero;
-        mainCameraGameObject.transform.rotation = Quaternion.identity;
-        mainCameraGameObject.transform.parent.transform.position = Vector3.zero;
-        transform.position = Vector3.zero;
-        if (VRSwitch.Instance.VrState)
-        {
-            GvrCardboardHelpers.Recenter();
-        }
-
-    }
-    
 	void Awake ()
 	{
 	    mainCameraGameObject = Camera.main.gameObject;
 	    mainCameraGameObject.transform.position = Vector3.zero;
 	    mainCameraGameObject.transform.rotation = Quaternion.identity;
 	    mainCameraGameObject.transform.parent.transform.position = Vector3.zero;
+
         defaultCameraHolderTransform = Camera.main.transform.root;
 	    defaultCameraHolderTransform.position = Vector3.zero;
+
         mainCameraGameObject.transform.parent.parent = transform;
 
 	    postProcessingBehaviour = mainCameraGameObject.GetComponent<PostProcessingBehaviour>();
 	    gyro = mainCameraGameObject.GetComponent<Gyro>();
 
 	    postProcessingBehaviour.enabled = true;
-
-	    mainCameraGameObject.transform.position = Vector3.zero;
-	    mainCameraGameObject.transform.rotation = Quaternion.identity;
-	    mainCameraGameObject.transform.parent.transform.position = Vector3.zero;
-	    transform.position = Vector3.zero;
 
         if (!VRSwitch.Instance.VrState)
 	    {
@@ -56,10 +40,6 @@ public class CameraHolder : MonoBehaviour
         }
 	    VRSwitch.Instance.GvrReticlePointerGameObject.SetActive(false);
     }
-	
-	private void Update () {
-		
-	}
 
     private void OnEnable()
     {
