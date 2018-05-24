@@ -24,8 +24,6 @@ public static class TextureHelper {
         int height = texture.height;
         Color[] colors = texture.GetPixels();
 
-        Debug.Log(colors.Length);
-
         List<Vector2Int> pixelCoordinates = new List<Vector2Int>();
 
         for (int i = 0; i < colors.Length; i++) {
