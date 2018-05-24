@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿#if UNITY_EDITOR
+using UnityEngine;
 using UnityEditor;
 using System;
 
@@ -37,5 +38,7 @@ public class VisualiseEditor : Editor
                 visualise.Option = Options.Transform;
                 break;
         }
-    }   
+    }
+
 }
+#endif
