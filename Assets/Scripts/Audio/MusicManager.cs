@@ -200,8 +200,10 @@ public class MusicManager : MonoBehaviour
 }
 
 [Serializable]
-class Songlist
+internal class Songlist
 {
+    #pragma warning disable CS0649, 
     public Scenes Scene;
     public List<Song> SongList;
+    #pragma warning restore CS0649, 
 }
