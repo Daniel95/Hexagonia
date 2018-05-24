@@ -60,8 +60,8 @@ public class MusicManager : MonoBehaviour
         if (source != null)
         {
             source.volume = maxVolume;
-            if (source.isPlaying == false)
-                SwitchSong();
+            if (source.isPlaying == false) { }
+                //SwitchSong();
         }
     }
 
@@ -71,8 +71,12 @@ public class MusicManager : MonoBehaviour
     /// <param name="_fade">Depending on this the song fades or switches instantly</param>
     public void SwitchSong(bool _fade = true)
     {
-        if (currentSongList.Count == 0 || switching)
-            return;
+        if (currentSongList.Count == 0) { return; }
+
+        if (switching)
+        {
+            StopAllCoroutines();
+        }
 
         Song _randomSong = RandomSong();
         switching = true;
@@ -89,6 +93,9 @@ public class MusicManager : MonoBehaviour
             source.Play();
             switching = false;
         }
+
+        StartCoroutine(NewSong(_randomSong.clip.length));
+
         return;
     }
 
@@ -132,6 +139,13 @@ public class MusicManager : MonoBehaviour
         }
         source.volume = maxVolume;
         switching = false;
+    }
+
+    private IEnumerator NewSong(float delay)
+    {
+        Debug.Log("Waiting for new song");
+        yield return new WaitForSeconds(delay +0.1f);
+        SwitchSong();
     }
 
     /// <summary>
