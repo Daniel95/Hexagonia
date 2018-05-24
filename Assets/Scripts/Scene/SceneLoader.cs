@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class SceneLoader : MonoBehaviour
 {
-
-    public static Action SceneSwitchStartedEvent;
-    public static Action SceneSwitchCompletedEvent;
+    //Parameters: Old scene, New Scene
+    public static Action<Scenes, Scenes> SceneSwitchCompletedEvent;
+    public static Action<Scenes, Scenes> SceneSwitchStartedEvent;
 
     public static SceneLoader Instance { get { return GetInstance(); } }
 
@@ -39,25 +39,31 @@ public class SceneLoader : MonoBehaviour
 
         if (SceneSwitchStartedEvent != null)
         {
-            SceneSwitchStartedEvent();
+            SceneSwitchStartedEvent((Scenes)_previousScene, _newScene);
         }
 
         if (_previousScene != null)
         {
-            SceneHelper.UnloadSceneOverTime(_previousScene.ToString(), () => SceneHelper.LoadSceneOverTime(_newScene.ToString()));
+            SceneHelper.UnloadSceneOverTime(_previousScene.ToString(), () => SceneHelper.LoadSceneOverTime(_newScene.ToString(), () =>
+            {
+                if (SceneSwitchCompletedEvent != null)
+                {
+                    SceneSwitchCompletedEvent((Scenes)_previousScene, _newScene);
+                }
+            }));
+            
         }
         else
         {
             SceneHelper.LoadSceneOverTime(_newScene.ToString(), () =>
             {
+                Debug.Log(SceneSwitchCompletedEvent);
                 if (SceneSwitchCompletedEvent != null)
                 {
-                    SceneSwitchCompletedEvent();
+                    SceneSwitchCompletedEvent((Scenes)_previousScene, _newScene);
                 }
             });
         }
-
-
     }
 
     private void Awake()

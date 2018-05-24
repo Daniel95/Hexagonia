@@ -11,11 +11,13 @@ public class PlayerTrails : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Sprite previousSprite;
 
+    /*
     private void Awake() {
         spriteRenderer = GetComponent<SpriteRenderer>();
 
         InitiateTrailPositions();
     }
+    */
 
     private void Update()
     {

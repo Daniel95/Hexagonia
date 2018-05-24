@@ -13,10 +13,10 @@ public class Gyro : MonoBehaviour
 
     void Start()
     {
-        Initialization();
+        Initialization(Scenes.Default, Scenes.Main);
     }
 
-    private void Initialization()
+    private void Initialization(Scenes _scenes1, Scenes _scenes2)
     {
         Input.gyro.enabled = true;
         baseGyro = Input.gyro.attitude;

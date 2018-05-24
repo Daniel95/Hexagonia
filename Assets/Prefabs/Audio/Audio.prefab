@@ -51,7 +51,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 64fd140ebc57a0144b27a96d2373105d, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 0.2
   m_Pitch: 1
@@ -133,8 +133,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3708a132719388499ebee3efe548104, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioSource: {fileID: 82640575770356706}
   decreaseSpeed: 0.1
+  audioSource: {fileID: 82640575770356706}
 --- !u!114 &114261910940160688
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -146,9 +146,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 530138764895f1840ab10556399e8141, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  songList:
-  - priority: 0
-    clip: {fileID: 8300000, guid: 5497ec20af5428b47ab0a0996c6e711b, type: 3}
-  - priority: 0
-    clip: {fileID: 8300000, guid: 64fd140ebc57a0144b27a96d2373105d, type: 3}
-  fadeTime: 1
+  defaultSongList: 1
+  songlists:
+  - Scene: 1
+    SongList:
+    - priority: 0
+      clip: {fileID: 8300000, guid: 64fd140ebc57a0144b27a96d2373105d, type: 3}
+  - Scene: 2
+    SongList:
+    - priority: 0
+      clip: {fileID: 8300000, guid: 5497ec20af5428b47ab0a0996c6e711b, type: 3}
+  fadeTime: 2
+  maxVolume: 0.5

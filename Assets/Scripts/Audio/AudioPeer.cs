@@ -24,14 +24,9 @@ public class AudioPeer : MonoBehaviour
         return instance;
     }
     #endregion
-
-    [SerializeField] private AudioSource audioSource;
-
-    [SerializeField] private float decreaseSpeed = 0.005f;
-
+    
     public Action<AudioPeer> TransmitAudioData;
 
-    private float[] samples = new float[512];
     public float[] Samples
     {
         get
@@ -39,8 +34,6 @@ public class AudioPeer : MonoBehaviour
             return samples;
         }
     }
-
-    private float[] freqBand = new float[8];
     public float[] FreqBand
     {
         get
@@ -49,7 +42,6 @@ public class AudioPeer : MonoBehaviour
         }
     }
 
-    private float[] bandBuffer;
     public float[] BandBuffer
     {
         get
@@ -57,29 +49,74 @@ public class AudioPeer : MonoBehaviour
             return bandBuffer;
         }
     }
+    
+    public float[] NormalisedFreqBand
+    {
+        get
+        {
+            return normalisedFreqBand;
+        }
+    }
+    public float[] NormalisedFreqBandBuffer
+    {
+        get
+        {
+            return normalisedFreqBandBuffer;
+        }
+    }
+
+    private float[] samples = new float[512];
+    private float[] freqBand = new float[8];
+
+    private float[] bandBuffer;
+    
+    private float[] normalisedFreqBandBuffer;
+    private float[] normalisedFreqBand;
 
     private float[] bufferDecrease;
+    private float[] freqBandHighest;
+
+    [SerializeField] private float decreaseSpeed = 0.005f;
+
+    [SerializeField] private AudioSource audioSource;
 
     private void Awake ()
     {
         bandBuffer = new float[freqBand.Length];
         bufferDecrease = new float[freqBand.Length];
+        freqBandHighest = new float[freqBand.Length];
+        normalisedFreqBand = new float[freqBand.Length];
+        normalisedFreqBandBuffer = new float[freqBand.Length];
     }
     
-    void Update()
+    private void Update()
     {
         GetSpectrumAudioSource();
         MakeFrequencyband();
         MakeFreqBandBuffer();
+        NormaliseFreqBand();
 
         if (TransmitAudioData != null)
             TransmitAudioData(instance);
+    }
+    
+    private void NormaliseFreqBand()
+    {
+        for (int i = 0; i < NormalisedFreqBand.Length; i++)
+        {
+            if (freqBand[i] > freqBandHighest[i])
+            {
+                freqBandHighest[i] = freqBand[i];
+            }
+            NormalisedFreqBand[i] = (freqBand[i] / freqBandHighest[i]);
+            normalisedFreqBandBuffer[i] = (bandBuffer[i] / freqBandHighest[i]);
+        }
     }
 
     /// <summary>
     /// Reads the audio for SpectrumData and sets the samples array t that data
     /// </summary>
-    void GetSpectrumAudioSource()
+    private void GetSpectrumAudioSource()
     {
         audioSource.GetSpectrumData(samples, 0, FFTWindow.Blackman);
     }
@@ -87,7 +124,7 @@ public class AudioPeer : MonoBehaviour
     /// <summary>
     /// Takes the audio Frequency and reduces it to 8 averages
     /// </summary>
-    void MakeFrequencyband()
+    private void MakeFrequencyband()
     {
         int count = 0;
 
@@ -116,7 +153,7 @@ public class AudioPeer : MonoBehaviour
     /// <summary>
     /// Buffers the audio FrequencyBand to fall down slow instead if instantly
     /// </summary>
-    void MakeFreqBandBuffer()
+    private void MakeFreqBandBuffer()
     {
         for (int i = 0; i < bandBuffer.Length; i++)
         {

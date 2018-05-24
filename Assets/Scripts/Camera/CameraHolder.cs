@@ -56,6 +56,10 @@ public class CameraHolder : MonoBehaviour
         }
 	    VRSwitch.Instance.GvrReticlePointerGameObject.SetActive(false);
     }
+	
+	private void Update () {
+		
+	}
 
     private void OnEnable()
     {
@@ -67,7 +71,7 @@ public class CameraHolder : MonoBehaviour
         SceneLoader.SceneSwitchStartedEvent -= OnSceneSwitch;
     }
 
-    private void OnSceneSwitch()
+    private void OnSceneSwitch(Scenes _oldScene, Scenes _newScene)
     {
         mainCameraGameObject.transform.position = Vector3.zero;
         mainCameraGameObject.transform.rotation = Quaternion.identity;

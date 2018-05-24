@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 /// <summary>
 /// Plays and switches the current playing song
@@ -33,16 +34,27 @@ public class MusicManager : MonoBehaviour
     private AudioClip currentClip;
 
     private bool switching = false;
-    [SerializeField] private List<Song> songList = new List<Song>();
-    
+    private List<Song> currentSongList = new List<Song>();
+
+    [Space(5)]
+
+    [SerializeField] private Scenes defaultSongList;
+    [SerializeField] private Songlist[] songlists;
+
     [Space(5)]
 
     [SerializeField] private float fadeTime = .5f;
     
     [Range(0,1)]
     [SerializeField] private float maxVolume = .5f;
-
-    //Remove input, is for debug
+    
+    private void Awake()
+    {
+        source = GetComponent<AudioSource>();
+        source.volume = maxVolume;
+        SceneSwitch(Scenes.Default, defaultSongList);
+    }
+    
     private void Update()
     {
         if (source != null)
@@ -51,24 +63,15 @@ public class MusicManager : MonoBehaviour
             if (source.isPlaying == false)
                 SwitchSong();
         }
-
-        if (Input.GetKeyDown(KeyCode.Space))
-            SwitchSong();
     }
 
-    private void Awake()
-    {
-        source = GetComponent<AudioSource>();
-        source.volume = maxVolume;
-    }
-    
     /// <summary>
     /// Switches to a random song in the songlist
     /// </summary>
     /// <param name="_fade">Depending on this the song fades or switches instantly</param>
     public void SwitchSong(bool _fade = true)
     {
-        if (songList.Count == 0 || switching)
+        if (currentSongList.Count == 0 || switching)
             return;
 
         Song _randomSong = RandomSong();
@@ -142,12 +145,12 @@ public class MusicManager : MonoBehaviour
         
         while (_randomSong == null)
         {
-            Song _potentialSong = songList[Random.Range(0, songList.Count)];
+            Song _potentialSong = currentSongList[UnityEngine.Random.Range(0, currentSongList.Count)];
 
             if (_potentialSong.priority <= _count)
             {
                 _randomSong = _potentialSong;
-                _potentialSong.priority += songList.Count;
+                _potentialSong.priority += currentSongList.Count;
             }
             _count += 1;
 
@@ -162,7 +165,7 @@ public class MusicManager : MonoBehaviour
     /// </summary>
     private void GivePriority()
     {
-        foreach (Song _song in songList)
+        foreach (Song _song in currentSongList)
         {
             if (_song.priority > 0)
             {
@@ -171,4 +174,34 @@ public class MusicManager : MonoBehaviour
         }
     }
 
+    private void SceneSwitch(Scenes _oldScene, Scenes _newScene)
+    {
+        if (_oldScene == _newScene) { return; }
+
+        foreach (Songlist _list in songlists)
+        {
+            if (_list.Scene == _newScene)
+            {
+                currentSongList = _list.SongList;
+            }
+        }
+
+        SwitchSong();
+    }
+
+    private void OnEnable()
+    {
+        SceneLoader.SceneSwitchCompletedEvent += SceneSwitch;
+    }
+    private void OnDisable()
+    {
+        SceneLoader.SceneSwitchCompletedEvent -= SceneSwitch;
+    }
+}
+
+[Serializable]
+class Songlist
+{
+    public Scenes Scene;
+    public List<Song> SongList;
 }
