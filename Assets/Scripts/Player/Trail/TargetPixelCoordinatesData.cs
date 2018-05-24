@@ -6,7 +6,7 @@ using UnityEngine;
 public class TargetPixelCoordinatesData
 {
 
-    public List<Sprite> Sprites;
+    public List<Sprite> SpriteSheets;
     public TargetPixelCoordinatesLabel Label;
     public Color MinColor;
     public Color MaxColor;
@@ -14,6 +14,8 @@ public class TargetPixelCoordinatesData
 
     [Header("Data")]
     public List<SpriteAndPixelCoordinatesPair> spriteAndPixelCoordinatesPairs;
+
+    private const string SPRITE_SHEET_PATH = "Sprites/";
 
     public List<Vector2> GetTargetPixelCoordinates(Sprite _sprite)
     {
@@ -33,29 +35,38 @@ public class TargetPixelCoordinatesData
         spriteAndPixelCoordinatesPairs.Clear();
         int? _pixelCount = null;
 
-        foreach (Sprite _sprite in Sprites)
+        foreach (Sprite _spriteSheet in SpriteSheets)
         {
-            SpriteAndPixelCoordinatesPair _spriteAndPixelCoordinatesPair = new SpriteAndPixelCoordinatesPair()
-            {
-                Sprite = _sprite,
-            };
+            //Sprite[] _sprites = Resources.LoadAll<Sprite>(SPRITE_SHEET_PATH + _spriteSheet.name);
+            Sprite[] _sprites = Resources.LoadAll<Sprite>(SPRITE_SHEET_PATH + "Player down");
 
-            List<Vector2> _pixelCoordinates = GetPixelCoordinates(_sprite);
-            _spriteAndPixelCoordinatesPair.PixelCoordinates = _pixelCoordinates;
+            Debug.Log(SPRITE_SHEET_PATH + _spriteSheet.name);
+            Debug.Log(_sprites.Length);
 
-            if(_pixelCount == null)
+            foreach (Sprite _sprite in _sprites)
             {
-                _pixelCount = _pixelCoordinates.Count;
-                spriteAndPixelCoordinatesPairs.Add(_spriteAndPixelCoordinatesPair);
-            }
-            else if(_pixelCount == _pixelCoordinates.Count)
-            {
-                spriteAndPixelCoordinatesPairs.Add(_spriteAndPixelCoordinatesPair);
-            }
-            else
-            {
-                Debug.LogError("Sprite " + _sprite.name + " with label " + Label + " does not have the same amount of pixels as the other sprites, has " + _pixelCoordinates.Count + " needs " + _pixelCount + ", color between " + MinColor + " and " + MaxColor);
-                break;
+                SpriteAndPixelCoordinatesPair _spriteAndPixelCoordinatesPair = new SpriteAndPixelCoordinatesPair()
+                {
+                    Sprite = _sprite,
+                };
+
+                List<Vector2> _pixelCoordinates = GetPixelCoordinates(_sprite);
+                _spriteAndPixelCoordinatesPair.PixelCoordinates = _pixelCoordinates;
+
+                if (_pixelCount == null)
+                {
+                    _pixelCount = _pixelCoordinates.Count;
+                    spriteAndPixelCoordinatesPairs.Add(_spriteAndPixelCoordinatesPair);
+                }
+                else if (_pixelCount == _pixelCoordinates.Count)
+                {
+                    spriteAndPixelCoordinatesPairs.Add(_spriteAndPixelCoordinatesPair);
+                }
+                else
+                {
+                    Debug.LogError("Sprite " + _sprite.name + " with label " + Label + " does not have the same amount of pixels as the other sprites, has " + _pixelCoordinates.Count + " needs " + _pixelCount + ", color between " + MinColor + " and " + MaxColor);
+                    break;
+                }
             }
         }
     }
