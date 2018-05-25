@@ -1,19 +1,27 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using SRF;
 using UnityEngine;
 using UnityEngine.PostProcessing;
 
 public class CameraHolder : MonoBehaviour
 {
+    [SerializeField] private GameObject eventSystemGameobject;
+
     private Transform defaultCameraHolderTransform;
     private GameObject mainCameraGameObject;
     private PostProcessingBehaviour postProcessingBehaviour;
     private Gyro gyro;
 
-	void Awake ()
+	private void Awake ()
 	{
 	    mainCameraGameObject = Camera.main.gameObject;
-	    defaultCameraHolderTransform = Camera.main.transform.root;
+
+	    mainCameraGameObject.transform.ResetLocal();
+        mainCameraGameObject.transform.parent.ResetLocal();
+	    transform.ResetLocal();
+
+        defaultCameraHolderTransform = Camera.main.transform.root;
+	    defaultCameraHolderTransform.ResetLocal();
+
         mainCameraGameObject.transform.parent.parent = transform;
 
 	    postProcessingBehaviour = mainCameraGameObject.GetComponent<PostProcessingBehaviour>();
@@ -21,19 +29,20 @@ public class CameraHolder : MonoBehaviour
 
 	    postProcessingBehaviour.enabled = true;
 
-	    if (!VRSwitch.Instance.VrState)
+        if (!VRSwitch.Instance.VrState)
 	    {
 	        gyro.enabled = true;
+
         }
-	    else
-	    {
-	        VRSwitch.Instance.GvrReticlePointerGameObject.SetActive(false);
+        else
+        {
+#if !UNITY_EDITOR
+            GvrCardboardHelpers.Recenter();
+#endif
+            eventSystemGameobject.SetActive(false);
         }
-	}
-	
-	private void Update () {
-		
-	}
+	    VRSwitch.Instance.GvrReticlePointerGameObject.SetActive(false);
+    }
 
     private void OnEnable()
     {
@@ -47,12 +56,34 @@ public class CameraHolder : MonoBehaviour
 
     private void OnSceneSwitch(Scenes _oldScene, Scenes _newScene)
     {
-        mainCameraGameObject.transform.parent.parent = defaultCameraHolderTransform;
+        mainCameraGameObject.transform.ResetLocal();
+        mainCameraGameObject.transform.parent.ResetLocal();
 
-        mainCameraGameObject.transform.position = Vector3.zero;
-        mainCameraGameObject.transform.parent.transform.position = Vector3.zero;
+        mainCameraGameObject.transform.parent.parent = defaultCameraHolderTransform;
+        gyro.enabled = false;
+
+        mainCameraGameObject.transform.ResetLocal();
+        mainCameraGameObject.transform.parent.ResetLocal();
+        transform.ResetLocal();
+        defaultCameraHolderTransform.ResetLocal();
 
         postProcessingBehaviour.enabled = false;
-        gyro.enabled = false;
+
+#if !UNITY_EDITOR
+        if (VRSwitch.Instance.VrState)
+        {
+            GvrCardboardHelpers.Recenter();
+        }
+#endif
+    }
+
+    private void ResetTransforms()
+    {
+        mainCameraGameObject.transform.position = Vector3.zero;
+        mainCameraGameObject.transform.rotation = Quaternion.identity;
+        mainCameraGameObject.transform.parent.transform.position = Vector3.zero;
+
+        transform.position = Vector3.zero;
+        defaultCameraHolderTransform.position = Vector3.zero;
     }
 }
