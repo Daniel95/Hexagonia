@@ -69,75 +69,21 @@ public class ObjectPool : MonoBehaviour {
     private const string OBJECT_POOL_ENTRIES_PATH = "ChunkPoolEntries/";
     private const int CLONE_NAME_LENGTH = 7;
 
-    [ContextMenu("UpdateObjectPoolEntry")]
-    private void UpdateObjectPoolEntry()
+    /// <summary>
+    /// Gets a new object for the name type provided.  If no object type exists or if onlypooled is true and there is no objects of that type in the pool
+    /// then null will be returned.
+    /// </summary>
+    /// <returns>
+    /// The object for type.
+    /// </returns>
+    /// <param name='objectName'>
+    /// Object type.
+    /// </param>
+    /// <param name='onlyPooled'>
+    /// If true, it will only return an object if there is one currently pooled.
+    /// </param>
+    public GameObject GetObjectForType(string objectName, bool onlyPooled)
     {
-        Entries.Clear();
-
-        List<GameObject> _prefabs = Resources.LoadAll<GameObject>(OBJECT_POOL_ENTRIES_PATH).ToList();
-
-        foreach (GameObject _prefab in _prefabs)
-        {
-            ObjectPoolEntry objectPoolEntry = new ObjectPoolEntry
-            {
-                Prefab = _prefab,
-            };
-
-            Entries.Add(objectPoolEntry);
-        }
-    }
-
-    void OnEnable()
-	{
-		instance = this;
-	}
-
-	// Use this for initialization
-	void Start()
-	{
-        //Loop through the object prefabs and make a new list for each one.
-        //We do this because the pool can only support prefabs set to it in the editor,
-        //so we can assume the lists of pooled objects are in the same order as object prefabs in the array
-
-        for (int i = 0; i < Entries.Count; i++)
-		{
-			ObjectPoolEntry objectPoolEntry = Entries[i];
-
-            entriesByName.Add(objectPoolEntry.Prefab.name, objectPoolEntry);
-
-			//create the repository
-			objectPoolEntry.pool = new List<GameObject>(objectPoolEntry.Count);
-
-			//fill it                      
-			for (int n = 0; n < objectPoolEntry.Count; n++)
-			{
-				GameObject newObj = (GameObject)Instantiate(objectPoolEntry.Prefab, transform);
-				newObj.name = objectPoolEntry.Prefab.name;
-                newObj.SetActive(false);
-			}
-		}
-
-	    if (PoolingInitialisationCompletedEvent != null)
-	    {
-	        PoolingInitialisationCompletedEvent();
-        }
-	}
-
-	/// <summary>
-	/// Gets a new object for the name type provided.  If no object type exists or if onlypooled is true and there is no objects of that type in the pool
-	/// then null will be returned.
-	/// </summary>
-	/// <returns>
-	/// The object for type.
-	/// </returns>
-	/// <param name='objectName'>
-	/// Object type.
-	/// </param>
-	/// <param name='onlyPooled'>
-	/// If true, it will only return an object if there is one currently pooled.
-	/// </param>
-	public GameObject GetObjectForType(string objectName, bool onlyPooled)
-	{
         if (!entriesByName.ContainsKey(objectName))
         {
             Debug.Log("cant find " + objectName);
@@ -165,17 +111,17 @@ public class ObjectPool : MonoBehaviour {
         }
 
         return null;
-	}
+    }
 
-	/// <summary>
-	/// Pools the object specified.  Will not be pooled if there is no prefab of that type.
-	/// </summary>
-	/// <param name='obj'>
-	/// Object to be pooled.
-	/// </param>
-	public void PoolObject(GameObject obj, bool resetRigidbody = false)
-	{
-        if(!entriesByName.ContainsKey(obj.name))
+    /// <summary>
+    /// Pools the object specified.  Will not be pooled if there is no prefab of that type.
+    /// </summary>
+    /// <param name='obj'>
+    /// Object to be pooled.
+    /// </param>
+    public void PoolObject(GameObject obj, bool resetRigidbody = false)
+    {
+        if (!entriesByName.ContainsKey(obj.name))
         {
             Destroy(obj);
             return;
@@ -190,6 +136,55 @@ public class ObjectPool : MonoBehaviour {
             obj.GetComponent<Rigidbody>().velocity = Vector3.zero;
         }
         objectPoolEntry.pool[objectPoolEntry.objectsInPool++] = obj;
+    }
+
+    [ContextMenu("UpdateObjectPoolEntry")]
+    private void UpdateObjectPoolEntry()
+    {
+        Entries.Clear();
+
+        List<GameObject> _prefabs = Resources.LoadAll<GameObject>(OBJECT_POOL_ENTRIES_PATH).ToList();
+
+        foreach (GameObject _prefab in _prefabs)
+        {
+            ObjectPoolEntry objectPoolEntry = new ObjectPoolEntry
+            {
+                Prefab = _prefab,
+            };
+
+            Entries.Add(objectPoolEntry);
+        }
+    }
+
+    // Use this for initialization
+    private void Start()
+	{
+        //Loop through the object prefabs and make a new list for each one.
+        //We do this because the pool can only support prefabs set to it in the editor,
+        //so we can assume the lists of pooled objects are in the same order as object prefabs in the array
+
+        for (int i = 0; i < Entries.Count; i++)
+		{
+			ObjectPoolEntry objectPoolEntry = Entries[i];
+
+            entriesByName.Add(objectPoolEntry.Prefab.name, objectPoolEntry);
+
+			//create the repository
+			objectPoolEntry.pool = new List<GameObject>(objectPoolEntry.Count);
+
+			//fill it                      
+			for (int n = 0; n < objectPoolEntry.Count; n++)
+			{
+				GameObject newObj = (GameObject)Instantiate(objectPoolEntry.Prefab, transform);
+				newObj.name = objectPoolEntry.Prefab.name;
+                newObj.SetActive(false);
+			}
+		}
+
+	    if (PoolingInitialisationCompletedEvent != null)
+	    {
+	        PoolingInitialisationCompletedEvent();
+        }
 	}
 
 }
