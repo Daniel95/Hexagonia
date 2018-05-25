@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
 public class MovementBoundaryLine : MonoBehaviour {
@@ -10,32 +11,40 @@ public class MovementBoundaryLine : MonoBehaviour {
     }
 
     [SerializeField] private PositionType positionType;
-    [SerializeField] [Range(0, 1)] private float threshold = 0.4f;
     [SerializeField] private float yOffset = 0.2f;
-    [SerializeField] private float maximumOpacity = 0.75f;
+    [SerializeField] [Range(0, 1)] private float fadeInThreshold = 0.4f;
+    [SerializeField] [Range(0, 1)] private float minAlpha = 0;
+    [SerializeField] [Range(0, 1)] private float maxAlpha = 0.75f;
 
     private float movementPlaneBottomYPosition;
     private float movementPlaneTopPosition;
     private float ratioPositionTypeMultiplier;
     private SpriteRenderer spriteRenderer;
+    private Coroutine fadeCoroutine;
 
-    private void Update()
+    private IEnumerator FadeCoroutine()
     {
-        if (Player.Instance == null) { return; }
+        while(true)
+        {
+            float _topBottomOffset = movementPlaneTopPosition - movementPlaneBottomYPosition;
 
-        float _topBottomOffset = movementPlaneTopPosition - movementPlaneBottomYPosition;
+            float _playerPlaneLocalYPosition = Player.Instance.transform.position.y - movementPlaneBottomYPosition;
+            float _ratioInPlane = _playerPlaneLocalYPosition / _topBottomOffset;
+            float _ratioToPositionType = Mathf.Abs(_ratioInPlane - ratioPositionTypeMultiplier);
 
-        float _playerPlaneLocalYPosition = Player.Instance.transform.position.y - movementPlaneBottomYPosition;
-        float _ratioInPlane = _playerPlaneLocalYPosition / _topBottomOffset;
-        float _ratioToPositionType = Mathf.Abs(_ratioInPlane - ratioPositionTypeMultiplier);
+            float _currentWithThreshold = Mathf.Clamp01(_ratioToPositionType - fadeInThreshold);
+            float _maxWithThreshold = 1f - fadeInThreshold;
+            float _ratioWithThreshold = _currentWithThreshold / _maxWithThreshold;
 
-        float _currentWithThreshold = Mathf.Clamp01(_ratioToPositionType - threshold);
-        float _maxWithThreshold = 1f - threshold;
-        float _ratioWithThreshold = _currentWithThreshold / _maxWithThreshold;
+            float _minMaxRange = maxAlpha - minAlpha;
+            float _alpha = minAlpha + (_ratioWithThreshold * _minMaxRange);
 
-        Color _color = spriteRenderer.material.color;
-        _color.a = _ratioWithThreshold * maximumOpacity;
-        spriteRenderer.material.color = _color;
+            Color _color = spriteRenderer.material.color;
+            _color.a = _alpha;
+            spriteRenderer.material.color = _color;
+
+            yield return null;
+        }
     }
 
     private void Start()
@@ -56,6 +65,26 @@ public class MovementBoundaryLine : MonoBehaviour {
         movementPlaneTopPosition = LookPositionOnPlane.Instance.transform.position.y + halfPlaneSize.y;
 
         spriteRenderer = GetComponent<SpriteRenderer>();
+
+        fadeCoroutine = StartCoroutine(FadeCoroutine());
+    }
+
+    private void StopFadeCoroutine()
+    {
+        if(fadeCoroutine != null)
+        {
+            StopCoroutine(fadeCoroutine);
+        }
+    }
+
+    private void OnEnable()
+    {
+        Player.DiedEvent += StopFadeCoroutine;
+    }
+
+    private void OnDisable()
+    {
+        Player.DiedEvent -= StopFadeCoroutine;
     }
 
 }

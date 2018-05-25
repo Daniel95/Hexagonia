@@ -106,13 +106,13 @@ public class VRSwitch : MonoBehaviour
     private void OnEnable()
     {
         VRModeButtonListener.InitializedEvent += SetVRModeAfterInitialization;
-        Player.PlayerDiedEvent += SetReticlePointer;
+        Player.DiedEvent += SetReticlePointer;
     }
 
     private void OnDisable()
     {
         VRModeButtonListener.InitializedEvent -= SetVRModeAfterInitialization;
-        Player.PlayerDiedEvent -= SetReticlePointer;
+        Player.DiedEvent -= SetReticlePointer;
     }
 
 }

@@ -4,7 +4,7 @@ using System;
 
 public class Player : MonoBehaviour
 {
-    public static Action PlayerDiedEvent;
+    public static Action DiedEvent;
 
     public static Player Instance { get { return GetInstance(); } }
 
@@ -86,9 +86,9 @@ public class Player : MonoBehaviour
         {
             LookPositionOnPlane.Instance.enabled = false;
 
-            if (PlayerDiedEvent != null)
+            if (DiedEvent != null)
             {
-                PlayerDiedEvent();
+                DiedEvent();
             }
             Destroy(gameObject);
         }
