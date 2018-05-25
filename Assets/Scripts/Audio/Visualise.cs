@@ -1,42 +1,18 @@
-﻿/*
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Visualise : MonoBehaviour
 {
-    public VisualiseEditor.Options Option
-    {
-        set
-        {
-            option = value;
-        }
-    }
-    public Light LightSource
-    {
-        set
-        {
-            lightSource = value;
-        }
-        get
-        {
-            return lightSource;
-        }
-    }
+#pragma warning disable CS0649, 
+    [SerializeField] private int min, max;
+#pragma warning restore CS0649,
 
-    private VisualiseEditor.Options option;
-    private Light lightSource;
+    [Space(5)]
+
+    [SerializeField] private Light lightSource;
+
     
     private void Update()
     {
-        switch (option)
-        {
-            case VisualiseEditor.Options.Light:
-                lightSource.intensity = Random.Range(0, 100);
-                break;
-            case VisualiseEditor.Options.Transform:
-                break;
-        }
+        lightSource.range = min + (max * AudioPeer.Instance.SingleBand);
     }
 }
-*/
