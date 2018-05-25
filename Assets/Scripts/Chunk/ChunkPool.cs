@@ -118,7 +118,7 @@ public class ChunkPool : MonoBehaviour
             ObjectPool.Instance.PoolObject(children[i].gameObject);
         }
 
-        ObjectPool.Instance.PoolObject(_chunk);
+        Destroy(_chunk);
     }
 
     private void GetChunkListsByChunkType()
