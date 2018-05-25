@@ -103,18 +103,18 @@ public class ObjectPool : MonoBehaviour {
 		{
 			ObjectPoolEntry objectPoolEntry = Entries[i];
 
+            entriesByName.Add(objectPoolEntry.Prefab.name, objectPoolEntry);
+
 			//create the repository
 			objectPoolEntry.pool = new List<GameObject>(objectPoolEntry.Count);
 
 			//fill it                      
 			for (int n = 0; n < objectPoolEntry.Count; n++)
 			{
-				GameObject newObj = (GameObject)Instantiate(objectPoolEntry.Prefab);
+				GameObject newObj = (GameObject)Instantiate(objectPoolEntry.Prefab, transform);
 				newObj.name = objectPoolEntry.Prefab.name;
-				PoolObject(newObj);
+                newObj.SetActive(false);
 			}
-
-            entriesByName.Add(objectPoolEntry.Prefab.name, objectPoolEntry);
 		}
 
 	    if (PoolingInitialisationCompletedEvent != null)
