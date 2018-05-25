@@ -54,9 +54,6 @@ public class MusicManager : MonoBehaviour
     /// <param name="_fade">Depending on this the song fades or switches instantly</param>
     public void SwitchSong(bool _fade = true)
     {
-        Debug.Log("Switching song");
-        Debug.Log(switching);
-
         if (currentSongList.Count == 0) { return; }
 
         if (switching)
