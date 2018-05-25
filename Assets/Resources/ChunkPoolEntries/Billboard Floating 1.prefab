@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4435518922008438}
   m_Layer: 0
   m_Name: Billboard Floating 1
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -53,9 +53,10 @@ GameObject:
   - component: {fileID: 4904246970322212}
   - component: {fileID: 33380038450829578}
   - component: {fileID: 23149246556865386}
+  - component: {fileID: 65997330138688622}
   m_Layer: 0
   m_Name: Billboard_Frame1
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -66,8 +67,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1929858975172910}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4867007949539046}
@@ -183,3 +184,15 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1211228766400324}
   m_Mesh: {fileID: 4300000, guid: 9715fce7a646ecc44bcc089be890bcab, type: 3}
+--- !u!65 &65997330138688622
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1991617630859054}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.4857638, y: 4.3280306, z: 0.6027441}
+  m_Center: {x: 0.00000071525574, y: 2.1640153, z: -0.0000009536743}
