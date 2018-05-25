@@ -2,14 +2,14 @@
 using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(ScriptAnimator))]
-public abstract class ScriptAnimation : MonoBehaviour {
+[RequireComponent(typeof(ScriptedAnimationController))]
+public abstract class ScriptedAnimation : MonoBehaviour {
 
     public static Action AnimationCompletedEvent;
 
-    public AnimationType AnimationType { get { return animationType; } }
+    public ScriptedAnimationType Type { get { return type; } }
 
-    [SerializeField] private AnimationType animationType;
+    [SerializeField] private ScriptedAnimationType type;
 
     public bool IsAnimating { get { return AnimationCoroutine != null; } }
 

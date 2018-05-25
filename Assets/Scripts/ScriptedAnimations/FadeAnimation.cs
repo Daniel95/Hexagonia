@@ -1,11 +1,10 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public abstract class FadeAnimation : ScriptAnimation
+public abstract class FadeAnimation : ScriptedAnimation
 {
 
-    [SerializeField] private float minAlpha = 0;
-    [SerializeField] private float maxAlpha = 0;
+    [SerializeField] private float targetAlpha = 1;
 
     private Coroutine fadingCoroutine;
 

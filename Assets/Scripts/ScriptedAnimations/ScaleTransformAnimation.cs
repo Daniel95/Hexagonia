@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ScaleTransformAnimation : ScriptAnimation {
+public class ScaleTransformAnimation : ScriptedAnimation {
 
     [SerializeField] private float targetSize = 1.2f;
     [SerializeField] private float speed = 1.2f;
