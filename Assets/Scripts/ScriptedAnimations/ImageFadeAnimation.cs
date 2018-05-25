@@ -1,8 +1,11 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class ScaleTransformAnimation : LerpAnimation
+public class ImageFadeAnimation : LerpAnimation
 {
+    [SerializeField] private Image image;
+
     public override void StartAnimation(Action animationStoppedEvent = null)
     {
         base.StartAnimation(animationStoppedEvent);
@@ -10,12 +13,13 @@ public class ScaleTransformAnimation : LerpAnimation
 
     public override void StopAnimation(bool isCompleted)
     {
-        transform.localScale = Vector3.one;
         base.StopAnimation(isCompleted);
     }
 
     protected override void Apply(float _value)
     {
-        transform.localScale = new Vector3(_value, _value, _value);
+        Color tempColor = image.color;
+        tempColor.a = _value;
+        image.color = tempColor;
     }
 }

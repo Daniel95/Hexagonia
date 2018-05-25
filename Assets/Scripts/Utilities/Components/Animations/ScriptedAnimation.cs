@@ -5,8 +5,6 @@ using UnityEngine;
 [RequireComponent(typeof(ScriptedAnimationController))]
 public abstract class ScriptedAnimation : MonoBehaviour {
 
-    public static Action AnimationCompletedEvent;
-
     public ScriptedAnimationType Type { get { return type; } }
 
     [SerializeField] private ScriptedAnimationType type;
@@ -17,7 +15,7 @@ public abstract class ScriptedAnimation : MonoBehaviour {
 
     private Action animationStoppedEvent;
 
-    public void StartAnimation(Action animationStoppedEvent = null) {
+    public virtual void StartAnimation(Action animationStoppedEvent = null) {
         if (IsAnimating) {
             StopCoroutine(AnimationCoroutine);
             StopAnimation(false);
@@ -25,19 +23,11 @@ public abstract class ScriptedAnimation : MonoBehaviour {
 
         this.animationStoppedEvent = animationStoppedEvent;
 
-        AnimationCoroutine = StartCoroutine(Animation());
+        AnimationCoroutine = StartCoroutine(Animate());
     }
 
-    public virtual void StopAnimation(bool isCompleted)
+    public virtual void StopAnimation(bool _isCompleted)
     {
-        if (isCompleted)
-        {
-            if (AnimationCompletedEvent != null)
-            {
-                AnimationCompletedEvent();
-            }
-        }
-
         AnimationCoroutine = null;
         if (animationStoppedEvent != null)
         {
@@ -47,7 +37,7 @@ public abstract class ScriptedAnimation : MonoBehaviour {
         animationStoppedEvent = null;
     }
 
-    protected abstract IEnumerator Animation();
+    protected abstract IEnumerator Animate();
 
     private void OnDestroy()
     {
