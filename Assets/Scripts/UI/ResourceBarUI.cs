@@ -44,11 +44,11 @@ public class ResourceBarUI : MonoBehaviour
 
     private void OnEnable()
     {
-        Player.PlayerDiedEvent += Deactivate;
+        Player.DiedEvent += Deactivate;
     }
 
     private void OnDisable()
     {
-        Player.PlayerDiedEvent -= Deactivate;
+        Player.DiedEvent -= Deactivate;
     }
 }	
