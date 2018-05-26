@@ -4,8 +4,8 @@ using UnityEngine;
 public class SceneLoader : MonoBehaviour
 {
     //Parameters: Old scene, New Scene
-    public static Action<Scenes, Scenes> SceneSwitchCompletedEvent;
-    public static Action<Scenes, Scenes> SceneSwitchStartedEvent;
+    public static Action<Scenes?, Scenes> SceneSwitchStartedEvent;
+    public static Action<Scenes?, Scenes> SceneSwitchCompletedEvent;
 
     public static SceneLoader Instance { get { return GetInstance(); } }
 
@@ -44,29 +44,47 @@ public class SceneLoader : MonoBehaviour
 
         if (_previousScene != null)
         {
-            SceneHelper.UnloadSceneOverTime(_previousScene.ToString(), () => SceneHelper.LoadSceneOverTime(_newScene.ToString(), () =>
+            DefaultSceneUI.Instance.FadeSceneOut(() =>
             {
-                if (SceneSwitchCompletedEvent != null)
+                Debug.Log("FadeSceneOut completed");
+                SceneHelper.UnloadSceneOverTime(_previousScene.ToString(), () => 
                 {
-                    SceneSwitchCompletedEvent((Scenes)_previousScene, _newScene);
-                }
-            }));
-            
+                    SceneHelper.LoadSceneOverTime(_newScene.ToString(), () =>
+                    {
+                        Debug.Log("loaded " + _newScene.ToString());
+
+                        DefaultSceneUI.Instance.FadeSceneIn(() =>
+                        {
+                            Debug.Log("FadeSceneIn completed");
+                            if (SceneSwitchCompletedEvent != null)
+                            {
+                                SceneSwitchCompletedEvent(_previousScene, _newScene);
+                            }
+                        });
+                    });
+                });
+            });
         }
         else
         {
             SceneHelper.LoadSceneOverTime(_newScene.ToString(), () =>
             {
-                Debug.Log(SceneSwitchCompletedEvent);
-                if (SceneSwitchCompletedEvent != null)
+                Debug.Log("loaded " + _newScene.ToString());
+
+                DefaultSceneUI.Instance.FadeSceneIn(() =>
                 {
-                    SceneSwitchCompletedEvent((Scenes)_previousScene, _newScene);
-                }
+                    Debug.Log("FadeSceneIn completed");
+
+                    if (SceneSwitchCompletedEvent != null)
+                    {
+                        SceneSwitchCompletedEvent(_previousScene, _newScene);
+                    }
+                });
             });
         }
     }
 
-    private void Awake()
+    private void Start()
     {
         if(startScene == Scenes.Default)
         {
@@ -74,8 +92,7 @@ public class SceneLoader : MonoBehaviour
             return;
         }
 
-        currentScene = startScene;
-        SceneHelper.LoadSceneOverTime(startScene.ToString());
+        SwitchScene(startScene);
     }
 
 }

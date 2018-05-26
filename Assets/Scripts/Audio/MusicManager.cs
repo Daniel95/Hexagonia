@@ -179,7 +179,7 @@ public class MusicManager : MonoBehaviour
         }
     }
 
-    private void SceneSwitch(Scenes _oldScene, Scenes _newScene)
+    private void SceneSwitch(Scenes? _oldScene, Scenes _newScene)
     {
         if (_oldScene == _newScene) { return; }
 

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 [RequireComponent(typeof(ScriptedAnimationController))]
 public class DefaultSceneUI : MonoBehaviour
@@ -29,27 +30,19 @@ public class DefaultSceneUI : MonoBehaviour
 
     private ScriptedAnimationController scriptedAnimationController;
 
+    public void FadeSceneOut(Action _fadeSceneOutCompleted)
+    {
+        scriptedAnimationController.StartAnimation(ScriptedAnimationType.In, _fadeSceneOutCompleted);
+    }
+
+    public void FadeSceneIn(Action _fadeSceneInCompleted)
+    {
+        scriptedAnimationController.StartAnimation(ScriptedAnimationType.Out, _fadeSceneInCompleted);
+    }
+
     private void Awake()
     {
         scriptedAnimationController = GetComponent<ScriptedAnimationController>();
-
-        scriptedAnimationController.StartAnimation(ScriptedAnimationType.In, () => {
-            scriptedAnimationController.StartAnimation(ScriptedAnimationType.Out, () => {
-                scriptedAnimationController.StartAnimation(ScriptedAnimationType.In, () => {
-                    scriptedAnimationController.StartAnimation(ScriptedAnimationType.Out, () => {
-                        scriptedAnimationController.StartAnimation(ScriptedAnimationType.In, () => {
-                            scriptedAnimationController.StartAnimation(ScriptedAnimationType.Out, () => {
-                                scriptedAnimationController.StartAnimation(ScriptedAnimationType.In, () => {
-                                    scriptedAnimationController.StartAnimation(ScriptedAnimationType.Out, () => {
-                                        Debug.Log("Animation chain completed");
-                                    });
-                                });
-                            });
-                        });
-                    });
-                });
-            });
-        });
     }
 
 }

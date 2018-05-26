@@ -15,8 +15,8 @@ public class ScriptedAnimationController : MonoBehaviour {
 
     public void StartAnimation(ScriptedAnimationType scriptedAnimationType, Action onAnimationCompleted = null)
     {
-        List<ScriptedAnimation> targetScriptedAnimations = scriptedAnimations.FindAll(x => x.Type == scriptedAnimationType);
-        if(targetScriptedAnimations == null)
+        ScriptedAnimation scriptedAnimation = scriptedAnimations.Find(x => x.Type == scriptedAnimationType);
+        if(scriptedAnimation == null)
         {
             if(onAnimationCompleted != null)
             {
@@ -25,18 +25,16 @@ public class ScriptedAnimationController : MonoBehaviour {
             return;
         }
 
-        AreAnimating = true;
+        onAnimationCompleted += UpdateAreAnimating;
 
-        foreach (ScriptedAnimation scriptedAnimation in targetScriptedAnimations)
-        {
-            scriptedAnimation.StartAnimation(() => {
-                if (onAnimationCompleted != null)
-                {
-                    onAnimationCompleted();
-                }
-                UpdateAreAnimating();
-            });
-        }
+        scriptedAnimation.StartAnimation(() => {
+            if (onAnimationCompleted != null)
+            {
+                onAnimationCompleted();
+            }
+        });
+
+        UpdateAreAnimating();
     }
 
     public void CancelAnimation(ScriptedAnimationType scriptedAnimationType)

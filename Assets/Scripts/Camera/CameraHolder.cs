@@ -54,7 +54,7 @@ public class CameraHolder : MonoBehaviour
         SceneLoader.SceneSwitchStartedEvent -= OnSceneSwitch;
     }
 
-    private void OnSceneSwitch(Scenes _oldScene, Scenes _newScene)
+    private void OnSceneSwitch(Scenes? _oldScene, Scenes _newScene)
     {
         mainCameraGameObject.transform.ResetLocal();
         mainCameraGameObject.transform.parent.ResetLocal();
