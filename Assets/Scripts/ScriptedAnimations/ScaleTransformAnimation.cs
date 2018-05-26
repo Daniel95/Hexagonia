@@ -5,6 +5,7 @@ public class ScaleTransformAnimation : LerpAnimation
 {
     public override void StartAnimation(Action animationStoppedEvent = null)
     {
+        StartValue = transform.localScale.x;
         base.StartAnimation(animationStoppedEvent);
     }
 

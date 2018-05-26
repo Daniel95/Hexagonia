@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+[RequireComponent(typeof(ScriptedAnimationController))]
 public class DefaultSceneUI : MonoBehaviour
 {
 
@@ -26,6 +27,29 @@ public class DefaultSceneUI : MonoBehaviour
 
     public ScriptedAnimationController ScriptedAnimationController { get { return scriptedAnimationController; } }
 
-    [SerializeField] private ScriptedAnimationController scriptedAnimationController;
+    private ScriptedAnimationController scriptedAnimationController;
+
+    private void Awake()
+    {
+        scriptedAnimationController = GetComponent<ScriptedAnimationController>();
+
+        scriptedAnimationController.StartAnimation(ScriptedAnimationType.In, () => {
+            scriptedAnimationController.StartAnimation(ScriptedAnimationType.Out, () => {
+                scriptedAnimationController.StartAnimation(ScriptedAnimationType.In, () => {
+                    scriptedAnimationController.StartAnimation(ScriptedAnimationType.Out, () => {
+                        scriptedAnimationController.StartAnimation(ScriptedAnimationType.In, () => {
+                            scriptedAnimationController.StartAnimation(ScriptedAnimationType.Out, () => {
+                                scriptedAnimationController.StartAnimation(ScriptedAnimationType.In, () => {
+                                    scriptedAnimationController.StartAnimation(ScriptedAnimationType.Out, () => {
+                                        Debug.Log("Animation chain completed");
+                                    });
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+        });
+    }
 
 }

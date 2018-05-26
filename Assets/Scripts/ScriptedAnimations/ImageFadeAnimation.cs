@@ -8,6 +8,7 @@ public class ImageFadeAnimation : LerpAnimation
 
     public override void StartAnimation(Action animationStoppedEvent = null)
     {
+        StartValue = image.color.a;
         base.StartAnimation(animationStoppedEvent);
     }
 

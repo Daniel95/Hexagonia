@@ -28,7 +28,12 @@ public abstract class ScriptedAnimation : MonoBehaviour {
 
     public virtual void StopAnimation(bool _isCompleted)
     {
-        AnimationCoroutine = null;
+        if(AnimationCoroutine != null)
+        {
+            StopCoroutine(AnimationCoroutine);
+            AnimationCoroutine = null;
+        }
+
         if (animationStoppedEvent != null)
         {
             animationStoppedEvent();

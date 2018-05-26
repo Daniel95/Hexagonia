@@ -5,12 +5,11 @@ using UnityEngine;
 public abstract class LerpAnimation : ScriptedAnimation
 {
 
+    [SerializeField] [Range(0, 1)] protected float TargetValue = 1;
+    [SerializeField] protected float Speed = 1;
+
     protected float StartValue = 1;
-
-    [SerializeField] private float targetValue = 1;
-    [SerializeField] private float speed = 1;
-
-    private float currentValue;
+    protected float CurrentValue;
 
     protected abstract void Apply(float _value);
 
@@ -27,16 +26,17 @@ public abstract class LerpAnimation : ScriptedAnimation
     protected override IEnumerator Animate()
     {
         float _progress = 0;
-        while (currentValue < 0)
+        CurrentValue = StartValue;
+        while (CurrentValue != TargetValue)
         {
-            _progress += speed * Time.deltaTime;
-            currentValue = Mathf.Lerp(StartValue, targetValue, _progress);
-            Apply(currentValue);
+            _progress += Speed * Time.deltaTime;
+            CurrentValue = Mathf.Lerp(StartValue, TargetValue, _progress);
+            Apply(CurrentValue);
             yield return null;
         }
 
-        Apply(targetValue);
-        StartValue = targetValue;
+        Apply(TargetValue);
+        StartValue = TargetValue;
 
         StopAnimation(true);
     }
