@@ -30,13 +30,13 @@ public class DefaultSceneUI : MonoBehaviour
 
     private ScriptedAnimationController scriptedAnimationController;
 
-    public void FadeSceneOut(Action _fadeSceneOutCompleted)
+    public void FadeSceneOut(Action _fadeSceneOutCompleted = null)
     {
         scriptedAnimationController.CancelAnimation(ScriptedAnimationType.Out);
         scriptedAnimationController.StartAnimation(ScriptedAnimationType.In, _fadeSceneOutCompleted);
     }
 
-    public void FadeSceneIn(Action _fadeSceneInCompleted)
+    public void FadeSceneIn(Action _fadeSceneInCompleted = null)
     {
         scriptedAnimationController.CancelAnimation(ScriptedAnimationType.In);
         scriptedAnimationController.StartAnimation(ScriptedAnimationType.Out, _fadeSceneInCompleted);

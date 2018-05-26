@@ -37,26 +37,25 @@ public class SceneLoader : MonoBehaviour
         Scenes? _previousScene = currentScene;
         currentScene = _newScene;
 
-        if (SceneSwitchStartedEvent != null)
-        {
-            SceneSwitchStartedEvent((Scenes)_previousScene, _newScene);
-        }
-
         if (_previousScene != null)
         {
             DefaultSceneUI.Instance.FadeSceneOut(() =>
             {
+                if (SceneSwitchStartedEvent != null)
+                {
+                    SceneSwitchStartedEvent((Scenes)_previousScene, _newScene);
+                }
+
                 SceneHelper.UnloadSceneOverTime(_previousScene.ToString(), () => 
                 {
                     SceneHelper.LoadSceneOverTime(_newScene.ToString(), () =>
                     {
-                        DefaultSceneUI.Instance.FadeSceneIn(() =>
+                        if (SceneSwitchCompletedEvent != null)
                         {
-                            if (SceneSwitchCompletedEvent != null)
-                            {
-                                SceneSwitchCompletedEvent(_previousScene, _newScene);
-                            }
-                        });
+                            SceneSwitchCompletedEvent(_previousScene, _newScene);
+                        }
+
+                        DefaultSceneUI.Instance.FadeSceneIn();
                     });
                 });
             });
@@ -65,13 +64,11 @@ public class SceneLoader : MonoBehaviour
         {
             SceneHelper.LoadSceneOverTime(_newScene.ToString(), () =>
             {
-                DefaultSceneUI.Instance.FadeSceneIn(() =>
+                if (SceneSwitchCompletedEvent != null)
                 {
-                    if (SceneSwitchCompletedEvent != null)
-                    {
-                        SceneSwitchCompletedEvent(_previousScene, _newScene);
-                    }
-                });
+                    SceneSwitchCompletedEvent(_previousScene, _newScene);
+                }
+                DefaultSceneUI.Instance.FadeSceneIn();
             });
         }
     }

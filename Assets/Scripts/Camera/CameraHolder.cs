@@ -44,16 +44,6 @@ public class CameraHolder : MonoBehaviour
 	    VRSwitch.Instance.GvrReticlePointerGameObject.SetActive(false);
     }
 
-    private void OnEnable()
-    {
-        SceneLoader.SceneSwitchStartedEvent += OnSceneSwitch;
-    }
-
-    private void OnDisable()
-    {
-        SceneLoader.SceneSwitchStartedEvent -= OnSceneSwitch;
-    }
-
     private void OnSceneSwitch(Scenes? _oldScene, Scenes _newScene)
     {
         mainCameraGameObject.transform.ResetLocal();
@@ -86,4 +76,15 @@ public class CameraHolder : MonoBehaviour
         transform.position = Vector3.zero;
         defaultCameraHolderTransform.position = Vector3.zero;
     }
+
+    private void OnEnable()
+    {
+        SceneLoader.SceneSwitchStartedEvent += OnSceneSwitch;
+    }
+
+    private void OnDisable()
+    {
+        SceneLoader.SceneSwitchStartedEvent -= OnSceneSwitch;
+    }
+
 }
