@@ -46,16 +46,12 @@ public class SceneLoader : MonoBehaviour
         {
             DefaultSceneUI.Instance.FadeSceneOut(() =>
             {
-                Debug.Log("FadeSceneOut completed");
                 SceneHelper.UnloadSceneOverTime(_previousScene.ToString(), () => 
                 {
                     SceneHelper.LoadSceneOverTime(_newScene.ToString(), () =>
                     {
-                        Debug.Log("loaded " + _newScene.ToString());
-
                         DefaultSceneUI.Instance.FadeSceneIn(() =>
                         {
-                            Debug.Log("FadeSceneIn completed");
                             if (SceneSwitchCompletedEvent != null)
                             {
                                 SceneSwitchCompletedEvent(_previousScene, _newScene);
@@ -69,12 +65,8 @@ public class SceneLoader : MonoBehaviour
         {
             SceneHelper.LoadSceneOverTime(_newScene.ToString(), () =>
             {
-                Debug.Log("loaded " + _newScene.ToString());
-
                 DefaultSceneUI.Instance.FadeSceneIn(() =>
                 {
-                    Debug.Log("FadeSceneIn completed");
-
                     if (SceneSwitchCompletedEvent != null)
                     {
                         SceneSwitchCompletedEvent(_previousScene, _newScene);
