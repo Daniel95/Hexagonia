@@ -17,14 +17,14 @@ public class CoroutineHelper : MonoBehaviour
         GetInstance().StopLocalCoroutine(coroutine);
     }
 
-    public static void Delay(int frames, Action onDelayed)
+    public static Coroutine DelayFrames(int frames, Action onDelayed)
     {
-        GetInstance().StartLocalCoroutine(GetInstance().DelayOverFrames(onDelayed, frames));
+        return GetInstance().StartLocalCoroutine(GetInstance().DelayOverFrames(onDelayed, frames));
     }
 
-	public static void Delay(float time, Action onDelayed)
+	public static Coroutine DelayTime(float time, Action onDelayed)
 	{
-		GetInstance().StartLocalCoroutine(GetInstance().DelayOverTime(onDelayed, time));
+        return GetInstance().StartLocalCoroutine(GetInstance().DelayOverTime(onDelayed, time));
 	}
 
 	public Coroutine StartLocalCoroutine(IEnumerator routine)
