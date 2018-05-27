@@ -20,6 +20,12 @@ public class PlayerTrail : MonoBehaviour
         for (int i = 0; i < length; i++)
         {
             float zPosition = i * -speed;
+
+            if (i == length - 1)
+            {
+                Debug.Log("init z pos " + zPosition);
+            }
+
             localZPositions.Add(zPosition);
         }
     }
@@ -36,8 +42,13 @@ public class PlayerTrail : MonoBehaviour
         for (int i = length - 1; i > 0; i--)
         {
             Vector3 _previousPosition = lineRenderer.GetPosition(i - 1);
-
             float zPosition = transform.position.z + localZPositions[i];
+
+            if (i == length - 1)
+            {
+                Debug.Log("init z pos " + localZPositions[i]);
+            }
+
             Vector3 _position = new Vector3(_previousPosition.x, _previousPosition.y, zPosition);
             lineRenderer.SetPosition(i, _position);
         }
