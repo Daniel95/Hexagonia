@@ -7,6 +7,8 @@ using System;
 /// </summary>
 public class ResourceValue : MonoBehaviour
 {
+    public static Action<float> ResourceValueUpdatedEvent;
+
 	public static ResourceValue Instance { get { return GetInstance(); } }
 
     #region Instance
@@ -42,7 +44,6 @@ public class ResourceValue : MonoBehaviour
 	private void Awake()
 	{
 		resourceValue = 0;
-        ResourceBarUI.Instance.UpdateBarValue();
 	}
 
 	private void OnScoreUpdated(int _score)
@@ -84,7 +85,12 @@ public class ResourceValue : MonoBehaviour
 		while (resourceValue < _targetValue)
 		{
 			resourceValue += increaseSpeed * Time.deltaTime;
-			ResourceBarUI.Instance.UpdateBarValue();
+
+            if (ResourceValueUpdatedEvent != null)
+            {
+                ResourceValueUpdatedEvent(resourceValue);
+            }
+
 			yield return null;
 		}
 
@@ -108,7 +114,11 @@ public class ResourceValue : MonoBehaviour
 			resourceValue -= _decreaseSpeed * Time.deltaTime;
 			targetValue = resourceValue;
 
-			ResourceBarUI.Instance.UpdateBarValue();
+            if(ResourceValueUpdatedEvent != null)
+            {
+                ResourceValueUpdatedEvent(resourceValue);
+            } 
+
 			yield return null;
 		}
 
