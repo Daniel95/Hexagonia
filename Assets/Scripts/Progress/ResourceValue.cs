@@ -7,7 +7,7 @@ using System;
 /// </summary>
 public class ResourceValue : MonoBehaviour
 {
-    public static Action<float> ResourceValueUpdatedEvent;
+    public static Action<float> UpdatedEvent;
 
 	public static ResourceValue Instance { get { return GetInstance(); } }
 
@@ -86,9 +86,9 @@ public class ResourceValue : MonoBehaviour
 		{
 			resourceValue += increaseSpeed * Time.deltaTime;
 
-            if (ResourceValueUpdatedEvent != null)
+            if (UpdatedEvent != null)
             {
-                ResourceValueUpdatedEvent(resourceValue);
+                UpdatedEvent(resourceValue);
             }
 
 			yield return null;
@@ -114,9 +114,9 @@ public class ResourceValue : MonoBehaviour
 			resourceValue -= _decreaseSpeed * Time.deltaTime;
 			targetValue = resourceValue;
 
-            if(ResourceValueUpdatedEvent != null)
+            if(UpdatedEvent != null)
             {
-                ResourceValueUpdatedEvent(resourceValue);
+                UpdatedEvent(resourceValue);
             } 
 
 			yield return null;

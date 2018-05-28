@@ -1,66 +1,60 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 /// <summary>
 /// Displays the score multiplier UI, and calculates the score multiplier value.
 /// </summary>
-public class ScoreMultiplierUI : MonoBehaviour
+public class ScoreMultiplier : MonoBehaviour
 {
-    public static Action<int> ScoreMultiplierUpdatedEvent;
+    public static ScoreMultiplier Instance { get { return GetInstance(); } }
+    public static int Multiplier { get { return multiplier; } }
 
-	public static Action MultiplierIncreasedEvent;
-	public static Action MultiplierDecreasedEvent;
+    public static Action<int> UpdatedEvent;
+    public static Action MultiplierIncreasedEvent;
+    public static Action MultiplierDecreasedEvent;
 
-	public static int Multiplier { get { return multiplier; } }
+    #region Singleton
+    private static ScoreMultiplier instance;
+
+    private static ScoreMultiplier GetInstance()
+    {
+        if (instance == null)
+        {
+            instance = FindObjectOfType<ScoreMultiplier>();
+        }
+        return instance;
+    }
+    #endregion
+
 
     private static int multiplier = 1;
 
+    public Color MultiplierColor { get { return multiplierColors[multiplier - 1]; } }
+
     [SerializeField] private List<Color> multiplierColors = new List<Color>();
-    [SerializeField] private Text multiplierText;
-	[SerializeField] private string animTriggerName = "MultiplierChanged";
 
-	private Animator multiplierTextAnimation;
-	private int previousMultiplier = 1;
-
-	private void Awake()
-	{
-		multiplierTextAnimation = GetComponent<Animator>();
-	}
+    private int previousMultiplier = 1;
 
     private void UpdateScoreMultiplier(float _value)
     {
         multiplier = Mathf.Clamp(Mathf.FloorToInt(ResourceValue.Value + 1), 1, ResourceValue.Instance.MaxValue);
-        if(multiplier == previousMultiplier) { return; }
-
-        int colorIndex = multiplier - 1;
-        UpdateMultiplierUI();
-
-        if (multiplier > previousMultiplier)
-        {
-            multiplierTextAnimation.SetTrigger(animTriggerName);
-        }
+        if (multiplier == previousMultiplier) { return; }
         previousMultiplier = multiplier;
 
-        if(ScoreMultiplierUpdatedEvent != null)
+        if (UpdatedEvent != null)
         {
-            ScoreMultiplierUpdatedEvent(multiplier);
+            UpdatedEvent(multiplier);
         }
     }
 
-	private void UpdateMultiplierUI()
-	{
-		multiplierText.text = "X" + Multiplier;
-	}
-
     private void OnEnable()
     {
-        ResourceValue.ResourceValueUpdatedEvent += UpdateScoreMultiplier;    
+        ResourceValue.UpdatedEvent += UpdateScoreMultiplier;
     }
 
     private void OnDisable()
     {
-        ResourceValue.ResourceValueUpdatedEvent -= UpdateScoreMultiplier;
+        ResourceValue.UpdatedEvent -= UpdateScoreMultiplier;
     }
 }
