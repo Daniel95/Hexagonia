@@ -29,7 +29,7 @@ public class CameraHolder : MonoBehaviour
 
 	    postProcessingBehaviour.enabled = true;
 
-        if (!VRSwitch.Instance.VrState)
+        if (!VRSwitch.Instance.VRState)
 	    {
 	        gyro.enabled = true;
 
@@ -41,7 +41,7 @@ public class CameraHolder : MonoBehaviour
 #endif
             eventSystemGameobject.SetActive(false);
         }
-	    VRSwitch.Instance.GvrReticlePointerGameObject.SetActive(false);
+	    VRSwitch.Instance.GVRReticlePointerGameObject.SetActive(false);
     }
 
     private void OnEnable()

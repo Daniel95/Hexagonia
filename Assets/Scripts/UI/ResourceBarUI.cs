@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Updates the resourcebar fill amount and color.
+/// </summary>
 public class ResourceBarUI : MonoBehaviour
 {
 	public static ResourceBarUI Instance { get { return GetInstance(); } }
@@ -20,7 +23,10 @@ public class ResourceBarUI : MonoBehaviour
 
 	[SerializeField] private Image resourceBar;
 
-	public void UpdateResourceBar()
+    /// <summary>
+    /// Updates the value of resource bar.
+    /// </summary>
+	public void UpdateBarValue()
 	{
         float _barValue = 1;
 
@@ -30,9 +36,12 @@ public class ResourceBarUI : MonoBehaviour
         }
 
         resourceBar.fillAmount = _barValue;
-    } 
+    }
 
-	public void ChangeColor(Color _color)
+    /// <summary>
+    /// Update the color of the resource bar.
+    /// </summary>
+    public void UpdateColor(Color _color)
 	{
 		resourceBar.color = _color;
 	}

@@ -39,7 +39,7 @@ public class ResourceValue : MonoBehaviour
 	private void Awake()
 	{
 		resourceValue = 0;
-        ResourceBarUI.Instance.UpdateResourceBar();
+        ResourceBarUI.Instance.UpdateBarValue();
 	}
 
 	private void OnScoreUpdated(int _score)
@@ -81,7 +81,7 @@ public class ResourceValue : MonoBehaviour
 		while (resourceValue < _targetValue)
 		{
 			resourceValue += increaseSpeed * Time.deltaTime;
-			ResourceBarUI.Instance.UpdateResourceBar();
+			ResourceBarUI.Instance.UpdateBarValue();
 			yield return null;
 		}
 
@@ -105,7 +105,7 @@ public class ResourceValue : MonoBehaviour
 			resourceValue -= _decreaseSpeed * Time.deltaTime;
 			targetValue = resourceValue;
 
-			ResourceBarUI.Instance.UpdateResourceBar();
+			ResourceBarUI.Instance.UpdateBarValue();
 			yield return null;
 		}
 

@@ -8,7 +8,6 @@ using UnityEngine;
 /// </summary>
 public class CodeConventions : MonoBehaviour 
 {
-
     public static Action Event;
 
     public static CodeConventions Instance { get { return GetInstance(); } }
@@ -41,7 +40,7 @@ public class CodeConventions : MonoBehaviour
 
 	private const string CONST_TEST = "TEST123";
 
-    [SerializeField] private int serializeFieldTest;
+    [SerializeField] [Range(0, 93)] private int serializeFieldTest;
 
     private int privateTest;
 
@@ -92,7 +91,6 @@ public class CodeConventions : MonoBehaviour
     {
         Event -= OnEvent;
     }
-
 }
 
 public enum Testtype
