@@ -66,6 +66,8 @@ public class MusicManager : MonoBehaviour
         }
 
         Song _randomSong = RandomSong();
+
+        Debug.Log(_randomSong.clip.name);
         switching = true;
 
         GivePriority();
