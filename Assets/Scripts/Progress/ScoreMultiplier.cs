@@ -3,21 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ScoreMultiplier : MonoBehaviour
+/// <summary>
+/// Displays the score multiplier UI, and calculates the score multiplier value.
+/// </summary>
+public class ScoreMultiplierUI : MonoBehaviour
 {
 	public static Action MultiplierIncreasedEvent;
 	public static Action MultiplierDecreasedEvent;
 
-	public static ScoreMultiplier Instance { get { return GetInstance(); } }
+	public static ScoreMultiplierUI Instance { get { return GetInstance(); } }
 
 	#region Instance
-	private static ScoreMultiplier instance;
+	private static ScoreMultiplierUI instance;
 
-	private static ScoreMultiplier GetInstance()
+	private static ScoreMultiplierUI GetInstance()
 	{
 		if (instance == null)
 		{
-			instance = FindObjectOfType<ScoreMultiplier>();
+			instance = FindObjectOfType<ScoreMultiplierUI>();
 		}
 		return instance;
 	}

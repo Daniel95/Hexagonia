@@ -2,9 +2,11 @@
 using System.Collections;
 using System;
 
+/// <summary>
+/// Contains and updates the resource value used in several elements in the game.
+/// </summary>
 public class ResourceValue : MonoBehaviour
 {
-
 	public static ResourceValue Instance { get { return GetInstance(); } }
 
     #region Instance
@@ -130,13 +132,13 @@ public class ResourceValue : MonoBehaviour
 
 	private void OnEnable()
     {
-        LevelProgess.ScoreUpdatedEvent += OnScoreUpdated;
+        Progression.ScoreUpdatedEvent += OnScoreUpdated;
 		Player.DiedEvent += StopResources;
     }
 
     private void OnDisable()
     {
-        LevelProgess.ScoreUpdatedEvent -= OnScoreUpdated;
+        Progression.ScoreUpdatedEvent -= OnScoreUpdated;
 		Player.DiedEvent -= StopResources;
 	}
 }

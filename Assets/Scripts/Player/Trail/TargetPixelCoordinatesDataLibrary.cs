@@ -5,9 +5,11 @@ using UnityToolbag;
 using UnityEditor;
 #endif
 
+/// <summary>
+/// Saves the target pixels coordinates of a within a certain color range in sprites.
+/// </summary>
 public class TargetPixelCoordinatesDataLibrary : MonoBehaviour
 {
-
     public static TargetPixelCoordinatesDataLibrary Instance { get { return GetInstance(); } }
 
     private static TargetPixelCoordinatesDataLibrary instance;
@@ -23,6 +25,13 @@ public class TargetPixelCoordinatesDataLibrary : MonoBehaviour
 
     [Reorderable] [SerializeField] private List<TargetPixelCoordinatesData> targetPixelCoordinatesDatas;
 
+    /// <summary>
+    /// Retrieve the pixelcoordinates of pixels in the sprite parameter with TargetPixelCoordinatesLabel. 
+    /// Get the pixel coordinates of a color in the sprite parameter. 
+    /// </summary>
+    /// <param name="_sprite"></param>
+    /// <param name="_targetPixelCoordinatesLabel"></param>
+    /// <returns></returns>
     public List<Vector2> GetTargetPixelCoordinates(Sprite _sprite, TargetPixelCoordinatesLabel _targetPixelCoordinatesLabel)
     {
         TargetPixelCoordinatesData _targetPixelCoordinatesData = targetPixelCoordinatesDatas.Find(x => x.Label == _targetPixelCoordinatesLabel);
@@ -48,5 +57,4 @@ public class TargetPixelCoordinatesDataLibrary : MonoBehaviour
         EditorUtility.SetDirty(this);
 #endif
     }
-
 }

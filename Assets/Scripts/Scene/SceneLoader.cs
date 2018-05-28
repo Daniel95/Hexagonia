@@ -1,6 +1,9 @@
 ﻿using System;
 using UnityEngine;
 
+/// <summary>
+/// Loads and Unload scenes.
+/// </summary>
 public class SceneLoader : MonoBehaviour
 {
     //Parameters: Old scene, New Scene
@@ -26,6 +29,10 @@ public class SceneLoader : MonoBehaviour
 
     private Scenes? currentScene;
 
+    /// <summary>
+    /// Unloads the current scene (except the Default scene), and loads the new scene.
+    /// </summary>
+    /// <param name="_newScene"></param>
     public void SwitchScene(Scenes _newScene)
     {
         if (startScene == Scenes.Default)
@@ -51,7 +58,6 @@ public class SceneLoader : MonoBehaviour
                     SceneSwitchCompletedEvent((Scenes)_previousScene, _newScene);
                 }
             }));
-            
         }
         else
         {

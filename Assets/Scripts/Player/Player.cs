@@ -1,6 +1,9 @@
 ﻿using System;
 using UnityEngine;
 
+/// <summary>
+/// Controls the animations, collisions and contains several events related to the player.
+/// </summary>
 public class Player : MonoBehaviour
 {
     public static Action DiedEvent;

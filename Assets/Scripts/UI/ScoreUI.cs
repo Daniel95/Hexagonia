@@ -15,11 +15,11 @@ public class ScoreUI : MonoBehaviour
 
 	private void OnEnable()
 	{
-		LevelProgess.ScoreUpdatedEvent += UpdateScore;
+		Progression.ScoreUpdatedEvent += UpdateScore;
 	}
 
 	private void OnDisable()
 	{
-		LevelProgess.ScoreUpdatedEvent -= UpdateScore;
+		Progression.ScoreUpdatedEvent -= UpdateScore;
 	}
 }
