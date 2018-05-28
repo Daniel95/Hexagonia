@@ -1,10 +1,10 @@
-﻿using UnityEngine;
-using UnityEngine.SceneManagement;
-using System;
+﻿using System;
+using UnityEngine;
 
 public class Player : MonoBehaviour
 {
     public static Action DiedEvent;
+    public static Action<GameObject> TriggerCollisionEvent;
 
     public static Player Instance { get { return GetInstance(); } }
 
@@ -31,6 +31,7 @@ public class Player : MonoBehaviour
     private int upStateIndex = Animator.StringToHash("up");
     private int downStateIndex = Animator.StringToHash("down");
     private bool playingMiddleState;
+    private bool hitThisframe;
 
     private void Animate(Vector3 _targetPosition)
     {
@@ -82,6 +83,15 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter(Collider _otherCollider)
     {
+        if(hitThisframe) { return; }
+        hitThisframe = true;
+        CoroutineHelper.DelayFrames(1, () => { hitThisframe = false; });
+
+        if(TriggerCollisionEvent != null) 
+        {
+            TriggerCollisionEvent(_otherCollider.gameObject);
+        }
+
         if (_otherCollider.tag == Tags.Obstacle)
         {
             LookPositionOnPlane.Instance.enabled = false;
