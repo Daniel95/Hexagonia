@@ -11,13 +11,7 @@ public class CodeConventions : MonoBehaviour
 
     public static Action Event;
 
-    public static CodeConventions Instance
-    {
-        get 
-        {
-            return GetInstance();
-        }
-    }
+    public static CodeConventions Instance { get { return GetInstance(); } }
 
     public int PublicTest 
     {

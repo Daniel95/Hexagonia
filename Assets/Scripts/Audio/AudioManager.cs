@@ -1,38 +1,37 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// AudioEffectManager.cs Spawns and play's audio effects on custom positions. The script gets the audio from AudioEffect.cs
+/// </summary>
+
 public class AudioEffectManager : MonoBehaviour
 {
-    private static AudioEffectManager GetInstance()
-    {
-        if (instance == null)
-        {
-            instance = FindObjectOfType<AudioEffectManager>();
-        }
-        return instance;
-    }
+	public static AudioEffectManager Instance { get { return GetInstance(); } }
+	
     #region SingleTon
-
-    public static AudioEffectManager Instance
-    {
-        get
-        {
-            return GetInstance();
-        }
-    }
     private static AudioEffectManager instance;
-    #endregion
 
-    [SerializeField] private AudioSource prefab;
+	private static AudioEffectManager GetInstance()
+	{
+		if (instance == null)
+		{
+			instance = FindObjectOfType<AudioEffectManager>();
+		}
+		return instance;
+	}
+	#endregion
+
+	[SerializeField] private AudioSource audioSourcePrefab;
 
     [SerializeField] private List<AudioEffect> audioEffects = new List<AudioEffect>();
 
     /// <summary>
-    /// Play's an audio effect at a certain position
+    /// PlayAudio; Play's audio effects on custom positions.
     /// </summary>
     void PlayAudio(AudioEffectType _audioType, Transform _transform)
     {
-        AudioSource _audioSource = prefab;
+        AudioSource _audioSource = audioSourcePrefab;
         Instantiate(_audioSource.gameObject, _transform.position, Quaternion.identity);
 
         _audioSource.clip = null;
@@ -40,7 +39,7 @@ public class AudioEffectManager : MonoBehaviour
         {
             if (audioEffects[i].Effect == _audioType)
             {
-                _audioSource.clip = audioEffects[i].clip;
+                _audioSource.clip = audioEffects[i].Clip;
                 break;
             }
         }
@@ -50,5 +49,4 @@ public class AudioEffectManager : MonoBehaviour
         _audioSource.loop = false;
         _audioSource.Play();
     }
-
 }
