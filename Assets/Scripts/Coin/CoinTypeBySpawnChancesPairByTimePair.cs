@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
+/// <summary>
+/// 
+/// </summary>
 [Serializable]
-public class CoinTypeBySpawnChancesByTimePair
+public class CoinTypeBySpawnChancesPairByTimePair
 {
 	public float Time;
 	public List<CoinTypeBySpawnChancePair> CoinTypeBySpawnChancePairs;

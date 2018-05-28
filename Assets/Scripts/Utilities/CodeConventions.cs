@@ -13,17 +13,7 @@ public class CodeConventions : MonoBehaviour
 
     public static CodeConventions Instance { get { return GetInstance(); } }
 
-    public int PublicTest 
-    {
-        get
-        {
-            return privateTest ;
-        }
-        set 
-        {
-            privateTest = value;
-        }
-    }
+    public int PublicTest { get { return privateTest; } set { privateTest = value; } }
 
     #region Singleton
 	private static CodeConventions instance;

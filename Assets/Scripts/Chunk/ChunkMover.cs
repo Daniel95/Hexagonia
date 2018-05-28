@@ -14,26 +14,6 @@ public class ChunkMover : MonoBehaviour
 
     public static ChunkMover Instance { get { return GetInstance(); } }
 
-    public int ChunkCount
-    {
-        get 
-        {
-            return currentChunks.Count;
-        }
-    }
-
-    public bool MoveChunks
-    {
-        set
-        {
-            moveChunks = value;
-        }
-    }
-
-    public float stopTime;
-
-    [Space(5)]
-
     #region Singleton
     private static ChunkMover instance;
 
@@ -45,34 +25,52 @@ public class ChunkMover : MonoBehaviour
         }
         return instance;
     }
-    #endregion
+	#endregion
 
-    [SerializeField] private float minimumSpeed = 15;
+	public int ChunkCount { get { return currentChunks.Count; } }
+	public bool MoveChunks { set { moveChunks = value; } }
+
+	[SerializeField] private float stopTime;
+	[SerializeField] private float minimumSpeed = 15;
     [SerializeField] private float maximumSpeed = 35;
     [SerializeField] public float timeForMaximumSpeed = 60;
-
-    [Space(5)]
-
     [SerializeField] private bool moveChunks = true;
 
     private bool stopping = false;
     private float speed;
-    private List<ChunkMoverEntry> currentChunks = new List<ChunkMoverEntry>();
+    private List<ChunkByChunkLengthPair> currentChunks = new List<ChunkByChunkLengthPair>();
 
+	/// <summary>
+	/// Gets the latest chunk in the currentChunks list.
+	/// </summary>
+	/// <returns>_chunkMoverEntry.Chunk</returns>
     public GameObject GetLastestChunk()
     {
-        ChunkMoverEntry _chunkMoverEntry = currentChunks[currentChunks.Count - 1];
+        ChunkByChunkLengthPair _chunkMoverEntry = currentChunks[currentChunks.Count - 1];
         return _chunkMoverEntry.Chunk;
     }
 
-    public GameObject GetLastestChunk(out float _length)
+	/// <summary>
+	/// Gets the latest chunk in the currentChunks list.
+	/// </summary>
+	/// <param name="_length"></param>
+	/// <returns>_chunkMoverEntry.Chunk</returns>
+	public GameObject GetLastestChunk(out float _length)
     {
-        ChunkMoverEntry _chunkMoverEntry = currentChunks[currentChunks.Count - 1];
+        ChunkByChunkLengthPair _chunkMoverEntry = currentChunks[currentChunks.Count - 1];
         _length = _chunkMoverEntry.Length;
         return _chunkMoverEntry.Chunk;
     }
 
-    private void Update ()
+	/// <summary>
+	/// Starts coroutine (StopChunkMovementEnum()).
+	/// </summary>
+	public void StopChunkOverTime()
+	{
+		StartCoroutine(StopChunkMovementEnum());
+	}
+
+	private void Update ()
 	{
         if (!moveChunks)
             return;
@@ -100,7 +98,7 @@ public class ChunkMover : MonoBehaviour
 
     private void AddChunk(GameObject _chunk, float _length)
     {
-        ChunkMoverEntry _chunkMoverEntry = new ChunkMoverEntry
+        ChunkByChunkLengthPair _chunkMoverEntry = new ChunkByChunkLengthPair
         {
             Chunk = _chunk,
             Length = _length,
@@ -110,21 +108,16 @@ public class ChunkMover : MonoBehaviour
 
     private void RemoveFirstChunk()
     {
-        ChunkMoverEntry _chunkMoverEntry = currentChunks[0];
+        ChunkByChunkLengthPair _chunkMoverEntry = currentChunks[0];
         currentChunks.Remove(_chunkMoverEntry);
 
         if (ChunkRemovedEvent != null) 
         {
             ChunkRemovedEvent(_chunkMoverEntry.Chunk);
         }
-    }
+    }  
 
-    public void StopMovement()
-    {
-        StartCoroutine(StopMovementEnum());
-    }
-
-    private IEnumerator StopMovementEnum()
+    private IEnumerator StopChunkMovementEnum()
     {
         stopping = true;
         float _maxSpeed = speed;
@@ -144,18 +137,21 @@ public class ChunkMover : MonoBehaviour
     private void OnEnable()
     {
         ChunkPool.ChunkSpawnedEvent += AddChunk;
-        Player.DiedEvent += StopMovement;
+        Player.DiedEvent += StopChunkOverTime;
     }
 
     private void OnDisable()
     {
         ChunkPool.ChunkSpawnedEvent -= AddChunk;
-        Player.DiedEvent -= StopMovement;
+        Player.DiedEvent -= StopChunkOverTime;
     }
 
 }
 
-public class ChunkMoverEntry
+/// <summary>
+/// Links the Gameobject(Chunk) with the given length of the chunk for initializing.
+/// </summary>
+public class ChunkByChunkLengthPair
 {
     public float Length;
     public GameObject Chunk;
