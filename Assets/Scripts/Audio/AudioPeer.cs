@@ -65,6 +65,14 @@ public class AudioPeer : MonoBehaviour
         }
     }
 
+    public float SingleBand
+    {
+        get
+        {
+            return singleBand;
+        }
+    }
+
     private float[] samples = new float[512];
     private float[] freqBand = new float[8];
 
@@ -75,6 +83,8 @@ public class AudioPeer : MonoBehaviour
 
     private float[] bufferDecrease;
     private float[] freqBandHighest;
+
+    private float singleBand;
 
     [SerializeField] private float decreaseSpeed = 0.005f;
 
@@ -95,9 +105,21 @@ public class AudioPeer : MonoBehaviour
         MakeFrequencyband();
         MakeFreqBandBuffer();
         NormaliseFreqBand();
+        MakeSingleBand();
 
         if (TransmitAudioData != null)
             TransmitAudioData(instance);
+    }
+
+    private void MakeSingleBand()
+    {
+        float _average = 0;
+        foreach (float _float in normalisedFreqBandBuffer)
+        {
+            _average += _float;
+        }
+
+        singleBand = _average / NormalisedFreqBandBuffer.Length;
     }
     
     private void NormaliseFreqBand()

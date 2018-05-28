@@ -8,7 +8,8 @@ public class TargetPixelCoordinatesData
 
     public List<Sprite> Sprites;
     public TargetPixelCoordinatesLabel Label;
-    public Color TargetColor;
+    public Color MinColor;
+    public Color MaxColor;
     public TargetPixelsCoordinatesType TargetPixelCoordinatesType;
 
     [Header("Data")]
@@ -53,7 +54,7 @@ public class TargetPixelCoordinatesData
             }
             else
             {
-                Debug.LogError("Sprite " + _sprite.name + " with label " + Label + " does not have the same amount of pixels as the other sprites, has " + _pixelCoordinates.Count + " needs " + _pixelCount + ", color " + TargetColor + "");
+                Debug.LogError("Sprite " + _sprite.name + " with label " + Label + " does not have the same amount of pixels as the other sprites, has " + _pixelCoordinates.Count + " needs " + _pixelCount + ", color between " + MinColor + " and " + MaxColor);
                 break;
             }
         }
@@ -61,16 +62,16 @@ public class TargetPixelCoordinatesData
 
     private List<Vector2> GetPixelCoordinates(Sprite _sprite)
     {
-        List<Vector2Int> _pixelCoordinatesWithTargetColor = _sprite.texture.GetPixelCoordinatesWithColor(TargetColor);
+        List<Vector2Int> _pixelCoordinatesWithTargetColor = _sprite.texture.GetPixelCoordinatesWithColor(MinColor, MaxColor);
         if (_pixelCoordinatesWithTargetColor.Count == 0)
         {
-            Debug.LogError("Zero pixelcoordinates found in Sprite " + _sprite.name + " with color " + TargetColor + ".");
+            Debug.LogError("Zero pixelcoordinates found in Sprite " + _sprite.name + " with label " + Label + ".");
             return null;
         }
 
         List<Vector2> _targetPixelCoordinates = new List<Vector2>();
 
-        Debug.Log("Found " + _pixelCoordinatesWithTargetColor.Count + " pixelcoordinates in Sprite " + _sprite.name + " with color " + TargetColor + ".");
+        Debug.Log("Found " + _pixelCoordinatesWithTargetColor.Count + " pixelcoordinates in Sprite " + _sprite.name + " with label " + Label + ".");
 
         switch (TargetPixelCoordinatesType)
         {
@@ -171,7 +172,7 @@ public class TargetPixelCoordinatesData
         else
         {
             _averageTopRight = Vector2.zero;
-            Debug.LogError("topRight pixelcoordinates not found in Sprite " + _sprite.name + " with color " + TargetColor + ".");
+            Debug.LogError("topRight pixelcoordinates not found in Sprite " + _sprite.name + " with label " + Label + ".");
         }
 
         if (_topLeftCount != 0)
@@ -181,7 +182,7 @@ public class TargetPixelCoordinatesData
         else
         {
             _averageTopLeft = Vector2.zero;
-            Debug.LogError("topLeft pixelcoordinates not found in Sprite " + _sprite.name + " with color " + TargetColor + ".");
+            Debug.LogError("topLeft pixelcoordinates not found in Sprite " + _sprite.name + " with label " + Label + ".");
         }
 
         if (_bottomRightCount != 0)
@@ -191,7 +192,7 @@ public class TargetPixelCoordinatesData
         else
         {
             _averageBottomRight = Vector2.zero;
-            Debug.LogError("bottomRight pixelcoordinates not found in Sprite " + _sprite.name + " with color " + TargetColor + ".");
+            Debug.LogError("bottomRight pixelcoordinates not found in Sprite " + _sprite.name + " with label " + Label + ".");
         }
 
         if (_bottomLeftCount != 0)
@@ -201,7 +202,7 @@ public class TargetPixelCoordinatesData
         else
         {
             _averageBottomLeft = Vector2.zero;
-            Debug.LogError("bottomLeft pixelcoordinates not found in Sprite " + _sprite.name + " with color " + TargetColor + ".");
+            Debug.LogError("bottomLeft pixelcoordinates not found in Sprite " + _sprite.name + " with label " + Label + ".");
         }
     }
 

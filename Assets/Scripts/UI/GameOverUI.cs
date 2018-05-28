@@ -6,12 +6,12 @@ public class GameOverUI : MonoBehaviour
 
     private void OnEnable()
     {
-        Player.PlayerDiedEvent += Activate;
+        Player.DiedEvent += Activate;
     }
 
     private void OnDisable()
     {
-        Player.PlayerDiedEvent -= Activate;
+        Player.DiedEvent -= Activate;
     }
 
     private void Activate()

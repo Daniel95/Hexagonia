@@ -131,12 +131,12 @@ public class ResourceValue : MonoBehaviour
 	private void OnEnable()
     {
         LevelProgess.ScoreUpdatedEvent += OnScoreUpdated;
-		Player.PlayerDiedEvent += StopResources;
+		Player.DiedEvent += StopResources;
     }
 
     private void OnDisable()
     {
         LevelProgess.ScoreUpdatedEvent -= OnScoreUpdated;
-		Player.PlayerDiedEvent -= StopResources;
+		Player.DiedEvent -= StopResources;
 	}
 }

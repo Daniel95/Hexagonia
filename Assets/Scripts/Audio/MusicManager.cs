@@ -29,13 +29,6 @@ public class MusicManager : MonoBehaviour
     }
     #endregion
 
-
-    private AudioSource source;
-    private AudioClip currentClip;
-
-    private bool switching = false;
-    private List<Song> currentSongList = new List<Song>();
-
     [Space(5)]
 
     [SerializeField] private Scenes defaultSongList;
@@ -44,26 +37,16 @@ public class MusicManager : MonoBehaviour
     [Space(5)]
 
     [SerializeField] private float fadeTime = .5f;
-    
-    [Range(0,1)]
-    [SerializeField] private float maxVolume = .5f;
-    
-    private void Awake()
-    {
-        source = GetComponent<AudioSource>();
-        source.volume = maxVolume;
-        SceneSwitch(Scenes.Default, defaultSongList);
-    }
-    
-    private void Update()
-    {
-        if (source != null)
-        {
-            source.volume = maxVolume;
-            if (source.isPlaying == false)
-                SwitchSong();
-        }
-    }
+
+    [Range(0, 1)] [SerializeField] private float maxVolume = .5f;
+
+    private AudioSource source;
+    private AudioClip currentClip;
+
+    private bool switching = false;
+    private List<Song> currentSongList = new List<Song>();
+
+    private Coroutine delayCoroutine;
 
     /// <summary>
     /// Switches to a random song in the songlist
@@ -71,8 +54,16 @@ public class MusicManager : MonoBehaviour
     /// <param name="_fade">Depending on this the song fades or switches instantly</param>
     public void SwitchSong(bool _fade = true)
     {
-        if (currentSongList.Count == 0 || switching)
-            return;
+        if (currentSongList.Count == 0) { return; }
+
+        if (switching)
+        {
+            StopAllCoroutines();
+            if (delayCoroutine != null)
+            {
+                CoroutineHelper.Stop(delayCoroutine);
+            }
+        }
 
         Song _randomSong = RandomSong();
         switching = true;
@@ -89,7 +80,18 @@ public class MusicManager : MonoBehaviour
             source.Play();
             switching = false;
         }
+
+        float _delay = _randomSong.clip.length + 0.1f;
+        delayCoroutine = CoroutineHelper.DelayTime(_delay, () => SwitchSong());
+
         return;
+    }
+
+    private void Awake()
+    {
+        source = GetComponent<AudioSource>();
+        source.volume = maxVolume;
+        SceneSwitch(Scenes.Default, defaultSongList);
     }
 
     private IEnumerator FadeToNewSong(Song _song)
@@ -118,6 +120,7 @@ public class MusicManager : MonoBehaviour
         }
         source.volume = 0;
     }
+
     private IEnumerator FadeIn()
     {
         source.volume = 0;
@@ -155,7 +158,9 @@ public class MusicManager : MonoBehaviour
             _count += 1;
 
             if (_count >= 1000)
+            {
                 break;
+            }
         }
         return _randomSong;
     }
@@ -193,6 +198,7 @@ public class MusicManager : MonoBehaviour
     {
         SceneLoader.SceneSwitchCompletedEvent += SceneSwitch;
     }
+
     private void OnDisable()
     {
         SceneLoader.SceneSwitchCompletedEvent -= SceneSwitch;
@@ -200,8 +206,10 @@ public class MusicManager : MonoBehaviour
 }
 
 [Serializable]
-class Songlist
+internal class Songlist
 {
+    #pragma warning disable CS0649,
     public Scenes Scene;
     public List<Song> SongList;
+    #pragma warning restore CS0649,
 }
