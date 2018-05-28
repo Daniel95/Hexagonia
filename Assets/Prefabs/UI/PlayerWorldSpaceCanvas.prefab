@@ -346,7 +346,7 @@ GameObject:
   - component: {fileID: 222799430521709774}
   - component: {fileID: 114584796607601148}
   - component: {fileID: 95421141893979396}
-  - component: {fileID: 114452609949208216}
+  - component: {fileID: 114322859243681922}
   m_Layer: 5
   m_Name: Multiplier
   m_TagString: Untagged
@@ -708,6 +708,17 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &114322859243681922
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1904926693937208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8a53371fa8fc9e4caa8037e01f0ea64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114416902747277508
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -741,25 +752,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 0
---- !u!114 &114452609949208216
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1904926693937208}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc8ffc8d169d2b7458ea6bf1309159ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  multiplierText: {fileID: 114584796607601148}
-  multiplierColors:
-  - {r: 1, g: 1, b: 1, a: 1}
-  - {r: 0, g: 1, b: 0.17241383, a: 1}
-  - {r: 0, g: 0.8758622, b: 1, a: 1}
-  - {r: 0.7956388, g: 0.52205884, b: 1, a: 1}
-  - {r: 0.94482756, g: 1, b: 0, a: 1}
-  animTriggerName: MultiplierChanged
 --- !u!114 &114456681846027216
 MonoBehaviour:
   m_ObjectHideFlags: 1

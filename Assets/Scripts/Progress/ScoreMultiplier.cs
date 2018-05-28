@@ -11,29 +11,15 @@ public class ScoreMultiplierUI : MonoBehaviour
 	public static Action MultiplierIncreasedEvent;
 	public static Action MultiplierDecreasedEvent;
 
-	public static ScoreMultiplierUI Instance { get { return GetInstance(); } }
+	public static int Multiplier { get { return multiplier; } }
 
-	#region Instance
-	private static ScoreMultiplierUI instance;
-
-	private static ScoreMultiplierUI GetInstance()
-	{
-		if (instance == null)
-		{
-			instance = FindObjectOfType<ScoreMultiplierUI>();
-		}
-		return instance;
-	}
-	#endregion
-
-	public int Multiplier { get { return multiplier; } }
+	private static int multiplier = 1;
 
 	[SerializeField] private Text multiplierText;
 	[SerializeField] private List<Color> multiplierColors = new List<Color>(); 
 	[SerializeField] private string animTriggerName = "MultiplierChanged";
 
 	private Animator anim;
-	private int multiplier = 1;
 	private int previousMultiplier = 1;
 
 	private void Awake()
@@ -46,7 +32,7 @@ public class ScoreMultiplierUI : MonoBehaviour
 
 	private void Update()
 	{
-		multiplier = Mathf.Clamp(Mathf.FloorToInt(ResourceValue.Instance.Value + 1), 1, ResourceValue.Instance.MaxValue);
+		multiplier = Mathf.Clamp(Mathf.FloorToInt(ResourceValue.Value + 1), 1, ResourceValue.Instance.MaxValue);
         int colorIndex = multiplier - 1;
         ResourceBarUI.Instance.UpdateColor(multiplierColors[colorIndex]);
 		UpdateMultiplierUI();

@@ -6,28 +6,13 @@ using UnityEngine;
 /// </summary>
 public class Progression : MonoBehaviour {
 
-	public static Progression Instance { get { return GetInstance(); } }
-
 	public static Action<int> ScoreUpdatedEvent;
 
-	#region Singleton
-	private static Progression instance;
+    public static int Score { get { return score; } }
+	public static float Timer { get { return Time.time - startUpTime; }  }
 
-	private static Progression GetInstance()
-	{
-		if (instance == null)
-		{
-			instance = FindObjectOfType<Progression>();
-		}
-		return instance;
-	}
-#endregion 
-
-    public int Score { get { return score; } }
-	public float Timer { get { return Time.time - startUpTime; }  }
-
-	private float startUpTime;
-	private int score;
+	private static float startUpTime;
+	private static int score;
 
     /// <summary>
     /// Increases the score by _scoreIncrement parameter.
@@ -35,7 +20,7 @@ public class Progression : MonoBehaviour {
     /// <param name="_scoreIncrement"></param>
     public void IncreaseScore(int _scoreIncrement)
 	{
-		score += _scoreIncrement * ScoreMultiplierUI.Instance.Multiplier;
+		score += _scoreIncrement * ScoreMultiplierUI.Multiplier;
 
         if (ScoreUpdatedEvent != null)
 		{

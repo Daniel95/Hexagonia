@@ -30,9 +30,9 @@ public class ResourceBarUI : MonoBehaviour
 	{
         float _barValue = 1;
 
-        if(ResourceValue.Instance.Value < ResourceValue.Instance.MaxValue)
+        if(ResourceValue.Value < ResourceValue.Instance.MaxValue)
         {
-            _barValue = ResourceValue.Instance.Value % 1;
+            _barValue = ResourceValue.Value % 1;
         }
 
         resourceBar.fillAmount = _barValue;
