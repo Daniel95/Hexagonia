@@ -2,7 +2,7 @@
 using UnityEngine;
 
 /// <summary>
-/// AudioEffectManager.cs Spawns and play's audio effects on custom positions. The script gets the audio from AudioEffect.cs
+/// Spawns and play's audio effects on custom positions. The script gets the audio from AudioEffect.cs
 /// </summary>
 
 public class AudioEffectManager : MonoBehaviour
@@ -23,13 +23,9 @@ public class AudioEffectManager : MonoBehaviour
 	#endregion
 
 	[SerializeField] private AudioSource audioSourcePrefab;
-
     [SerializeField] private List<AudioEffect> audioEffects = new List<AudioEffect>();
 
-    /// <summary>
-    /// PlayAudio; Play's audio effects on custom positions.
-    /// </summary>
-    void PlayAudio(AudioEffectType _audioType, Transform _transform)
+	private void PlayAudio(AudioEffectType _audioType, Transform _transform)
     {
         AudioSource _audioSource = audioSourcePrefab;
         Instantiate(_audioSource.gameObject, _transform.position, Quaternion.identity);

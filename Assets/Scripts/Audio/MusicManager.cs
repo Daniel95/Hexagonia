@@ -4,18 +4,13 @@ using UnityEngine;
 using System;
 
 /// <summary>
-/// Plays and switches the current playing song
+/// Handles the audio, plays and switches the current playing song and between scenes.
 /// </summary>
 [RequireComponent(typeof(AudioSource))]
 public class MusicManager : MonoBehaviour
 {
-    public static MusicManager Instance
-    {
-        get
-        {
-            return GetInstance();
-        }
-    }
+    public static MusicManager Instance { get { return GetInstance(); } }
+
     #region SingleTon
     private static MusicManager instance;
 
@@ -27,31 +22,23 @@ public class MusicManager : MonoBehaviour
         }
         return instance;
     }
-    #endregion
+	#endregion
 
-    [Space(5)]
-
-    [SerializeField] private Scenes defaultSongList;
+	[Range(0, 1)] [SerializeField] private float maxVolume = .5f;
+	[SerializeField] private Scenes defaultSongList;
     [SerializeField] private Songlist[] songlists;
-
-    [Space(5)]
-
-    [SerializeField] private float fadeTime = .5f;
-
-    [Range(0, 1)] [SerializeField] private float maxVolume = .5f;
+	[SerializeField] private float fadeTime = 0.5f;
 
     private AudioSource source;
     private AudioClip currentClip;
-
     private bool switching = false;
     private List<Song> currentSongList = new List<Song>();
-
     private Coroutine delayCoroutine;
 
     /// <summary>
     /// Switches to a random song in the songlist
     /// </summary>
-    /// <param name="_fade">Depending on this the song fades or switches instantly</param>
+    /// <param name="_fade">Depending on _fade the song fades or switches instantly</param>
     public void SwitchSong(bool _fade = true)
     {
         if (currentSongList.Count == 0) { return; }
@@ -137,10 +124,6 @@ public class MusicManager : MonoBehaviour
         switching = false;
     }
 
-    /// <summary>
-    /// Loops trough all the songs in the songlist, trying to find one with a high (low number) priority
-    /// </summary>
-    /// <returns>A random song to use</returns>
     private Song RandomSong()
     {
         Song _randomSong = null;
@@ -165,9 +148,6 @@ public class MusicManager : MonoBehaviour
         return _randomSong;
     }
 
-    /// <summary>
-    /// Makes it more likely for all songs to be picked again 
-    /// </summary>
     private void GivePriority()
     {
         foreach (Song _song in currentSongList)
@@ -190,7 +170,6 @@ public class MusicManager : MonoBehaviour
                 currentSongList = _list.SongList;
             }
         }
-
         SwitchSong();
     }
 
