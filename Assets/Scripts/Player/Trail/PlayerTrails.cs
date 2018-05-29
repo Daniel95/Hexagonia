@@ -24,6 +24,7 @@ public class PlayerTrails : MonoBehaviour
     private void Update()
     {
         if(spriteRenderer.sprite == previousSprite) { return; }
+
         previousSprite = spriteRenderer.sprite;
 
         UpdateTrailPositions();

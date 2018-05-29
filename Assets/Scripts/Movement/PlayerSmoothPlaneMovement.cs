@@ -16,8 +16,7 @@ public class PlayerSmoothPlaneMovement : MonoBehaviour
     {
         Vector3 _targetPositionWithOffset = _targetPosition + offset;
 
-        if (transform.position == _targetPositionWithOffset)
-            return;
+        if (transform.position == _targetPositionWithOffset) { return; }
 
         Vector3 _delta = _targetPositionWithOffset - transform.position;
         Vector3 _direction = _delta.normalized;
@@ -27,7 +26,8 @@ public class PlayerSmoothPlaneMovement : MonoBehaviour
         Vector3 _positionIncrement = _direction * (_distance * _deltaSpeed);
         transform.position += _positionIncrement;
 
-        if (OnMoved != null) {
+        if (OnMoved != null)
+        {
             OnMoved(transform.position);
         }
     }

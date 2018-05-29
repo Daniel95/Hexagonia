@@ -4,7 +4,8 @@
 /// Indicates the direction the player is moving.
 /// </summary>
 [RequireComponent(typeof(LineRenderer))]
-public class DirectionIndicator : MonoBehaviour {
+public class DirectionIndicator : MonoBehaviour
+{
 
     [SerializeField] private float maxDistance = 100;
     [SerializeField] private LayerMask layerMask;

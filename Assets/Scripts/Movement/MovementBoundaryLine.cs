@@ -5,7 +5,8 @@ using UnityEngine;
 /// Shows the top and bottom boundary of the level, if the player gets close the boundary will fade in. Only visible if the player is near the boundary.
 /// </summary>
 [RequireComponent(typeof(SpriteRenderer))]
-public class MovementBoundaryLine : MonoBehaviour {
+public class MovementBoundaryLine : MonoBehaviour
+{
 
     public enum PositionType
     {
