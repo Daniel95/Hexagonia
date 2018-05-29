@@ -6,43 +6,28 @@ using System;
 /// </summary>
 public class AudioPeer : MonoBehaviour
 {
-    public static AudioPeer Instance { get { return GetInstance(); } }
+    public static Action TransmitAudioData;
+    public static float SingleBand { get { return singleBand; } }
+	public static float[] NormalisedFreqBandBuffer { get { return normalisedFreqBandBuffer; } }
+    public static float[] NormalisedFreqBand { get { return normalisedFreqBand; } }
+    public static float[] Samples { get { return samples; } }
+    public static float[] FreqBand { get { return freqBand; } }
+    public static float[] BandBuffer { get { return bandBuffer; } }
 
-    #region SingleTon
-    private static AudioPeer instance;
-
-    private static AudioPeer GetInstance()
-    {
-        if (instance == null)
-        {
-            instance = FindObjectOfType<AudioPeer>();
-        }
-        return instance;
-    }
-    #endregion
-    
-    public static Action<AudioPeer> TransmitAudioData;
-
-    public float[] Samples { get { return samples; } }
-    public float[] FreqBand { get { return freqBand; } }
-    public float[] BandBuffer { get { return bandBuffer; } }
-    public float[] NormalisedFreqBand { get { return normalisedFreqBand; } }
-	public float[] NormalisedFreqBandBuffer { get { return normalisedFreqBandBuffer; } }
-    public float SingleBand { get { return singleBand; } }
+    private static float singleBand;
+    private static float[] normalisedFreqBandBuffer;
+	private static float[] samples = new float[512];
+    private static float[] bandBuffer;
+	private static float[] freqBand = new float[8];
 
 	private const int LAST_BAND = 7;
 
 	[SerializeField] private float decreaseSpeed = 0.005f;
 	[SerializeField] private AudioSource audioSource;
 
-	private float[] samples = new float[512];
-	private float[] freqBand = new float[8];
-    private float[] bandBuffer;
-    private float[] normalisedFreqBandBuffer;
-    private float[] normalisedFreqBand;
     private float[] bufferDecrease;
+    private static float[] normalisedFreqBand;
     private float[] freqBandHighest;
-    private float singleBand;
 
     private void Awake ()
     {
@@ -62,7 +47,9 @@ public class AudioPeer : MonoBehaviour
         MakeSingleBand();
 
         if (TransmitAudioData != null)
-            TransmitAudioData(instance);
+        {
+            TransmitAudioData();
+        }
     }
 
     private void MakeSingleBand()

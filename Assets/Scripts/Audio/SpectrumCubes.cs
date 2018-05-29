@@ -31,13 +31,13 @@ public class SpectrumCubes : MonoBehaviour
         }
     }
    
-    private void UpdateSampleScale(AudioPeer _audioPeer)
+    private void UpdateSampleScale()
     {
         for (int i = 0; i < sampleCubes.Length; i++)
         {
             if (sampleCubes[i] != null)
             {
-                sampleCubes[i].transform.localScale = new Vector3(1, (_audioPeer.Samples[i] * audioScale) + defaultScale, 1);
+                sampleCubes[i].transform.localScale = new Vector3(1, (AudioPeer.Samples[i] * audioScale) + defaultScale, 1);
             }
         }
     }

@@ -7,21 +7,6 @@ using UnityEngine;
 
 public class AudioEffectManager : MonoBehaviour
 {
-	public static AudioEffectManager Instance { get { return GetInstance(); } }
-	
-    #region SingleTon
-    private static AudioEffectManager instance;
-
-	private static AudioEffectManager GetInstance()
-	{
-		if (instance == null)
-		{
-			instance = FindObjectOfType<AudioEffectManager>();
-		}
-		return instance;
-	}
-	#endregion
-
 	[SerializeField] private AudioSource audioSourcePrefab;
     [SerializeField] private List<AudioEffect> audioEffects = new List<AudioEffect>();
 
@@ -40,7 +25,10 @@ public class AudioEffectManager : MonoBehaviour
             }
         }
         if (_audioSource.clip == null)
+        {
             Debug.LogError("Could not find a matching sound clip");
+            return;
+        }
 
         _audioSource.loop = false;
         _audioSource.Play();

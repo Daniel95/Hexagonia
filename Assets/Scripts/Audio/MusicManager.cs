@@ -9,21 +9,6 @@ using System;
 [RequireComponent(typeof(AudioSource))]
 public class MusicManager : MonoBehaviour
 {
-    public static MusicManager Instance { get { return GetInstance(); } }
-
-    #region SingleTon
-    private static MusicManager instance;
-
-    private static MusicManager GetInstance()
-    {
-        if (instance == null)
-        {
-            instance = FindObjectOfType<MusicManager>();
-        }
-        return instance;
-    }
-	#endregion
-
 	[Range(0, 1)] [SerializeField] private float maxVolume = .5f;
 	[SerializeField] private Scenes defaultSongList;
     [SerializeField] private Songlist[] songlists;
@@ -63,12 +48,12 @@ public class MusicManager : MonoBehaviour
         }
         else
         {
-            source.clip = _randomSong.clip;
+            source.clip = _randomSong.Clip;
             source.Play();
             switching = false;
         }
 
-        float _delay = _randomSong.clip.length + 0.1f;
+        float _delay = _randomSong.Clip.length + 0.1f;
         delayCoroutine = CoroutineHelper.DelayTime(_delay, () => SwitchSong());
 
         return;
@@ -87,7 +72,7 @@ public class MusicManager : MonoBehaviour
 
         yield return new WaitForSeconds(fadeTime / 2f);
 
-        source.clip = _song.clip;
+        source.clip = _song.Clip;
         source.volume = 0;
         source.Play();
         StartCoroutine(FadeIn());
@@ -133,10 +118,10 @@ public class MusicManager : MonoBehaviour
         {
             Song _potentialSong = currentSongList[UnityEngine.Random.Range(0, currentSongList.Count)];
 
-            if (_potentialSong.priority <= _count)
+            if (_potentialSong.Priority <= _count)
             {
                 _randomSong = _potentialSong;
-                _potentialSong.priority += currentSongList.Count;
+                _potentialSong.Priority += currentSongList.Count;
             }
             _count += 1;
 
@@ -152,9 +137,9 @@ public class MusicManager : MonoBehaviour
     {
         foreach (Song _song in currentSongList)
         {
-            if (_song.priority > 0)
+            if (_song.Priority > 0)
             {
-                _song.priority -= 1;
+                _song.Priority -= 1;
             }
         }
     }

@@ -12,6 +12,6 @@ public class Visualise : MonoBehaviour
  
     private void Update()
     {
-        lightSource.range = min + (max * AudioPeer.Instance.SingleBand);
+        lightSource.range = min + (max * AudioPeer.SingleBand);
     }
 }
