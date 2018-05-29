@@ -29,17 +29,17 @@ public class FrequencyCubes : MonoBehaviour
         }
     }
 
-    private void UpdateCubes (AudioPeer _audioPeer)
+    private void UpdateCubes()
     {
         for (int i = 0; i < cubes.Length; i++)
         {
             if (useBuffer)
             {
-                cubes[i].transform.localScale = new Vector3(xZScale, _audioPeer.BandBuffer[i] * scaleMultiplier + startScale, xZScale);
+                cubes[i].transform.localScale = new Vector3(xZScale, AudioPeer.BandBuffer[i] * scaleMultiplier + startScale, xZScale);
             }
             else
             {
-                cubes[i].transform.localScale = new Vector3(xZScale, _audioPeer.FreqBand[i] * scaleMultiplier + startScale, xZScale);
+                cubes[i].transform.localScale = new Vector3(xZScale, AudioPeer.FreqBand[i] * scaleMultiplier + startScale, xZScale);
             }
         }
 	}
