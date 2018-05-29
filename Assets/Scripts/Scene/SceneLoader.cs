@@ -6,10 +6,7 @@ using UnityEngine;
 /// </summary>
 public class SceneLoader : MonoBehaviour
 {
-    //Parameters: Old scene, New Scene
-    public static Action<Scenes, Scenes> SceneSwitchCompletedEvent;
-    public static Action<Scenes, Scenes> SceneSwitchStartedEvent;
-
+    public static Scenes CurrentScene { get { return (Scenes)currentScene; } }
     public static SceneLoader Instance { get { return GetInstance(); } }
 
     #region Singleton
@@ -25,9 +22,13 @@ public class SceneLoader : MonoBehaviour
     }
     #endregion
 
+    //Parameters: Old scene, New Scene
+    public static Action<Scenes, Scenes> SceneSwitchCompletedEvent;
+    public static Action<Scenes, Scenes> SceneSwitchStartedEvent;
+
     [SerializeField] private Scenes startScene;
 
-    private Scenes? currentScene;
+    private static Scenes? currentScene;
 
     /// <summary>
     /// Unloads the current scene (except the Default scene), and loads the new scene.
