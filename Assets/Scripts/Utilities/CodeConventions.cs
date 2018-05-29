@@ -93,7 +93,7 @@ public class CodeConventions : MonoBehaviour
     }
 }
 
-public enum Testtype
+public enum TestType
 {
 	First,
 	Second,
