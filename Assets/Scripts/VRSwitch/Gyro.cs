@@ -1,17 +1,17 @@
 ﻿using UnityEngine;
 using UnityEngine.XR;
 
+/// <summary>
+/// Updates the camera rotation to the Gyroscope of this device in Non VR mode.
+/// </summary>
 public class Gyro : MonoBehaviour
 {
+    [Range(0, 5)] [SerializeField] private float ySensitivity = 1;
+    [Range(0, 5)] [SerializeField] private float xSensitivity = 1;
+
     private Quaternion baseGyro;
 
-    [Range(0,5)]
-    public float YSensitivity = 1;
-
-    [Range(0, 5)]
-    public float XSensitivity = 1;
-
-    void Start()
+    private void Start()
     {
         Initialization(Scenes.Default, Scenes.Main);
     }
@@ -20,7 +20,6 @@ public class Gyro : MonoBehaviour
     {
         Input.gyro.enabled = true;
         baseGyro = Input.gyro.attitude;
-
     }
 
     private void Update()
@@ -37,10 +36,9 @@ public class Gyro : MonoBehaviour
         }
     }
 
-    void GyroCamera()
+    private void GyroCamera()
     {
         Quaternion _rotation = GyroToUnity(Input.gyro.attitude);
-
         transform.rotation = _rotation;
         transform.rotation = transform.rotation * Quaternion.Euler(90, baseGyro.eulerAngles.y, 0);
     }
@@ -52,7 +50,7 @@ public class Gyro : MonoBehaviour
 
     private Quaternion GyroToUnity(Quaternion q)
     {
-        return new Quaternion(q.x * YSensitivity, q.y * XSensitivity, q.z, -q.w);
+        return new Quaternion(q.x * ySensitivity, q.y * xSensitivity, q.z, -q.w);
     }
 
     private void OnEnable()

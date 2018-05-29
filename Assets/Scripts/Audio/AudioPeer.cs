@@ -2,93 +2,32 @@
 using System;
 
 /// <summary>
-/// Converts raw GetSpectrumData to array's and sends it out
+///	Converts raw GetSpectrumData to array's and sends it out
 /// </summary>
 public class AudioPeer : MonoBehaviour
 {
-    public static AudioPeer Instance
-    {
-        get
-        {
-            return GetInstance();
-        }
-    }
-    #region SingleTon
-    private static AudioPeer instance;
-    private static AudioPeer GetInstance()
-    {
-        if (instance == null)
-        {
-            instance = FindObjectOfType<AudioPeer>();
-        }
-        return instance;
-    }
-    #endregion
-    
-    public Action<AudioPeer> TransmitAudioData;
+    public static Action TransmitAudioData;
+    public static float SingleBand { get { return singleBand; } }
+	public static float[] NormalisedFreqBandBuffer { get { return normalisedFreqBandBuffer; } }
+    public static float[] NormalisedFreqBand { get { return normalisedFreqBand; } }
+    public static float[] Samples { get { return samples; } }
+    public static float[] FreqBand { get { return freqBand; } }
+    public static float[] BandBuffer { get { return bandBuffer; } }
 
-    public float[] Samples
-    {
-        get
-        {
-            return samples;
-        }
-    }
-    public float[] FreqBand
-    {
-        get
-        {
-            return freqBand;
-        }
-    }
+    private static float singleBand;
+    private static float[] normalisedFreqBandBuffer;
+	private static float[] samples = new float[512];
+    private static float[] bandBuffer;
+	private static float[] freqBand = new float[8];
 
-    public float[] BandBuffer
-    {
-        get
-        {
-            return bandBuffer;
-        }
-    }
-    
-    public float[] NormalisedFreqBand
-    {
-        get
-        {
-            return normalisedFreqBand;
-        }
-    }
-    public float[] NormalisedFreqBandBuffer
-    {
-        get
-        {
-            return normalisedFreqBandBuffer;
-        }
-    }
+	private const int LAST_BAND = 7;
 
-    public float SingleBand
-    {
-        get
-        {
-            return singleBand;
-        }
-    }
-
-    private float[] samples = new float[512];
-    private float[] freqBand = new float[8];
-
-    private float[] bandBuffer;
-    
-    private float[] normalisedFreqBandBuffer;
-    private float[] normalisedFreqBand;
+	[SerializeField] private float decreaseSpeed = 0.005f;
+	[SerializeField] private AudioSource audioSource;
 
     private float[] bufferDecrease;
+    private static float[] normalisedFreqBand;
     private float[] freqBandHighest;
-
-    private float singleBand;
-
-    [SerializeField] private float decreaseSpeed = 0.005f;
-
-    [SerializeField] private AudioSource audioSource;
 
     private void Awake ()
     {
@@ -108,7 +47,9 @@ public class AudioPeer : MonoBehaviour
         MakeSingleBand();
 
         if (TransmitAudioData != null)
-            TransmitAudioData(instance);
+        {
+            TransmitAudioData();
+        }
     }
 
     private void MakeSingleBand()
@@ -135,17 +76,11 @@ public class AudioPeer : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Reads the audio for SpectrumData and sets the samples array t that data
-    /// </summary>
     private void GetSpectrumAudioSource()
     {
         audioSource.GetSpectrumData(samples, 0, FFTWindow.Blackman);
     }
 
-    /// <summary>
-    /// Takes the audio Frequency and reduces it to 8 averages
-    /// </summary>
     private void MakeFrequencyband()
     {
         int count = 0;
@@ -155,7 +90,7 @@ public class AudioPeer : MonoBehaviour
             float _average = 0;
             int _sampleCount = (int)Mathf.Pow(2, i) * 2;
 
-            if (i == 7)
+            if (i == LAST_BAND)
             {
                 _sampleCount += 2;
             }
@@ -172,9 +107,6 @@ public class AudioPeer : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Buffers the audio FrequencyBand to fall down slow instead if instantly
-    /// </summary>
     private void MakeFreqBandBuffer()
     {
         for (int i = 0; i < bandBuffer.Length; i++)
@@ -190,5 +122,4 @@ public class AudioPeer : MonoBehaviour
             }
         }
     }
-
 }

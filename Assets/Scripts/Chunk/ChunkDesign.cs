@@ -10,8 +10,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(Renderer))]
 public class ChunkDesign : MonoBehaviour
-{
-    
+{ 
     public List<Transform> ObjectsToPool { get { return objectsToPool; } }
 
     public float Length
@@ -26,15 +25,20 @@ public class ChunkDesign : MonoBehaviour
         }
     }
 
-    private string POOLED_NAME = "Pooled";
+    private const string POOLED_NAME = "Pooled";
+	private const string GROUND = "Ground";
 
-    [SerializeField] private List<GameObject> coinPositions;
+	[SerializeField] private List<GameObject> coinPositions;
     [SerializeField] private List<Transform> objectsToPool;
     [SerializeField] private GameObject ground;
     [SerializeField] private int amountOfCoins;
 
     private float? length;
 
+	/// <summary>
+	/// Gets the local positions of the coins
+	/// </summary>
+	/// <returns>_randomCoinPositions</returns>
     public List<Vector3> GetCoinLocalPositions()
     {
         List<Vector3> _randomCoinPositions = new List<Vector3>();
@@ -51,7 +55,6 @@ public class ChunkDesign : MonoBehaviour
 
             _randomCoinPositions.Add(_coinPosition);
         }
-
         return _randomCoinPositions;
     }
 
@@ -80,11 +83,10 @@ public class ChunkDesign : MonoBehaviour
                 if (_objectPoolEntry.Prefab.name == _child.name)
                 {
                     objectsToPool.Add(_child);
-                    if (_child.name == "Ground")
+                    if (_child.name == GROUND)
                     {
                         ground = _child.gameObject;
                     }
-
                     break;
                 }
             }
@@ -101,15 +103,15 @@ public class ChunkDesign : MonoBehaviour
             return;
         }
 
-        Transform pooled = transform.Find(POOLED_NAME);
+        Transform _pooled = transform.Find(POOLED_NAME);
 
-        if (!pooled)
+        if (!_pooled)
         {
             Debug.LogError("THERE IS NO 'POOLED' GAMEOBJECT IN THE CHUNK");
             return;
         }
 
-        foreach (Transform _objectToPool in pooled.FirstLayerChildren())
+        foreach (Transform _objectToPool in _pooled.FirstLayerChildren())
         {
             ObjectPool.ObjectPoolEntry _objectPoolEntry =
                 ObjectPool.Instance.Entries.Find(x => x.Prefab.name == _objectToPool.name);
@@ -121,7 +123,7 @@ public class ChunkDesign : MonoBehaviour
             }
 
             GameObject _instantiatedGameObject = Instantiate(_objectPoolEntry.Prefab, _objectToPool);
-            _instantiatedGameObject.transform.parent = pooled;
+            _instantiatedGameObject.transform.parent = _pooled;
             _instantiatedGameObject.transform.name = _objectPoolEntry.Prefab.name;
 
             _instantiatedGameObject.transform.position = _objectToPool.position;
@@ -130,7 +132,6 @@ public class ChunkDesign : MonoBehaviour
 
             Undo.DestroyObjectImmediate(_objectToPool.gameObject);
         }
-
         EditorUtility.SetDirty(this);
     }
 #endif
@@ -151,5 +152,4 @@ public class ChunkDesign : MonoBehaviour
             Debug.LogWarning("amountOfCoins (" + amountOfCoins + ") is higher then the amount of coinPositions (" + coinPositions.Count + ") in chunk " + name, this);
         }
     }
-
 }
