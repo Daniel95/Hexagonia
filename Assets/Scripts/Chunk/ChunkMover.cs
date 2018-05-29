@@ -78,7 +78,7 @@ public class ChunkMover : MonoBehaviour
         if (speed < maximumSpeed && !stopping)
 	    {
 	        float _speedOffset = maximumSpeed - minimumSpeed;
-	        float _speedTimeMultiplier = LevelProgess.Instance.Timer / timeForMaximumSpeed;
+	        float _speedTimeMultiplier = Progression.Timer / timeForMaximumSpeed;
 	        float _speedIncrement = _speedOffset * _speedTimeMultiplier;
             speed = minimumSpeed + _speedIncrement;
         }

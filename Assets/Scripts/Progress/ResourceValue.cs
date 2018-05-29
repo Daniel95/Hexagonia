@@ -2,8 +2,12 @@
 using System.Collections;
 using System;
 
+/// <summary>
+/// Contains and updates the resource value used in several elements in the game.
+/// </summary>
 public class ResourceValue : MonoBehaviour
 {
+    public static Action<float> UpdatedEvent;
 
 	public static ResourceValue Instance { get { return GetInstance(); } }
 
@@ -20,9 +24,10 @@ public class ResourceValue : MonoBehaviour
     }
     #endregion
 
-    public float Value { get { return resourceValue; } set { resourceValue = value; } }
+    public static float Value { get { return resourceValue; } set { resourceValue = value; } }
+
+    public float Ratio { get { return resourceValue / maxValue; } }
     public int MaxValue { get { return maxValue; } set { maxValue = value; } }
-    public float ResourceRatio { get { return resourceValue / maxValue; } }
 
     [Tooltip("Wait for seconds(timeBetweenCoroutines), A higher number increases the wait time.")]
 	[SerializeField] private float timeBetweenCoroutines = 1f;
@@ -32,14 +37,13 @@ public class ResourceValue : MonoBehaviour
 	[SerializeField] private float maxDecreaseSpeed = 1f;
 	[SerializeField] private int maxValue = 5;
 
-    private float resourceValue;
+    private static float resourceValue;
 	private float targetValue;
 	private Coroutine coroutineIncrease, coroutineDecrease;
 
 	private void Awake()
 	{
 		resourceValue = 0;
-        ResourceBarUI.Instance.UpdateBarValue();
 	}
 
 	private void OnScoreUpdated(int _score)
@@ -81,7 +85,12 @@ public class ResourceValue : MonoBehaviour
 		while (resourceValue < _targetValue)
 		{
 			resourceValue += increaseSpeed * Time.deltaTime;
-			ResourceBarUI.Instance.UpdateBarValue();
+
+            if (UpdatedEvent != null)
+            {
+                UpdatedEvent(resourceValue);
+            }
+
 			yield return null;
 		}
 
@@ -101,11 +110,15 @@ public class ResourceValue : MonoBehaviour
 
 		while (resourceValue > 0)
 		{
-			float _decreaseSpeed = minDecreaseSpeed + (_decreaseRange * ResourceRatio);
+			float _decreaseSpeed = minDecreaseSpeed + (_decreaseRange * Ratio);
 			resourceValue -= _decreaseSpeed * Time.deltaTime;
 			targetValue = resourceValue;
 
-			ResourceBarUI.Instance.UpdateBarValue();
+            if(UpdatedEvent != null)
+            {
+                UpdatedEvent(resourceValue);
+            } 
+
 			yield return null;
 		}
 
@@ -130,13 +143,13 @@ public class ResourceValue : MonoBehaviour
 
 	private void OnEnable()
     {
-        LevelProgess.ScoreUpdatedEvent += OnScoreUpdated;
+        Progression.ScoreUpdatedEvent += OnScoreUpdated;
 		Player.DiedEvent += StopResources;
     }
 
     private void OnDisable()
     {
-        LevelProgess.ScoreUpdatedEvent -= OnScoreUpdated;
+        Progression.ScoreUpdatedEvent -= OnScoreUpdated;
 		Player.DiedEvent -= StopResources;
 	}
 }

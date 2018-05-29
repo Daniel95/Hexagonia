@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// Indicates the direction the player is moving.
+/// </summary>
 [RequireComponent(typeof(LineRenderer))]
 public class DirectionIndicator : MonoBehaviour {
 

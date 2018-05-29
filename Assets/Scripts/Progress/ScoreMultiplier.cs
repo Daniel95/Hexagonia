@@ -1,61 +1,60 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
+/// <summary>
+/// Displays the score multiplier UI, and calculates the score multiplier value.
+/// </summary>
 public class ScoreMultiplier : MonoBehaviour
 {
-	public static Action MultiplierIncreasedEvent;
-	public static Action MultiplierDecreasedEvent;
+    public static ScoreMultiplier Instance { get { return GetInstance(); } }
+    public static int Multiplier { get { return multiplier; } }
 
-	public static ScoreMultiplier Instance { get { return GetInstance(); } }
+    public static Action<int> UpdatedEvent;
+    public static Action MultiplierIncreasedEvent;
+    public static Action MultiplierDecreasedEvent;
 
-	#region Instance
-	private static ScoreMultiplier instance;
+    #region Singleton
+    private static ScoreMultiplier instance;
 
-	private static ScoreMultiplier GetInstance()
-	{
-		if (instance == null)
-		{
-			instance = FindObjectOfType<ScoreMultiplier>();
-		}
-		return instance;
-	}
-	#endregion
-
-	public int Multiplier { get { return multiplier; } }
-
-	[SerializeField] private Text multiplierText;
-	[SerializeField] private List<Color> multiplierColors = new List<Color>(); 
-	[SerializeField] private string animTriggerName = "MultiplierChanged";
-
-	private Animator anim;
-	private int multiplier = 1;
-	private int previousMultiplier = 1;
-
-	private void Awake()
-	{
-		anim = GetComponent<Animator>();
-        if(multiplierColors.Count != ResourceValue.Instance.MaxValue) {
-            Debug.LogError("multiplierColors should have " + ResourceValue.Instance.MaxValue + " colors!", gameObject);
+    private static ScoreMultiplier GetInstance()
+    {
+        if (instance == null)
+        {
+            instance = FindObjectOfType<ScoreMultiplier>();
         }
-	}
+        return instance;
+    }
+    #endregion
 
-	private void Update()
-	{
-		multiplier = Mathf.Clamp(Mathf.FloorToInt(ResourceValue.Instance.Value + 1), 1, ResourceValue.Instance.MaxValue);
-        int colorIndex = multiplier - 1;
-        ResourceBarUI.Instance.UpdateColor(multiplierColors[colorIndex]);
-		UpdateMultiplierUI();
 
-        if(multiplier > previousMultiplier) {
-            anim.SetTrigger(animTriggerName);
-        }
+    private static int multiplier = 1;
+
+    public Color MultiplierColor { get { return multiplierColors[multiplier - 1]; } }
+
+    [SerializeField] private List<Color> multiplierColors = new List<Color>();
+
+    private int previousMultiplier = 1;
+
+    private void UpdateScoreMultiplier(float _value)
+    {
+        multiplier = Mathf.Clamp(Mathf.FloorToInt(ResourceValue.Value + 1), 1, ResourceValue.Instance.MaxValue);
+        if (multiplier == previousMultiplier) { return; }
         previousMultiplier = multiplier;
+
+        if (UpdatedEvent != null)
+        {
+            UpdatedEvent(multiplier);
+        }
     }
 
-	private void UpdateMultiplierUI()
-	{
-		multiplierText.text = "X" + Multiplier;
-	}
+    private void OnEnable()
+    {
+        ResourceValue.UpdatedEvent += UpdateScoreMultiplier;
+    }
+
+    private void OnDisable()
+    {
+        ResourceValue.UpdatedEvent -= UpdateScoreMultiplier;
+    }
 }

@@ -130,7 +130,7 @@ public class ChunkPool : MonoBehaviour
     private void SpawnCoins(ChunkDesign _chunkDesign, Transform _chunkParent)
     {
         List<Vector3> _coinLocalPositions = _chunkDesign.GetCoinLocalPositions();
-        List<CoinType> _coinTypes = CoinSpawnChancesByTimeLibrary.Instance.GetCoinTypesToSpawn(_coinLocalPositions.Count, LevelProgess.Instance.Timer);
+        List<CoinType> _coinTypes = CoinSpawnChancesByTimeLibrary.Instance.GetCoinTypesToSpawn(_coinLocalPositions.Count, Progression.Timer);
 
         for (int i = 0; i < _coinTypes.Count; i++)
         {
