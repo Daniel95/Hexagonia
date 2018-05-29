@@ -90,12 +90,12 @@ public class LookPositionOnPlane : MonoBehaviour
 
     private void OnEnable()
     {
-        Player.PlayerDiedEvent += StopMovementOnPlane;
+        Player.DiedEvent += StopMovementOnPlane;
     }
 
     private void OnDisable()
     {
-        Player.PlayerDiedEvent -= StopMovementOnPlane;
+        Player.DiedEvent -= StopMovementOnPlane;
     }
 
 }
