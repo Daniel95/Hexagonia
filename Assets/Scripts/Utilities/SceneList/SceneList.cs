@@ -4,6 +4,7 @@ public enum Scenes
 {
 	Default = 0,
 	Menu = 1,
-	Main = 2
+	Main = 2,
+	GPUInstancingTest = 3
 }
 
