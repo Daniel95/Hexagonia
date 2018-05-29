@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// Controls gameo over UI.
+/// </summary>
 public class GameOverUI : MonoBehaviour
 {
     [SerializeField] private GameObject menu;
@@ -18,5 +21,4 @@ public class GameOverUI : MonoBehaviour
     {
         menu.SetActive(true);   
     }
-
 }

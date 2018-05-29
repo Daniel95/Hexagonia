@@ -8,15 +8,25 @@ using UnityEngine;
 /// </summary>
 public class CodeConventions : MonoBehaviour 
 {
-
     public static Action Event;
 
     public static CodeConventions Instance { get { return GetInstance(); } }
 
-    public int PublicTest { get { return privateTest; } set { privateTest = value; } }
+    public int PublicTest { get { return privateTest ; } set { privateTest = value; } }
+    public int PublicTest2 { get { return privateTest ; } set { privateTest = value; } }
+
+    public int PublicComplicatedTest
+    {
+        get
+        {
+            int test1 = 4 / 65;
+            int test2 = test1 % 42;
+            return test2;
+        }
+    }
 
     #region Singleton
-	private static CodeConventions instance;
+    private static CodeConventions instance;
 
 	private static CodeConventions GetInstance()
 	{
@@ -30,7 +40,7 @@ public class CodeConventions : MonoBehaviour
 
 	private const string CONST_TEST = "TEST123";
 
-    [SerializeField] private int serializeFieldTest;
+    [SerializeField] [Range(0, 93)] private int serializeFieldTest;
 
     private int privateTest;
 
@@ -42,7 +52,6 @@ public class CodeConventions : MonoBehaviour
         bool _testBool = false;
 
         if (_testBool) { return; }
-
     }
 
     private void TodoExample()
@@ -55,7 +64,6 @@ public class CodeConventions : MonoBehaviour
         privateTest = 1;
         int _interalTest = 2;
         _interalTest = 3;
-
 
         //No interal conventions for indexes variables in for loops
         for (int i = 0; i < _interalTest; i++)
@@ -83,9 +91,6 @@ public class CodeConventions : MonoBehaviour
     {
         Event -= OnEvent;
     }
-
-    
-
 }
 
 public enum Testtype

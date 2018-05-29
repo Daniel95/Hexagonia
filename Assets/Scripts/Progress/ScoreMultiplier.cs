@@ -45,7 +45,7 @@ public class ScoreMultiplier : MonoBehaviour
 	{
 		multiplier = Mathf.Clamp(Mathf.FloorToInt(ResourceValue.Instance.Value + 1), 1, ResourceValue.Instance.MaxValue);
         int colorIndex = multiplier - 1;
-        ResourceBarUI.Instance.ChangeColor(multiplierColors[colorIndex]);
+        ResourceBarUI.Instance.UpdateColor(multiplierColors[colorIndex]);
 		UpdateMultiplierUI();
 
         if(multiplier > previousMultiplier) {
