@@ -31,9 +31,6 @@ public class PlayerTrails : MonoBehaviour
         {
             List<Vector2> _pixelCoordinates = TargetPixelCoordinatesDataLibrary.Instance.GetTargetPixelCoordinates(spriteRenderer.sprite, trailPrefabByLabelData.Label);
 
-            var _removeContinueFailsave = 0;
-            if (_pixelCoordinates == null) { continue; }
-
             List<Transform> _trails = trailsByLabel[trailPrefabByLabelData.Label];
 
             for (int i = 0; i < _pixelCoordinates.Count; i++)
@@ -51,9 +48,6 @@ public class PlayerTrails : MonoBehaviour
         foreach (TrailPrefabAndLabelPair trailPrefabByLabelData in trailPrefabByLabelDatas)
         {
             List<Vector2> _pixelCoordinates = TargetPixelCoordinatesDataLibrary.Instance.GetTargetPixelCoordinates(spriteRenderer.sprite, trailPrefabByLabelData.Label);
-
-            var _removeContinueFailsave = 0;
-            if (_pixelCoordinates == null) { continue; }
 
             List<Transform> _trails = new List<Transform>();
 

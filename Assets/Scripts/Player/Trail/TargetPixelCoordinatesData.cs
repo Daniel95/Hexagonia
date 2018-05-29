@@ -21,8 +21,7 @@ public class TargetPixelCoordinatesData
 
         if (_spriteAndPixelCoordinatesPair == null)
         {
-            var uncommentLogError = 0;
-            //Debug.LogError("SpriteAndPixelCoordinatesPair with sprite " + _sprite.name + " and label " + Label + " does not exist");
+            Debug.LogError("SpriteAndPixelCoordinatesPair with sprite " + _sprite.name + " and label " + Label + " does not exist");
             return null;
         }
 
