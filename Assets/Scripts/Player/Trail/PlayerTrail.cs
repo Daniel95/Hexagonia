@@ -7,7 +7,6 @@ using UnityEngine;
 [RequireComponent(typeof(LineRenderer))]
 public class PlayerTrail : MonoBehaviour
 {
-
     [SerializeField] private int length = 30;
     [SerializeField] private float speed = 0.15f;
 
@@ -45,5 +44,4 @@ public class PlayerTrail : MonoBehaviour
             lineRenderer.SetPosition(i, _position);
         }
     }
-
 }

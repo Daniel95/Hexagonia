@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 /// <summary>
-/// Controls gameo over UI.
+/// Controls game over UI.
 /// </summary>
 public class GameOverUI : MonoBehaviour
 {

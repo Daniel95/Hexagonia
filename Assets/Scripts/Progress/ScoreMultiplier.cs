@@ -9,7 +9,6 @@ public class ScoreMultiplier : MonoBehaviour
 {
     public static ScoreMultiplier Instance { get { return GetInstance(); } }
     public static int Multiplier { get { return multiplier; } }
-
     public static Action<int> UpdatedEvent;
     public static Action MultiplierIncreasedEvent;
     public static Action MultiplierDecreasedEvent;
@@ -26,7 +25,6 @@ public class ScoreMultiplier : MonoBehaviour
         return instance;
     }
     #endregion
-
 
     private static int multiplier = 1;
 

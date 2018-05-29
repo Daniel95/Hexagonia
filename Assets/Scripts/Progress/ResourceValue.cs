@@ -8,11 +8,11 @@ using System;
 public class ResourceValue : MonoBehaviour
 {
     public static Action<float> UpdatedEvent;
-
 	public static ResourceValue Instance { get { return GetInstance(); } }
+	public static float Value { get { return resourceValue; } set { resourceValue = value; } }
 
-    #region Instance
-    private static ResourceValue instance;
+	#region Instance
+	private static ResourceValue instance;
 
     private static ResourceValue GetInstance()
     {
@@ -22,22 +22,21 @@ public class ResourceValue : MonoBehaviour
         }
         return instance;
     }
-    #endregion
+	#endregion
 
-    public static float Value { get { return resourceValue; } set { resourceValue = value; } }
+	private static float resourceValue;
 
-    public float Ratio { get { return resourceValue / maxValue; } }
+	public float Ratio { get { return resourceValue / maxValue; } }
     public int MaxValue { get { return maxValue; } set { maxValue = value; } }
 
     [Tooltip("Wait for seconds(timeBetweenCoroutines), A higher number increases the wait time.")]
-	[SerializeField] private float timeBetweenCoroutines = 1f;
-	[SerializeField] private float resouceIncreaseOnPickup = 0.3f;
-	[SerializeField] private float increaseSpeed = 0.5f;
+	[SerializeField] private float timeBetweenCoroutines = 0.1f;
+	[SerializeField] private float resouceIncreaseOnPickup = 0.4f;
+	[SerializeField] private float increaseSpeed = 0.25f;
 	[SerializeField] private float minDecreaseSpeed = 0.5f;
 	[SerializeField] private float maxDecreaseSpeed = 1f;
 	[SerializeField] private int maxValue = 5;
 
-    private static float resourceValue;
 	private float targetValue;
 	private Coroutine coroutineIncrease, coroutineDecrease;
 

@@ -39,7 +39,6 @@ public class Gyro : MonoBehaviour
     private void GyroCamera()
     {
         Quaternion _rotation = GyroToUnity(Input.gyro.attitude);
-
         transform.rotation = _rotation;
         transform.rotation = transform.rotation * Quaternion.Euler(90, baseGyro.eulerAngles.y, 0);
     }

@@ -146,24 +146,24 @@ public class TargetPixelCoordinatesData
         Vector2 _combinedBottomLeft = new Vector2();
         int _bottomLeftCount = 0;
 
-        Vector2 center = new Vector2(_sprite.texture.height, _sprite.texture.height) / 2;
+        Vector2 _center = new Vector2(_sprite.texture.height, _sprite.texture.height) / 2;
 
         foreach (Vector2Int _position in _pixelCoordinates)
         {
-            bool top = _position.y > center.y;
-            bool right = _position.x > center.x;
+            bool _top = _position.y > _center.y;
+            bool _right = _position.x > _center.x;
 
-            if (top && right)
+            if (_top && _right)
             {
                 _combinedTopRight += _position;
                 _topRightCount++;
             }
-            else if (top && !right)
+            else if (_top && !_right)
             {
                 _combinedTopLeft += _position;
                 _topLeftCount++;
             }
-            else if (!top && right)
+            else if (!_top && _right)
             {
                 _combinedBottomRight += _position;
                 _bottomRightCount++;

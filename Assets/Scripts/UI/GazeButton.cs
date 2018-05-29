@@ -7,11 +7,10 @@ using UnityEngine.UI;
 /// </summary>
 public class GazeButton : MonoBehaviour 
 {
-
     [SerializeField] protected Image buttonImage;
     [SerializeField] private Image gazeFillImage;
 
-    private float gazeSpeed = 1f; //0.006f old gazeSpeed without Time.deltaTime
+    private float gazeSpeed = 1f;
     private Coroutine increaseGazeFillAmountOverTimeCoroutine;
 
     protected virtual void OnGazeFilled() { }

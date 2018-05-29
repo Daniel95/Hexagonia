@@ -44,5 +44,4 @@ public class DirectionIndicator : MonoBehaviour {
     {
         LookPositionOnPlane.LookPositionUpdatedEvent -= UpdateTargetPosition;
     }
-
 }

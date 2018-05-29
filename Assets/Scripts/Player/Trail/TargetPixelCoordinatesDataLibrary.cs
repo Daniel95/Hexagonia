@@ -11,9 +11,7 @@ using UnityEditor;
 public class TargetPixelCoordinatesDataLibrary : MonoBehaviour
 {
     public static TargetPixelCoordinatesDataLibrary Instance { get { return GetInstance(); } }
-
     private static TargetPixelCoordinatesDataLibrary instance;
-
     private static TargetPixelCoordinatesDataLibrary GetInstance()
     {
         if(instance == null)

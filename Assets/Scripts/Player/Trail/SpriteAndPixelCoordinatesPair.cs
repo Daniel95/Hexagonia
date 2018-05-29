@@ -10,5 +10,4 @@ public class SpriteAndPixelCoordinatesPair
 {
     public Sprite Sprite;
     public List<Vector2> PixelCoordinates;
-
 }

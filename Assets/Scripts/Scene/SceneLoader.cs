@@ -22,7 +22,9 @@ public class SceneLoader : MonoBehaviour
     }
     #endregion
 
-    //Parameters: Old scene, New Scene
+/// <summary>
+/// Parameters: Old Scene, New Scene
+/// </summary>
     public static Action<Scenes, Scenes> SceneSwitchCompletedEvent;
     public static Action<Scenes, Scenes> SceneSwitchStartedEvent;
 

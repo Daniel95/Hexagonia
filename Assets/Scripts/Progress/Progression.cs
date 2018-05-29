@@ -8,7 +8,6 @@ public class Progression : MonoBehaviour
 {
     public static int Score { get { return score; } }
 	public static float Timer { get { return Time.time - startUpTime; }  }
-
     public static Action<int> ScoreUpdatedEvent;
 
 	private static float startUpTime;
