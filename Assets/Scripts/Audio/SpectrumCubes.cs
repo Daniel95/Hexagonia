@@ -46,6 +46,7 @@ public class SpectrumCubes : MonoBehaviour
     {
         AudioPeer.TransmitAudioData += UpdateSampleScale;
     }
+
     private void DisEnable()
     {
         AudioPeer.TransmitAudioData -= UpdateSampleScale;
