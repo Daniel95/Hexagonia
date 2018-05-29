@@ -6,10 +6,18 @@ using UnityEngine;
 /// </summary>
 public class SceneLoader : MonoBehaviour
 {
-    public static Scenes CurrentScene { get { return (Scenes)currentScene; } }
-    public static SceneLoader Instance { get { return GetInstance(); } }
+    public static Scenes CurrentScene
+    {
+        get { return (Scenes) currentScene; }
+    }
+
+    public static SceneLoader Instance
+    {
+        get { return GetInstance(); }
+    }
 
     #region Singleton
+
     private static SceneLoader instance;
 
     private static SceneLoader GetInstance()
@@ -18,14 +26,17 @@ public class SceneLoader : MonoBehaviour
         {
             instance = FindObjectOfType<SceneLoader>();
         }
+
         return instance;
     }
+
     #endregion
 
-/// <summary>
-/// Parameters: Old Scene, New Scene
-/// </summary>
+    /// <summary>
+    /// Parameters: Old Scene, New Scene
+    /// </summary>
     public static Action<Scenes, Scenes> SceneSwitchCompletedEvent;
+
     public static Action<Scenes, Scenes> SceneSwitchStartedEvent;
 
     [SerializeField] private Scenes startScene;
@@ -49,18 +60,19 @@ public class SceneLoader : MonoBehaviour
 
         if (SceneSwitchStartedEvent != null)
         {
-            SceneSwitchStartedEvent((Scenes)_previousScene, _newScene);
+            SceneSwitchStartedEvent((Scenes) _previousScene, _newScene);
         }
 
         if (_previousScene != null)
         {
-            SceneHelper.UnloadSceneOverTime(_previousScene.ToString(), () => SceneHelper.LoadSceneOverTime(_newScene.ToString(), () =>
-            {
-                if (SceneSwitchCompletedEvent != null)
+            SceneHelper.UnloadSceneOverTime(_previousScene.ToString(), () => SceneHelper.LoadSceneOverTime(
+                _newScene.ToString(), () =>
                 {
-                    SceneSwitchCompletedEvent((Scenes)_previousScene, _newScene);
-                }
-            }));
+                    if (SceneSwitchCompletedEvent != null)
+                    {
+                        SceneSwitchCompletedEvent((Scenes) _previousScene, _newScene);
+                    }
+                }));
         }
         else
         {
@@ -69,7 +81,7 @@ public class SceneLoader : MonoBehaviour
                 Debug.Log(SceneSwitchCompletedEvent);
                 if (SceneSwitchCompletedEvent != null)
                 {
-                    SceneSwitchCompletedEvent((Scenes)_previousScene, _newScene);
+                    SceneSwitchCompletedEvent((Scenes) _previousScene, _newScene);
                 }
             });
         }
@@ -77,7 +89,7 @@ public class SceneLoader : MonoBehaviour
 
     private void Awake()
     {
-        if(startScene == Scenes.Default)
+        if (startScene == Scenes.Default)
         {
             Debug.LogWarning("Cannot load the Default scene as start scene.");
             return;
@@ -86,5 +98,4 @@ public class SceneLoader : MonoBehaviour
         currentScene = startScene;
         SceneHelper.LoadSceneOverTime(startScene.ToString());
     }
-
 }
