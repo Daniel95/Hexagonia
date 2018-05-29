@@ -6,7 +6,6 @@
 /// </summary>
 public class SmoothPlaneMovement2D : MonoBehaviour
 {
-
     [SerializeField] [Range(0, 20)] private float speed = 0.3f;
     [SerializeField] private Vector3 offset;
 
@@ -32,5 +31,4 @@ public class SmoothPlaneMovement2D : MonoBehaviour
     {
         LookPositionOnPlane.LookPositionUpdatedEvent -= UpdateTargetPosition;
     }
-
 }

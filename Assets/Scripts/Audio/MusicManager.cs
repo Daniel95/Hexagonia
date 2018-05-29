@@ -169,6 +169,9 @@ public class MusicManager : MonoBehaviour
     }
 }
 
+/// <summary>
+/// Pairs a songlist to a specific scene
+/// </summary>
 [Serializable]
 internal class Songlist
 {
