@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class ScoreUI : MonoBehaviour {
-
+/// <summary>
+/// Updates the Score UI.
+/// </summary>
+public class ScoreUI : MonoBehaviour
+{
 	[SerializeField] private Text scoreText;
 
 	private void UpdateScore(int _score)
@@ -12,11 +15,11 @@ public class ScoreUI : MonoBehaviour {
 
 	private void OnEnable()
 	{
-		LevelProgess.ScoreUpdatedEvent += UpdateScore;
+		Progression.ScoreUpdatedEvent += UpdateScore;
 	}
 
 	private void OnDisable()
 	{
-		LevelProgess.ScoreUpdatedEvent -= UpdateScore;
+		Progression.ScoreUpdatedEvent -= UpdateScore;
 	}
 }

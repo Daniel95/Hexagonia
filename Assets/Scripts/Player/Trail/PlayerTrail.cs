@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Trail used by the player, because the player does not move on it's Z axis, the trail needs to mimic this movement.
+/// </summary>
 [RequireComponent(typeof(LineRenderer))]
 public class PlayerTrail : MonoBehaviour
 {
-
     [SerializeField] private int length = 30;
     [SerializeField] private float speed = 0.15f;
 
@@ -41,5 +43,4 @@ public class PlayerTrail : MonoBehaviour
             lineRenderer.SetPosition(i, _position);
         }
     }
-
 }
