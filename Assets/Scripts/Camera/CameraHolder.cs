@@ -10,16 +10,6 @@ public class CameraHolder : MonoBehaviour
     protected Transform DefaultCameraHolderTransform;
     protected GameObject MainCameraGameObject;
 
-	private void Awake()
-	{
-        EnterScene();
-    }
-
-    protected void OnSceneSwitch(Scenes _oldScene, Scenes _newScene)
-    {
-        ExitScene();
-    }
-
     protected virtual void EnterScene()
     {
         MainCameraGameObject = Camera.main.gameObject;
@@ -45,6 +35,16 @@ public class CameraHolder : MonoBehaviour
         MainCameraGameObject.transform.parent.ResetLocal();
         transform.ResetLocal();
         DefaultCameraHolderTransform.ResetLocal();
+    }
+
+	private void Awake()
+	{
+        EnterScene();
+    }
+
+    private void OnSceneSwitch(Scenes? _oldScene, Scenes _newScene)
+    {
+        ExitScene();
     }
 
     private void ResetTransforms()

@@ -45,14 +45,4 @@ public class CameraHolderMain : CameraHolder
         }
 #endif
     }
-
-    private void OnEnable()
-    {
-        SceneLoader.SceneSwitchStartedEvent += OnSceneSwitch;
-    }
-
-    private void OnDisable()
-    {
-        SceneLoader.SceneSwitchStartedEvent -= OnSceneSwitch;
-    }
 }

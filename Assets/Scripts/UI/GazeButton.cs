@@ -31,6 +31,10 @@ public class GazeButton : MonoBehaviour
     {
         if (_hoveredGameObject == buttonImage.gameObject)
         {
+            if (increaseGazeFillAmountOverTimeCoroutine != null)
+            {
+                StopCoroutine(increaseGazeFillAmountOverTimeCoroutine);
+            }
             increaseGazeFillAmountOverTimeCoroutine = StartCoroutine(IncreaseGazeFillAmountOverTime());
         }
     }
@@ -39,7 +43,11 @@ public class GazeButton : MonoBehaviour
     {
         if (_hoveredGameObject == buttonImage.gameObject)
         {
-            StopCoroutine(increaseGazeFillAmountOverTimeCoroutine);
+            if(increaseGazeFillAmountOverTimeCoroutine != null)
+            {
+                StopCoroutine(increaseGazeFillAmountOverTimeCoroutine);
+                increaseGazeFillAmountOverTimeCoroutine = null;
+            }
             gazeFillImage.fillAmount = 0;
         }
     }
