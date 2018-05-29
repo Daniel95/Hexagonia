@@ -1,13 +1,16 @@
 ﻿using System.Collections;
 using UnityEngine;
 
+/// <summary>
+/// Shows the top and bottom boundary of the level, if the player gets close the boundary will fade in. Only visible if the player is near the boundary.
+/// </summary>
 [RequireComponent(typeof(SpriteRenderer))]
 public class MovementBoundaryLine : MonoBehaviour {
 
     public enum PositionType
     {
         Top,
-        Bottom,
+        Bottom
     }
 
     [SerializeField] private PositionType positionType;
@@ -49,20 +52,20 @@ public class MovementBoundaryLine : MonoBehaviour {
 
     private void Start()
     {
-        Vector3 halfPlaneSize = LookPositionOnPlane.Instance.Size / 2;
+        Vector3 _halfPlaneSize = LookPositionOnPlane.Instance.Size / 2;
 
         if (positionType == PositionType.Top)
         {
-            transform.position = new Vector3(transform.position.x, LookPositionOnPlane.Instance.transform.position.y + halfPlaneSize.y + yOffset, transform.position.z);
+            transform.position = new Vector3(transform.position.x, LookPositionOnPlane.Instance.transform.position.y + _halfPlaneSize.y + yOffset, transform.position.z);
         }
         else if(positionType == PositionType.Bottom)
         {
-            transform.position = new Vector3(transform.position.x, LookPositionOnPlane.Instance.transform.position.y - halfPlaneSize.y + yOffset, transform.position.z);
+            transform.position = new Vector3(transform.position.x, LookPositionOnPlane.Instance.transform.position.y - _halfPlaneSize.y + yOffset, transform.position.z);
             ratioPositionTypeMultiplier = 1;
         }
 
-        movementPlaneBottomYPosition = LookPositionOnPlane.Instance.transform.position.y - halfPlaneSize.y;
-        movementPlaneTopPosition = LookPositionOnPlane.Instance.transform.position.y + halfPlaneSize.y;
+        movementPlaneBottomYPosition = LookPositionOnPlane.Instance.transform.position.y - _halfPlaneSize.y;
+        movementPlaneTopPosition = LookPositionOnPlane.Instance.transform.position.y + _halfPlaneSize.y;
 
         spriteRenderer = GetComponent<SpriteRenderer>();
 

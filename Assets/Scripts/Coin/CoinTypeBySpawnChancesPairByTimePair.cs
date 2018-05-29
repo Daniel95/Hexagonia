@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 /// <summary>
-/// 
+/// Spawns the coin with a chance over time in the level.
 /// </summary>
 [Serializable]
 public class CoinTypeBySpawnChancesPairByTimePair
@@ -10,6 +10,10 @@ public class CoinTypeBySpawnChancesPairByTimePair
 	public float Time;
 	public List<CoinTypeBySpawnChancePair> CoinTypeBySpawnChancePairs;
 
+	/// <summary>
+	/// Gets a random coin to spawn with a chance.
+	/// </summary>
+	/// <returns>_coinType</returns>
     public CoinType GetRandomCoin()
     {
         CoinType _coinType = CoinType.Common;
@@ -29,8 +33,6 @@ public class CoinTypeBySpawnChancesPairByTimePair
 
             _combinedChange = _nextCombinedChance;
         }
-
         return _coinType;
     }
-
 }

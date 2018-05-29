@@ -2,7 +2,7 @@
 using UnityEngine;
 
 /// <summary>
-/// ScriptContainer for the Coinprefab. Used as a List in CoinPrefabByCoinTypePair.cs
+/// ScriptContainer t pair the CoinPrefab with the CoinType. Used in CoinPrefabByCoinTypeLibrary.cs
 /// </summary>
 [Serializable]
 public class CoinPrefabByCoinTypePair
