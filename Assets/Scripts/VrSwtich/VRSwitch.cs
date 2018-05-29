@@ -1,20 +1,118 @@
 ﻿using UnityEngine;
 using UnityEngine.XR;
 using System;
+using System.Collections;
 
 public class VRSwitch : MonoBehaviour
 {
-    [SerializeField] Gyro gyro;
+    public static Action VRModeSwitchedEvent;
 
-    private void Start()
+    public static VRSwitch Instance
     {
-        XRSettings.enabled = false;
-        gyro.enabled = !XRSettings.enabled;
+        get
+        {
+            return GetInstance();
+        }
     }
 
-    public void Switch()
+    public GameObject GvrReticlePointerGameObject
     {
-        XRSettings.enabled = !XRSettings.enabled;
-        gyro.enabled = !XRSettings.enabled;
+        get
+        {
+            return gvrReticlePointerGameObject;
+        }
     }
+
+    #region Singleton
+    private static VRSwitch instance;
+
+    private static VRSwitch GetInstance()
+    {
+        if (instance == null)
+        {
+            instance = FindObjectOfType<VRSwitch>();
+        }
+        return instance;
+    }
+    #endregion
+
+    public bool VrState { get; set; }
+
+    [SerializeField] private GameObject gvrGameObject;
+    private GameObject gvrReticlePointerGameObject;
+    private bool clicked;
+
+    private void Awake()
+    {
+        gvrReticlePointerGameObject = FindObjectOfType<GvrReticlePointer>().gameObject;
+    }
+
+    private void SetVRModeAfterInitialization()
+    {
+        VrState = true;
+        XRSettings.enabled = true;
+        gvrGameObject.SetActive(true);
+
+        if (PlayerPrefs.GetInt("VRMode") == 0)
+        {
+            if (VRModeSwitchedEvent != null)
+            {
+                VRModeSwitchedEvent();
+            }
+        }
+    }
+
+    public bool Switch()
+    {
+        if (clicked)
+        {
+            return VrState;
+        }
+        clicked = true;
+
+        
+        VrState = !VrState;
+        XRSettings.enabled = VrState;
+
+        PlayerPrefs.SetInt("VRMode", Convert.ToInt32(VrState));
+        PlayerPrefs.Save();
+
+        gvrGameObject.SetActive(VrState);
+        gvrReticlePointerGameObject.SetActive(VrState);
+#if !UNITY_EDITOR
+        if (VrState)
+        {
+            GvrCardboardHelpers.Recenter();
+        }
+#endif
+        StartCoroutine(ClickedToFalseAfterFrame());
+        return VrState;
+    }
+
+    private IEnumerator ClickedToFalseAfterFrame()
+    {
+        yield return new WaitForSeconds(0);
+        clicked = false;
+    }
+
+    private void SetReticlePointer()
+    {
+        if (VrState)
+        {
+            gvrReticlePointerGameObject.SetActive(true);
+        }
+    }
+
+    private void OnEnable()
+    {
+        VRModeButtonListener.InitializedEvent += SetVRModeAfterInitialization;
+        Player.DiedEvent += SetReticlePointer;
+    }
+
+    private void OnDisable()
+    {
+        VRModeButtonListener.InitializedEvent -= SetVRModeAfterInitialization;
+        Player.DiedEvent -= SetReticlePointer;
+    }
+
 }

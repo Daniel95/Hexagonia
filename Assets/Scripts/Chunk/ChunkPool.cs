@@ -136,12 +136,14 @@ public class ChunkPool : MonoBehaviour
     private void SpawnCoins(ChunkDesign _chunkDesign, Transform _chunkParent)
     {
         List<Vector3> _coinLocalPositions = _chunkDesign.GetCoinLocalPositions();
+        List<CoinType> _coinTypes = CoinSpawnChancesByTimeLibrary.Instance.GetCoinTypesToSpawn(_coinLocalPositions.Count, LevelProgess.Instance.Timer);
 
-        CoinType _coinType = CoinTypeByTimeLibrary.Instance.GetCoinType(LevelProgess.Instance.Timer);
-        GameObject _coinPrefab = CoinPrefabByCoinTypeLibrary.Instance.GetCoinPrefab(_coinType);
-
-        foreach (Vector3 _localPosition in _coinLocalPositions)
+        for (int i = 0; i < _coinTypes.Count; i++)
         {
+            CoinType _coinType = _coinTypes[i];
+            Vector3 _localPosition = _coinLocalPositions[i];
+
+            GameObject _coinPrefab = CoinPrefabByCoinTypeLibrary.Instance.GetCoinPrefab(_coinType);
             GameObject _coinGameObject = ObjectPool.Instance.GetObjectForType(_coinPrefab.name, false);
             _coinGameObject.transform.parent = _chunkParent.transform;
             _coinGameObject.transform.position = new Vector3(_localPosition.x, _localPosition.y, _localPosition.z + _chunkParent.transform.position.z);

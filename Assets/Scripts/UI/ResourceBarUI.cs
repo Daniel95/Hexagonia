@@ -1,31 +1,54 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class ResourceBarUI : MonoBehaviour
 {
+	public static ResourceBarUI Instance { get { return GetInstance(); } }
 
-	private float scaleX = 0f;
-	private float scaleBarByScore;
-	private float offset = 1f;
-	[SerializeField] private GameObject resourceBar;
+	#region Instance
+	private static ResourceBarUI instance;
 
-	private void Awake()
+	private static ResourceBarUI GetInstance()
 	{
-		resourceBar.transform.localScale = new Vector3(0, resourceBar.transform.localScale.y, resourceBar.transform.localScale.z);
+		if (instance == null)
+		{
+			instance = FindObjectOfType<ResourceBarUI>();
+		}
+		return instance;
+	}
+	#endregion
+
+	[SerializeField] private Image resourceBar;
+
+	public void UpdateResourceBar()
+	{
+        float _barValue = 1;
+
+        if(ResourceValue.Instance.Value < ResourceValue.Instance.MaxValue)
+        {
+            _barValue = ResourceValue.Instance.Value % 1;
+        }
+
+        resourceBar.fillAmount = _barValue;
+    } 
+
+	public void ChangeColor(Color _color)
+	{
+		resourceBar.color = _color;
 	}
 
-	private void Update()
+    private void Deactivate()
     {
-		UpdateResourceBar();
+        gameObject.SetActive(false);
     }
 
-	private void UpdateResourceBar()
-	{
-		if (scaleBarByScore < 1)
-		{
-			scaleBarByScore = scaleX + ResourceValue.Instance.Value;
-			resourceBar.transform.position = new Vector3((scaleBarByScore - offset) / 0.5f, resourceBar.transform.position.y, resourceBar.transform.position.z);
+    private void OnEnable()
+    {
+        Player.DiedEvent += Deactivate;
+    }
 
-			resourceBar.transform.localScale = new Vector3(scaleBarByScore, resourceBar.transform.localScale.y, resourceBar.transform.localScale.z);
-		}
-	}
-}
+    private void OnDisable()
+    {
+        Player.DiedEvent -= Deactivate;
+    }
+}	

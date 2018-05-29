@@ -1,6 +1,11 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
-public class SceneLoader : MonoBehaviour {
+public class SceneLoader : MonoBehaviour
+{
+    //Parameters: Old scene, New Scene
+    public static Action<Scenes, Scenes> SceneSwitchCompletedEvent;
+    public static Action<Scenes, Scenes> SceneSwitchStartedEvent;
 
     public static SceneLoader Instance { get { return GetInstance(); } }
 
@@ -32,15 +37,33 @@ public class SceneLoader : MonoBehaviour {
         Scenes? _previousScene = currentScene;
         currentScene = _newScene;
 
+        if (SceneSwitchStartedEvent != null)
+        {
+            SceneSwitchStartedEvent((Scenes)_previousScene, _newScene);
+        }
+
         if (_previousScene != null)
         {
-            SceneHelper.UnloadSceneOverTime(_previousScene.ToString(), () => SceneHelper.LoadSceneOverTime(_newScene.ToString()));
+            SceneHelper.UnloadSceneOverTime(_previousScene.ToString(), () => SceneHelper.LoadSceneOverTime(_newScene.ToString(), () =>
+            {
+                if (SceneSwitchCompletedEvent != null)
+                {
+                    SceneSwitchCompletedEvent((Scenes)_previousScene, _newScene);
+                }
+            }));
+            
         }
         else
         {
-            SceneHelper.LoadSceneOverTime(_newScene.ToString());
+            SceneHelper.LoadSceneOverTime(_newScene.ToString(), () =>
+            {
+                Debug.Log(SceneSwitchCompletedEvent);
+                if (SceneSwitchCompletedEvent != null)
+                {
+                    SceneSwitchCompletedEvent((Scenes)_previousScene, _newScene);
+                }
+            });
         }
-
     }
 
     private void Awake()

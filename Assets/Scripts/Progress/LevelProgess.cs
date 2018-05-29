@@ -21,14 +21,14 @@ public class LevelProgess : MonoBehaviour {
 #endregion 
 
     public int Score { get { return score; } }
-	public float Timer { get { return Time.realtimeSinceStartup - startUpTime; }  }
+	public float Timer { get { return Time.time - startUpTime; }  }
 
 	private float startUpTime;
 	private int score;
 
     public void AddScore(int _scoreIncrement)
 	{
-        score += _scoreIncrement;
+		score += _scoreIncrement * ScoreMultiplier.Instance.Multiplier;
 
         if (ScoreUpdatedEvent != null)
 		{
@@ -38,7 +38,7 @@ public class LevelProgess : MonoBehaviour {
 
 	private void Awake()
 	{
-		startUpTime = Time.realtimeSinceStartup;
+		startUpTime = Time.time;
 	}
 
 	private void OnEnable()  

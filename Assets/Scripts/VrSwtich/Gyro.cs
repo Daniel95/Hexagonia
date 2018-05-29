@@ -13,14 +13,22 @@ public class Gyro : MonoBehaviour
 
     void Start()
     {
-        Input.gyro.enabled = true;
-        baseGyro = Input.gyro.attitude;
+        Initialization(Scenes.Default, Scenes.Main);
     }
 
-    protected void Update()
+    private void Initialization(Scenes _scenes1, Scenes _scenes2)
     {
-        if(baseGyro.y == 0)
+        Input.gyro.enabled = true;
+        baseGyro = Input.gyro.attitude;
+
+    }
+
+    private void Update()
+    {
+        if (baseGyro.y == 0)
+        {
             baseGyro = GyroToUnity(Input.gyro.attitude);
+        }
 
         if (!XRSettings.enabled)
         {
@@ -42,15 +50,18 @@ public class Gyro : MonoBehaviour
         transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, 0);
     }
 
-    /*
-    private void AdjustForBaseY()
-    {
-        //transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y + baseGyro.eulerAngles.y, transform.rotation.eulerAngles.z);
-    }
-    */
-
     private Quaternion GyroToUnity(Quaternion q)
     {
         return new Quaternion(q.x * YSensitivity, q.y * XSensitivity, q.z, -q.w);
+    }
+
+    private void OnEnable()
+    {
+        SceneLoader.SceneSwitchStartedEvent += Initialization;
+    }
+
+    private void OnDisable()
+    {
+        SceneLoader.SceneSwitchStartedEvent -= Initialization;
     }
 }
