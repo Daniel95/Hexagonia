@@ -146,15 +146,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 530138764895f1840ab10556399e8141, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxVolume: 0.5
   defaultSongList: 1
   songlists:
   - Scene: 1
     SongList:
-    - priority: 0
-      clip: {fileID: 8300000, guid: 64fd140ebc57a0144b27a96d2373105d, type: 3}
+    - Priority: 0
+      Clip: {fileID: 8300000, guid: 64fd140ebc57a0144b27a96d2373105d, type: 3}
   - Scene: 2
     SongList:
-    - priority: 0
-      clip: {fileID: 8300000, guid: 5497ec20af5428b47ab0a0996c6e711b, type: 3}
+    - Priority: 0
+      Clip: {fileID: 8300000, guid: 5497ec20af5428b47ab0a0996c6e711b, type: 3}
   fadeTime: 2
-  maxVolume: 0.5

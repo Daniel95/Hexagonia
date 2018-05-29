@@ -2,9 +2,12 @@
 using UnityEngine;
 using UnityToolbag;
 
+/// <summary>
+/// There will be a chance for higher value coins to spawn. The 'Legendary' coin has a lower chance of spawning compared to the 'Uncommon' coin.
+/// </summary>
 public class CoinSpawnChancesByTimeLibrary : MonoBehaviour
 {
-	[Reorderable] [SerializeField] private List<CoinTypeBySpawnChancesByTimePair> coinTypeBySpawnChancesByTimePairs;
+	[Reorderable] [SerializeField] private List<CoinTypeBySpawnChancesPairByTimePair> coinTypeBySpawnChancesByTimePairs;
 
 	public static CoinSpawnChancesByTimeLibrary Instance { get { return GetInstance(); } }
 
@@ -25,13 +28,19 @@ public class CoinSpawnChancesByTimeLibrary : MonoBehaviour
 
     private CoinType coinType;
 
+	/// <summary>
+	/// Spawns coins with a chance by time. 'common' coins will always be spawned on random locations
+	/// </summary>
+	/// <param name="_coinTypesAmount"></param>
+	/// <param name="_time"></param>
+	/// <returns></returns>
 	public List<CoinType> GetCoinTypesToSpawn(int _coinTypesAmount, float _time)
 	{
-        CoinTypeBySpawnChancesByTimePair _coinTypeBySpawnChancesByTimePair = null;
+        CoinTypeBySpawnChancesPairByTimePair _coinTypeBySpawnChancesByTimePair = null;
 
         for (int i = 0; i < coinTypeBySpawnChancesByTimePairs.Count; i++)
 		{
-            CoinTypeBySpawnChancesByTimePair _currentCoinTypeBySpawnChancesByTimePair = coinTypeBySpawnChancesByTimePairs[i];
+            CoinTypeBySpawnChancesPairByTimePair _currentCoinTypeBySpawnChancesByTimePair = coinTypeBySpawnChancesByTimePairs[i];
 
             if (i >= coinTypeBySpawnChancesByTimePairs.Count - 1)
             {
@@ -57,7 +66,6 @@ public class CoinSpawnChancesByTimeLibrary : MonoBehaviour
             CoinType _coinType = _coinTypeBySpawnChancesByTimePair.GetRandomCoin();
             _coinTypes.Add(_coinType);
         }
-
 		return _coinTypes;
 	}
 
@@ -68,7 +76,7 @@ public class CoinSpawnChancesByTimeLibrary : MonoBehaviour
         {
             float _combinedChance = 0;
 
-            CoinTypeBySpawnChancesByTimePair _coinTypeBySpawnChancesByTimePair = coinTypeBySpawnChancesByTimePairs[i];
+            CoinTypeBySpawnChancesPairByTimePair _coinTypeBySpawnChancesByTimePair = coinTypeBySpawnChancesByTimePairs[i];
             _coinTypeBySpawnChancesByTimePair.CoinTypeBySpawnChancePairs.ForEach(x => _combinedChance += x.Chance);
 
             if (_combinedChance != 1)
@@ -77,5 +85,4 @@ public class CoinSpawnChancesByTimeLibrary : MonoBehaviour
             }
         }
     }
-
 }

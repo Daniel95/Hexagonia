@@ -3,11 +3,13 @@ using UnityEngine;
 
 public class SceneLoader : MonoBehaviour
 {
-    //Parameters: Old scene, New Scene
+    public static SceneLoader Instance { get { return GetInstance(); } }
+
+    /// <summary>
+    /// Old scene, New Scene
+    /// </summary>
     public static Action<Scenes?, Scenes> SceneSwitchStartedEvent;
     public static Action<Scenes?, Scenes> SceneSwitchCompletedEvent;
-
-    public static SceneLoader Instance { get { return GetInstance(); } }
 
     #region Singleton
     private static SceneLoader instance;

@@ -188,7 +188,11 @@ GameObject:
   - component: {fileID: 114095985122109814}
   - component: {fileID: 114735364789465188}
   - component: {fileID: 114534458255993462}
-  - component: {fileID: 114989424711492896}
+  - component: {fileID: 114107806383944174}
+  - component: {fileID: 114839651151861236}
+  - component: {fileID: 114174206029688398}
+  - component: {fileID: 114268747965361696}
+  - component: {fileID: 114093662864312302}
   m_Layer: 5
   m_Name: Player Resources Canvas
   m_TagString: Untagged
@@ -240,7 +244,6 @@ GameObject:
   - component: {fileID: 224173802735088084}
   - component: {fileID: 222034658975730530}
   - component: {fileID: 114416902747277508}
-  - component: {fileID: 114228203528678218}
   m_Layer: 5
   m_Name: ScoreUI
   m_TagString: Untagged
@@ -346,7 +349,6 @@ GameObject:
   - component: {fileID: 222799430521709774}
   - component: {fileID: 114584796607601148}
   - component: {fileID: 95421141893979396}
-  - component: {fileID: 114452609949208216}
   m_Layer: 5
   m_Name: Multiplier
   m_TagString: Untagged
@@ -503,6 +505,23 @@ MonoBehaviour:
   m_FirstSelected: {fileID: 0}
   m_sendNavigationEvents: 1
   m_DragThreshold: 5
+--- !u!114 &114093662864312302
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1590044281914128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 555e058e9291ff746af814410a34355f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeBetweenCoroutines: 0.1
+  resouceIncreaseOnPickup: 0.5
+  increaseSpeed: 3
+  minDecreaseSpeed: 0.35
+  maxDecreaseSpeed: 1.1
+  maxValue: 5
 --- !u!114 &114095985122109814
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -551,6 +570,23 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114107806383944174
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1590044281914128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88908a992e1b1854b83633d496ec0d57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  multiplierColors:
+  - {r: 1, g: 1, b: 1, a: 1}
+  - {r: 0, g: 1, b: 0.17254902, a: 1}
+  - {r: 0, g: 0.8745098, b: 1, a: 1}
+  - {r: 0.79607844, g: 0.52156866, b: 1, a: 1}
+  - {r: 0.94509804, g: 1, b: 0, a: 1}
 --- !u!114 &114170772895803574
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -584,6 +620,18 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 'FPS:'
+--- !u!114 &114174206029688398
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1590044281914128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e9a4d3bdcd562b42b5dc9963f2c85bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceBar: {fileID: 114096605155551324}
 --- !u!114 &114220992758513376
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -617,15 +665,15 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Play Again
---- !u!114 &114228203528678218
+--- !u!114 &114268747965361696
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1670534335496456}
+  m_GameObject: {fileID: 1590044281914128}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0aeaf62557797194c89f5d810df989a2, type: 3}
+  m_Script: {fileID: 11500000, guid: 8440735fcaa6c2d4e9618eb7799c03b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   scoreText: {fileID: 114416902747277508}
@@ -741,25 +789,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 0
---- !u!114 &114452609949208216
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1904926693937208}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc8ffc8d169d2b7458ea6bf1309159ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  multiplierText: {fileID: 114584796607601148}
-  multiplierColors:
-  - {r: 1, g: 1, b: 1, a: 1}
-  - {r: 0, g: 1, b: 0.17241383, a: 1}
-  - {r: 0, g: 0.8758622, b: 1, a: 1}
-  - {r: 0.7956388, g: 0.52205884, b: 1, a: 1}
-  - {r: 0.94482756, g: 1, b: 0, a: 1}
-  animTriggerName: MultiplierChanged
 --- !u!114 &114456681846027216
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -930,7 +959,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: x1
 --- !u!114 &114657113579004390
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1054,6 +1083,19 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114839651151861236
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1590044281914128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95dcf5899f7aa1c4c9521a6551787684, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  multiplierText: {fileID: 114584796607601148}
+  animTriggerName: MultiplierChanged
 --- !u!114 &114889505272034434
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1147,18 +1189,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Quit
---- !u!114 &114989424711492896
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1590044281914128}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74bfa69af7276ce449e3f3e4e333c5d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  resourceBar: {fileID: 114096605155551324}
 --- !u!222 &222034658975730530
 CanvasRenderer:
   m_ObjectHideFlags: 1
