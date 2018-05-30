@@ -23,15 +23,10 @@ public class ResourceBarUI : MonoBehaviour
 
 	private void RotateBar()
 	{
-		float resX = rotateCanvas.rotation.x;
-		float resY = rotateCanvas.rotation.y;
-		float _X = Player.Instance.Ratio.x;
-		float _Y = Player.Instance.Ratio.y;
+		float _x = Player.Instance.Ratio.x * Mathf.Rad2Deg;
+		float _y = Player.Instance.Ratio.y * Mathf.Rad2Deg;
 
-		resY = _Y * (Mathf.Rad2Deg);
-		resX = _X * (Mathf.Rad2Deg);
-
-		rotateCanvas.rotation = Quaternion.Euler((-resY * rotationAmount), 0, (-resX * rotationAmount));
+		rotateCanvas.rotation = Quaternion.Euler(-_y * rotationAmount, 0, -_x * rotationAmount);
 	}
 
 	private void UpdateBarValue(float _value)
