@@ -1,23 +1,40 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GazeButton : MonoBehaviour {
-
+/// <summary>
+/// Base behaviour of the gazebutton, that can be used to interact with buttons in VR.
+/// </summary>
+public class GazeButton : MonoBehaviour 
+{
     [SerializeField] protected Image buttonImage;
     [SerializeField] private Image gazeFillImage;
 
-    private float gazeSpeed = 1f; //0.006f old gazeSpeed without Time.deltaTime
-
+    private float gazeSpeed = 1f;
     private Coroutine increaseGazeFillAmountOverTimeCoroutine;
 
     protected virtual void OnGazeFilled() { }
+
+    protected virtual void OnEnable()
+    {
+        GvrReticlePointer.OnButtonEnterEvent += StartGazeHover;
+        GvrReticlePointer.OnButtonExitEvent += StopGazeHover;
+    }
+
+    protected virtual void OnDisable()
+    {
+        GvrReticlePointer.OnButtonEnterEvent -= StartGazeHover;
+        GvrReticlePointer.OnButtonExitEvent -= StopGazeHover;
+    }
 
     private void StartGazeHover(GameObject _hoveredGameObject)
     {
         if (_hoveredGameObject == buttonImage.gameObject)
         {
+            if (increaseGazeFillAmountOverTimeCoroutine != null)
+            {
+                StopCoroutine(increaseGazeFillAmountOverTimeCoroutine);
+            }
             increaseGazeFillAmountOverTimeCoroutine = StartCoroutine(IncreaseGazeFillAmountOverTime());
         }
     }
@@ -26,7 +43,11 @@ public class GazeButton : MonoBehaviour {
     {
         if (_hoveredGameObject == buttonImage.gameObject)
         {
-            StopCoroutine(increaseGazeFillAmountOverTimeCoroutine);
+            if(increaseGazeFillAmountOverTimeCoroutine != null)
+            {
+                StopCoroutine(increaseGazeFillAmountOverTimeCoroutine);
+                increaseGazeFillAmountOverTimeCoroutine = null;
+            }
             gazeFillImage.fillAmount = 0;
         }
     }
@@ -42,17 +63,5 @@ public class GazeButton : MonoBehaviour {
         OnGazeFilled();
 
         increaseGazeFillAmountOverTimeCoroutine = null;
-    }
-
-    protected virtual void OnEnable()
-    {
-        GvrReticlePointer.OnButtonEnterEvent += StartGazeHover;
-        GvrReticlePointer.OnButtonExitEvent += StopGazeHover;
-    }
-
-    protected virtual void OnDisable()
-    {
-        GvrReticlePointer.OnButtonEnterEvent -= StartGazeHover;
-        GvrReticlePointer.OnButtonExitEvent -= StopGazeHover;
     }
 }

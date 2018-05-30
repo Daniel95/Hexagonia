@@ -1,8 +1,13 @@
 ﻿using System;
 using UnityEngine;
 
+/// <summary>
+/// The coin checks collision and sends event and a value if it has been hit.
+/// </summary>
 public class Coin : MonoBehaviour
 {
+	public static Action<int> CollectedEvent;
+
 	public static Coin Instance { get { return GetInstance(); }  }
 
 	#region Singleton
@@ -18,23 +23,24 @@ public class Coin : MonoBehaviour
 	}
 	#endregion
 
-	public static Action<int> CollectedEvent;
-	public static Action CoinCollectedEvent;
-	public int value;
+	[SerializeField] private int value;
 
-	private void OnTriggerEnter(Collider other)
-	{
-		if (other.gameObject.tag == Tags.Player)
-		{
-			Destroy(this.gameObject);
-			if (CollectedEvent != null)
-			{
-				CollectedEvent(value);
-			}
-			if (CoinCollectedEvent != null)
-			{
-				CoinCollectedEvent();
-			}
-		}
-	}
+    private void OnPlayerTriggerCollision(GameObject _gameObject) 
+    {
+        if(_gameObject != gameObject) { return; }
+
+        if (CollectedEvent != null) {
+            CollectedEvent(value);
+        }
+        Destroy(gameObject);
+    }
+
+    private void OnEnable() 
+    {
+        Player.TriggerCollisionEvent += OnPlayerTriggerCollision;
+    }
+
+    private void OnDisable() {
+        Player.TriggerCollisionEvent -= OnPlayerTriggerCollision;
+    }
 }
