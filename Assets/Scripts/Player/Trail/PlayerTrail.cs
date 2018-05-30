@@ -11,10 +11,22 @@ public class PlayerTrail : MonoBehaviour
     [SerializeField] private float speed = 0.15f;
 
     private List<float> localZPositions = new List<float>();
-
     private LineRenderer lineRenderer;
 
-    private void Start()
+    private void UpdateLineRenderer(Vector3 _playerPosition)
+    {
+        for (int i = length - 1; i > 0; i--)
+        {
+            Vector3 _previousPosition = lineRenderer.GetPosition(i - 1);
+            float zPosition = transform.position.z + localZPositions[i];
+            Vector3 _position = new Vector3(_previousPosition.x, _previousPosition.y, zPosition);
+            lineRenderer.SetPosition(i, _position);
+        }
+
+        lineRenderer.SetPosition(0, transform.position);
+    }
+
+    private void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.positionCount = length;
@@ -26,21 +38,13 @@ public class PlayerTrail : MonoBehaviour
         }
     }
 	
-	private void Update()
+    private void OnEnable()
     {
-        UpdateLineRenderer();
+        PlayerSmoothPlaneMovement.OnMoved += UpdateLineRenderer;       
     }
-    
-    private void UpdateLineRenderer()
-    {
-        lineRenderer.SetPosition(0, transform.position);
 
-        for (int i = length - 1; i > 0; i--)
-        {
-            Vector3 _previousPosition = lineRenderer.GetPosition(i - 1);
-            float zPosition = transform.position.z + localZPositions[i];
-            Vector3 _position = new Vector3(_previousPosition.x, _previousPosition.y, zPosition);
-            lineRenderer.SetPosition(i, _position);
-        }
+    private void OnDisable()
+    {
+        PlayerSmoothPlaneMovement.OnMoved -= UpdateLineRenderer;
     }
 }
