@@ -39,7 +39,7 @@ public class CameraHolderMain : CameraHolder
         postProcessingBehaviour.enabled = false;
 
 #if !UNITY_EDITOR
-        if (VRSwitch.Instance.VrState)
+        if (VRSwitch.Instance.VRState)
         {
             GvrCardboardHelpers.Recenter();
         }
