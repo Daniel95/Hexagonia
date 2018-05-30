@@ -32,6 +32,7 @@ public class Player : MonoBehaviour
     private int leftStateIndex = Animator.StringToHash("left");
     private int upStateIndex = Animator.StringToHash("up");
     private int downStateIndex = Animator.StringToHash("down");
+    private int deathStateIndex = Animator.StringToHash("death");
     private bool playingMiddleState;
     private bool hitThisframe;
 
@@ -97,12 +98,13 @@ public class Player : MonoBehaviour
         if (_otherCollider.tag == Tags.Obstacle)
         {
             LookPositionOnPlane.Instance.enabled = false;
+            animator.Play(deathStateIndex);
 
             if (DiedEvent != null)
             {
                 DiedEvent();
             }
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
     }
 }
