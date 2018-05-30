@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 /// <summary>
@@ -91,6 +92,21 @@ public class TargetPixelCoordinatesData
                     _targetPixelCoordinates.Add(pixelCoordinate);
                 }
 
+                _targetPixelCoordinates.Sort((vector, compareVector) => {
+
+                    float _priority = vector.x + vector.y / 2;
+                    float _comparePriority = compareVector.x + compareVector.y / 2;
+
+                    if(_priority < _comparePriority)
+                    {
+                        return 1;
+                    }
+                    else
+                    {
+                        return 0;
+                    }
+                });
+
                 break;
 
             case TargetPixelsCoordinatesType.Average:
@@ -101,7 +117,6 @@ public class TargetPixelCoordinatesData
 
                 break;
             case TargetPixelsCoordinatesType.AverageInCorners:
-
                 Vector2 _averageTopRight;
                 Vector2 _averageTopLeft;
                 Vector2 _averageBottomRight;
@@ -130,6 +145,30 @@ public class TargetPixelCoordinatesData
         }
 
         return _targetPixelCoordinates;
+    }
+
+    private void SortTest()
+    {
+        List<int> numbers = new List<int>();
+        numbers.Add(4);
+        numbers.Add(0);
+        numbers.Add(10);
+        numbers.Add(50);
+        numbers.Add(1000);
+        numbers.Add(40);
+
+        // ... Sort the numbers by their first digit.
+        //     We use ToString on each number.
+        //     We access the first character of the string and compare that.
+        //     This uses a lambda expression.
+        numbers.Sort((a, b) => (a.ToString()[0].CompareTo(b.ToString()[0])));
+
+        List<Vector2> test = new List<Vector2>();
+
+        test.Sort((a, b) => {
+            int condition = a.x < b.x ? 0 : 1;
+            return condition;
+        });
     }
 
     private void GetCornerAverages(Sprite _sprite, List<Vector2Int> _pixelCoordinates, out Vector2 _averageTopRight, out Vector2 _averageTopLeft, out Vector2 _averageBottomRight, out Vector2 _averageBottomLeft)
