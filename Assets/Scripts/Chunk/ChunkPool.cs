@@ -16,13 +16,7 @@ public class ChunkPool : MonoBehaviour
 
     public static ChunkPool Instance { get { return GetInstance(); } }
 
-    public float ChunksZStartPosition
-    {
-        get
-        {
-            return chunksZStartPosition;
-        }
-    }
+    public float ChunksZStartPosition { get { return chunksZStartPosition; } }
 
     #region Singleton
     private static ChunkPool instance;
@@ -65,10 +59,10 @@ public class ChunkPool : MonoBehaviour
         SpawnRandomChunk(chunkListsByChunkType[ChunkType.Core]);
     }
 
-    private void SpawnRandomChunk(List<ChunkDesign> chunkPrefabs)
+    private void SpawnRandomChunk(List<ChunkDesign> _chunkPrefabs)
     {
-        int _randomNumber = Random.Range(0, chunkPrefabs.Count);
-        ChunkDesign _chunk = chunkPrefabs[_randomNumber];
+        int _randomNumber = Random.Range(0, _chunkPrefabs.Count);
+        ChunkDesign _chunk = _chunkPrefabs[_randomNumber];
         SpawnChunk(_chunk);
     }
 
@@ -113,9 +107,9 @@ public class ChunkPool : MonoBehaviour
 
     private void PoolChunkObjects(GameObject _chunk)
     {
-        List<Transform> children = _chunk.transform.FirstLayerChildren();
-        for (int i = children.Count - 1; i >= 0; i--) {
-            ObjectPool.Instance.PoolObject(children[i].gameObject);
+        List<Transform> _children = _chunk.transform.FirstLayerChildren();
+        for (int i = _children.Count - 1; i >= 0; i--) {
+            ObjectPool.Instance.PoolObject(_children[i].gameObject);
         }
 
         ObjectPool.Instance.PoolObject(_chunk);
@@ -136,7 +130,7 @@ public class ChunkPool : MonoBehaviour
     private void SpawnCoins(ChunkDesign _chunkDesign, Transform _chunkParent)
     {
         List<Vector3> _coinLocalPositions = _chunkDesign.GetCoinLocalPositions();
-        List<CoinType> _coinTypes = CoinSpawnChancesByTimeLibrary.Instance.GetCoinTypesToSpawn(_coinLocalPositions.Count, LevelProgess.Instance.Timer);
+        List<CoinType> _coinTypes = CoinSpawnChancesByTimeLibrary.Instance.GetCoinTypesToSpawn(_coinLocalPositions.Count, Progression.Timer);
 
         for (int i = 0; i < _coinTypes.Count; i++)
         {
@@ -173,5 +167,4 @@ public class ChunkPool : MonoBehaviour
         ChunkMover.ChunkRemovedEvent -= OnMoverRemovedChunk;
         ObjectPool.PoolingInitialisationCompletedEvent -= OnPoolInitialisationCompleted;
     }
-
 }

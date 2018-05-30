@@ -1,6 +1,9 @@
 ﻿using System;
 using UnityEngine;
 
+/// <summary>
+/// The coin checks collision and sends event and a value if it has been hit.
+/// </summary>
 public class Coin : MonoBehaviour
 {
 	public static Action<int> CollectedEvent;
@@ -40,5 +43,4 @@ public class Coin : MonoBehaviour
     private void OnDisable() {
         Player.TriggerCollisionEvent -= OnPlayerTriggerCollision;
     }
-
 }
