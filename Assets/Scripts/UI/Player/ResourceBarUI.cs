@@ -2,18 +2,34 @@
 using UnityEngine.UI;
 
 /// <summary>
-/// Updates the resourcebar fill amount and color.
+/// Updates the resourcebar fill amount and color also rotates the canvas to the ratio amount of the player.
 /// </summary>
 public class ResourceBarUI : MonoBehaviour
 {
-	[SerializeField] private Image resourceBar;
+	[SerializeField] private float rotationAmount = 0.5f;
+	[SerializeField] private RectTransform rotateCanvas;
+	[SerializeField] private Image resourceBarImage;
 
-    private void Awake()
+	private void Awake()
     {
-        resourceBar.fillAmount = 0;
-    }
+		rotateCanvas = GetComponent<RectTransform>();
+		resourceBarImage.fillAmount = 0;
+	}
 
-    private void UpdateBarValue(float _value)
+	private void Update()
+	{
+		RotateBar();
+	}
+
+	private void RotateBar()
+	{
+		float _x = Player.Instance.Ratio.x * Mathf.Rad2Deg;
+		float _y = Player.Instance.Ratio.y * Mathf.Rad2Deg;
+
+		rotateCanvas.rotation = Quaternion.Euler(-_y * rotationAmount, 0, -_x * rotationAmount);
+	}
+
+	private void UpdateBarValue(float _value)
 	{
         float _barValue = 1;
 
@@ -22,12 +38,12 @@ public class ResourceBarUI : MonoBehaviour
             _barValue = _value % 1;
         }
 
-        resourceBar.fillAmount = _barValue;
+        resourceBarImage.fillAmount = _barValue;
     }
 
     private void OnScoreMultiplierUpdated(int _multiplier)
 	{
-        resourceBar.color = ScoreMultiplier.Instance.MultiplierColor;
+        resourceBarImage.color = ScoreMultiplier.Instance.MultiplierColor;
 	}
 
     private void Deactivate()
