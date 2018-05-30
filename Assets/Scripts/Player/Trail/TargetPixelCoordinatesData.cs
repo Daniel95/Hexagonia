@@ -92,23 +92,7 @@ public class TargetPixelCoordinatesData
                     _targetPixelCoordinates.Add(pixelCoordinate);
                 }
 
-                _targetPixelCoordinates.Sort((vector, compareVector) => {
-
-                    float _priority = vector.x + vector.y / 2;
-                    float _comparePriority = compareVector.x + compareVector.y / 2;
-
-                    if(_priority < _comparePriority)
-                    {
-                        return 1;
-                    }
-                    else
-                    {
-                        return 0;
-                    }
-                });
-
                 break;
-
             case TargetPixelsCoordinatesType.Average:
                 Vector2 _combinedPixelCoordinates = _pixelCoordinatesWithTargetColor.CombineVectors();
                 Vector2 _centerAverage = _combinedPixelCoordinates / _pixelCoordinatesWithTargetColor.Count;
@@ -116,35 +100,51 @@ public class TargetPixelCoordinatesData
                 _targetPixelCoordinates.Add(_centerAverage);
 
                 break;
-            case TargetPixelsCoordinatesType.AverageInCorners:
-                Vector2 _averageTopRight;
-                Vector2 _averageTopLeft;
-                Vector2 _averageBottomRight;
-                Vector2 _averageBottomLeft;
+            case TargetPixelsCoordinatesType.Corners:
+                List<Vector2> _allPixelCoordinates = new List<Vector2>();
+                foreach (Vector2 pixelCoordinate in _pixelCoordinatesWithTargetColor)
+                {
+                    _allPixelCoordinates.Add(pixelCoordinate);
+                }
 
-                GetCornerAverages(_sprite, _pixelCoordinatesWithTargetColor, out _averageTopRight, out _averageTopLeft, out _averageBottomRight, out _averageBottomLeft);
+                Vector2 _size = new Vector2(_sprite.texture.width, _sprite.texture.height);
+                Vector2 _sizeQuater = _size / 4;
 
-                if(_averageTopRight != Vector2.zero)
-                {
-                    _targetPixelCoordinates.Add(_averageTopRight);
-                }
-                if (_averageTopLeft != Vector2.zero)
-                {
-                    _targetPixelCoordinates.Add(_averageTopLeft);
-                }
-                if (_averageBottomRight != Vector2.zero)
-                {
-                    _targetPixelCoordinates.Add(_averageBottomRight);
-                }
-                if (_averageBottomLeft != Vector2.zero)
-                {
-                    _targetPixelCoordinates.Add(_averageBottomLeft);
-                }
+                Vector2 _centerOfTopRight = new Vector2(_sizeQuater.x * 3, _sizeQuater.y);
+                Vector2 _centerOfTopLeft = new Vector2(_sizeQuater.x, _sizeQuater.y);
+                Vector2 _centerOfBottomRight = new Vector2(_sizeQuater.x * 3, _sizeQuater.y * 3);
+                Vector2 _centerOfBottomLeft = new Vector2(_sizeQuater.x, _sizeQuater.y * 3);
+
+                Vector2 _topRight = GetClosestInList(_centerOfTopRight, _allPixelCoordinates);
+                Vector2 _topLeft = GetClosestInList(_centerOfTopLeft, _allPixelCoordinates);
+                Vector2 _bottomRight = GetClosestInList(_centerOfBottomRight, _allPixelCoordinates);
+                Vector2 _bottomLeft = GetClosestInList(_centerOfBottomLeft, _allPixelCoordinates);
+
+                _targetPixelCoordinates.Add(_topRight);
+                _targetPixelCoordinates.Add(_topLeft);
+                _targetPixelCoordinates.Add(_bottomRight);
+                _targetPixelCoordinates.Add(_bottomLeft);
 
                 break;
         }
 
         return _targetPixelCoordinates;
+    }
+
+    private Vector2 GetClosestInList(Vector2 _targetPoint, List<Vector2> _points)
+    {
+        Vector2 _closestPoint = new Vector2();
+        float _closestDistance = float.MaxValue;
+
+        foreach (Vector2 _point in _points)
+        {
+            float _distance = Vector2.Distance(_point, _targetPoint); 
+            if(_distance >= _closestDistance) { continue; }
+            _closestDistance = _distance;
+            _closestPoint = _point;
+        }
+        
+        return _closestPoint;
     }
 
     private void SortTest()
