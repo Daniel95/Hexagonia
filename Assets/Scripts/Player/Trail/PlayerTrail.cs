@@ -9,9 +9,11 @@ public class PlayerTrail : MonoBehaviour
 {
     [SerializeField] private int length = 30;
     [SerializeField] private float speed = 0.15f;
+    [SerializeField] [Range(0, 1)] private float followSpeed = 0.7f;
 
     private List<float> localZPositions = new List<float>();
     private LineRenderer lineRenderer;
+    private Vector3 trailPosition;
 
     private void UpdateLineRenderer(Vector3 _playerPosition)
     {
@@ -23,11 +25,20 @@ public class PlayerTrail : MonoBehaviour
             lineRenderer.SetPosition(i, _position);
         }
 
-        lineRenderer.SetPosition(0, transform.position);
+        float _distance = Vector3.Distance(trailPosition, transform.position);
+        Vector3 _offset = transform.position - trailPosition;
+        Vector3 _direction = _offset.normalized;
+        Vector3 _translation = _direction * (_distance * followSpeed);
+
+        trailPosition += _translation;
+
+        lineRenderer.SetPosition(0, trailPosition);
     }
 
     private void Awake()
     {
+        trailPosition = transform.position;
+
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.positionCount = length;
 
