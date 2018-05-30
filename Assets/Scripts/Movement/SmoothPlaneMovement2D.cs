@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
 
+/// <summary>
+///  UpdateTargetPosition gets updated everytime the method gets called with the event: LookPositionUpdateEvent in LookPositionPlane.
+///  It smoothly moves the player when moving around in the game but in 2D.
+/// </summary>
 public class SmoothPlaneMovement2D : MonoBehaviour
 {
-
     [SerializeField] [Range(0, 20)] private float speed = 0.3f;
     [SerializeField] private Vector3 offset;
 
@@ -28,5 +31,4 @@ public class SmoothPlaneMovement2D : MonoBehaviour
     {
         LookPositionOnPlane.LookPositionUpdatedEvent -= UpdateTargetPosition;
     }
-
 }

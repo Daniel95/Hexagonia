@@ -1,11 +1,13 @@
 ﻿using System;
 using UnityEngine;
 
+/// <summary>
+/// Controls the animations, collisions and contains several events related to the player.
+/// </summary>
 public class Player : MonoBehaviour
 {
     public static Action DiedEvent;
     public static Action<GameObject> TriggerCollisionEvent;
-
     public static Player Instance { get { return GetInstance(); } }
 
     #region Singleton
@@ -103,5 +105,4 @@ public class Player : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
 }

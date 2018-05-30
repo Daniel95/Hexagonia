@@ -1,13 +1,16 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// Allows the user to quit the application.
+/// </summary>
 public class BackHandler : MonoBehaviour
 {
-    void Awake()
+    private void Awake()
     {
         Input.backButtonLeavesApp = true;
     }
 
-    void Update()
+    private void Update()
     {
         if (Input.GetKeyUp(KeyCode.Escape))
         {

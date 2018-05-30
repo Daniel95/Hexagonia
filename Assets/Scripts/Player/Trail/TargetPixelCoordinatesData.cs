@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Contains the target pixel coordinates of the sprites that are within a color range. Also has a label so it can be identified what these pixel coordinates are used for.
+/// </summary>
 [Serializable]
 public class TargetPixelCoordinatesData
 {
-
     public List<Sprite> Sprites;
     public TargetPixelCoordinatesLabel Label;
     public Color MinColor;
@@ -15,6 +17,11 @@ public class TargetPixelCoordinatesData
     [Header("Data")]
     public List<SpriteAndPixelCoordinatesPair> spriteAndPixelCoordinatesPairs;
 
+    /// <summary>
+    /// Get the target pixel coordinates of a sprite.
+    /// </summary>
+    /// <param name="_sprite"></param>
+    /// <returns></returns>
     public List<Vector2> GetTargetPixelCoordinates(Sprite _sprite)
     {
         SpriteAndPixelCoordinatesPair _spriteAndPixelCoordinatesPair = spriteAndPixelCoordinatesPairs.Find(x => x.Sprite == _sprite);
@@ -28,6 +35,9 @@ public class TargetPixelCoordinatesData
         return _spriteAndPixelCoordinatesPair.PixelCoordinates;
     }
 
+    /// <summary>
+    /// Update the target pixel coordinates of the sprites.
+    /// </summary>
     public void UpdateTargetPixelCoordinates()
     {
         spriteAndPixelCoordinatesPairs.Clear();
@@ -136,24 +146,24 @@ public class TargetPixelCoordinatesData
         Vector2 _combinedBottomLeft = new Vector2();
         int _bottomLeftCount = 0;
 
-        Vector2 center = new Vector2(_sprite.texture.height, _sprite.texture.height) / 2;
+        Vector2 _center = new Vector2(_sprite.texture.height, _sprite.texture.height) / 2;
 
         foreach (Vector2Int _position in _pixelCoordinates)
         {
-            bool top = _position.y > center.y;
-            bool right = _position.x > center.x;
+            bool _top = _position.y > _center.y;
+            bool _right = _position.x > _center.x;
 
-            if (top && right)
+            if (_top && _right)
             {
                 _combinedTopRight += _position;
                 _topRightCount++;
             }
-            else if (top && !right)
+            else if (_top && !_right)
             {
                 _combinedTopLeft += _position;
                 _topLeftCount++;
             }
-            else if (!top && right)
+            else if (!_top && _right)
             {
                 _combinedBottomRight += _position;
                 _bottomRightCount++;
@@ -205,5 +215,4 @@ public class TargetPixelCoordinatesData
             Debug.LogError("bottomLeft pixelcoordinates not found in Sprite " + _sprite.name + " with label " + Label + ".");
         }
     }
-
 }
