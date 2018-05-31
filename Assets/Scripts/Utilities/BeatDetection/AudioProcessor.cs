@@ -15,8 +15,9 @@
  */
 
 using UnityEngine;
-using System.Collections;
+using System;
 using System.Collections.Generic;
+using Random = UnityEngine.Random;
 
 public class AudioProcessor : MonoBehaviour
 {
@@ -69,8 +70,8 @@ public class AudioProcessor : MonoBehaviour
     // trade-off constant between tempo deviation penalty and onset strength
 
     [Header("Events")]
-    public OnBeatEventHandler onBeat;
-    public OnSpectrumEventHandler onSpectrum;
+    public static Action onBeat;
+    public static Action<float[]> onSpectrum;
 
     //////////////////////////////////
     private long getCurrentTimeMillis()
@@ -150,7 +151,11 @@ public class AudioProcessor : MonoBehaviour
 
             audioSource.GetSpectrumData(spectrum, 0, FFTWindow.BlackmanHarris);
             computeAverages(spectrum);
-            onSpectrum.Invoke(averages);
+            
+            if (onSpectrum != null)
+            {
+                onSpectrum(averages);
+            }
 
             /* calculate the value of the onset function in this frame */
             float onset = 0;
@@ -228,11 +233,16 @@ public class AudioProcessor : MonoBehaviour
             // if current value is largest in the array, probably means we're on a beat
             if (smaxix == now)
             {
+                Debug.Log("Highest beat");
                 //tapTempo();
                 // make sure the most recent beat wasn't too recently
                 if (sinceLast > tempopd / 4)
                 {
-                    onBeat.Invoke();
+                    Debug.Log("Calling OnBeat");
+                    if (onBeat != null)
+                    {
+                        onBeat();
+                    }
                     blipDelay[0] = 1;
                     // record that we did actually mark a beat this frame
                     dobeat[now] = 1;
@@ -329,18 +339,6 @@ public class AudioProcessor : MonoBehaviour
         }
 
         return inclusiveMinimum;
-    }
-
-    [System.Serializable]
-    public class OnBeatEventHandler : UnityEngine.Events.UnityEvent
-    {
-
-    }
-
-    [System.Serializable]
-    public class OnSpectrumEventHandler : UnityEngine.Events.UnityEvent<float[]>
-    {
-
     }
 
     // class to compute an array of online autocorrelators
