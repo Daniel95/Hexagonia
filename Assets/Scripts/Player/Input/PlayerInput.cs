@@ -1,15 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
 {
+    public static PlayerInput Instance { get { return GetInstance(); } }
+
+    #region Singleton
+    private static PlayerInput instance;
+
+    private static PlayerInput GetInstance()
+    {
+        if (instance == null)
+        {
+            instance = FindObjectOfType<PlayerInput>();
+        }
+        return instance;
+    }
+    #endregion
+
     /// <summary>
     /// Parameters: Delta
     /// </summary>
     public static Action<Vector3> InputEvent;
 
-    [SerializeField] private List<Scenes> scenesWithInput;
     [SerializeField] private PlayerInputType vrPlayerInputType = PlayerInputType.Look;
     [SerializeField] private PlayerInputType nonVRPlayerInputType = PlayerInputType.Drag;
     [SerializeField] private float tiltSpeed = 1;
@@ -17,7 +30,24 @@ public class PlayerInput : MonoBehaviour
 
     private PlayerInputType currentPlayerInputType;
     private Vector3 inputPosition;
-    private bool active;
+    private static new bool enabled;
+
+    public void SetState(bool _enabled)
+    {
+        enabled = _enabled;
+        bool _previousState = enabled;
+
+        if (enabled == _previousState) { return; }
+
+        if (enabled)
+        {
+            UpdateInput();
+        }
+        else
+        {
+            StopCurrentInput();
+        }
+    }
 
     private void LookInput(Vector3 _lookPosition)
     {
@@ -52,26 +82,9 @@ public class PlayerInput : MonoBehaviour
         }
     }
 
-    private void UpdateActive(Scenes? _previousScene, Scenes _nextScene)
-    {
-        bool _previousState = active;
-        active = scenesWithInput.Contains(_nextScene);
-
-        if(active == _previousState) { return; }
-
-        if(active)
-        {
-            UpdateInput();
-        }
-        else
-        {
-            StopCurrentInput();
-        }
-    }
-
     private void UpdateInput()
     {
-        if(!active) { return; }
+        if(!enabled) { return; }
 
         if(VRSwitch.VRState)
         {
@@ -121,15 +134,20 @@ public class PlayerInput : MonoBehaviour
         }
     }
 
+    private void OnSceneSwitchCompleted(Scenes? _previousScene, Scenes _nextScene)
+    {
+        SetState(VRSwitch.VRState);
+    }
+
     private void OnEnable()
     {
         VRSwitch.SwitchedEvent += UpdateInput;
-        SceneLoader.SceneSwitchCompletedEvent += UpdateActive;
+        SceneLoader.SceneSwitchCompletedEvent += OnSceneSwitchCompleted;
     }
 
     private void OnDisable()
     {
         VRSwitch.SwitchedEvent -= UpdateInput;
-        SceneLoader.SceneSwitchCompletedEvent -= UpdateActive;
+        SceneLoader.SceneSwitchCompletedEvent -= OnSceneSwitchCompleted;
     }
 }
