@@ -12,7 +12,7 @@ public class DirectionIndicator : MonoBehaviour
 
     private LineRenderer lineRenderer;
 
-    private void UpdateTargetPosition(Vector3 _targetPosition)
+    private void UpdateTargetPosition(Vector3 _targetPosition, Vector3 _delta)
     {
         lineRenderer.SetPosition(0, transform.position);
 

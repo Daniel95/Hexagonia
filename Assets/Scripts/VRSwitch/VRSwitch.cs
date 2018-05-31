@@ -7,7 +7,7 @@ using UnityEngine.XR;
 /// </summary>
 public class VRSwitch : MonoBehaviour
 {
-    public static Action VRModeSwitchedEvent;
+    public static Action SwitchedEvent;
     public static VRSwitch Instance { get { return GetInstance(); } }
 
     #region Singleton
@@ -24,14 +24,14 @@ public class VRSwitch : MonoBehaviour
     #endregion
 
     public GameObject GVRReticlePointerGameObject { get { return gvrReticlePointerGameObject; } }
-    public bool VRState { get { return vrState; } }
+    public static bool VRState { get { return vrState; } }
 
     private const string VR_MODE = "VRMode";
 
     [SerializeField] private GameObject gvrGameObject;
 
     private GameObject gvrReticlePointerGameObject;
-    private bool vrState;
+    private static bool vrState;
 
     /// <summary>
     /// Switches the VR Mode, returns the VR State.
@@ -70,9 +70,9 @@ public class VRSwitch : MonoBehaviour
 
         if (PlayerPrefs.GetInt(VR_MODE) == 0)
         {
-            if (VRModeSwitchedEvent != null)
+            if (SwitchedEvent != null)
             {
-                VRModeSwitchedEvent();
+                SwitchedEvent();
             }
         }
     }

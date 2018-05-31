@@ -5,20 +5,19 @@ using UnityEngine;
 ///  UpdateTargetPosition gets updated everytime the method gets called with the event: LookPositionUpdateEvent in LookPositionPlane.
 ///  It Smoothly moves the player when moving around in the game.
 /// </summary>
-public class PlayerSmoothPlaneMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     public static Action<Vector3> OnMoved;
 
-    [SerializeField] [Range(0, 20)] private float speed = 0.3f;
-    [SerializeField] private Vector3 offset;
+    [SerializeField] [Range(0, 20)] private float speed = 10f;
+    [SerializeField] private Vector3 offset = new Vector3(0, 0, -3);
 
-    private void UpdateTargetPosition(Vector3 _targetPosition)
+    private void UpdateTargetPosition(Vector3 _targetPosition, Vector3 _delta)
     {
         Vector3 _targetPositionWithOffset = _targetPosition + offset;
 
         if (transform.position == _targetPositionWithOffset) { return; }
 
-        Vector3 _delta = _targetPositionWithOffset - transform.position;
         Vector3 _direction = _delta.normalized;
         float _distance = Vector3.Distance(_targetPositionWithOffset, transform.position);
         float _deltaSpeed = speed * Time.deltaTime;

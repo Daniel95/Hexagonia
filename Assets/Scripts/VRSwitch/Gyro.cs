@@ -29,7 +29,7 @@ public class Gyro : MonoBehaviour
             baseGyro = GyroToUnity(Input.gyro.attitude);
         }
 
-        if (!XRSettings.enabled)
+        if (!VRSwitch.VRState)
         {
             GyroCamera();
             LockRotation();

@@ -9,7 +9,10 @@ using UnityEngine;
 public class LookPositionOnPlane : MonoBehaviour
 {
     public static LookPositionOnPlane Instance { get { return GetInstance(); } }
-    public static Action<Vector3> LookPositionUpdatedEvent;
+    /// <summary>
+    /// Parameters: Position, Delta
+    /// </summary>
+    public static Action<Vector3, Vector3> LookPositionUpdatedEvent;
 
     #region Singeton
     private static LookPositionOnPlane instance;
@@ -30,6 +33,7 @@ public class LookPositionOnPlane : MonoBehaviour
 
     [SerializeField] [Range(0, 1)] private float scaledInput = 0;
 
+    private Vector3 previousLookPosition;
 	private Transform hmdTransform;
 	private Vector2 maxBounds;
     private Vector2 minBounds;
@@ -46,18 +50,23 @@ public class LookPositionOnPlane : MonoBehaviour
         plane = new Plane(Vector3.forward, transform.position);
 
         hmdTransform = Camera.main.transform;
+        Input.gyro.enabled = true;
     }
 
     private void Update()
     {
         bool _hit;
-        Vector3 _planePoint = GetRaycastPointOnPlane(out _hit);
+        Vector3 _lookPosition = GetRaycastPointOnPlane(out _hit);
         if(!_hit) { return; }
 
-        if(LookPositionUpdatedEvent != null)
+        Vector3 _delta = previousLookPosition - _lookPosition;
+
+        if (LookPositionUpdatedEvent != null)
         {
-            LookPositionUpdatedEvent(_planePoint);
+            LookPositionUpdatedEvent(_lookPosition, _delta);
         }
+
+        previousLookPosition = _lookPosition;
     }
 
     private Vector3 GetRaycastPointOnPlane(out bool _hit)

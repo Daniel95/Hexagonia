@@ -51,11 +51,11 @@ public class PlayerTrail : MonoBehaviour
 	
     private void OnEnable()
     {
-        PlayerSmoothPlaneMovement.OnMoved += UpdateLineRenderer;       
+        PlayerMovement.OnMoved += UpdateLineRenderer;       
     }
 
     private void OnDisable()
     {
-        PlayerSmoothPlaneMovement.OnMoved -= UpdateLineRenderer;
+        PlayerMovement.OnMoved -= UpdateLineRenderer;
     }
 }

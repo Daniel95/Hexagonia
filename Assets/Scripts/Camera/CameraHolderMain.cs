@@ -17,7 +17,7 @@ public class CameraHolderMain : CameraHolder
 
         postProcessingBehaviour.enabled = true;
 
-        if (!VRSwitch.Instance.VRState)
+        if (!VRSwitch.VRState)
         {
             gyro.enabled = true;
         }
@@ -39,7 +39,7 @@ public class CameraHolderMain : CameraHolder
         postProcessingBehaviour.enabled = false;
 
 #if !UNITY_EDITOR
-        if (VRSwitch.Instance.VRState)
+        if (VRSwitch.VRState)
         {
             GvrCardboardHelpers.Recenter();
         }

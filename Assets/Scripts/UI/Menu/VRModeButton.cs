@@ -57,13 +57,13 @@ public class VRModeButton : GazeButton
     protected override void OnEnable()
     {
         base.OnEnable();
-        VRSwitch.VRModeSwitchedEvent += OnClick;
+        VRSwitch.SwitchedEvent += OnClick;
     }
 
     protected override void OnDisable()
     {
         base.OnDisable();
-        VRSwitch.VRModeSwitchedEvent -= OnClick;
+        VRSwitch.SwitchedEvent -= OnClick;
     }
 
     private void Start()

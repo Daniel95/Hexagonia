@@ -7,7 +7,7 @@ public class InstantPlaneMovement : MonoBehaviour
 {
     [SerializeField] private Vector3 offset;
 
-    private void UpdateTargetPosition(Vector3 _targetPosition)
+    private void UpdateTargetPosition(Vector3 _targetPosition, Vector3 _delta)
     {
         transform.position = _targetPosition + offset;
     }

@@ -38,10 +38,9 @@ public class Player : MonoBehaviour
     private bool hitThisframe;
 	private Vector2 ratio;
 
-    private void Animate(Vector3 _targetPosition)
+    private void Animate(Vector3 _targetPosition, Vector3 _delta)
     {
-        Vector2 _delta = _targetPosition - transform.position;
-		ratio = VectorHelper.Divide(_delta, (Vector2)LookPositionOnPlane.Instance.Size) * animateSensitivity;
+		ratio = VectorHelper.Divide(_delta, LookPositionOnPlane.Instance.Size) * animateSensitivity;
 
         float absRatioX = Mathf.Abs(ratio.x);
         float absRatioY = Mathf.Abs(ratio.y);
