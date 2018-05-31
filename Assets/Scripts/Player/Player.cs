@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using System.Collections;
 
 /// <summary>
 /// Controls the animations, collisions and contains several events related to the player.
@@ -23,6 +24,7 @@ public class Player : MonoBehaviour
     }
     #endregion
 
+    [SerializeField] private GameObject dyingPlayer;
     [SerializeField] private Animator animator;
     [SerializeField] [Range(0, 30)] private float animateSensitivity = 3;
     [SerializeField] [Range(0, 1)] private float turnAnimateThreshold = 0.05f;
@@ -32,7 +34,6 @@ public class Player : MonoBehaviour
     private int leftStateIndex = Animator.StringToHash("left");
     private int upStateIndex = Animator.StringToHash("up");
     private int downStateIndex = Animator.StringToHash("down");
-    private int deathStateIndex = Animator.StringToHash("death");
     private bool playingMiddleState;
     private bool hitThisframe;
 
@@ -77,20 +78,22 @@ public class Player : MonoBehaviour
     private void OnEnable()
     {
         LookPositionOnPlane.LookPositionUpdatedEvent += Animate;
+        DiedEvent += SpawnDyingPlayer;
     }
 
     private void OnDisable()
     {
         LookPositionOnPlane.LookPositionUpdatedEvent -= Animate;
+        DiedEvent -= SpawnDyingPlayer;
     }
 
     private void OnTriggerEnter(Collider _otherCollider)
     {
-        if(hitThisframe) { return; }
+        if (hitThisframe) { return; }
         hitThisframe = true;
         CoroutineHelper.DelayFrames(1, () => { hitThisframe = false; });
 
-        if(TriggerCollisionEvent != null) 
+        if (TriggerCollisionEvent != null)
         {
             TriggerCollisionEvent(_otherCollider.gameObject);
         }
@@ -98,13 +101,16 @@ public class Player : MonoBehaviour
         if (_otherCollider.tag == Tags.Obstacle)
         {
             LookPositionOnPlane.Instance.enabled = false;
-            animator.Play(deathStateIndex);
-
             if (DiedEvent != null)
             {
                 DiedEvent();
             }
-            //Destroy(gameObject);
+            Destroy(gameObject);
         }
+    }
+
+    private void SpawnDyingPlayer()
+    {
+        Instantiate(dyingPlayer, transform.position, transform.rotation);
     }
 }
