@@ -7,8 +7,12 @@ using UnityEngine.XR;
 /// </summary>
 public class VRSwitch : MonoBehaviour
 {
-    public static Action SwitchedEvent;
     public static VRSwitch Instance { get { return GetInstance(); } }
+    public static bool VRState { get { return vrState; } }
+
+    public static Action SwitchedEvent;
+
+    private static bool vrState;
 
     #region Singleton
     private static VRSwitch instance;
@@ -23,15 +27,13 @@ public class VRSwitch : MonoBehaviour
     }
     #endregion
 
-    public GameObject GVRReticlePointerGameObject { get { return gvrReticlePointerGameObject; } }
-    public static bool VRState { get { return vrState; } }
-
     private const string VR_MODE = "VRMode";
+
+    public GameObject GVRReticlePointerGameObject { get { return gvrReticlePointerGameObject; } }
 
     [SerializeField] private GameObject gvrGameObject;
 
     private GameObject gvrReticlePointerGameObject;
-    private static bool vrState;
 
     /// <summary>
     /// Switches the VR Mode, returns the VR State.
@@ -60,14 +62,17 @@ public class VRSwitch : MonoBehaviour
     private void Awake()
     {
         gvrReticlePointerGameObject = FindObjectOfType<GvrReticlePointer>().gameObject;
-        vrState = Convert.ToBoolean(PlayerPrefs.GetInt(VR_MODE));
-        XRSettings.enabled = vrState;
-        gvrGameObject.SetActive(vrState);
 
-        if (SwitchedEvent != null)
-        {
-            SwitchedEvent();
-        }
+        CoroutineHelper.DelayFrames(1, () => {
+            vrState = Convert.ToBoolean(PlayerPrefs.GetInt(VR_MODE));
+            XRSettings.enabled = vrState;
+            gvrGameObject.SetActive(vrState);
+
+            if (SwitchedEvent != null)
+            {
+                SwitchedEvent();
+            }
+        });
     }
 
     private void SetReticlePointer()
