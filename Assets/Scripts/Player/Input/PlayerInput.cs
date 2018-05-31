@@ -4,6 +4,8 @@ using UnityEngine;
 public class PlayerInput : MonoBehaviour
 {
     public static PlayerInput Instance { get { return GetInstance(); } }
+    public static bool State { get { return state; } }
+    public static PlayerInputType CurrentPlayerInputType { get { return currentPlayerInputType; } }
 
     #region Singleton
     private static PlayerInput instance;
@@ -19,27 +21,28 @@ public class PlayerInput : MonoBehaviour
     #endregion
 
     /// <summary>
-    /// Parameters: Delta
+    /// Parameters: TargetPosition
     /// </summary>
     public static Action<Vector3> InputEvent;
+
+    private static PlayerInputType currentPlayerInputType;
+    private static bool state;
 
     [SerializeField] private PlayerInputType vrPlayerInputType = PlayerInputType.Look;
     [SerializeField] private PlayerInputType nonVRPlayerInputType = PlayerInputType.Drag;
     [SerializeField] private float tiltSpeed = 1;
     [SerializeField] private float dragSpeed = 1;
 
-    private PlayerInputType currentPlayerInputType;
     private Vector3 inputPosition;
-    private static new bool enabled;
 
     public void SetState(bool _enabled)
     {
-        enabled = _enabled;
-        bool _previousState = enabled;
+        state = _enabled;
+        bool _previousState = state;
 
-        if (enabled == _previousState) { return; }
+        if (state == _previousState) { return; }
 
-        if (enabled)
+        if (state)
         {
             UpdateInput();
         }
@@ -84,7 +87,7 @@ public class PlayerInput : MonoBehaviour
 
     private void UpdateInput()
     {
-        if(!enabled) { return; }
+        if(!state) { return; }
 
         if(VRSwitch.VRState)
         {
@@ -110,6 +113,13 @@ public class PlayerInput : MonoBehaviour
                 LookPositionOnPlane.LookPositionUpdatedEvent += TiltInput;
                 break;
             case PlayerInputType.Drag:
+                inputPosition = LookPositionOnPlane.Instance.transform.position;
+
+                if (InputEvent != null)
+                {
+                    InputEvent(inputPosition);
+                }
+
                 InputBase.DraggingInputEvent += DragInput;
                 break;
         }
@@ -132,11 +142,19 @@ public class PlayerInput : MonoBehaviour
                 InputBase.DraggingInputEvent -= DragInput;
                 break;
         }
+
+    }
+
+    private void Awake()
+    {
+        SetState(true);
+        UpdateInput();
     }
 
     private void OnSceneSwitchCompleted(Scenes? _previousScene, Scenes _nextScene)
     {
         SetState(VRSwitch.VRState);
+        UpdateInput();
     }
 
     private void OnEnable()

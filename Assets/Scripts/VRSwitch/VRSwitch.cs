@@ -72,6 +72,7 @@ public class VRSwitch : MonoBehaviour
         vrState = Convert.ToBoolean(PlayerPrefs.GetInt(VR_MODE));
         XRSettings.enabled = vrState;
         gvrGameObject.SetActive(vrState);
+        gvrReticlePointerGameObject.SetActive(vrState);
 
         if (SwitchedEvent != null)
         {
