@@ -7,7 +7,6 @@ using UnityEngine;
 public class ActivateParticle : MonoBehaviour {
 
 	[SerializeField] private new List<ParticleSystem> particleSystem;
-	//[SerializeField] private ParticleSystem _particleSystem;
 
 	private void Update()
 	{
@@ -17,17 +16,10 @@ public class ActivateParticle : MonoBehaviour {
 		{
 			for (int i = 0; i < particleSystem.Count; i++)
 			{
-				particleSystem[i].gameObject.SetActive(false);
+				ObjectPool.Instance.PoolObject(particleSystem[i].gameObject);
+				Debug.Log("Pooled: " + particleSystem[i].gameObject);
+				//particleSystem[i].gameObject.SetActive(false);
 			}
-			//gameObject.SetActive(false);
-		}
-		else if(isPlaying)
-		{
-			for (int i = 0; i < particleSystem.Count; i++)
-			{
-				particleSystem[i].gameObject.SetActive(true);
-			}
-			//gameObject.SetActive(true);
 		}
 	}
 }
