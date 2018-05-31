@@ -69,7 +69,7 @@ Transform:
   m_GameObject: {fileID: 1928842957081332}
   m_LocalRotation: {x: -0.74405146, y: -0, z: -0, w: -0.6681224}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.6909238, y: 0.6909238, z: 0.6909238}
   m_Children: []
   m_Father: {fileID: 4597925908219572}
   m_RootOrder: 0
@@ -81,8 +81,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1661123588193140}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 1.579894, y: 9.735244, z: 9.520147}
+  m_LocalScale: {x: 0.37562314, y: 0.37562308, z: 0.37562308}
   m_Children:
   - {fileID: 4179822322065930}
   - {fileID: 4900861778860786}
@@ -97,7 +97,7 @@ Transform:
   m_GameObject: {fileID: 1592381928985126}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.03, y: 0, z: -0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.70598286, y: 0.7059828, z: 0.7059828}
   m_Children: []
   m_Father: {fileID: 4597925908219572}
   m_RootOrder: 1
@@ -123,7 +123,7 @@ ParticleSystem:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1928842957081332}
   serializedVersion: 5
-  lengthInSec: 1.28
+  lengthInSec: 0.5
   simulationSpeed: 3
   stopAction: 0
   looping: 0
@@ -183,7 +183,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1.57
+      scalar: 0.5
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -641,7 +641,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.43
+      value: 0.2
       mode: 0
       spread: 0
       speed:
@@ -3484,19 +3484,19 @@ ParticleSystem:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1592381928985126}
   serializedVersion: 5
-  lengthInSec: 1
+  lengthInSec: 0.5
   simulationSpeed: 1
   stopAction: 0
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 0
-  useRigidbodyForVelocity: 1
+  useRigidbodyForVelocity: 0
   startDelay:
     serializedVersion: 2
     minMaxState: 0
-    scalar: 0.02
+    scalar: 0
     minScalar: 0
     maxCurve:
       serializedVersion: 2
@@ -3544,7 +3544,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1.1
+      scalar: 0.5
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -3689,7 +3689,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.44
+      scalar: 0.38
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -4002,7 +4002,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.43
+      value: 0.79
       mode: 0
       spread: 0
       speed:
