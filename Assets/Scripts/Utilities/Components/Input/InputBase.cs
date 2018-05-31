@@ -6,6 +6,8 @@ using UnityEngine;
 /// </summary>
 public class InputBase : MonoBehaviour
 {
+    public static Vector2 StartDownPosition { get; protected set; }
+
     public enum TouchStates { Holding, Dragging, TouchDown, None }
 
     /// <summary>

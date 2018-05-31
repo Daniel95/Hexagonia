@@ -6,15 +6,12 @@ public class CameraHolderMain : CameraHolder
     [SerializeField] private GameObject eventSystemGameobject;
 
     private PostProcessingBehaviour postProcessingBehaviour;
-    private Gyro gyro;
 
     protected override void EnterScene()
     {
         base.EnterScene();
 
         postProcessingBehaviour = MainCameraGameObject.GetComponent<PostProcessingBehaviour>();
-        gyro = MainCameraGameObject.GetComponent<Gyro>();
-
         postProcessingBehaviour.enabled = true;
 
         if (VRSwitch.VRState)

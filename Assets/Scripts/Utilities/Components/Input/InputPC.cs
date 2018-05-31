@@ -24,7 +24,6 @@ public class InputPC : InputBase
     private IEnumerator InputUpdate()
     {
         Vector2 lastInputPosition = new Vector2();
-        Vector2 mouseStartPosition = new Vector2();
 
         while (true)
         {
@@ -33,12 +32,12 @@ public class InputPC : InputBase
             if (startedTouching)
             {
                 TouchState = TouchStates.TouchDown;
-                mouseStartPosition = lastInputPosition = Input.mousePosition;
+                StartDownPosition = lastInputPosition = Input.mousePosition;
                 startDownTime = Time.time;
 
                 if (DownInputEvent != null)
                 {
-                    DownInputEvent(mouseStartPosition);
+                    DownInputEvent(StartDownPosition);
                 }
             }
 
@@ -59,7 +58,7 @@ public class InputPC : InputBase
                         }
                     }
 
-                    float distance = Vector2.Distance(currentMousePosition, mouseStartPosition);
+                    float distance = Vector2.Distance(currentMousePosition, StartDownPosition);
                     if (distance > DragTreshhold)
                     {
                         TouchState = TouchStates.Dragging;

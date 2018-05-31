@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
@@ -34,6 +35,7 @@ public class PlayerInput : MonoBehaviour
     [SerializeField] private float dragSpeed = 1;
 
     private Vector3 inputPosition;
+    private Coroutine inputUpdateCoroutine;
 
     public void SetState(bool _enabled)
     {
@@ -52,12 +54,22 @@ public class PlayerInput : MonoBehaviour
         }
     }
 
+    private IEnumerator InputUpdate()
+    {
+        while (true)
+        {
+            if (InputEvent != null)
+            {
+                InputEvent(inputPosition);
+            }
+
+            yield return null;
+        }
+    }
+
     private void LookInput(Vector3 _lookPosition)
     {
-        if(InputEvent != null)
-        {
-            InputEvent(_lookPosition);
-        }
+        inputPosition = _lookPosition;
     }
 
     private void TiltInput(Vector3 _lookPosition)
@@ -67,22 +79,14 @@ public class PlayerInput : MonoBehaviour
         inputPosition.z = _lookPosition.z;
 
         inputPosition = LookPositionOnPlane.Instance.ClampToPlane(inputPosition);
-
-        if (InputEvent != null)
-        {
-            InputEvent(inputPosition);
-        }
     }
 
     private void DragInput(Vector2 _dragPosition, Vector2 _delta)
     {
-        inputPosition += ((Vector3)_delta * dragSpeed) * Time.deltaTime;
-        inputPosition = LookPositionOnPlane.Instance.ClampToPlane(inputPosition);
+        Vector2 _deltaSinceTouched = _dragPosition - InputBase.StartDownPosition;
 
-        if (InputEvent != null)
-        {
-            InputEvent(inputPosition);
-        }
+        inputPosition += ((Vector3)_deltaSinceTouched * dragSpeed) * Time.deltaTime;
+        inputPosition = LookPositionOnPlane.Instance.ClampToPlane(inputPosition);
     }
 
     private void UpdateInput()
@@ -102,6 +106,8 @@ public class PlayerInput : MonoBehaviour
     private void StartInput(PlayerInputType _playerInputType)
     {
         StopCurrentInput();
+
+        inputUpdateCoroutine = StartCoroutine(InputUpdate());
 
         switch (_playerInputType)
         {
@@ -129,6 +135,11 @@ public class PlayerInput : MonoBehaviour
 
     private void StopCurrentInput()
     {
+        if(inputUpdateCoroutine != null)
+        {
+            StopCoroutine(inputUpdateCoroutine);
+        }
+
         switch (currentPlayerInputType)
         {
             case PlayerInputType.Look:
@@ -145,7 +156,7 @@ public class PlayerInput : MonoBehaviour
 
     }
 
-    private void Awake()
+    private void Start()
     {
         SetState(true);
         UpdateInput();

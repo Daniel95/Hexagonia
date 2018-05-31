@@ -6,9 +6,8 @@ using UnityEngine.EventSystems;
 /// </summary>
 public class InputMobile : InputBase
 {
-    Vector2 lastTouchPosition = new Vector2();
-    Vector2 startTouchPosition = new Vector2();
-    float touchDownTime = 0;
+    private Vector2 lastTouchPosition = new Vector2();
+    private float touchDownTime = 0;
 
     private void Update()
     {
@@ -18,12 +17,12 @@ public class InputMobile : InputBase
         if (startedTouching)
         {
             TouchState = TouchStates.TouchDown;
-            startTouchPosition = lastTouchPosition = Input.GetTouch(0).position;
+            StartDownPosition = lastTouchPosition = Input.GetTouch(0).position;
             touchDownTime = Time.time;
 
             if (DownInputEvent != null)
             {
-                DownInputEvent(startTouchPosition);
+                DownInputEvent(StartDownPosition);
             }
         }
 
@@ -46,7 +45,7 @@ public class InputMobile : InputBase
                     }
                 }
 
-                float distance = Vector2.Distance(currentTouchPosition, startTouchPosition);
+                float distance = Vector2.Distance(currentTouchPosition, StartDownPosition);
                 if (distance > DragTreshhold)
                 {
                     TouchState = TouchStates.Dragging;
@@ -95,7 +94,7 @@ public class InputMobile : InputBase
                 }
                 else if (TouchState == TouchStates.Dragging)
                 {
-                    Vector2 direction = (Input.GetTouch(0).position - startTouchPosition).normalized;
+                    Vector2 direction = (Input.GetTouch(0).position - StartDownPosition).normalized;
                     if (ReleaseInDirectionInputEvent != null)
                     {
                         ReleaseInDirectionInputEvent(direction);
