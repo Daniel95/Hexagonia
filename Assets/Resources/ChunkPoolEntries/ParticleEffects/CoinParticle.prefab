@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 198490025312907130}
   - component: {fileID: 199598669275756038}
   m_Layer: 0
-  m_Name: CoinParticle
+  m_Name: Inner-CoinParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36,6 +36,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4597925908219572}
+  - component: {fileID: 114355382274584718}
   m_Layer: 0
   m_Name: CoinParticle
   m_TagString: Untagged
@@ -54,7 +55,7 @@ GameObject:
   - component: {fileID: 198306342761596548}
   - component: {fileID: 199747346205376526}
   m_Layer: 0
-  m_Name: Inner-CoinParticle
+  m_Name: Outer-CoinParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -79,15 +80,15 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1661123588193140}
-  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.9210354, y: 9.425819, z: 1.9924674}
-  m_LocalScale: {x: 0.7421781, y: 0.7421782, z: 0.7421782}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4179822322065930}
   - {fileID: 4900861778860786}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!4 &4900861778860786
 Transform:
   m_ObjectHideFlags: 1
@@ -101,6 +102,20 @@ Transform:
   m_Father: {fileID: 4597925908219572}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114355382274584718
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1661123588193140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efa76420a17e8764e91ff11cf653ed99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particleSystem:
+  - {fileID: 198306342761596548}
+  - {fileID: 198490025312907130}
 --- !u!198 &198306342761596548
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -113,7 +128,7 @@ ParticleSystem:
   stopAction: 0
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 0
   useRigidbodyForVelocity: 1

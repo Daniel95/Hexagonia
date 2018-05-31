@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4996706824910650}
   - component: {fileID: 114302470490113552}
+  - component: {fileID: 114838021592184294}
   m_Layer: 0
   m_Name: ObjectPool
   m_TagString: Untagged
@@ -148,3 +149,17 @@ MonoBehaviour:
     Count: 0
     pool: []
     objectsInPool: 0
+--- !u!114 &114838021592184294
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1110904927922674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efa76420a17e8764e91ff11cf653ed99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particleSystem:
+  - {fileID: 198306342761596548, guid: 5f195ad3a192e854d828e9b5956230dd, type: 2}
+  - {fileID: 198490025312907130, guid: 5f195ad3a192e854d828e9b5956230dd, type: 2}
