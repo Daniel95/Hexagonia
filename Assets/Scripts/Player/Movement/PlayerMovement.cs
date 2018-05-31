@@ -12,12 +12,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] [Range(0, 20)] private float speed = 10f;
     [SerializeField] private Vector3 offset = new Vector3(0, 0, -3);
 
-    private void UpdateTargetPosition(Vector3 _targetPosition, Vector3 _delta)
+    private void UpdateTargetPosition(Vector3 _targetPosition)
     {
         Vector3 _targetPositionWithOffset = _targetPosition + offset;
 
         if (transform.position == _targetPositionWithOffset) { return; }
 
+        Vector3 _delta = _targetPositionWithOffset - transform.position;
         Vector3 _direction = _delta.normalized;
         float _distance = Vector3.Distance(_targetPositionWithOffset, transform.position);
         float _deltaSpeed = speed * Time.deltaTime;
@@ -33,11 +34,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnEnable()
     {
-        LookPositionOnPlane.LookPositionUpdatedEvent += UpdateTargetPosition;
+        PlayerInput.InputEvent += UpdateTargetPosition;
     }
 
     private void OnDisable()
     {
-        LookPositionOnPlane.LookPositionUpdatedEvent -= UpdateTargetPosition;
+        PlayerInput.InputEvent -= UpdateTargetPosition;
     }
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 public class SceneLoader : MonoBehaviour
 {
     public static SceneLoader Instance { get { return GetInstance(); } }
+    public static Scenes CurrentScene { get { return (Scenes)currentScene; } }
 
     /// <summary>
     /// Old scene, New Scene
@@ -26,7 +27,7 @@ public class SceneLoader : MonoBehaviour
 
     [SerializeField] private Scenes startScene;
 
-    private Scenes? currentScene;
+    private static Scenes? currentScene;
 
     public void SwitchScene(Scenes _newScene)
     {

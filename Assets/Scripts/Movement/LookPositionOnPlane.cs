@@ -12,7 +12,7 @@ public class LookPositionOnPlane : MonoBehaviour
     /// <summary>
     /// Parameters: Position, Delta
     /// </summary>
-    public static Action<Vector3, Vector3> LookPositionUpdatedEvent;
+    public static Action<Vector3> LookPositionUpdatedEvent;
 
     #region Singeton
     private static LookPositionOnPlane instance;
@@ -33,12 +33,17 @@ public class LookPositionOnPlane : MonoBehaviour
 
     [SerializeField] [Range(0, 1)] private float scaledInput = 0;
 
-    private Vector3 previousLookPosition;
 	private Transform hmdTransform;
 	private Vector2 maxBounds;
     private Vector2 minBounds;
     private Vector2 size;
     private Plane plane;
+
+    public Vector3 ClampToPlane(Vector3 _point)
+    {
+        Vector3 _clampedPoint = new Vector3(Mathf.Clamp(_point.x, minBounds.x, maxBounds.x), Mathf.Clamp(_point.y, minBounds.y, maxBounds.y), transform.position.z);
+        return _clampedPoint;
+    }
 
     private void Awake()
     {
@@ -58,14 +63,10 @@ public class LookPositionOnPlane : MonoBehaviour
         Vector3 _lookPosition = GetRaycastPointOnPlane(out _hit);
         if(!_hit) { return; }
 
-        Vector3 _delta = previousLookPosition - _lookPosition;
-
         if (LookPositionUpdatedEvent != null)
         {
-            LookPositionUpdatedEvent(_lookPosition, _delta);
+            LookPositionUpdatedEvent(_lookPosition);
         }
-
-        previousLookPosition = _lookPosition;
     }
 
     private Vector3 GetRaycastPointOnPlane(out bool _hit)

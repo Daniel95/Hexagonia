@@ -38,9 +38,10 @@ public class Player : MonoBehaviour
     private bool hitThisframe;
 	private Vector2 ratio;
 
-    private void Animate(Vector3 _targetPosition, Vector3 _delta)
+    private void Animate(Vector3 _targetPosition)
     {
-		ratio = VectorHelper.Divide(_delta, LookPositionOnPlane.Instance.Size) * animateSensitivity;
+        Vector2 _delta = _targetPosition - transform.position;
+        ratio = VectorHelper.Divide(_delta, (Vector2)LookPositionOnPlane.Instance.Size) * animateSensitivity;
 
         float absRatioX = Mathf.Abs(ratio.x);
         float absRatioY = Mathf.Abs(ratio.y);
@@ -77,12 +78,12 @@ public class Player : MonoBehaviour
 
     private void OnEnable()
     {
-        LookPositionOnPlane.LookPositionUpdatedEvent += Animate;
+        PlayerInput.InputEvent += Animate;
     }
 
     private void OnDisable()
     {
-        LookPositionOnPlane.LookPositionUpdatedEvent -= Animate;
+        PlayerInput.InputEvent -= Animate;
     }
 
     private void OnTriggerEnter(Collider _otherCollider)
