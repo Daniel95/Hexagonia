@@ -1,11 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
 public class ObjData
 {
-    public Vector3 pos;
+    public Transform parent;
+    public Vector3 localPosition;
     public Vector3 scale;
     public Quaternion rot;
 
@@ -13,68 +13,105 @@ public class ObjData
     {
         get
         {
-            return Matrix4x4.TRS(pos, rot, scale);
+            return Matrix4x4.TRS(GetPos, rot, scale);
         }
     }
 
-    public ObjData(Vector3 pos, Vector3 scale, Quaternion rot)
+    public ObjData(Vector3 localPosition, Vector3 scale, Quaternion rot, Transform parent = null)
     {
-        this.pos = pos;
+        this.localPosition = localPosition;
         this.scale = scale;
         this.rot = rot;
     }
+
+    private Vector3 GetPos
+    {
+        get
+        {
+            Vector3 position = localPosition;
+            if (parent != null)
+            {
+                position = parent.TransformPoint(position);
+            }
+            return position;
+        }
+    }
+}
+
+public class Batch
+{
+    public Mesh objMesh;
+    public Material objMat;
+
+    public List<ObjData> ObjDatas;
 }
 
 public class GPUInstancing : MonoBehaviour
 {
+    public static GPUInstancing Instance { get { return GetInstance(); } }
 
-    public int instances;
-    public Vector3 maxPos;
-    public Mesh objMesh;
-    public Material objMat;
+    #region Singleton
+    private static GPUInstancing instance;
 
-    private List<List<ObjData>> batches = new List<List<ObjData>>();
-
-    void Start()
+    private static GPUInstancing GetInstance()
     {
-        int batchIndexNum = 0;
-        List<ObjData> currBatch = new List<ObjData>();
-        Debug.Log(instances);
-        for (int i = 0; i < instances; i++)
+        if (instance == null)
         {
-            AddObj(currBatch, i);
-            batchIndexNum++;
-            if (batchIndexNum >= instances/2)
-            {
-                Debug.Log("Batched");
-                batches.Add(currBatch);
-                currBatch = BuildNewBatch();
-                batchIndexNum = 0;
-            }
+            instance = FindObjectOfType<GPUInstancing>();
         }
+        return instance;
     }
+    #endregion
+
+    private Dictionary<string, Batch> batchesByName = new Dictionary<string, Batch>();
 
     void Update()
     {
-        RenderBatches();
+        if (batchesByName.Count > 0)
+        {
+            RenderBatches();
+        }
+
     }
 
-    private void AddObj(List<ObjData> currBatch, int i)
+    public ObjData AddObj(Transform _transform)
     {
-        Vector3 position = new Vector3(Random.Range(-maxPos.x, maxPos.x), Random.Range(-maxPos.y, maxPos.y), Random.Range(-maxPos.z, maxPos.z));
-        currBatch.Add(new ObjData(position, new Vector3(2, 2, 2), Quaternion.identity));
+        ObjData _objData = new ObjData(_transform.position, _transform.localScale, _transform.rotation, transform.parent);
+        if (batchesByName.ContainsKey(_transform.name))
+        {
+            batchesByName[_transform.name].ObjDatas.Add(_objData);
+        }
+        else
+        {
+            Batch _batch = new Batch
+            {
+                ObjDatas = new List<ObjData>
+                {
+                    _objData,
+                },
+                objMesh = _transform.GetComponent<MeshFilter>().sharedMesh,
+                objMat = _transform.gameObject.GetComponent<MeshRenderer>().sharedMaterial
+            };
+            
+            batchesByName.Add(_transform.name, _batch);
+        }
+
+        return _objData;
     }
 
-    private List<ObjData> BuildNewBatch()
+    public void RemoveObj(Transform _transform)
     {
-        return new List<ObjData>();
+        if (batchesByName.ContainsKey(_transform.name))
+        {
+            batchesByName.Remove(_transform.name);
+        }
     }
 
     private void RenderBatches()
     {
-        foreach (var batch in batches)
+        foreach (KeyValuePair<string, Batch> _batch in batchesByName)
         {
-            Graphics.DrawMeshInstanced(objMesh, 0, objMat, batch.Select(a => a.matrix).ToList());
+            Graphics.DrawMeshInstanced(_batch.Value.objMesh, 0, _batch.Value.objMat, _batch.Value.ObjDatas.Select(a => a.matrix).ToList());
         }
     }
 }

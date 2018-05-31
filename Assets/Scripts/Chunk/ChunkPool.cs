@@ -40,6 +40,8 @@ public class ChunkPool : MonoBehaviour
 
     private Dictionary<ChunkType, List<ChunkDesign>> chunkListsByChunkType = new Dictionary<ChunkType, List<ChunkDesign>>();
 
+    //private Dictionary<ObjData, Transform> objDataByTransform = new Dictionary<ObjData, Transform>();
+
     private void SpawnRandomStartChunks()
     {
         for (int i = 0; i < startChunksCount; i++)
@@ -90,11 +92,18 @@ public class ChunkPool : MonoBehaviour
 
         foreach (Transform _transform in _chunkDesign.ObjectsToPool)
         {
-            GameObject _object = ObjectPool.Instance.GetObjectForType(_transform.name, false);
-            _object.transform.parent = _chunkParent.transform;
-            _object.transform.position = new Vector3(_transform.position.x, _transform.position.y, _transform.position.z + _chunkParent.transform.position.z);
-            _object.transform.localScale = _transform.localScale;
-            _object.transform.rotation = _transform.rotation;
+            if (SystemInfo.supportsInstancing && _chunkDesign.ObjectsToInstance.Contains(_transform))
+            {
+                GPUInstancing.Instance.AddObj(_transform);
+            }
+            else
+            {
+                GameObject _object = ObjectPool.Instance.GetObjectForType(_transform.name, false);
+                _object.transform.parent = _chunkParent.transform;
+                _object.transform.position = new Vector3(_transform.position.x, _transform.position.y, _transform.position.z + _chunkParent.transform.position.z);
+                _object.transform.localScale = _transform.localScale;
+                _object.transform.rotation = _transform.rotation;
+            }
         }
 
         SpawnCoins(_chunkDesign, _chunkParent.transform);
