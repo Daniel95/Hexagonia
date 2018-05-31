@@ -35,9 +35,10 @@ public class Coin : MonoBehaviour
         if (CollectedEvent != null) {
             CollectedEvent(value);
         }
-        Destroy(gameObject);
 		particle = ObjectPool.Instance.GetObjectForType(COIN_PARTICLE, false);
 		particle.transform.position = transform.position;
+
+		Destroy(gameObject);
 	}
 
     private void OnEnable() 
