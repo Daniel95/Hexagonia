@@ -50,7 +50,6 @@ public class LookPositionOnPlane : MonoBehaviour
         plane = new Plane(Vector3.forward, transform.position);
 
         hmdTransform = Camera.main.transform;
-        Input.gyro.enabled = true;
     }
 
     private void Update()

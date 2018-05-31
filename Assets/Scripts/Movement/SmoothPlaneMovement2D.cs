@@ -14,10 +14,10 @@ public class SmoothPlaneMovement2D : MonoBehaviour
         Vector3 _targetPositionWithOffset = _targetPosition + offset;
         Vector2 _direction = _delta.normalized;
         float _distance = Vector2.Distance(_targetPositionWithOffset, transform.position);
-        float deltaSpeed = speed * Time.deltaTime;
+        float _deltaSpeed = speed * Time.deltaTime;
 
-        Vector3 positionIncrement = _direction * (_distance * deltaSpeed);
-        transform.position += positionIncrement;
+        Vector3 _positionIncrement = _direction * (_distance * _deltaSpeed);
+        transform.position += _positionIncrement;
     }
 
     private void OnEnable()

@@ -9,8 +9,8 @@ public class PlayerInput : MonoBehaviour
     /// </summary>
     public Action<Vector3> InputEvent;
 
-    [SerializeField] private PlayerInputType vrPlayerInputType;
-    [SerializeField] private PlayerInputType nonVRPlayerInputType;
+    [SerializeField] private PlayerInputType vrPlayerInputType = PlayerInputType.Look;
+    [SerializeField] private PlayerInputType nonVRPlayerInputType = PlayerInputType.Drag;
 
     private PlayerInputType currentPlayerInputType;
     private Coroutine inputCoroutine;
