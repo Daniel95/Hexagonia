@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 222663785166425238}
   - component: {fileID: 114025943009559948}
   m_Layer: 5
-  m_Name: Obtained Coins
+  m_Name: Obtained_Coins
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 222187918460387210}
   - component: {fileID: 114694619389204872}
   m_Layer: 5
-  m_Name: txt obtained coins
+  m_Name: txt_obtained_coins
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -54,6 +54,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224583072155054102}
   - component: {fileID: 114561588679762452}
+  - component: {fileID: 114845866717950504}
   m_Layer: 5
   m_Name: GameOverMenu
   m_TagString: Untagged
@@ -88,7 +89,7 @@ GameObject:
   - component: {fileID: 198651893833003446}
   - component: {fileID: 199710429743251414}
   m_Layer: 0
-  m_Name: Hex Particle
+  m_Name: Hex_Particle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -190,7 +191,7 @@ GameObject:
   - component: {fileID: 4982064562216248}
   - component: {fileID: 111924666183924020}
   m_Layer: 0
-  m_Name: Play Again
+  m_Name: Play_Again
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -225,7 +226,7 @@ GameObject:
   - component: {fileID: 222973445606717606}
   - component: {fileID: 114538199389277894}
   m_Layer: 5
-  m_Name: name of the bar
+  m_Name: name_of_the_bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -276,7 +277,7 @@ GameObject:
   - component: {fileID: 222420192220570372}
   - component: {fileID: 114436963697498188}
   m_Layer: 5
-  m_Name: Total Coins
+  m_Name: Total_Coins
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -311,7 +312,7 @@ GameObject:
   - component: {fileID: 222227671066825172}
   - component: {fileID: 114037430874105046}
   m_Layer: 5
-  m_Name: txt total coins
+  m_Name: txt_total_coins
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -328,7 +329,7 @@ GameObject:
   - component: {fileID: 222395467935677530}
   - component: {fileID: 114354339721313392}
   m_Layer: 5
-  m_Name: name of the bar
+  m_Name: name_of_the_bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -345,7 +346,7 @@ GameObject:
   - component: {fileID: 198427195416859220}
   - component: {fileID: 199261077680495824}
   m_Layer: 0
-  m_Name: Hex Particle
+  m_Name: Hex_Particle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -688,7 +689,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Total coins
+  m_Text: HighScore
 --- !u!114 &114373537378647674
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -974,8 +975,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menu: {fileID: 1768045734214324}
-  currentScore: {fileID: 114694619389204872}
-  totalScore: {fileID: 114037430874105046}
 --- !u!114 &114592420242608846
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1096,6 +1095,19 @@ MonoBehaviour:
   m_FillAmount: 0
   m_FillClockwise: 1
   m_FillOrigin: 2
+--- !u!114 &114845866717950504
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1170483664410552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f216efcea4ce0a54a842be23ddbb28d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  localHighscoreText: {fileID: 114037430874105046}
+  obtainedScoreText: {fileID: 114694619389204872}
 --- !u!114 &114976888360989918
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4530,7 +4542,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1224758372
+  randomSeed: -1911076562
   InitialModule:
     serializedVersion: 3
     enabled: 1
