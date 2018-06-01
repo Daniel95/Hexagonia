@@ -21,7 +21,7 @@ public class JoyStickUI : MonoBehaviour
         InputBase.DraggingInputEvent -= UpdateJoyStick;
         InputBase.DownInputEvent -= OnDownInput;
         InputBase.UpInputEvent -= OnUpInput;
-        gameObject.SetActive(true);
+        gameObject.SetActive(false);
     }
 
     private void OnDownInput(Vector2 _position)
