@@ -23,6 +23,7 @@ public class Progression : MonoBehaviour
 	public void IncreaseScore(int _scoreIncrement)
 	{
 		score += _scoreIncrement * ScoreMultiplier.Multiplier;
+	    lastScore = score;
 
         if (ScoreUpdatedEvent != null)
 		{

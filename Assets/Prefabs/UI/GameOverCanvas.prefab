@@ -312,7 +312,7 @@ GameObject:
   - component: {fileID: 222227671066825172}
   - component: {fileID: 114037430874105046}
   m_Layer: 5
-  m_Name: txt_total_coins
+  m_Name: highscoreText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -962,7 +962,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Obtained coins
+  m_Text: Score
 --- !u!114 &114561588679762452
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4542,7 +4542,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1911076562
+  randomSeed: -1302336887
   InitialModule:
     serializedVersion: 3
     enabled: 1
