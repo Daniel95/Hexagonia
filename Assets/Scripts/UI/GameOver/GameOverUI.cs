@@ -9,16 +9,23 @@ public class GameOverUI : MonoBehaviour
 
     private void OnEnable()
     {
-        DyingPlayer.AnimationEnd += Activate;
+        DyingPlayer.AnimationEndEvent += Activate;
+        Player.DiedEvent += RecenterUI;
     }
 
     private void OnDisable()
     {
-        DyingPlayer.AnimationEnd -= Activate;
+        DyingPlayer.AnimationEndEvent -= Activate;
+        Player.DiedEvent -= RecenterUI;
     }
 
     private void Activate()
     {
         menu.SetActive(true);
+    }
+
+    private void RecenterUI()
+    {
+        menu.transform.position = new Vector3(Player.Instance.transform.position.x, Player.Instance.transform.position.y, menu.transform.position.z);
     }
 }
