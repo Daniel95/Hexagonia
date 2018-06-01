@@ -10,6 +10,8 @@ public class GameOverUI : MonoBehaviour
     [SerializeField] private Text currentScore;
     [SerializeField] private Text totalScore;
 
+    private const string PLAYERPREFS_SCORE = "TotalScore";
+
     private void OnEnable()
     {
         DyingPlayer.AnimationEnd += Activate;
@@ -23,8 +25,8 @@ public class GameOverUI : MonoBehaviour
     private void Activate()
     {
         menu.SetActive(true);
-        currentScore.text = ResourceValue.Value.ToString();
-        PlayerPrefs.SetFloat("score", PlayerPrefs.GetFloat("score") + ResourceValue.Value);
-        totalScore.text = PlayerPrefs.GetFloat("score").ToString();
+        currentScore.text = Progression.Score.ToString();
+        PlayerPrefs.SetInt(PLAYERPREFS_SCORE, PlayerPrefs.GetInt(PLAYERPREFS_SCORE) + Progression.Score);
+        totalScore.text = PlayerPrefs.GetInt(PLAYERPREFS_SCORE).ToString();
     }
 }

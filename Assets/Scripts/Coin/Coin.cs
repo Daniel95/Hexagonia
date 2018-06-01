@@ -29,9 +29,11 @@ public class Coin : MonoBehaviour
     {
         if(_gameObject != gameObject) { return; }
 
-        if (CollectedEvent != null) {
+        if (CollectedEvent != null)
+        {
             CollectedEvent(value);
         }
+        
         Destroy(gameObject);
     }
 
