@@ -1,18 +1,9 @@
-﻿using UnityEngine;
-using System;
-using System.ComponentModel;
-using System.Diagnostics;
-using SRDebugger;
-using SRDebugger.Services;
+﻿using System.ComponentModel;
 using SRF;
-using SRF.Service;
 using Debug = UnityEngine.Debug;
-using Random = UnityEngine.Random;
 
 public partial class SROptions
 {
-    DebugLibrary debugLibrary;
-
     [Category("FPS counter")]
     [Sort(-1)]
     public bool FPSCounterEnabled
@@ -41,9 +32,9 @@ public partial class SROptions
         }
     }
 
-    private void OnValueChanged(string n, object newValue)
+    private void OnValueChanged(string _n, object _newValue)
     {
-        Debug.Log("[SRDebug] {0} value changed to {1}".Fmt(n, newValue));
-        OnPropertyChanged(n);
+        Debug.Log("[SRDebug] {0} value changed to {1}".Fmt(_n, _newValue));
+        OnPropertyChanged(_n);
     }
 }
