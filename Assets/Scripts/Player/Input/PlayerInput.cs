@@ -37,6 +37,7 @@ public class PlayerInput : MonoBehaviour
 
     private Vector3 inputPosition;
     private Coroutine inputUpdateCoroutine;
+    private float zRotation;
 
     public void SetState(bool _enabled)
     {
@@ -75,7 +76,9 @@ public class PlayerInput : MonoBehaviour
 
     private void TiltInput(Vector3 _lookPosition)
     {
-        inputPosition.x += (Input.gyro.attitude.y * tiltSpeed) * Time.deltaTime;
+        zRotation += Input.gyro.rotationRate.z;
+
+        inputPosition.x += -zRotation * tiltSpeed;
         inputPosition.y = _lookPosition.y;
         inputPosition.z = _lookPosition.z;
 
@@ -90,10 +93,14 @@ public class PlayerInput : MonoBehaviour
         inputPosition = LookPositionOnPlane.Instance.ClampToPlane(inputPosition);
     }
 
+    /*
     private void Update()
     {
-        Debug.Log(Input.gyro.attitude.y);
+        Input.gyro.enabled = true;
+        Debug.Log("attitude " + Input.gyro.attitude.eulerAngles);
+        Debug.Log("rotationRate " + Input.gyro.rotationRate);
     }
+    */
 
     private void UpdateInput()
     {
@@ -151,6 +158,7 @@ public class PlayerInput : MonoBehaviour
         if(inputUpdateCoroutine != null)
         {
             StopCoroutine(inputUpdateCoroutine);
+            inputUpdateCoroutine = null;
         }
 
         switch (currentPlayerInputType)
@@ -166,7 +174,6 @@ public class PlayerInput : MonoBehaviour
                 InputBase.DraggingInputEvent -= DragInput;
                 break;
         }
-
     }
 
     private void Start()
