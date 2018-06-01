@@ -24,17 +24,36 @@ public class FPSDisplay : MonoBehaviour
     private string sFPS = ""; // The fps formatted into a string.
     private Text text;
 
-    private void Start()
+    private Coroutine fpsCoroutine;
+
+    private void Awake()
     {
         text = GetComponent<Text>();
-        if(DebugLibrary.Instance.DebugMode)
+        SetFPSCounter(DebugLibrary.FPSCounterEnabled);
+    }
+
+    private void SetFPSCounter(bool _enabled)
+    {
+        if(_enabled && fpsCoroutine == null)
         {
-            StartCoroutine(FPS());
+            fpsCoroutine = StartCoroutine(FPS());
         }
-        else
+        else if(fpsCoroutine != null)
         {
+            StopCoroutine(fpsCoroutine);
+            fpsCoroutine = null;
             text.text = "";
         }
+    }
+
+    private void OnEnable()
+    {
+        DebugLibrary.FPSCounterEnabledChangedEvent += SetFPSCounter;
+    }
+
+    private void OnDisable()
+    {
+        DebugLibrary.FPSCounterEnabledChangedEvent -= SetFPSCounter;
     }
 
     private void Update()
