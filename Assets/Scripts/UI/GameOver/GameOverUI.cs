@@ -14,12 +14,14 @@ public class GameOverUI : MonoBehaviour
 
     private void OnEnable()
     {
-        DyingPlayer.AnimationEnd += Activate;
+        DyingPlayer.AnimationEndEvent += Activate;
+        Player.DiedEvent += RecenterUI;
     }
 
     private void OnDisable()
     {
-        DyingPlayer.AnimationEnd -= Activate;
+        DyingPlayer.AnimationEndEvent -= Activate;
+        Player.DiedEvent -= RecenterUI;
     }
 
     private void Activate()
@@ -28,5 +30,10 @@ public class GameOverUI : MonoBehaviour
         currentScore.text = Progression.Score.ToString();
         PlayerPrefs.SetInt(PLAYERPREFS_SCORE, PlayerPrefs.GetInt(PLAYERPREFS_SCORE) + Progression.Score);
         totalScore.text = PlayerPrefs.GetInt(PLAYERPREFS_SCORE).ToString();
+    }
+
+    private void RecenterUI()
+    {
+        menu.transform.position = new Vector3(Player.Instance.transform.position.x, Player.Instance.transform.position.y, menu.transform.position.z);
     }
 }
