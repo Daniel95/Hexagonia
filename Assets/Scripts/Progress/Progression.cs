@@ -13,11 +13,13 @@ public class Progression : MonoBehaviour
 	private static float startUpTime;
 	private static int score;
 
-    /// <summary>
-    /// Increases the score by _scoreIncrement parameter.
-    /// </summary>
-    /// <param name="_scoreIncrement"></param>
-    public void IncreaseScore(int _scoreIncrement)
+	private int lastScore;
+
+	/// <summary>
+	/// Increases the score by _scoreIncrement parameter.
+	/// </summary>
+	/// <param name="_scoreIncrement"></param>
+	public void IncreaseScore(int _scoreIncrement)
 	{
 		score += _scoreIncrement * ScoreMultiplier.Multiplier;
 
@@ -25,6 +27,12 @@ public class Progression : MonoBehaviour
 		{
 			ScoreUpdatedEvent(score);
 		}
+	}
+
+	private void ResetScore()
+	{
+		lastScore = score;
+		score = 0;
 	}
 
 	private void Awake()
@@ -35,10 +43,12 @@ public class Progression : MonoBehaviour
 	private void OnEnable()  
 	{
 		Coin.CollectedEvent += IncreaseScore;
+		Player.DiedEvent += ResetScore;
 	}
 
 	private void OnDisable()
 	{
 		Coin.CollectedEvent -= IncreaseScore;
+		Player.DiedEvent -= ResetScore;
 	}
 }
