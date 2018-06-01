@@ -29,7 +29,8 @@ public class PlayerInput : MonoBehaviour
     private static PlayerInputType currentPlayerInputType;
     private static bool state;
 
-    [SerializeField] private PlayerInputType vrPlayerInputType = PlayerInputType.Look;
+    [SerializeField] private PlayerInputType mobileVRPlayerInputType = PlayerInputType.Tilt;
+    [SerializeField] private PlayerInputType editorVRPlayerInputType = PlayerInputType.Look;
     [SerializeField] private PlayerInputType nonVRPlayerInputType = PlayerInputType.Drag;
     [SerializeField] private float tiltSpeed = 1;
     [SerializeField] private float dragSpeed = 1;
@@ -74,7 +75,7 @@ public class PlayerInput : MonoBehaviour
 
     private void TiltInput(Vector3 _lookPosition)
     {
-        inputPosition.x += (Input.acceleration.x * tiltSpeed) * Time.deltaTime;
+        inputPosition.x += (Input.gyro.attitude.y * tiltSpeed) * Time.deltaTime;
         inputPosition.y = _lookPosition.y;
         inputPosition.z = _lookPosition.z;
 
@@ -89,13 +90,25 @@ public class PlayerInput : MonoBehaviour
         inputPosition = LookPositionOnPlane.Instance.ClampToPlane(inputPosition);
     }
 
+    private void Update()
+    {
+        Debug.Log(Input.gyro.attitude.y);
+    }
+
     private void UpdateInput()
     {
         if(!state) { return; }
 
         if(VRSwitch.VRState)
         {
-            StartInput(vrPlayerInputType);
+            if(Application.isEditor)
+            {
+                StartInput(editorVRPlayerInputType);
+            }
+            else
+            {
+                StartInput(mobileVRPlayerInputType);
+            }
         }
         else
         {
