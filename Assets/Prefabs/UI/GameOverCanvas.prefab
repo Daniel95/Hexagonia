@@ -312,7 +312,7 @@ GameObject:
   - component: {fileID: 222227671066825172}
   - component: {fileID: 114037430874105046}
   m_Layer: 5
-  m_Name: highscoreText
+  m_Name: txt_total_coins
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -669,7 +669,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: a327013057de5154fbf22cfbdd0b4d66, type: 2}
-  m_Color: {r: 0.42745098, g: 0.79607844, b: 0.9411765, a: 1}
+  m_Color: {r: 0.43137255, g: 0.72156864, b: 0.8392157, a: 1}
   m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -942,7 +942,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: a327013057de5154fbf22cfbdd0b4d66, type: 2}
-  m_Color: {r: 0.42745098, g: 0.79607844, b: 0.9411765, a: 1}
+  m_Color: {r: 0.43144464, g: 0.7233403, b: 0.83823526, a: 1}
   m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -962,7 +962,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Score
+  m_Text: score
 --- !u!114 &114561588679762452
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4542,7 +4542,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1302336887
+  randomSeed: -1911076562
   InitialModule:
     serializedVersion: 3
     enabled: 1
