@@ -78,12 +78,12 @@ public class Player : MonoBehaviour
 
     private void OnEnable()
     {
-        PlayerInput.InputEvent += Animate;
+        PlayerInputController.InputEvent += Animate;
     }
 
     private void OnDisable()
     {
-        PlayerInput.InputEvent -= Animate;
+        PlayerInputController.InputEvent -= Animate;
     }
 
     private void OnTriggerEnter(Collider _otherCollider)
