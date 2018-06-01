@@ -23,9 +23,6 @@ public class CameraHolderMain : CameraHolder
         }
         else
         {
-#if !UNITY_EDITOR
-            GvrCardboardHelpers.Recenter();
-#endif
             eventSystemGameobject.SetActive(false);
         }
         VRSwitch.Instance.GVRReticlePointerGameObject.SetActive(false);
@@ -37,12 +34,5 @@ public class CameraHolderMain : CameraHolder
 
         gyro.enabled = false;
         postProcessingBehaviour.enabled = false;
-
-#if !UNITY_EDITOR
-        if (VRSwitch.Instance.VRState)
-        {
-            GvrCardboardHelpers.Recenter();
-        }
-#endif
     }
 }
