@@ -3,32 +3,41 @@ using UnityEngine;
 
 public class DebugLibrary : MonoBehaviour
 {
-
-    #region Singleton
-    public static DebugLibrary Instance { get { return GetInstance(); } }
-
-    private static DebugLibrary instance;
-
-    private const string DEBUG_LIBRARY_PATH = "Debug/DebugLibrary";
-
-    private static DebugLibrary GetInstance()
-    {
-        if(instance == null)
-        {
-            instance = Resources.Load<DebugLibrary>(DEBUG_LIBRARY_PATH);
-        }
-        return instance;
-    }
-    #endregion
-
-    public bool DebugMode
+    public static bool FPSCounterEnabled
     {
         get
         {
-            return debugMode;
+            return Convert.ToBoolean(PlayerPrefs.GetInt(FPS_COUNTER_ENABLED, 0));
+        }
+        set
+        {
+            PlayerPrefs.SetInt(FPS_COUNTER_ENABLED, Convert.ToInt16(value));
+            if(FPSCounterEnabledChangedEvent != null)
+            {
+                FPSCounterEnabledChangedEvent(value);
+            }
         }
     }
 
-    [SerializeField] private bool debugMode;
+    public static bool LookControlsEnabled
+    {
+        get
+        {
+            return Convert.ToBoolean(PlayerPrefs.GetInt(LOOK_CONTROLS_ENABLED, 0));
+        }
+        set
+        {
+            PlayerPrefs.SetInt(LOOK_CONTROLS_ENABLED, Convert.ToInt16(value));
+            if(LookControlsEnabledChanged != null)
+            {
+                LookControlsEnabledChanged(value);
+            }
+        }
+    }
 
+    public static Action<bool> FPSCounterEnabledChangedEvent;
+    public static Action<bool> LookControlsEnabledChanged;
+
+	private const string LOOK_CONTROLS_ENABLED = "LookControlsEnabled";
+	private const string FPS_COUNTER_ENABLED = "FPSCounterEnabled";
 }
