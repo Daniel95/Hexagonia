@@ -22,18 +22,19 @@ public class ObjData
         this.localPosition = localPosition;
         this.scale = scale;
         this.rot = rot;
+        this.parent = parent;
     }
 
     private Vector3 GetPos
     {
         get
         {
-            Vector3 position = localPosition;
+            Vector3 _position = localPosition;
             if (parent != null)
             {
-                position = parent.TransformPoint(position);
+                _position = parent.TransformPoint(_position);
             }
-            return position;
+            return _position;
         }
     }
 }
@@ -71,12 +72,12 @@ public class GPUInstancing : MonoBehaviour
         {
             RenderBatches();
         }
-
     }
 
-    public ObjData AddObj(Transform _transform)
+    public ObjData AddObj(Transform _transform, Transform _parentTransform = null)
     {
-        ObjData _objData = new ObjData(_transform.position, _transform.localScale, _transform.rotation, transform.parent);
+        ObjData _objData = new ObjData(_transform.position, _transform.localScale, _transform.rotation, _parentTransform);
+
         if (batchesByName.ContainsKey(_transform.name))
         {
             batchesByName[_transform.name].ObjDatas.Add(_objData);
@@ -90,20 +91,39 @@ public class GPUInstancing : MonoBehaviour
                     _objData,
                 },
                 objMesh = _transform.GetComponent<MeshFilter>().sharedMesh,
-                objMat = _transform.gameObject.GetComponent<MeshRenderer>().sharedMaterial
+                objMat = _transform.gameObject.GetComponent<MeshRenderer>().sharedMaterial,
             };
-            
+            _batch.ObjDatas.Add(_objData);
+
             batchesByName.Add(_transform.name, _batch);
         }
-
         return _objData;
     }
 
-    public void RemoveObj(Transform _transform)
+    public void RemoveObjByParent(Transform _parentTransform)
     {
-        if (batchesByName.ContainsKey(_transform.name))
+        List<string> _keysToRemove = new List<string>();
+
+        foreach (KeyValuePair<string, Batch> _batchByStringPair in batchesByName)
         {
-            batchesByName.Remove(_transform.name);
+            List<ObjData> _objectDatas = _batchByStringPair.Value.ObjDatas;
+
+            for (int i = _objectDatas.Count - 1; i >= 0; i--)
+            {
+                ObjData _objData = _objectDatas[i];
+                if(_objData.parent != _parentTransform) { continue; }
+                _objectDatas.RemoveAt(i);
+            }
+
+            if (_objectDatas.Count <= 0)
+            {
+                _keysToRemove.Add(_batchByStringPair.Key);
+            }
+        }
+
+        foreach (string _key in _keysToRemove)
+        {
+            batchesByName.Remove(_key);
         }
     }
 

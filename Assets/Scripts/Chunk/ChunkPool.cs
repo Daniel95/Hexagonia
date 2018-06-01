@@ -94,7 +94,7 @@ public class ChunkPool : MonoBehaviour
         {
             if (SystemInfo.supportsInstancing && _chunkDesign.ObjectsToInstance.Contains(_transform))
             {
-                GPUInstancing.Instance.AddObj(_transform);
+                GPUInstancing.Instance.AddObj(_transform, _chunkParent.transform);
             }
             else
             {
@@ -119,6 +119,11 @@ public class ChunkPool : MonoBehaviour
         List<Transform> _children = _chunk.transform.FirstLayerChildren();
         for (int i = _children.Count - 1; i >= 0; i--) {
             ObjectPool.Instance.PoolObject(_children[i].gameObject);
+        }
+
+        if (SystemInfo.supportsInstancing)
+        {
+            GPUInstancing.Instance.RemoveObjByParent(_chunk.transform);
         }
 
         Destroy(_chunk);
