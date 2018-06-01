@@ -1,15 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
+using System.Collections;
 using UnityEngine;
-using System;
 
 public class DyingPlayer : MonoBehaviour
 {
     public static Action AnimationEnd;
 
     [SerializeField] private Animator animator;
-
-    private int deathStateIndex = Animator.StringToHash("death");
 
     private void Awake()
     {

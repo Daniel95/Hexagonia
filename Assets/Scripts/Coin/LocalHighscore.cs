@@ -23,7 +23,6 @@ public class LocalHighscore : MonoBehaviour {
 
 	[SerializeField] private Text localHighscoreText;
 	[SerializeField] private Text obtainedScoreText;
-	private int score;
 
 	public static int UpdateLocalHighscore
 	{
@@ -41,12 +40,11 @@ public class LocalHighscore : MonoBehaviour {
 	private void LoadPlayerPrefs()
 	{
 		localHighscoreText.text = "" + UpdateLocalHighscore;
-		obtainedScoreText.text = "" + score;
+		obtainedScoreText.text = "" + Progression.LastScore;
 	}
 
 	private void UpdatePlayerPrefs(int _score)
 	{
-		score = _score;
 		if (_score > UpdateLocalHighscore)
 		{
 			UpdateLocalHighscore = _score;

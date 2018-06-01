@@ -7,12 +7,14 @@ using UnityEngine;
 public class Progression : MonoBehaviour
 {
 	public static float Timer { get { return Time.time - startUpTime; }  }
+	public static float LastScore { get { return lastScore; }  }
+
     public static Action<int> ScoreUpdatedEvent;
 
 	private static float startUpTime;
-	private static int score;
+	private static int lastScore;
 
-	private int lastScore;
+	private int score;
 
 	/// <summary>
 	/// Increases the score by _scoreIncrement parameter.
