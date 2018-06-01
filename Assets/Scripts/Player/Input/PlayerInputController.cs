@@ -89,7 +89,6 @@ public class PlayerInputController : MonoBehaviour
 
     private void StartInput(PlayerInputType _playerInputType)
     {
-
         PlayerInputBase _playerInputBase = playerInputs.Find(x => x.PlayerInputType == _playerInputType);
 
         if(_playerInputBase == null)
@@ -117,6 +116,7 @@ public class PlayerInputController : MonoBehaviour
         if(currentPlayerInputBase != null)
         {
             currentPlayerInputBase.Deactivate();
+            currentPlayerInputBase = null;
         }
     }
 
@@ -136,11 +136,13 @@ public class PlayerInputController : MonoBehaviour
     {
         VRSwitch.SwitchedEvent += UpdateInput;
         SceneLoader.SceneSwitchCompletedEvent += OnSceneSwitchCompleted;
+        Player.DiedEvent += StopCurrentInput;
     }
 
     private void OnDisable()
     {
         VRSwitch.SwitchedEvent -= UpdateInput;
         SceneLoader.SceneSwitchCompletedEvent -= OnSceneSwitchCompleted;
+        Player.DiedEvent -= StopCurrentInput;
     }
 }

@@ -46,7 +46,7 @@ public class InputMobile : InputBase
                 }
 
                 float distance = Vector2.Distance(currentTouchPosition, StartDownPosition);
-                if (distance > DragTreshhold)
+                if (distance >= DragTreshhold)
                 {
                     TouchState = TouchStates.Dragging;
 

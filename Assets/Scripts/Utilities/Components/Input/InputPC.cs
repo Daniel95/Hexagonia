@@ -59,7 +59,7 @@ public class InputPC : InputBase
                     }
 
                     float distance = Vector2.Distance(currentMousePosition, StartDownPosition);
-                    if (distance > DragTreshhold)
+                    if (distance >= DragTreshhold)
                     {
                         TouchState = TouchStates.Dragging;
                         Vector2 delta = currentMousePosition - lastInputPosition;

@@ -9,11 +9,14 @@ public class PlayerDragInput : PlayerInputBase
     {
         TargetPoint = LookPositionOnPlane.Instance.transform.position;
         InputBase.DraggingInputEvent += DragInput;
+
+        joyStickUI.Activate();
     }
 
     public override void Deactivate()
     {
         InputBase.DraggingInputEvent -= DragInput;
+        joyStickUI.Deactivate();
     }
 
     private void DragInput(Vector2 _dragPosition, Vector2 _delta)
