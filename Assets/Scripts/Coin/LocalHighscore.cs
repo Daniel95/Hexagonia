@@ -20,9 +20,10 @@ public class LocalHighscore : MonoBehaviour {
 	#endregion
 
 	private const string LOCAL_HIGHSCORE = "Local_HighScore";
-	private const string HIGHSCORE = "Highscore ";
 
 	[SerializeField] private Text localHighscoreText;
+	[SerializeField] private Text obtainedScoreText;
+	private int score;
 
 	public static int UpdateLocalHighscore
 	{
@@ -39,11 +40,13 @@ public class LocalHighscore : MonoBehaviour {
 
 	private void LoadPlayerPrefs()
 	{
-		localHighscoreText.text = HIGHSCORE + UpdateLocalHighscore;
+		localHighscoreText.text = "" + UpdateLocalHighscore;
+		obtainedScoreText.text = "" + score;
 	}
 
 	private void UpdatePlayerPrefs(int _score)
 	{
+		score = _score;
 		if (_score > UpdateLocalHighscore)
 		{
 			UpdateLocalHighscore = _score;
