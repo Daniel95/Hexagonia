@@ -27,9 +27,6 @@ public class GameOverUI : MonoBehaviour
     private void Activate()
     {
         menu.SetActive(true);
-        currentScore.text = Progression.Score.ToString();
-        PlayerPrefs.SetInt(PLAYERPREFS_SCORE, PlayerPrefs.GetInt(PLAYERPREFS_SCORE) + Progression.Score);
-        totalScore.text = PlayerPrefs.GetInt(PLAYERPREFS_SCORE).ToString();
     }
 
     private void RecenterUI()
