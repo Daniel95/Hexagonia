@@ -3,32 +3,38 @@ using UnityEngine;
 
 public class DebugLibrary : MonoBehaviour
 {
-
-    #region Singleton
-    public static DebugLibrary Instance { get { return GetInstance(); } }
-
-    private static DebugLibrary instance;
-
-    private const string DEBUG_LIBRARY_PATH = "Debug/DebugLibrary";
-
-    private static DebugLibrary GetInstance()
-    {
-        if(instance == null)
-        {
-            instance = Resources.Load<DebugLibrary>(DEBUG_LIBRARY_PATH);
-        }
-        return instance;
-    }
-    #endregion
-
-    public bool DebugMode
+    public static bool FPSCounterEnabled
     {
         get
         {
-            return debugMode;
+            return Convert.ToBoolean(PlayerPrefs.GetInt("FPSCounterEnabled", 0));
+        }
+        set
+        {
+            PlayerPrefs.SetInt("FPSCounterEnabled", Convert.ToInt16(value));
+            if(FPSCounterEnabledChangedEvent != null)
+            {
+                FPSCounterEnabledChangedEvent(value);
+            }
         }
     }
 
-    [SerializeField] private bool debugMode;
+    public static bool LookControlsEnabled
+    {
+        get
+        {
+            return Convert.ToBoolean(PlayerPrefs.GetInt("LookControlsEnabled", 0));
+        }
+        set
+        {
+            PlayerPrefs.SetInt("LookControlsEnabled", Convert.ToInt16(value));
+            if(LookControlsEnabledChanged != null)
+            {
+                LookControlsEnabledChanged(value);
+            }
+        }
+    }
 
+    public static Action<bool> FPSCounterEnabledChangedEvent;
+    public static Action<bool> LookControlsEnabledChanged;
 }
