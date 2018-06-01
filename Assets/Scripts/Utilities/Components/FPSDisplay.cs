@@ -34,14 +34,17 @@ public class FPSDisplay : MonoBehaviour
 
     private void SetFPSCounter(bool _enabled)
     {
-        if(_enabled && fpsCoroutine == null)
+        if (_enabled && fpsCoroutine == null)
         {
             fpsCoroutine = StartCoroutine(FPS());
         }
-        else if(fpsCoroutine != null)
+        else
         {
-            StopCoroutine(fpsCoroutine);
-            fpsCoroutine = null;
+            if (fpsCoroutine != null)
+            {
+                StopCoroutine(fpsCoroutine);
+                fpsCoroutine = null;
+            }
             text.text = "";
         }
     }
