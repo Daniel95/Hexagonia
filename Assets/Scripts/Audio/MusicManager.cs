@@ -52,7 +52,7 @@ public class MusicManager : MonoBehaviour
     /// Switches to a random song in the songlist
     /// </summary>
     /// <param name="_fade">Depending on this the song fades or switches instantly</param>
-    public void SwitchSong(bool _fade = true)
+    public void SwitchSong()
     {
         if (currentSongList.Count == 0) { return; }
 
@@ -71,18 +71,9 @@ public class MusicManager : MonoBehaviour
 
         GivePriority();
         
-        if (_fade)
-        {
-            StartCoroutine(FadeToNewSong(_randomSong));
-        }
-        else
-        {
-            source.clip = _randomSong.clip;
-            source.Play();
-            switching = false;
-        }
-
-        float _delay = _randomSong.clip.length + 0.1f;
+        StartCoroutine(FadeToNewSong(_randomSong));
+        
+        float _delay = _randomSong.clip.length;
 
         delayCoroutine = CoroutineHelper.DelayTime(_delay, () => SwitchSong());
     }
