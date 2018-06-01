@@ -82,10 +82,9 @@ public class MusicManager : MonoBehaviour
             switching = false;
         }
 
-        float _delay = _randomSong.clip.length + 0.1f;
-        delayCoroutine = CoroutineHelper.DelayTime(_delay, () => SwitchSong());
+        float _delay = _randomSong.clip.length + 0.1f;\
 
-        return;
+        delayCoroutine = CoroutineHelper.DelayTime(_delay, () => SwitchSong());
     }
 
     private void Awake()
