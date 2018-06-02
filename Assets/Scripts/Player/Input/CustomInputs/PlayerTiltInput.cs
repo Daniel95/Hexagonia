@@ -7,33 +7,19 @@ public class PlayerTiltInput : PlayerInputBase
 
     private float zRotation;
     private Coroutine tiltCoroutine;
+    private bool planeHit;
+    private Vector3 lookPositionOnPlane;
 
     public override void Activate()
     {
         Input.gyro.enabled = true;
         tiltCoroutine = StartCoroutine(TiltUpdate());
-        LookPositionOnPlane.LookPositionUpdatedEvent += TiltInput;
     }
 
     public override void Deactivate()
     {
         Input.gyro.enabled = false;
         StopCoroutine(tiltCoroutine);
-        tiltCoroutine = null;
-        LookPositionOnPlane.LookPositionUpdatedEvent -= TiltInput;
-    }
-
-    private void TiltInput(Vector3 _lookPosition)
-    {
-        TargetPosition.y = _lookPosition.y;
-        TargetPosition.z = _lookPosition.z;
-
-        TargetPosition = LookPositionOnPlane.Instance.ClampToPlane(TargetPosition);
-
-        if(TargetPositionUpdatedEvent != null)
-        {
-            TargetPositionUpdatedEvent(TargetPosition);
-        }
     }
 
     private IEnumerator TiltUpdate()
@@ -42,6 +28,12 @@ public class PlayerTiltInput : PlayerInputBase
         {
             zRotation += Input.gyro.rotationRateUnbiased.z;
             TargetPosition.x += -zRotation * tiltSpeed;
+
+            lookPositionOnPlane = LookPositionOnPlane.Instance.GetLookPosition(out planeHit);
+            if (planeHit) {
+                TargetPosition.y = lookPositionOnPlane.y;
+                TargetPosition.z = lookPositionOnPlane.z;
+            }
 
             TargetPosition = LookPositionOnPlane.Instance.ClampToPlane(TargetPosition);
 

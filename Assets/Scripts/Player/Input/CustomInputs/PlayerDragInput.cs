@@ -8,8 +8,13 @@ public class PlayerDragInput : PlayerInputBase
     public override void Activate()
     {
         TargetPosition = LookPositionOnPlane.Instance.transform.position;
-        InputBase.DraggingInputEvent += DragInput;
 
+        if (TargetPositionUpdatedEvent != null)
+        {
+            TargetPositionUpdatedEvent(TargetPosition);
+        }
+
+        InputBase.DraggingInputEvent += DragInput;
         joyStickUI.Activate();
     }
 

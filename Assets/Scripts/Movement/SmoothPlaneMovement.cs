@@ -4,7 +4,7 @@
 ///  UpdateTargetPosition gets updated everytime the method gets called with the event: LookPositionUpdateEvent in LookPositionPlane.
 ///  It smoothly moves the player when moving around in the game but in 2D.
 /// </summary>
-public class SmoothPlaneMovement2D : MonoBehaviour
+public class SmoothPlaneMovement : MonoBehaviour
 {
     [SerializeField] [Range(0, 20)] private float vrSpeed = 10f;
     [SerializeField] [Range(0, 20)] private float nonVRSpeed = 10f;
@@ -12,7 +12,7 @@ public class SmoothPlaneMovement2D : MonoBehaviour
 
     private float currentSpeed;
 
-    private void UpdateTargetPosition(Vector3 _targetPosition)
+    protected virtual void UpdateTargetPosition(Vector3 _targetPosition)
     {
         Vector3 _targetPositionWithOffset = _targetPosition + offset;
         Vector2 _delta = _targetPositionWithOffset - transform.position;

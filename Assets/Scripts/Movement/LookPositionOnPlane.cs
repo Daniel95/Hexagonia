@@ -36,16 +36,24 @@ public class LookPositionOnPlane : MonoBehaviour
     private Vector3 minBounds;
     private Vector2 size;
     private Plane plane;
+    private int latestCalculatedFrame;
+    private Vector3 lookPosition;
 
     public Vector3 ClampToPlane(Vector3 _point)
     {
         Vector3 _clampedPoint = VectorHelper.Clamp(_point, minBounds, maxBounds);
-        //Vector3 _clampedPoint = new Vector3(Mathf.Clamp(_point.x, minBounds.x, maxBounds.x), Mathf.Clamp(_point.y, minBounds.y, maxBounds.y), transform.position.z);
         return _clampedPoint;
     }
 
-    public Vector3 GetRaycastPointOnPlane(out bool _hit)
+    public Vector3 GetLookPosition(out bool _hit)
     {
+        if (latestCalculatedFrame == Time.frameCount)
+        {
+            _hit = true;
+            return lookPosition;
+        }
+        latestCalculatedFrame = Time.frameCount;
+
         Vector3 _lookOriginPosition = hmdTransform.position;
         Vector3 _lookDirection = hmdTransform.forward;
 
@@ -53,15 +61,14 @@ public class LookPositionOnPlane : MonoBehaviour
         Ray _ray = new Ray(_lookOriginPosition, _lookDirection);
         _hit = plane.Raycast(_ray, out _enter);
 
-        Vector3 _pointOnPlane = new Vector3();
         if (_hit)
         {
             Vector3 _hitPoint = _ray.GetPoint(_enter);
             Vector3 _clampedPointOnPlane = VectorHelper.Clamp(_hitPoint, minBounds, maxBounds);
-            _pointOnPlane = new Vector3(_clampedPointOnPlane.x, _clampedPointOnPlane.y, _hitPoint.z);
+            lookPosition = new Vector3(_clampedPointOnPlane.x, _clampedPointOnPlane.y, _hitPoint.z);
         }
 
-        return _pointOnPlane;
+        return lookPosition;
     }
 
     private void Awake()
@@ -79,7 +86,7 @@ public class LookPositionOnPlane : MonoBehaviour
     private void Update()
     {
         bool _hit;
-        Vector3 _lookPosition = GetRaycastPointOnPlane(out _hit);
+        Vector3 _lookPosition = GetLookPosition(out _hit);
         if(!_hit) { return; }
 
         if (LookPositionUpdatedEvent != null)

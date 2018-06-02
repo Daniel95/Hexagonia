@@ -1,23 +1,32 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class PlayerLookInput : PlayerInputBase
 {
+    private Coroutine lookPositionUpdateCoroutine;
+
     public override void Activate()
     {
-        LookPositionOnPlane.LookPositionUpdatedEvent += LookInput;
+        lookPositionUpdateCoroutine = StartCoroutine(LookPositionUpdate());
     }
 
     public override void Deactivate()
     {
-        LookPositionOnPlane.LookPositionUpdatedEvent -= LookInput;
+        StopCoroutine(lookPositionUpdateCoroutine);
     }
 
-    private void LookInput(Vector3 _lookPosition)
+    private IEnumerator LookPositionUpdate()
     {
-        TargetPosition = _lookPosition;
-        if(TargetPositionUpdatedEvent != null)
+        bool _hit;
+
+        while (true)
         {
-            TargetPositionUpdatedEvent(TargetPosition);
+            TargetPosition = LookPositionOnPlane.Instance.GetLookPosition(out _hit);
+            if (_hit && TargetPositionUpdatedEvent != null)
+            {
+                TargetPositionUpdatedEvent(TargetPosition);
+            }
+            yield return null;
         }
     }
 }
