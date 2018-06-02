@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class ParticleAutoDestroy : MonoBehaviour
 {
-    [SerializeField] private List<ParticleSystem> particleSystem;
+    [SerializeField] private List<ParticleSystem> particleSystems;
 
     private void Update()
     {
-        bool isPlaying = particleSystem.Exists(x => x.isPlaying);
+        bool isPlaying = particleSystems.Exists(x => x.isPlaying);
 
         if(!isPlaying)
         {
