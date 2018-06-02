@@ -32,15 +32,16 @@ public class JoyStickUI : MonoBehaviour
 
     private void OnUpInput(Vector2 _position)
     {
-        //gameObject.SetActive(false);
+        gameObject.SetActive(false);
     }
 
     private void UpdateJoyStick(Vector2 _position, Vector2 _delta)
     {
         start.position = InputBase.StartDownPosition;
-        uiLineRenderer.Points[0] = start.position;
+        uiLineRenderer.Points[0] = start.localPosition;
         end.position = _position;
-        uiLineRenderer.Points[1] = end.position;
+        uiLineRenderer.Points[1] = end.localPosition;
+        uiLineRenderer.LineThickness = uiLineRenderer.LineThickness;
     }
 
     private void Awake()
