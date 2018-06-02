@@ -1,30 +1,10 @@
-﻿using UnityEngine.UI;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class LocalHighscore : MonoBehaviour {
 
-	public static LocalHighscore Instance { get { return GetInstance(); } }
-
-#region Singleton
-	private static LocalHighscore instance;
-
-	private static LocalHighscore GetInstance()
-	{
-		if(instance != null)
-		{
-			instance = FindObjectOfType<LocalHighscore>();
-		}
-
-		return instance;
-	}
-	#endregion
-
 	private const string LOCAL_HIGHSCORE = "Local_HighScore";
 
-	[SerializeField] private Text localHighscoreText;
-	[SerializeField] private Text obtainedScoreText;
-
-	public static int UpdateLocalHighscore
+	public static int HighScore
 	{
 		get
 		{
@@ -37,29 +17,21 @@ public class LocalHighscore : MonoBehaviour {
 		}
 	}
 
-	private void LoadPlayerPrefs()
+	private void UpdateHighScore(int _score)
 	{
-		localHighscoreText.text = "" + UpdateLocalHighscore;
-		obtainedScoreText.text = "" + Progression.LastScore;
-	}
-
-	private void UpdatePlayerPrefs(int _score)
-	{
-		if (_score > UpdateLocalHighscore)
+		if (_score > HighScore)
 		{
-			UpdateLocalHighscore = _score;
+			HighScore = _score;
 		}	
 	}
 
 	private void OnEnable()
 	{
-		Progression.ScoreUpdatedEvent += UpdatePlayerPrefs;
-		Player.DiedEvent += LoadPlayerPrefs;
+		Progression.ScoreUpdatedEvent += UpdateHighScore;
 	}
 
 	private void OnDisable()
 	{
-		Progression.ScoreUpdatedEvent -= UpdatePlayerPrefs;
-		Player.DiedEvent -= LoadPlayerPrefs;
+		Progression.ScoreUpdatedEvent -= UpdateHighScore;
 	}
 }
