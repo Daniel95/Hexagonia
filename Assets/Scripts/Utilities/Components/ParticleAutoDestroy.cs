@@ -3,8 +3,7 @@ using UnityEngine;
 
 public class ParticleAutoDestroy : MonoBehaviour
 {
-
-    [SerializeField] private new List<ParticleSystem> particleSystem;
+    [SerializeField] private List<ParticleSystem> particleSystem;
 
     private void Update()
     {
@@ -15,5 +14,4 @@ public class ParticleAutoDestroy : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
 }
