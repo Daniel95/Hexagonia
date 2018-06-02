@@ -6,11 +6,11 @@ using UnityEngine;
 /// </summary>
 public class ActivateParticle : MonoBehaviour {
 
-	[SerializeField] private List<ParticleSystem> particleSystem;
+	[SerializeField] private List<ParticleSystem> particleSystems;
 
 	private void Update()
 	{
-		bool isPlaying = particleSystem.Exists(x => x.isPlaying);
+		bool isPlaying = particleSystems.Exists(x => x.isPlaying);
 
 		if (!isPlaying)
 		{
@@ -20,9 +20,9 @@ public class ActivateParticle : MonoBehaviour {
 
 	private void OnEnable()
 	{
-		for (int i = 0; i < particleSystem.Count; i++)
+		for (int i = 0; i < particleSystems.Count; i++)
 		{
-			particleSystem[i].Play();
+			particleSystems[i].Play();
 		}
 	}
 }
