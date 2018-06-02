@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class PlayerLookInput : PlayerInputBase
 {
@@ -15,6 +14,10 @@ public class PlayerLookInput : PlayerInputBase
 
     private void LookInput(Vector3 _lookPosition)
     {
-        TargetPoint = _lookPosition;
+        TargetPosition = _lookPosition;
+        if(TargetPositionUpdatedEvent != null)
+        {
+            TargetPositionUpdatedEvent(TargetPosition);
+        }
     }
 }

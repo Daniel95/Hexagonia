@@ -2,5 +2,6 @@
 {
     Look,
     Tilt,
-    Drag
+    Drag,
+    Touch,
 }

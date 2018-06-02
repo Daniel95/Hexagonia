@@ -7,7 +7,7 @@ public class PlayerDragInput : PlayerInputBase
 
     public override void Activate()
     {
-        TargetPoint = LookPositionOnPlane.Instance.transform.position;
+        TargetPosition = LookPositionOnPlane.Instance.transform.position;
         InputBase.DraggingInputEvent += DragInput;
 
         joyStickUI.Activate();
@@ -21,9 +21,14 @@ public class PlayerDragInput : PlayerInputBase
 
     private void DragInput(Vector2 _dragPosition, Vector2 _delta)
     {
-        Vector2 _deltaSinceTouched = _dragPosition - InputBase.StartDownPosition;
+        Vector2 _deltaFromStartTouchPosition = _dragPosition - InputBase.StartDownPosition;
 
-        TargetPoint += ((Vector3)_deltaSinceTouched * dragSpeed) * Time.deltaTime;
-        TargetPoint = LookPositionOnPlane.Instance.ClampToPlane(TargetPoint);
+        TargetPosition += ((Vector3)_deltaFromStartTouchPosition * dragSpeed) * Time.deltaTime;
+        TargetPosition = LookPositionOnPlane.Instance.ClampToPlane(TargetPosition);
+
+        if (TargetPositionUpdatedEvent != null)
+        {
+            TargetPositionUpdatedEvent(TargetPosition);
+        }
     }
 }

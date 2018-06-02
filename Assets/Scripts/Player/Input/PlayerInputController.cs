@@ -53,19 +53,6 @@ public class PlayerInputController : MonoBehaviour
         }
     }
 
-    private IEnumerator InputUpdate()
-    {
-        while (true)
-        {
-            if (InputEvent != null)
-            {
-                InputEvent(currentPlayerInputBase.TargetPosition);
-            }
-
-            yield return null;
-        }
-    }
-
     private void UpdateInput()
     {
         if(!state) { return; }
@@ -87,6 +74,16 @@ public class PlayerInputController : MonoBehaviour
         }
     }
 
+    private void OnTargetPositionUpdated(Vector3 _targetPosition)
+    {
+        DebugHelper.SetDebugPosition(_targetPosition, "targetPosition");
+
+        if (InputEvent != null)
+        {
+            InputEvent(_targetPosition);
+        }
+    }
+
     private void StartInput(PlayerInputType _playerInputType)
     {
         PlayerInputBase _playerInputBase = playerInputs.Find(x => x.PlayerInputType == _playerInputType);
@@ -101,8 +98,7 @@ public class PlayerInputController : MonoBehaviour
 
         _playerInputBase.Activate();
         currentPlayerInputBase = _playerInputBase;
-
-        inputUpdateCoroutine = StartCoroutine(InputUpdate());
+        currentPlayerInputBase.TargetPositionUpdatedEvent += OnTargetPositionUpdated;
     }
 
     private void StopCurrentInput()
@@ -116,6 +112,7 @@ public class PlayerInputController : MonoBehaviour
         if(currentPlayerInputBase != null)
         {
             currentPlayerInputBase.Deactivate();
+            currentPlayerInputBase.TargetPositionUpdatedEvent -= OnTargetPositionUpdated;
             currentPlayerInputBase = null;
         }
     }
