@@ -160,12 +160,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a709a8713a08ae24e8000b305b7a533f, type: 2}
   m_IsPrefabParent: 0
---- !u!114 &370112883 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114043902782770872, guid: 12d09d3c619123e4eb672a0629354f50,
-    type: 2}
-  m_PrefabInternal: {fileID: 1772585507}
-  m_Script: {fileID: 11500000, guid: 10c69fe11e013c04597232dcbbc8a70f, type: 3}
 --- !u!1 &569902725
 GameObject:
   m_ObjectHideFlags: 0
@@ -536,7 +530,7 @@ Prefab:
         type: 2}
       propertyPath: joyStickUI
       value: 
-      objectReference: {fileID: 370112883}
+      objectReference: {fileID: 1775979101}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d7485381d29bd414d94aacee929eb185, type: 2}
   m_IsPrefabParent: 0
@@ -624,7 +618,13 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ebf684a46a93f3a409aacf5d57910791, type: 2}
   m_IsPrefabParent: 0
---- !u!1001 &1772585507
+--- !u!114 &1775979101 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114606035333664690, guid: 12d09d3c619123e4eb672a0629354f50,
+    type: 2}
+  m_PrefabInternal: {fileID: 2053201777}
+  m_Script: {fileID: 11500000, guid: 10c69fe11e013c04597232dcbbc8a70f, type: 3}
+--- !u!1001 &2053201777
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2

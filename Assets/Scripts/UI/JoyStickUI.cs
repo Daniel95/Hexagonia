@@ -1,13 +1,14 @@
 ﻿using UnityEngine;
+using UnityEngine.UI.Extensions;
 
-[RequireComponent(typeof(LineRenderer))]
+[RequireComponent(typeof(UILineRenderer))]
 public class JoyStickUI : MonoBehaviour
 {
     [SerializeField] private Transform start;
     [SerializeField] private Transform end;
     [SerializeField] private bool startDisabled;
 
-    private LineRenderer lineRenderer;
+    private UILineRenderer uiLineRenderer;
 
     public void Activate()
     {
@@ -31,21 +32,21 @@ public class JoyStickUI : MonoBehaviour
 
     private void OnUpInput(Vector2 _position)
     {
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
     }
 
     private void UpdateJoyStick(Vector2 _position, Vector2 _delta)
     {
         start.position = InputBase.StartDownPosition;
-        lineRenderer.SetPosition(0, Camera.main.ScreenToWorldPoint(new Vector3(start.position.x, start.position.y, 1)));
+        uiLineRenderer.Points[0] = start.position;
         end.position = _position;
-        lineRenderer.SetPosition(1, Camera.main.ScreenToWorldPoint(new Vector3(end.position.x, end.position.y, 1)));
+        uiLineRenderer.Points[1] = end.position;
     }
 
     private void Awake()
     {
-        lineRenderer = GetComponent<LineRenderer>();
-        lineRenderer.positionCount = 2;
+        uiLineRenderer = GetComponent<UILineRenderer>();
+        uiLineRenderer.Points = new Vector2[2];
         if (startDisabled)
         {
             gameObject.SetActive(false);
