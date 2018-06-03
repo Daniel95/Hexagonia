@@ -6,11 +6,12 @@ public class PlayerDragInput : PlayerBaseInput
     [SerializeField] private float dragSpeed = 1;
     [SerializeField] private JoyStickUI joyStickUI;
 
-    private Vector2 startInputPosition;
     private Vector2 screenCenter;
 
     public override void Activate()
     {
+        PlatformBaseInput.UpInputEvent += OnUpInput;
+
         TargetPosition = LookPositionOnPlane.Instance.transform.position;
 
         screenCenter = new Vector2(Screen.width / 2, Screen.height / 2);
@@ -26,6 +27,7 @@ public class PlayerDragInput : PlayerBaseInput
 
     public override void Deactivate()
     {
+        PlatformBaseInput.UpInputEvent -= OnUpInput;
         joyStickUI.Deactivate();
         base.Deactivate();
     }
@@ -47,5 +49,10 @@ public class PlayerDragInput : PlayerBaseInput
 
             yield return null;
         }
+    }
+
+    private void OnUpInput(Vector2 _inputPosition)
+    {
+        TargetPosition = screenCenter;
     }
 }

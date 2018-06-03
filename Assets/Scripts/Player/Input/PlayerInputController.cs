@@ -99,11 +99,9 @@ public class PlayerInputController : MonoBehaviour
 
         StopCurrentInput();
 
-
-        Debug.Log("start input " + _playerInputType);
-        _playerInputBase.Activate();
         currentPlayerInputBase = _playerInputBase;
         currentPlayerInputBase.TargetPositionUpdatedEvent += OnTargetPositionUpdated;
+        currentPlayerInputBase.Activate();
     }
 
     private void StopCurrentInput()
@@ -116,8 +114,8 @@ public class PlayerInputController : MonoBehaviour
 
         if(currentPlayerInputBase != null)
         {
-            currentPlayerInputBase.Deactivate();
             currentPlayerInputBase.TargetPositionUpdatedEvent -= OnTargetPositionUpdated;
+            currentPlayerInputBase.Deactivate();
             currentPlayerInputBase = null;
         }
     }

@@ -17,9 +17,8 @@ public class SmoothPlaneMovement : MonoBehaviour
     protected virtual void MoveToTargetPosition(Vector3 _targetPosition)
     {
         Vector3 _targetPositionWithOffset = _targetPosition + offset;
-        Vector2 _delta = _targetPositionWithOffset - transform.position;
-        Delta = _delta;
-        Vector2 _direction = _delta.normalized;
+        Delta = _targetPositionWithOffset - transform.position;
+        Vector2 _direction = Delta.normalized;
         float _distance = Vector2.Distance(_targetPositionWithOffset, transform.position);
 
         float _deltaSpeed = currentSpeed * Time.deltaTime;
