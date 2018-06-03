@@ -1,21 +1,8 @@
 ﻿using System.Collections;
-using UnityEngine;
 
-public class PlayerLookInput : PlayerInputBase
+public class PlayerLookInput : PlayerBaseInput
 {
-    private Coroutine lookPositionUpdateCoroutine;
-
-    public override void Activate()
-    {
-        lookPositionUpdateCoroutine = StartCoroutine(LookPositionUpdate());
-    }
-
-    public override void Deactivate()
-    {
-        StopCoroutine(lookPositionUpdateCoroutine);
-    }
-
-    private IEnumerator LookPositionUpdate()
+    protected override IEnumerator InputUpdate()
     {
         bool _hit;
 

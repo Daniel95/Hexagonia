@@ -12,16 +12,16 @@ public class JoyStickUI : MonoBehaviour
 
     public void Activate()
     {
-        InputBase.DraggingInputEvent += UpdateJoyStick;
-        InputBase.DownInputEvent += OnDownInput;
-        InputBase.UpInputEvent += OnUpInput;
+        PlatformBaseInput.InputEvent += UpdateJoyStick;
+        PlatformBaseInput.DownInputEvent += OnDownInput;
+        PlatformBaseInput.UpInputEvent += OnUpInput;
     }
 
     public void Deactivate()
     {
-        InputBase.DraggingInputEvent -= UpdateJoyStick;
-        InputBase.DownInputEvent -= OnDownInput;
-        InputBase.UpInputEvent -= OnUpInput;
+        PlatformBaseInput.InputEvent -= UpdateJoyStick;
+        PlatformBaseInput.DownInputEvent -= OnDownInput;
+        PlatformBaseInput.UpInputEvent -= OnUpInput;
         gameObject.SetActive(false);
     }
 
@@ -35,9 +35,9 @@ public class JoyStickUI : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    private void UpdateJoyStick(Vector2 _position, Vector2 _delta)
+    private void UpdateJoyStick(Vector2 _position)
     {
-        start.position = InputBase.StartDownPosition;
+        start.position = PlatformBaseInput.StartDownPosition;
         uiLineRenderer.Points[0] = start.localPosition;
         end.position = _position;
         uiLineRenderer.Points[1] = end.localPosition;

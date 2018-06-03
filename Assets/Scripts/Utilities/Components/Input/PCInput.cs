@@ -5,25 +5,14 @@ using UnityEngine.EventSystems;
 /// <summary>
 /// Input pc handles mobile input logic and the input events of InputBase
 /// </summary>
-public class InputPC : InputBase
+public class PCInput : PlatformBaseInput
 {
     [SerializeField] private KeyCode input = KeyCode.Mouse0;
 
-    private float startDownTime;
-    private Coroutine inputUpdateCoroutine;
-
-    /// <summary>
-    /// Start the pc input loop.
-    /// </summary>
-    protected override void StartInputUpdate()
-    {
-        base.StartInputUpdate();
-        InputUpdateCoroutine = StartCoroutine(InputUpdate());
-    }
-
-    private IEnumerator InputUpdate()
+    protected override IEnumerator InputUpdate()
     {
         Vector2 lastInputPosition = new Vector2();
+        float startDownTime = 0;
 
         while (true)
         {
@@ -32,12 +21,17 @@ public class InputPC : InputBase
             if (startedTouching)
             {
                 TouchState = TouchStates.TouchDown;
-                StartDownPosition = lastInputPosition = Input.mousePosition;
+                StartDownPosition = lastInputPosition = CurrentDownPosition = Input.mousePosition;
                 startDownTime = Time.time;
 
                 if (DownInputEvent != null)
                 {
-                    DownInputEvent(StartDownPosition);
+                    DownInputEvent(CurrentDownPosition);
+                }
+
+                if(InputEvent != null)
+                {
+                    InputEvent(CurrentDownPosition);
                 }
             }
 
@@ -45,7 +39,12 @@ public class InputPC : InputBase
             {
                 if (!Input.GetKeyUp(input))
                 {
-                    Vector2 currentMousePosition = Input.mousePosition;
+                    CurrentDownPosition = Input.mousePosition;
+
+                    if (InputEvent != null)
+                    {
+                        InputEvent(CurrentDownPosition);
+                    }
 
                     if (TouchState == TouchStates.TouchDown)
                     { 
@@ -58,14 +57,14 @@ public class InputPC : InputBase
                         }
                     }
 
-                    float distance = Vector2.Distance(currentMousePosition, StartDownPosition);
+                    float distance = Vector2.Distance(CurrentDownPosition, StartDownPosition);
                     if (distance >= DragTreshhold)
                     {
                         TouchState = TouchStates.Dragging;
-                        Vector2 delta = currentMousePosition - lastInputPosition;
+                        Vector2 delta = CurrentDownPosition - lastInputPosition;
                         if (DraggingInputEvent != null)
                         {
-                            DraggingInputEvent(currentMousePosition, delta);
+                            DraggingInputEvent(CurrentDownPosition, delta);
                         }
                     }
                     else 
@@ -83,12 +82,10 @@ public class InputPC : InputBase
 
                             if (HoldingInputEvent != null)
                             {
-                                HoldingInputEvent(currentMousePosition);
+                                HoldingInputEvent(CurrentDownPosition);
                             }
                         }
                     }
-
-                    lastInputPosition = currentMousePosition;
                 }
                 else
                 {
@@ -117,6 +114,8 @@ public class InputPC : InputBase
                     TouchState = TouchStates.None;
                 }
             }
+
+            lastInputPosition = CurrentDownPosition;
 
             yield return null;
         }

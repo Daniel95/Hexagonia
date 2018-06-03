@@ -28,13 +28,13 @@ public class PlayerInputController : MonoBehaviour
 
     private static bool state;
 
-    [SerializeField] List<PlayerInputBase> playerInputs;
+    [SerializeField] List<PlayerBaseInput> playerInputs;
     [SerializeField] private PlayerInputType mobileVRPlayerInputType = PlayerInputType.Tilt;
     [SerializeField] private PlayerInputType editorVRPlayerInputType = PlayerInputType.Look;
     [SerializeField] private PlayerInputType nonVRPlayerInputType = PlayerInputType.Drag;
 
     private Coroutine inputUpdateCoroutine;
-    private PlayerInputBase currentPlayerInputBase;
+    private PlayerBaseInput currentPlayerInputBase;
 
     public void SetState(bool _enabled)
     {
@@ -76,8 +76,6 @@ public class PlayerInputController : MonoBehaviour
 
     private void OnTargetPositionUpdated(Vector3 _targetPosition)
     {
-        DebugHelper.SetDebugPosition(_targetPosition, "targetPosition");
-
         if (InputEvent != null)
         {
             InputEvent(_targetPosition);
@@ -86,7 +84,7 @@ public class PlayerInputController : MonoBehaviour
 
     private void StartInput(PlayerInputType _playerInputType)
     {
-        PlayerInputBase _playerInputBase = playerInputs.Find(x => x.PlayerInputType == _playerInputType);
+        PlayerBaseInput _playerInputBase = playerInputs.Find(x => x.PlayerInputType == _playerInputType);
 
         if(_playerInputBase == null)
         {

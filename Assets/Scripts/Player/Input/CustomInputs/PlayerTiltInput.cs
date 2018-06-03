@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class PlayerTiltInput : PlayerInputBase
+public class PlayerTiltInput : PlayerBaseInput
 {
     [SerializeField] private float tiltSpeed = 1;
 
@@ -13,16 +13,16 @@ public class PlayerTiltInput : PlayerInputBase
     public override void Activate()
     {
         Input.gyro.enabled = true;
-        tiltCoroutine = StartCoroutine(TiltUpdate());
+        base.Activate();
     }
 
     public override void Deactivate()
     {
         Input.gyro.enabled = false;
-        StopCoroutine(tiltCoroutine);
+        base.Deactivate();
     }
 
-    private IEnumerator TiltUpdate()
+    protected override IEnumerator InputUpdate()
     {
         while(true)
         {

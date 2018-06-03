@@ -37,15 +37,19 @@ public class Player : MonoBehaviour
     private int downStateIndex = Animator.StringToHash("down");
     private bool playingMiddleState;
     private bool hitThisframe;
+	private Vector2 delta;
 	private Vector2 ratio;
+    private float absRatioX;
+    private float absRatioY;
+    private Vector3 previousTargetPosition;
 
     private void Animate(Vector3 _targetPosition)
     {
-        Vector2 _delta = _targetPosition - transform.position;
-        ratio = VectorHelper.Divide(_delta, (Vector2)LookPositionOnPlane.Instance.Size) * animateSensitivity;
+        delta = (_targetPosition - previousTargetPosition) / Time.deltaTime;
+        ratio = VectorHelper.Divide(delta, (Vector2)LookPositionOnPlane.Instance.Size) * animateSensitivity;
 
-        float absRatioX = Mathf.Abs(ratio.x);
-        float absRatioY = Mathf.Abs(ratio.y);
+        absRatioX = Mathf.Abs(ratio.x);
+        absRatioY = Mathf.Abs(ratio.y);
         if (absRatioX > turnAnimateThreshold && absRatioX > absRatioY)
         {
             playingMiddleState = false;
@@ -75,6 +79,8 @@ public class Player : MonoBehaviour
             playingMiddleState = true;
             animator.Play(middleStateIndex);
         }
+
+        previousTargetPosition = _targetPosition;
     }
 
     private void OnEnable()

@@ -1,12 +1,14 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 
 /// <summary>
 /// Base input class which contains all input events that the game can listen to.
 /// </summary>
-public class InputBase : MonoBehaviour
+public abstract class PlatformBaseInput : MonoBehaviour
 {
     public static Vector2 StartDownPosition { get; protected set; }
+    public static Vector2 CurrentDownPosition { get; protected set; }
 
     public enum TouchStates { Holding, Dragging, TouchDown, None }
 
@@ -14,6 +16,10 @@ public class InputBase : MonoBehaviour
     /// When the user pressed down.
     /// </summary>
     public static Action<Vector2> DownInputEvent;
+    /// <summary>
+    /// When the user pressed down.
+    /// </summary>
+    public static Action<Vector2> InputEvent;
     /// <summary>
     /// When the user pressed up.
     /// </summary>
@@ -86,5 +92,9 @@ public class InputBase : MonoBehaviour
         }
     }
 
-    protected virtual void StartInputUpdate() { }
+    protected abstract IEnumerator InputUpdate();
+
+    protected virtual void StartInputUpdate() {
+        InputUpdateCoroutine = StartCoroutine(InputUpdate());
+    }
 }
