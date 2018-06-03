@@ -10,14 +10,18 @@ public class SmoothPlaneMovement : MonoBehaviour
     [SerializeField] [Range(0, 20)] private float nonVRSpeed = 10f;
     [SerializeField] private Vector3 offset;
 
+    protected Vector2 Delta;
+
     private float currentSpeed;
 
-    protected virtual void UpdateTargetPosition(Vector3 _targetPosition)
+    protected virtual void MoveToTargetPosition(Vector3 _targetPosition)
     {
         Vector3 _targetPositionWithOffset = _targetPosition + offset;
         Vector2 _delta = _targetPositionWithOffset - transform.position;
+        Delta = _delta;
         Vector2 _direction = _delta.normalized;
         float _distance = Vector2.Distance(_targetPositionWithOffset, transform.position);
+
         float _deltaSpeed = currentSpeed * Time.deltaTime;
 
         Vector3 _positionIncrement = _direction * (_distance * _deltaSpeed);
@@ -43,13 +47,13 @@ public class SmoothPlaneMovement : MonoBehaviour
 
     private void OnEnable()
     {
-        PlayerInputController.InputEvent += UpdateTargetPosition;
+        PlayerInputController.InputEvent += MoveToTargetPosition;
         VRSwitch.SwitchedEvent += UpdateSpeedToVRSpeed;
     }
 
     private void OnDisable()
     {
-        PlayerInputController.InputEvent -= UpdateTargetPosition;
+        PlayerInputController.InputEvent -= MoveToTargetPosition;
         VRSwitch.SwitchedEvent += UpdateSpeedToVRSpeed;
     }
 }

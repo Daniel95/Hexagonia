@@ -51,11 +51,11 @@ public class PlayerTrail : MonoBehaviour
 	
     private void OnEnable()
     {
-        PlayerMovement.OnMoved += UpdateLineRenderer;       
+        Player.OnMoved += UpdateLineRenderer;       
     }
 
     private void OnDisable()
     {
-        PlayerMovement.OnMoved -= UpdateLineRenderer;
+        Player.OnMoved -= UpdateLineRenderer;
     }
 }

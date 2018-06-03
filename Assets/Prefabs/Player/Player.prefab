@@ -20,7 +20,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4633773709061946}
   - component: {fileID: 54209924105857420}
-  - component: {fileID: 114895000244077636}
   - component: {fileID: 114978635711108654}
   m_Layer: 0
   m_Name: Player
@@ -207,20 +206,6 @@ MonoBehaviour:
   - Prefab: {fileID: 1503320352362302, guid: 7b5981167177e924f9792a2bd1caa496, type: 2}
     Label: 1
   offset: {x: 0, y: 0, z: -0}
---- !u!114 &114895000244077636
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1112214052218788}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ec434af7a6fc8040b67e12f138d96b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  vrSpeed: 10
-  nonVRSpeed: 15
-  offset: {x: 0, y: 0, z: -3}
 --- !u!114 &114978635711108654
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -232,10 +217,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fe69ef57303ba448aa213553b02ef80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vrSpeed: 10
+  nonVRSpeed: 10
+  offset: {x: 0, y: 0, z: 0}
   dyingPlayer: {fileID: 1694964997592600, guid: 0a03155c6d7b9514a85ce7569d8f2553,
     type: 2}
   animator: {fileID: 95832091193532650}
-  animateSensitivity: 0.5
+  animateSensitivity: 10
   turnAnimateThreshold: 0.05
 --- !u!212 &212037232534344754
 SpriteRenderer:

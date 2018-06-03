@@ -7,10 +7,13 @@ public class PlayerDragInput : PlayerBaseInput
     [SerializeField] private JoyStickUI joyStickUI;
 
     private Vector2 startInputPosition;
+    private Vector2 screenCenter;
 
     public override void Activate()
     {
         TargetPosition = LookPositionOnPlane.Instance.transform.position;
+
+        screenCenter = new Vector2(Screen.width / 2, Screen.height / 2);
 
         if (TargetPositionUpdatedEvent != null)
         {
@@ -18,9 +21,6 @@ public class PlayerDragInput : PlayerBaseInput
         }
 
         joyStickUI.Activate();
-
-        Application.targetFrameRate = 60;
-
         base.Activate();
     }
 
@@ -34,12 +34,9 @@ public class PlayerDragInput : PlayerBaseInput
     {
         while(true)
         {
-            //Vector2 _currentInputPosition = Camera.main.ScreenToViewportPoint(InputBase.CurrentDownPosition);
-            //Vector2 _startInputPosition = Camera.main.ScreenToViewportPoint(InputBase.StartDownPosition);
-
             Vector2 _deltaFromStartTouchPosition = PlatformBaseInput.CurrentDownPosition - PlatformBaseInput.StartDownPosition;
-
-            TargetPosition += ((Vector3)_deltaFromStartTouchPosition * dragSpeed) * Time.deltaTime;
+            Vector3 _targetScreenPosition = screenCenter + _deltaFromStartTouchPosition;
+            TargetPosition = Camera.main.ScreenToWorldPoint(new Vector3(_targetScreenPosition.x, _targetScreenPosition.y, LookPositionOnPlane.Instance.transform.position.z));
 
             TargetPosition = LookPositionOnPlane.Instance.ClampToPlane(TargetPosition);
 

@@ -4,8 +4,9 @@ using UnityEngine;
 /// <summary>
 /// Controls the animations, collisions and contains several events related to the player.
 /// </summary>
-public class Player : MonoBehaviour
+public class Player : SmoothPlaneMovement
 {
+    public static Action<Vector3> OnMoved;
     public static Action DiedEvent;
     public static Action<GameObject> TriggerCollisionEvent;
     public static Player Instance { get { return GetInstance(); } }
@@ -37,16 +38,25 @@ public class Player : MonoBehaviour
     private int downStateIndex = Animator.StringToHash("down");
     private bool playingMiddleState;
     private bool hitThisframe;
-	private Vector2 delta;
 	private Vector2 ratio;
     private float absRatioX;
     private float absRatioY;
-    private Vector3 previousTargetPosition;
 
-    private void Animate(Vector3 _targetPosition)
+    protected override void MoveToTargetPosition(Vector3 _targetPosition)
     {
-        delta = (_targetPosition - previousTargetPosition) / Time.deltaTime;
-        ratio = VectorHelper.Divide(delta, (Vector2)LookPositionOnPlane.Instance.Size) * animateSensitivity;
+        base.MoveToTargetPosition(_targetPosition);
+
+        if (OnMoved != null)
+        {
+            OnMoved(transform.position);
+        }
+
+        UpdateAnimation();
+    }
+
+    private void UpdateAnimation()
+    {
+        ratio = VectorHelper.Divide(Delta, (Vector2)LookPositionOnPlane.Instance.Size) * animateSensitivity;
 
         absRatioX = Mathf.Abs(ratio.x);
         absRatioY = Mathf.Abs(ratio.y);
@@ -79,18 +89,6 @@ public class Player : MonoBehaviour
             playingMiddleState = true;
             animator.Play(middleStateIndex);
         }
-
-        previousTargetPosition = _targetPosition;
-    }
-
-    private void OnEnable()
-    {
-        PlayerInputController.InputEvent += Animate;
-    }
-
-    private void OnDisable()
-    {
-        PlayerInputController.InputEvent -= Animate;
     }
 
     private void OnTriggerEnter(Collider _otherCollider)
