@@ -34,7 +34,7 @@ public class PlayerDragInput : PlayerBaseInput
     {
         while(true)
         {
-            Vector2 _deltaFromStartTouchPosition = PlatformBaseInput.CurrentDownPosition - PlatformBaseInput.StartDownPosition;
+            Vector2 _deltaFromStartTouchPosition = PlatformBaseInput.CurrentDownPosition - PlatformBaseInput.StartDownPosition * dragSpeed;
             Vector3 _targetScreenPosition = screenCenter + _deltaFromStartTouchPosition;
             TargetPosition = Camera.main.ScreenToWorldPoint(new Vector3(_targetScreenPosition.x, _targetScreenPosition.y, LookPositionOnPlane.Instance.transform.position.z));
 

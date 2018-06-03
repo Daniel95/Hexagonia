@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -29,8 +28,7 @@ public class PlayerInputController : MonoBehaviour
     private static bool state;
 
     [SerializeField] List<PlayerBaseInput> playerInputs;
-    [SerializeField] private PlayerInputType mobileVRPlayerInputType = PlayerInputType.Tilt;
-    [SerializeField] private PlayerInputType editorVRPlayerInputType = PlayerInputType.Look;
+    [SerializeField] private PlayerInputType vrPlayerInputType = PlayerInputType.Tilt;
     [SerializeField] private PlayerInputType nonVRPlayerInputType = PlayerInputType.Drag;
 
     private Coroutine inputUpdateCoroutine;
@@ -59,18 +57,25 @@ public class PlayerInputController : MonoBehaviour
 
         if(VRSwitch.VRState)
         {
-            if(Application.isEditor)
+            if(!DebugLibrary.UseDefaultVRPlayerInputType)
             {
-                StartInput(editorVRPlayerInputType);
-            }
+                StartInput(DebugLibrary.VRPlayerInputType);
+            } 
             else
             {
-                StartInput(mobileVRPlayerInputType);
+                StartInput(vrPlayerInputType);
             }
         }
         else
         {
-            StartInput(nonVRPlayerInputType);
+            if (!DebugLibrary.UseDefaultNonVRPlayerInputType)
+            {
+                StartInput(DebugLibrary.NonVRPlayerInputType);
+            }
+            else
+            {
+                StartInput(nonVRPlayerInputType);
+            }
         }
     }
 
@@ -94,6 +99,8 @@ public class PlayerInputController : MonoBehaviour
 
         StopCurrentInput();
 
+
+        Debug.Log("start input " + _playerInputType);
         _playerInputBase.Activate();
         currentPlayerInputBase = _playerInputBase;
         currentPlayerInputBase.TargetPositionUpdatedEvent += OnTargetPositionUpdated;
