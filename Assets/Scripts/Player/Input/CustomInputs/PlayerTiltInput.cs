@@ -12,12 +12,10 @@ public class PlayerTiltInput : PlayerBaseInput
     private Coroutine tiltCoroutine;
     private bool planeHit;
     private Vector3 lookPositionOnPlane;
-    private Transform cameraTransform;
 
     public override void Activate()
     {
         Input.gyro.enabled = true;
-        cameraTransform = Camera.main.gameObject.transform;
         base.Activate();
     }
 
@@ -31,13 +29,10 @@ public class PlayerTiltInput : PlayerBaseInput
     {
         while(true)
         {
-            //float _cameraZRotation = testRotation;
-            float _cameraZRotation = cameraTransform.rotation.eulerAngles.z;
-            float _rotationRange = maxCameraRotation - minCameraRotation;
-            float _progress = (_cameraZRotation - minCameraRotation) / _rotationRange;
-            float _tilt = Mathf.Lerp(-tiltSpeed, tiltSpeed, _progress);
+            Debug.Log(Input.acceleration.x);
 
-            TargetPosition.x = Player.Instance.transform.position.x + _tilt;
+            float _acceleration = Input.acceleration.x * tiltSpeed;
+            TargetPosition.x = Player.Instance.transform.position.x + _acceleration;
 
             lookPositionOnPlane = LookPositionOnPlane.Instance.GetLookPosition(out planeHit);
             if (planeHit) {
@@ -54,4 +49,23 @@ public class PlayerTiltInput : PlayerBaseInput
             yield return null;
         }
     }
+
+    /*
+    private void Update()
+    {
+        Input.gyro.enabled = true;
+        Quaternion referenceRotation = Quaternion.identity;
+        Quaternion deviceRotation = GyroHelper.Get();
+        Quaternion eliminationOfXY = Quaternion.Inverse(
+            Quaternion.FromToRotation(referenceRotation * Vector3.forward,
+                                      deviceRotation * Vector3.forward)
+        );
+        Quaternion rotationZ = eliminationOfXY * deviceRotation;
+        float roll = rotationZ.eulerAngles.z;
+        Debug.Log("________________");
+        Debug.Log("gyro roll " + roll);
+        Debug.Log("acceleration " + Input.acceleration.x);
+        Debug.Log("Camera rotation " + Camera.main.transform.localRotation.eulerAngles);
+    }
+    */
 }
