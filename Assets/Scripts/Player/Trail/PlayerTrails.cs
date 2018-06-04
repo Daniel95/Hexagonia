@@ -13,13 +13,11 @@ public class PlayerTrails : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Sprite previousSprite;
 
-    /*
     private void Awake() {
         spriteRenderer = GetComponent<SpriteRenderer>();
 
         InitiateTrailPositions();
     }
-    */
 
     private void Update()
     {
@@ -35,6 +33,7 @@ public class PlayerTrails : MonoBehaviour
         foreach (TrailPrefabAndLabelPair trailPrefabByLabelData in trailPrefabByLabelDatas)
         {
             List<Vector2> _pixelCoordinates = TargetPixelCoordinatesDataLibrary.Instance.GetTargetPixelCoordinates(spriteRenderer.sprite, trailPrefabByLabelData.Label);
+
             List<Transform> _trails = trailsByLabel[trailPrefabByLabelData.Label];
 
             for (int i = 0; i < _pixelCoordinates.Count; i++)
@@ -52,6 +51,7 @@ public class PlayerTrails : MonoBehaviour
         foreach (TrailPrefabAndLabelPair trailPrefabByLabelData in trailPrefabByLabelDatas)
         {
             List<Vector2> _pixelCoordinates = TargetPixelCoordinatesDataLibrary.Instance.GetTargetPixelCoordinates(spriteRenderer.sprite, trailPrefabByLabelData.Label);
+
             List<Transform> _trails = new List<Transform>();
 
             for (int i = 0; i < _pixelCoordinates.Count; i++)
