@@ -10,21 +10,27 @@ public class GameOverUI : MonoBehaviour
     [SerializeField] private Text currentScore;
     [SerializeField] private Text totalScore;
 
+    private const string PLAYERPREFS_SCORE = "TotalScore";
+
     private void OnEnable()
     {
-        DyingPlayer.AnimationEnd += Activate;
+        DyingPlayer.AnimationEndEvent += Activate;
+        Player.DiedEvent += RecenterUI;
     }
 
     private void OnDisable()
     {
-        DyingPlayer.AnimationEnd -= Activate;
+        DyingPlayer.AnimationEndEvent -= Activate;
+        Player.DiedEvent -= RecenterUI;
     }
 
     private void Activate()
     {
         menu.SetActive(true);
-        currentScore.text = ResourceValue.Value.ToString();
-        PlayerPrefs.SetFloat("score", PlayerPrefs.GetFloat("score") + ResourceValue.Value);
-        totalScore.text = PlayerPrefs.GetFloat("score").ToString();
+    }
+
+    private void RecenterUI()
+    {
+        menu.transform.position = new Vector3(Player.Instance.transform.position.x, Player.Instance.transform.position.y, menu.transform.position.z);
     }
 }
