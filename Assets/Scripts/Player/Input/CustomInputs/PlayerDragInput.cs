@@ -29,15 +29,13 @@ public class PlayerDragInput : PlayerBaseInput
         while(true)
         {
             if (PlatformBaseInput.Down) {
-                Vector3 _playerPosition = Player.Instance.transform.position;
-
                 Vector3 _startDownWorldPosition = Camera.main.ScreenToWorldPoint(new Vector3(PlatformBaseInput.StartDownPosition.x, PlatformBaseInput.StartDownPosition.y, LookPositionOnPlane.Instance.transform.position.z));
                 Vector3 _currentDownPositionWorldPosition = Camera.main.ScreenToWorldPoint(new Vector3(PlatformBaseInput.CurrentDownPosition.x, PlatformBaseInput.CurrentDownPosition.y, LookPositionOnPlane.Instance.transform.position.z));
                 Vector3 _deltaFromStartTouchPosition = _currentDownPositionWorldPosition - _startDownWorldPosition;
 
                 Vector3 _deltaWithSpeed = _deltaFromStartTouchPosition * dragSpeed;
 
-                TargetPosition = _playerPosition + _deltaWithSpeed;
+                TargetPosition = Player.Instance.transform.position + _deltaWithSpeed;
                 TargetPosition = LookPositionOnPlane.Instance.ClampToPlane(TargetPosition);
             }
 

@@ -21,10 +21,13 @@ public class PlayerTouchInput : PlayerBaseInput
     {
         while (true)
         {
-            Vector3 _touchPosition = Camera.main.ScreenToWorldPoint(new Vector3(PlatformBaseInput.CurrentDownPosition.x, PlatformBaseInput.CurrentDownPosition.y, LookPositionOnPlane.Instance.transform.position.z));
+            if(PlatformBaseInput.Down)
+            {
+                Vector3 _touchPosition = Camera.main.ScreenToWorldPoint(new Vector3(PlatformBaseInput.CurrentDownPosition.x, PlatformBaseInput.CurrentDownPosition.y, LookPositionOnPlane.Instance.transform.position.z));
 
-            TargetPosition = _touchPosition + offset;
-            TargetPosition = LookPositionOnPlane.Instance.ClampToPlane(TargetPosition);
+                TargetPosition = _touchPosition + offset;
+                TargetPosition = LookPositionOnPlane.Instance.ClampToPlane(TargetPosition);
+            }
 
             if (TargetPositionUpdatedEvent != null)
             {

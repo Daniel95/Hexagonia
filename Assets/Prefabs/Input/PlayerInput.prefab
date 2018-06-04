@@ -56,7 +56,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerInputType: 1
-  tiltSpeed: 0.05
+  maxCameraRotation: -45
+  minCameraRotation: 45
+  tiltSpeed: 1
+  testRotation: 20
 --- !u!114 &114554856832500068
 MonoBehaviour:
   m_ObjectHideFlags: 1

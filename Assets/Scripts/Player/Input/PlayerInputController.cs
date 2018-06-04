@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerInputController : MonoBehaviour
 {
     public static PlayerInputController Instance { get { return GetInstance(); } }
-    public static bool State { get { return state; } }
+    public bool State { get { return state; } }
 
     #region Singleton
     private static PlayerInputController instance;
@@ -25,7 +25,7 @@ public class PlayerInputController : MonoBehaviour
     /// </summary>
     public static Action<Vector3> InputEvent;
 
-    private static bool state;
+    private bool state;
 
     [SerializeField] List<PlayerBaseInput> playerInputs;
     [SerializeField] private PlayerInputType vrPlayerInputType = PlayerInputType.Tilt;
