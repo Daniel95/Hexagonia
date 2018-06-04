@@ -23,17 +23,23 @@ public class Coin : MonoBehaviour
 	}
 	#endregion
 
-	[SerializeField] private int value;
+	private const string COIN_PARTICLE = "CoinParticle";
 
-    private void OnPlayerTriggerCollision(GameObject _gameObject) 
+	[SerializeField] private int value;
+	private GameObject particle;
+
+	private void OnPlayerTriggerCollision(GameObject _gameObject) 
     {
         if(_gameObject != gameObject) { return; }
 
         if (CollectedEvent != null) {
             CollectedEvent(value);
         }
-        Destroy(gameObject);
-    }
+		particle = ObjectPool.Instance.GetObjectForType(COIN_PARTICLE, false);
+		particle.transform.position = transform.position;
+
+		Destroy(gameObject);
+	}
 
     private void OnEnable() 
     {
