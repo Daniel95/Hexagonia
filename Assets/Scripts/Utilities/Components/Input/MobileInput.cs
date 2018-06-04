@@ -34,8 +34,8 @@ public class MobileInput : PlatformBaseInput
 
             if (TouchState != TouchStates.None)
             {
-                bool isTouching = Input.touchCount > 0 && Input.GetTouch(0).phase != TouchPhase.Ended && Input.GetTouch(0).phase != TouchPhase.Canceled;
-                if (isTouching)
+                Down = Input.touchCount > 0 && Input.GetTouch(0).phase != TouchPhase.Ended && Input.GetTouch(0).phase != TouchPhase.Canceled;
+                if (Down)
                 {
                     CurrentDownPosition = Input.GetTouch(0).position;
                     if (InputEvent != null)

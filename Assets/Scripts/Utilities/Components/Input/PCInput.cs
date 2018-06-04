@@ -37,7 +37,8 @@ public class PCInput : PlatformBaseInput
 
             if (TouchState != TouchStates.None)
             {
-                if (!Input.GetKeyUp(input))
+                Down = !Input.GetKeyUp(input);
+                if (Down)
                 {
                     CurrentDownPosition = Input.mousePosition;
 

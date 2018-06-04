@@ -9,6 +9,7 @@ public abstract class PlatformBaseInput : MonoBehaviour
 {
     public static Vector2 StartDownPosition { get; protected set; }
     public static Vector2 CurrentDownPosition { get; protected set; }
+    public static bool Down { get; protected set; }
 
     public enum TouchStates { Holding, Dragging, TouchDown, None }
 
