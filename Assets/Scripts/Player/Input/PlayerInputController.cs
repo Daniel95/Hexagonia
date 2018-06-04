@@ -120,12 +120,6 @@ public class PlayerInputController : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        SetState(true);
-        UpdateInput();
-    }
-
     private void OnSceneSwitchCompleted(Scenes? _previousScene, Scenes _nextScene)
     {
         SetState(VRSwitch.VRState);

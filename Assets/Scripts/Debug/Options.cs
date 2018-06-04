@@ -10,14 +10,14 @@ public partial class SROptions
     [Sort(-1)]
     public void UseDefaultVRControls()
     {
-        DebugLibrary.UseDefaultNonVRPlayerInputType = true;
+        DebugLibrary.UseDefaultVRPlayerInputType = true;
     }
 
     [Category("VR Controls")]
     [Sort(-1)]
     public void UseLookControls()
     {
-        DebugLibrary.UseDefaultNonVRPlayerInputType = false;
+        DebugLibrary.UseDefaultVRPlayerInputType = false;
         DebugLibrary.VRPlayerInputType = PlayerInputType.Look;
     }
 
@@ -25,7 +25,7 @@ public partial class SROptions
     [Sort(-1)]
     public void UseTiltControls()
     {
-        DebugLibrary.UseDefaultNonVRPlayerInputType = false;
+        DebugLibrary.UseDefaultVRPlayerInputType = false;
         DebugLibrary.VRPlayerInputType = PlayerInputType.Tilt;
     }
 
@@ -33,23 +33,23 @@ public partial class SROptions
     [Sort(-1)]
     public void UseDefaultNonVRControls()
     {
-        DebugLibrary.UseDefaultVRPlayerInputType = true;
+        DebugLibrary.UseDefaultNonVRPlayerInputType = true;
     }
 
     [Category("Non VR Controls")]
     [Sort(-1)]
     public void UseDragControls()
     {
-        DebugLibrary.UseDefaultVRPlayerInputType = false;
-        DebugLibrary.VRPlayerInputType = PlayerInputType.Drag;
+        DebugLibrary.UseDefaultNonVRPlayerInputType = false;
+        DebugLibrary.NonVRPlayerInputType = PlayerInputType.Drag;
     }
 
     [Category("Non VR Controls")]
     [Sort(-1)]
     public void UseTouchControls()
     {
-        DebugLibrary.UseDefaultVRPlayerInputType = false;
-        DebugLibrary.VRPlayerInputType = PlayerInputType.Touch;
+        DebugLibrary.UseDefaultNonVRPlayerInputType = false;
+        DebugLibrary.NonVRPlayerInputType = PlayerInputType.Touch;
     }
 
     private void OnValueChanged(string _n, object _newValue)
