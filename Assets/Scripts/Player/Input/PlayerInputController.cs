@@ -36,8 +36,8 @@ public class PlayerInputController : MonoBehaviour
 
     public void SetState(bool _enabled)
     {
-        state = _enabled;
         bool _previousState = state;
+        state = _enabled;
 
         if (state == _previousState) { return; }
 
@@ -120,23 +120,18 @@ public class PlayerInputController : MonoBehaviour
         }
     }
 
-    private void OnSceneSwitchCompleted(Scenes? _previousScene, Scenes _nextScene)
+    private void Awake()
     {
-        SetState(VRSwitch.VRState);
-        UpdateInput();
+        SetState(true);
     }
 
     private void OnEnable()
     {
-        VRSwitch.SwitchedEvent += UpdateInput;
-        SceneLoader.SceneSwitchCompletedEvent += OnSceneSwitchCompleted;
         Player.DiedEvent += StopCurrentInput;
     }
 
     private void OnDisable()
     {
-        VRSwitch.SwitchedEvent -= UpdateInput;
-        SceneLoader.SceneSwitchCompletedEvent -= OnSceneSwitchCompleted;
         Player.DiedEvent -= StopCurrentInput;
     }
 }
