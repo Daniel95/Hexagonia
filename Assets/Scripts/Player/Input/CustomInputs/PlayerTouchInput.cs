@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class PlayerTouchInput : PlayerBaseInput
 {
+    [SerializeField] private Vector3 offset;
+
     public override void Activate()
     {
         TargetPosition = LookPositionOnPlane.Instance.transform.position;
@@ -15,16 +17,13 @@ public class PlayerTouchInput : PlayerBaseInput
         base.Activate();
     }
 
-    public override void Deactivate()
-    {
-        base.Deactivate();
-    }
-
     protected override IEnumerator InputUpdate()
     {
         while (true)
         {
-            TargetPosition = Camera.main.ScreenToWorldPoint(new Vector3(PlatformBaseInput.CurrentDownPosition.x, PlatformBaseInput.CurrentDownPosition.y, LookPositionOnPlane.Instance.transform.position.z));
+            Vector3 _touchPosition = Camera.main.ScreenToWorldPoint(new Vector3(PlatformBaseInput.CurrentDownPosition.x, PlatformBaseInput.CurrentDownPosition.y, LookPositionOnPlane.Instance.transform.position.z));
+
+            TargetPosition = _touchPosition + offset;
             TargetPosition = LookPositionOnPlane.Instance.ClampToPlane(TargetPosition);
 
             if (TargetPositionUpdatedEvent != null)
