@@ -3,8 +3,6 @@ using UnityEngine.PostProcessing;
 
 public class CameraHolderMain : CameraHolder
 {
-    [SerializeField] private GameObject eventSystemGameobject;
-
     private PostProcessingBehaviour postProcessingBehaviour;
     private Gyro gyro;
 
@@ -20,10 +18,6 @@ public class CameraHolderMain : CameraHolder
         if (!VRSwitch.Instance.VRState)
         {
             gyro.enabled = true;
-        }
-        else
-        {
-            eventSystemGameobject.SetActive(false);
         }
         VRSwitch.Instance.GVRReticlePointerGameObject.SetActive(false);
     }
