@@ -75,6 +75,12 @@ public class MusicManager : MonoBehaviour
         
         float _delay = _randomSong.clip.length;
 
+        if (delayCoroutine != null)
+        {
+            CoroutineHelper.Stop(delayCoroutine);
+            delayCoroutine = null;
+        }
+
         delayCoroutine = CoroutineHelper.DelayTime(_delay, () => SwitchSong());
     }
 
