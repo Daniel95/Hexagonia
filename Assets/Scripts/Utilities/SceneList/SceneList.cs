@@ -4,7 +4,6 @@ public enum Scenes
 {
 	Default = 0,
 	Menu = 1,
-	Main = 2,
-	FPSTest = 3
+	Main = 2
 }
 

@@ -11,13 +11,13 @@ public class DebugLibrary : MonoBehaviour
 
     public static bool UseDefaultVRPlayerInputType
     {
-        get { return Convert.ToBoolean(PlayerPrefs.GetInt(USE_DEFAULT_VR_PLAYER_INPUT_TYPE, 0)); }
+        get { return Convert.ToBoolean(PlayerPrefs.GetInt(USE_DEFAULT_VR_PLAYER_INPUT_TYPE, 1)); }
         set { PlayerPrefs.SetInt(USE_DEFAULT_VR_PLAYER_INPUT_TYPE, Convert.ToInt16(value)); }
     }
 
     public static bool UseDefaultNonVRPlayerInputType
     {
-        get { return Convert.ToBoolean(PlayerPrefs.GetInt(USE_DEFAULT_NON_VR_PLAYER_INPUT_TYPE, 0)); }
+        get { return Convert.ToBoolean(PlayerPrefs.GetInt(USE_DEFAULT_NON_VR_PLAYER_INPUT_TYPE, 1)); }
         set { PlayerPrefs.SetInt(USE_DEFAULT_NON_VR_PLAYER_INPUT_TYPE, Convert.ToInt16(value)); }
     }
 
