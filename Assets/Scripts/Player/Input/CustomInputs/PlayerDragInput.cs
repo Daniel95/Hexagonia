@@ -44,7 +44,7 @@ public class PlayerDragInput : PlayerBaseInput
                 TargetPositionUpdatedEvent(TargetPosition);
             }
 
-            yield return null;
+            yield return new WaitForFixedUpdate();
         }
     }
 }
