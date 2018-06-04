@@ -59,10 +59,7 @@ public class MusicManager : MonoBehaviour
         if (switching)
         {
             StopAllCoroutines();
-            if (delayCoroutine != null)
-            {
-                CoroutineHelper.Stop(delayCoroutine);
-            }
+            DelayCoroutineCheck();
         }
 
         Song _randomSong = RandomSong();
@@ -75,13 +72,18 @@ public class MusicManager : MonoBehaviour
         
         float _delay = _randomSong.clip.length;
 
+        DelayCoroutineCheck();
+
+        delayCoroutine = CoroutineHelper.DelayTime(_delay, () => SwitchSong());
+    }
+
+    private void DelayCoroutineCheck()
+    {
         if (delayCoroutine != null)
         {
             CoroutineHelper.Stop(delayCoroutine);
             delayCoroutine = null;
         }
-
-        delayCoroutine = CoroutineHelper.DelayTime(_delay, () => SwitchSong());
     }
 
     private void Awake()
