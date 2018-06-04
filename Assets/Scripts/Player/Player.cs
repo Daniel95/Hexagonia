@@ -25,6 +25,7 @@ public class Player : MonoBehaviour
 
 	public Vector2 Ratio { get { return ratio; } }
 
+    [SerializeField] private GameObject dyingPlayer;
     [SerializeField] private Animator animator;
     [SerializeField] [Range(0, 30)] private float animateSensitivity = 3;
     [SerializeField] [Range(0, 1)] private float turnAnimateThreshold = 0.05f;
@@ -88,11 +89,11 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter(Collider _otherCollider)
     {
-        if(hitThisframe) { return; }
+        if (hitThisframe) { return; }
         hitThisframe = true;
         CoroutineHelper.DelayFrames(1, () => { hitThisframe = false; });
 
-        if(TriggerCollisionEvent != null) 
+        if (TriggerCollisionEvent != null)
         {
             TriggerCollisionEvent(_otherCollider.gameObject);
         }
@@ -100,12 +101,17 @@ public class Player : MonoBehaviour
         if (_otherCollider.tag == Tags.Obstacle)
         {
             LookPositionOnPlane.Instance.enabled = false;
-
+            SpawnDyingPlayer();
             if (DiedEvent != null)
             {
                 DiedEvent();
             }
             Destroy(gameObject);
         }
+    }
+
+    private void SpawnDyingPlayer()
+    {
+        Instantiate(dyingPlayer, transform.position, transform.rotation);
     }
 }
