@@ -6,19 +6,19 @@ public class PlayerDragInput : PlayerBaseInput
     [SerializeField] private float dragSpeed = 1;
     [SerializeField] private JoyStickUI joyStickUI;
 
-    private Vector2 screenCenter;
-
     public override void Activate()
     {
         PlatformBaseInput.UpInputEvent += OnUpInput;
 
-        TargetPosition = LookPositionOnPlane.Instance.transform.position;
-
-        screenCenter = new Vector2(Screen.width / 2, Screen.height / 2);
-
-        if (TargetPositionUpdatedEvent != null)
+        bool _hit;
+        Vector3 _center = LookPositionOnPlane.Instance.GetLookPosition(out _hit);
+        if (_hit)
         {
-            TargetPositionUpdatedEvent(TargetPosition);
+            TargetPosition = _center;
+            if (TargetPositionUpdatedEvent != null)
+            {
+                TargetPositionUpdatedEvent(TargetPosition);
+            }
         }
 
         joyStickUI.Activate();
@@ -36,12 +36,20 @@ public class PlayerDragInput : PlayerBaseInput
     {
         while(true)
         {
-            Vector2 _deltaFromStartTouchPosition = PlatformBaseInput.CurrentDownPosition - PlatformBaseInput.StartDownPosition * dragSpeed;
-            Vector3 _targetScreenPosition = screenCenter + _deltaFromStartTouchPosition;
-            TargetPosition = Camera.main.ScreenToWorldPoint(new Vector3(_targetScreenPosition.x, _targetScreenPosition.y, LookPositionOnPlane.Instance.transform.position.z));
+            bool _hit;
+            Vector3 _center = LookPositionOnPlane.Instance.GetLookPosition(out _hit);
+            if (!_hit) { yield return null; }
 
+            Vector3 _startDownWorldPosition = Camera.main.ScreenToWorldPoint(new Vector3(PlatformBaseInput.StartDownPosition.x, PlatformBaseInput.StartDownPosition.y, _center.z));
+            Vector3 _currentDownPositionWorldPosition = Camera.main.ScreenToWorldPoint(new Vector3(PlatformBaseInput.CurrentDownPosition.x, PlatformBaseInput.CurrentDownPosition.y, _center.z));
+            Vector3 _deltaFromStartTouchPosition = _currentDownPositionWorldPosition - _startDownWorldPosition;
+
+            Vector3 _deltaWithSpeed = _deltaFromStartTouchPosition * dragSpeed;
+
+            TargetPosition = Player.Instance.transform.position + _deltaWithSpeed;
             TargetPosition = LookPositionOnPlane.Instance.ClampToPlane(TargetPosition);
 
+            DebugHelper.SetDebugPosition(TargetPosition, "TargetPosition");
             if (TargetPositionUpdatedEvent != null)
             {
                 TargetPositionUpdatedEvent(TargetPosition);
@@ -53,6 +61,9 @@ public class PlayerDragInput : PlayerBaseInput
 
     private void OnUpInput(Vector2 _inputPosition)
     {
-        TargetPosition = screenCenter;
+        bool _hit;
+        Vector3 _center = LookPositionOnPlane.Instance.GetLookPosition(out _hit);
+        if (!_hit) { return; }
+        TargetPosition = _center;
     }
 }

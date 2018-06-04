@@ -20,7 +20,6 @@ public class SmoothPlaneMovement : MonoBehaviour
         Delta = _targetPositionWithOffset - transform.position;
         Vector2 _direction = Delta.normalized;
         float _distance = Vector2.Distance(_targetPositionWithOffset, transform.position);
-
         float _deltaSpeed = currentSpeed * Time.deltaTime;
 
         Vector3 _positionIncrement = _direction * (_distance * _deltaSpeed);
