@@ -6,7 +6,6 @@ public class CameraHolderIntro : CameraHolder
 	[SerializeField] private VideoPlayer videoPlayer;
 	[SerializeField] private Scenes scene;
 
-
 	protected override void EnterScene()
 	{
 		videoPlayer.targetCamera = Camera.main;
