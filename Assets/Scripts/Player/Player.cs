@@ -21,8 +21,11 @@ public class Player : MonoBehaviour
         }
         return instance;
     }
-    #endregion
+	#endregion
 
+	public Vector2 Ratio { get { return ratio; } }
+
+    [SerializeField] private GameObject dyingPlayer;
     [SerializeField] private Animator animator;
     [SerializeField] [Range(0, 30)] private float animateSensitivity = 3;
     [SerializeField] [Range(0, 1)] private float turnAnimateThreshold = 0.05f;
@@ -34,36 +37,37 @@ public class Player : MonoBehaviour
     private int downStateIndex = Animator.StringToHash("down");
     private bool playingMiddleState;
     private bool hitThisframe;
+	private Vector2 ratio;
 
     private void Animate(Vector3 _targetPosition)
     {
         Vector2 _delta = _targetPosition - transform.position;
-        Vector2 _ratio = VectorHelper.Divide(_delta, (Vector2)LookPositionOnPlane.Instance.Size) * animateSensitivity;
+		ratio = VectorHelper.Divide(_delta, (Vector2)LookPositionOnPlane.Instance.Size) * animateSensitivity;
 
-        float absRatioX = Mathf.Abs(_ratio.x);
-        float absRatioY = Mathf.Abs(_ratio.y);
+        float absRatioX = Mathf.Abs(ratio.x);
+        float absRatioY = Mathf.Abs(ratio.y);
         if (absRatioX > turnAnimateThreshold && absRatioX > absRatioY)
         {
             playingMiddleState = false;
-            if (_ratio.x > 0)
+            if (ratio.x > 0)
             {
-                animator.Play(rightStateIndex, 0, _ratio.x);
+                animator.Play(rightStateIndex, 0, ratio.x);
             }
             else
             {
-                animator.Play(leftStateIndex, 0, _ratio.x * -1);
+                animator.Play(leftStateIndex, 0, ratio.x * -1);
             }
         }
         else if (absRatioY > turnAnimateThreshold)
         {
             playingMiddleState = false;
-            if (_ratio.y > 0)
+            if (ratio.y > 0)
             {
-                animator.Play(upStateIndex, 0, _ratio.y);
+                animator.Play(upStateIndex, 0, ratio.y);
             }
             else
             {
-                animator.Play(downStateIndex, 0, _ratio.y * -1);
+                animator.Play(downStateIndex, 0, ratio.y * -1);
             }
         }
         else if (!playingMiddleState)
@@ -85,11 +89,11 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter(Collider _otherCollider)
     {
-        if(hitThisframe) { return; }
+        if (hitThisframe) { return; }
         hitThisframe = true;
         CoroutineHelper.DelayFrames(1, () => { hitThisframe = false; });
 
-        if(TriggerCollisionEvent != null) 
+        if (TriggerCollisionEvent != null)
         {
             TriggerCollisionEvent(_otherCollider.gameObject);
         }
@@ -97,12 +101,17 @@ public class Player : MonoBehaviour
         if (_otherCollider.tag == Tags.Obstacle)
         {
             LookPositionOnPlane.Instance.enabled = false;
-
+            SpawnDyingPlayer();
             if (DiedEvent != null)
             {
                 DiedEvent();
             }
             Destroy(gameObject);
         }
+    }
+
+    private void SpawnDyingPlayer()
+    {
+        Instantiate(dyingPlayer, transform.position, transform.rotation);
     }
 }
