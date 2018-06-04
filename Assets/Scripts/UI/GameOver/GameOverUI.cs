@@ -7,21 +7,27 @@ using UnityEngine.UI;
 public class GameOverUI : MonoBehaviour
 {
     [SerializeField] private GameObject menu;
-    [SerializeField] private Text currentScore;
-    [SerializeField] private Text totalScore;
+    [SerializeField] private Text localHighscoreText;
+    [SerializeField] private Text obtainedScoreText;
 
-    private const string PLAYERPREFS_SCORE = "TotalScore";
+    private void UpdateScoreText()
+    {
+        localHighscoreText.text = "" + LocalHighscore.HighScore;
+        obtainedScoreText.text = "" + Progression.LastScore;
+    }
 
     private void OnEnable()
     {
-        DyingPlayer.AnimationEndEvent += Activate;
+        PlayerDiedAnimation.CompletedEvent += Activate;
         Player.DiedEvent += RecenterUI;
+        Player.DiedEvent += UpdateScoreText;
     }
 
     private void OnDisable()
     {
-        DyingPlayer.AnimationEndEvent -= Activate;
+        PlayerDiedAnimation.CompletedEvent -= Activate;
         Player.DiedEvent -= RecenterUI;
+        Player.DiedEvent -= UpdateScoreText;
     }
 
     private void Activate()

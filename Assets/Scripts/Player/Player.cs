@@ -1,6 +1,5 @@
 ﻿using System;
 using UnityEngine;
-using System.Collections;
 
 /// <summary>
 /// Controls the animations, collisions and contains several events related to the player.
@@ -81,13 +80,11 @@ public class Player : MonoBehaviour
     private void OnEnable()
     {
         LookPositionOnPlane.LookPositionUpdatedEvent += Animate;
-        DiedEvent += SpawnDyingPlayer;
     }
 
     private void OnDisable()
     {
         LookPositionOnPlane.LookPositionUpdatedEvent -= Animate;
-        DiedEvent -= SpawnDyingPlayer;
     }
 
     private void OnTriggerEnter(Collider _otherCollider)
@@ -104,6 +101,7 @@ public class Player : MonoBehaviour
         if (_otherCollider.tag == Tags.Obstacle)
         {
             LookPositionOnPlane.Instance.enabled = false;
+            SpawnDyingPlayer();
             if (DiedEvent != null)
             {
                 DiedEvent();
