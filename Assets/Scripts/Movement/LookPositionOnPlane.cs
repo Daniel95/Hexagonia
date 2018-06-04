@@ -1,13 +1,14 @@
 ﻿using System;
 using UnityEngine;
 
+/// <summary>
+/// Sends a raycast to a plane, on hit it sends a event to the InstantPlaneMovement.cs what moves the player.
+/// </summary>
 [RequireComponent(typeof(MeshRenderer))]
 [RequireComponent(typeof(BoxCollider))]
 public class LookPositionOnPlane : MonoBehaviour
 {
-
     public static LookPositionOnPlane Instance { get { return GetInstance(); } }
-
     public static Action<Vector3> LookPositionUpdatedEvent;
 
     #region Singeton
@@ -25,13 +26,12 @@ public class LookPositionOnPlane : MonoBehaviour
 
     public Vector3 MinBounds { get { return maxBounds; } }
     public Vector3 MaxBounds { get { return minBounds; } }
-
     public Vector3 Size { get { return size; } }
 
-    private Transform hmdTransform;
     [SerializeField] [Range(0, 1)] private float scaledInput = 0;
 
-    private Vector2 maxBounds;
+	private Transform hmdTransform;
+	private Vector2 maxBounds;
     private Vector2 minBounds;
     private Vector2 size;
     private Plane plane;
@@ -97,5 +97,4 @@ public class LookPositionOnPlane : MonoBehaviour
     {
         Player.DiedEvent -= StopMovementOnPlane;
     }
-
 }

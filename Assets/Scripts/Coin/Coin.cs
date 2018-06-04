@@ -1,6 +1,9 @@
 ﻿using System;
 using UnityEngine;
 
+/// <summary>
+/// The coin checks collision and sends event and a value if it has been hit.
+/// </summary>
 public class Coin : MonoBehaviour
 {
 	public static Action<int> CollectedEvent;
@@ -20,17 +23,23 @@ public class Coin : MonoBehaviour
 	}
 	#endregion
 
-	[SerializeField] private int value;
+	private const string COIN_PARTICLE = "CoinParticle";
 
-    private void OnPlayerTriggerCollision(GameObject _gameObject) 
+	[SerializeField] private int value;
+	private GameObject particle;
+
+	private void OnPlayerTriggerCollision(GameObject _gameObject) 
     {
         if(_gameObject != gameObject) { return; }
 
         if (CollectedEvent != null) {
             CollectedEvent(value);
         }
-        Destroy(gameObject);
-    }
+		particle = ObjectPool.Instance.GetObjectForType(COIN_PARTICLE, false);
+		particle.transform.position = transform.position;
+
+		Destroy(gameObject);
+	}
 
     private void OnEnable() 
     {
@@ -40,5 +49,4 @@ public class Coin : MonoBehaviour
     private void OnDisable() {
         Player.TriggerCollisionEvent -= OnPlayerTriggerCollision;
     }
-
 }

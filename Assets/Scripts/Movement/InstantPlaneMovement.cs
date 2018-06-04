@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 
+/// <summary>
+///  UpdateTargetPosition gets updated everytime the method gets called with the event: LookPositionUpdateEvent in LookPositionPlane.
+/// </summary>
 public class InstantPlaneMovement : MonoBehaviour
 {
-
     [SerializeField] private Vector3 offset;
 
     private void UpdateTargetPosition(Vector3 _targetPosition)
@@ -19,5 +21,4 @@ public class InstantPlaneMovement : MonoBehaviour
     {
         LookPositionOnPlane.LookPositionUpdatedEvent -= UpdateTargetPosition;
     }
-
 }

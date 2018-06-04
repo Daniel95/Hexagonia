@@ -4,54 +4,25 @@ using UnityEngine;
 using System;
 
 /// <summary>
-/// Plays and switches the current playing song
+/// Handles the audio, plays and switches the current playing song and between scenes.
 /// </summary>
 [RequireComponent(typeof(AudioSource))]
 public class MusicManager : MonoBehaviour
 {
-    public static MusicManager Instance
-    {
-        get
-        {
-            return GetInstance();
-        }
-    }
-    #region SingleTon
-    private static MusicManager instance;
-
-    private static MusicManager GetInstance()
-    {
-        if (instance == null)
-        {
-            instance = FindObjectOfType<MusicManager>();
-        }
-        return instance;
-    }
-    #endregion
-
-    [Space(5)]
-
-    [SerializeField] private Scenes defaultSongList;
+	[Range(0, 1)] [SerializeField] private float maxVolume = .5f;
+	[SerializeField] private Scenes defaultSongList;
     [SerializeField] private Songlist[] songlists;
-
-    [Space(5)]
-
-    [SerializeField] private float fadeTime = .5f;
-
-    [Range(0, 1)] [SerializeField] private float maxVolume = .5f;
+	[SerializeField] private float fadeTime = 0.5f;
 
     private AudioSource source;
     private AudioClip currentClip;
-
     private bool switching = false;
     private List<Song> currentSongList = new List<Song>();
-
     private Coroutine delayCoroutine;
 
     /// <summary>
     /// Switches to a random song in the songlist
     /// </summary>
-    /// <param name="_fade">Depending on this the song fades or switches instantly</param>
     public void SwitchSong()
     {
         if (currentSongList.Count == 0) { return; }
@@ -63,14 +34,14 @@ public class MusicManager : MonoBehaviour
         }
 
         Song _randomSong = RandomSong();
-        
+
         switching = true;
 
         GivePriority();
-        
+
         StartCoroutine(FadeToNewSong(_randomSong));
-        
-        float _delay = _randomSong.clip.length;
+
+        float _delay = _randomSong.Clip.length;
 
         DelayCoroutineCheck();
 
@@ -99,7 +70,7 @@ public class MusicManager : MonoBehaviour
 
         yield return new WaitForSeconds(fadeTime / 2f);
 
-        source.clip = _song.clip;
+        source.clip = _song.Clip;
         source.volume = 0;
         source.Play();
         StartCoroutine(FadeIn());
@@ -136,10 +107,6 @@ public class MusicManager : MonoBehaviour
         switching = false;
     }
 
-    /// <summary>
-    /// Loops trough all the songs in the songlist, trying to find one with a high (low number) priority
-    /// </summary>
-    /// <returns>A random song to use</returns>
     private Song RandomSong()
     {
         Song _randomSong = null;
@@ -149,10 +116,10 @@ public class MusicManager : MonoBehaviour
         {
             Song _potentialSong = currentSongList[UnityEngine.Random.Range(0, currentSongList.Count)];
 
-            if (_potentialSong.priority <= _count)
+            if (_potentialSong.Priority <= _count)
             {
                 _randomSong = _potentialSong;
-                _potentialSong.priority += currentSongList.Count;
+                _potentialSong.Priority += currentSongList.Count;
             }
             _count += 1;
 
@@ -164,21 +131,18 @@ public class MusicManager : MonoBehaviour
         return _randomSong;
     }
 
-    /// <summary>
-    /// Makes it more likely for all songs to be picked again 
-    /// </summary>
     private void GivePriority()
     {
         foreach (Song _song in currentSongList)
         {
-            if (_song.priority > 0)
+            if (_song.Priority > 0)
             {
-                _song.priority -= 1;
+                _song.Priority -= 1;
             }
         }
     }
 
-    private void SceneSwitch(Scenes _oldScene, Scenes _newScene)
+    private void SceneSwitch(Scenes? _oldScene, Scenes _newScene)
     {
         if (_oldScene == _newScene) { return; }
 
@@ -189,7 +153,6 @@ public class MusicManager : MonoBehaviour
                 currentSongList = _list.SongList;
             }
         }
-
         SwitchSong();
     }
 
@@ -204,6 +167,9 @@ public class MusicManager : MonoBehaviour
     }
 }
 
+/// <summary>
+/// Pairs a songlist to a specific scene
+/// </summary>
 [Serializable]
 internal class Songlist
 {

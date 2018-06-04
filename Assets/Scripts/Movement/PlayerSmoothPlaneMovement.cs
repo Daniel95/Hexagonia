@@ -1,6 +1,10 @@
 ﻿using System;
 using UnityEngine;
 
+/// <summary>
+///  UpdateTargetPosition gets updated everytime the method gets called with the event: LookPositionUpdateEvent in LookPositionPlane.
+///  It Smoothly moves the player when moving around in the game.
+/// </summary>
 public class PlayerSmoothPlaneMovement : MonoBehaviour
 {
     public static Action<Vector3> OnMoved;
@@ -12,18 +16,18 @@ public class PlayerSmoothPlaneMovement : MonoBehaviour
     {
         Vector3 _targetPositionWithOffset = _targetPosition + offset;
 
-        if (transform.position == _targetPositionWithOffset)
-            return;
+        if (transform.position == _targetPositionWithOffset) { return; }
 
         Vector3 _delta = _targetPositionWithOffset - transform.position;
         Vector3 _direction = _delta.normalized;
         float _distance = Vector3.Distance(_targetPositionWithOffset, transform.position);
-        float deltaSpeed = speed * Time.deltaTime;
+        float _deltaSpeed = speed * Time.deltaTime;
 
-        Vector3 positionIncrement = _direction * (_distance * deltaSpeed);
-        transform.position += positionIncrement;
+        Vector3 _positionIncrement = _direction * (_distance * _deltaSpeed);
+        transform.position += _positionIncrement;
 
-        if (OnMoved != null) {
+        if (OnMoved != null)
+        {
             OnMoved(transform.position);
         }
     }
@@ -37,5 +41,4 @@ public class PlayerSmoothPlaneMovement : MonoBehaviour
     {
         LookPositionOnPlane.LookPositionUpdatedEvent -= UpdateTargetPosition;
     }
-
 }

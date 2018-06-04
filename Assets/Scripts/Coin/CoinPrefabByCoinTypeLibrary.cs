@@ -2,6 +2,9 @@
 using UnityEngine;
 using UnityToolbag;
 
+/// <summary>
+/// Sets the coinPrefab by the coinType, can be done in the editor.
+/// </summary>
 public class CoinPrefabByCoinTypeLibrary : MonoBehaviour 
 {
 	public static CoinPrefabByCoinTypeLibrary Instance { get { return GetInstance(); } }
@@ -23,6 +26,11 @@ public class CoinPrefabByCoinTypeLibrary : MonoBehaviour
 	}
 #endregion
 
+	/// <summary>
+	/// Gets the coinPrefab with the coinType in it.
+	/// </summary>
+	/// <param name="_coinType"></param>
+	/// <returns>_coinPrefab</returns>
 	public GameObject GetCoinPrefab(CoinType _coinType)
 	{
 		GameObject _coinPrefab = null;

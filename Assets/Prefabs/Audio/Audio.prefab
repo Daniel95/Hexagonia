@@ -36,7 +36,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1906092827714180}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.8677163, y: 3.816308, z: -1.1820111}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -146,21 +146,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 530138764895f1840ab10556399e8141, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxVolume: 0.5
   defaultSongList: 1
   songlists:
   - Scene: 1
     SongList:
-    - priority: 0
-      clip: {fileID: 8300000, guid: 533df7fef88a102479c51e0c182a8184, type: 3}
-    - priority: 0
-      clip: {fileID: 8300000, guid: 530d70419e5a30d4784e66249979d167, type: 3}
+    - Priority: 0
+      Clip: {fileID: 8300000, guid: 533df7fef88a102479c51e0c182a8184, type: 3}
+    - Priority: 0
+      Clip: {fileID: 8300000, guid: 530d70419e5a30d4784e66249979d167, type: 3}
   - Scene: 2
     SongList:
-    - priority: 0
-      clip: {fileID: 8300000, guid: 635fcf6de059b344989f5f11cfe3686f, type: 3}
-    - priority: 0
-      clip: {fileID: 8300000, guid: 6bc501692e6af8c4e8b022488feb4a8a, type: 3}
-    - priority: 0
-      clip: {fileID: 8300000, guid: d00f9efcdce5ba141b5096cbb687e772, type: 3}
+    - Priority: 0
+      Clip: {fileID: 8300000, guid: 635fcf6de059b344989f5f11cfe3686f, type: 3}
+    - Priority: 0
+      Clip: {fileID: 8300000, guid: d00f9efcdce5ba141b5096cbb687e772, type: 3}
+    - Priority: 0
+      Clip: {fileID: 8300000, guid: 6bc501692e6af8c4e8b022488feb4a8a, type: 3}
   fadeTime: 2
-  maxVolume: 0.5
