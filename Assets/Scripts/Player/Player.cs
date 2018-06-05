@@ -4,8 +4,9 @@ using UnityEngine;
 /// <summary>
 /// Controls the animations, collisions and contains several events related to the player.
 /// </summary>
-public class Player : MonoBehaviour
+public class Player : SmoothPlaneMovement
 {
+    public static Action<Vector3> OnMoved;
     public static Action DiedEvent;
     public static Action<GameObject> TriggerCollisionEvent;
     public static Player Instance { get { return GetInstance(); } }
@@ -25,6 +26,7 @@ public class Player : MonoBehaviour
 
 	public Vector2 Ratio { get { return ratio; } }
 
+    [SerializeField] private GameObject dyingPlayer;
     [SerializeField] private Animator animator;
     [SerializeField] [Range(0, 30)] private float animateSensitivity = 3;
     [SerializeField] [Range(0, 1)] private float turnAnimateThreshold = 0.05f;
@@ -37,14 +39,27 @@ public class Player : MonoBehaviour
     private bool playingMiddleState;
     private bool hitThisframe;
 	private Vector2 ratio;
+    private float absRatioX;
+    private float absRatioY;
 
-    private void Animate(Vector3 _targetPosition)
+    protected override void MoveToTargetPosition(Vector3 _targetPosition)
     {
-        Vector2 _delta = _targetPosition - transform.position;
-		ratio = VectorHelper.Divide(_delta, (Vector2)LookPositionOnPlane.Instance.Size) * animateSensitivity;
+        base.MoveToTargetPosition(_targetPosition);
 
-        float absRatioX = Mathf.Abs(ratio.x);
-        float absRatioY = Mathf.Abs(ratio.y);
+        if (OnMoved != null)
+        {
+            OnMoved(transform.position);
+        }
+
+        UpdateAnimation();
+    }
+
+    private void UpdateAnimation()
+    {
+        ratio = VectorHelper.Divide(Delta, LookPositionOnPlane.Instance.Size) * animateSensitivity;
+
+        absRatioX = Mathf.Abs(ratio.x);
+        absRatioY = Mathf.Abs(ratio.y);
         if (absRatioX > turnAnimateThreshold && absRatioX > absRatioY)
         {
             playingMiddleState = false;
@@ -76,23 +91,13 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void OnEnable()
-    {
-        LookPositionOnPlane.LookPositionUpdatedEvent += Animate;
-    }
-
-    private void OnDisable()
-    {
-        LookPositionOnPlane.LookPositionUpdatedEvent -= Animate;
-    }
-
     private void OnTriggerEnter(Collider _otherCollider)
     {
-        if(hitThisframe) { return; }
+        if (hitThisframe) { return; }
         hitThisframe = true;
         CoroutineHelper.DelayFrames(1, () => { hitThisframe = false; });
 
-        if(TriggerCollisionEvent != null) 
+        if (TriggerCollisionEvent != null)
         {
             TriggerCollisionEvent(_otherCollider.gameObject);
         }
@@ -100,12 +105,17 @@ public class Player : MonoBehaviour
         if (_otherCollider.tag == Tags.Obstacle)
         {
             LookPositionOnPlane.Instance.enabled = false;
-
+            SpawnDyingPlayer();
             if (DiedEvent != null)
             {
                 DiedEvent();
             }
             Destroy(gameObject);
         }
+    }
+
+    private void SpawnDyingPlayer()
+    {
+        Instantiate(dyingPlayer, transform.position, transform.rotation);
     }
 }
