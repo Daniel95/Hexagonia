@@ -5,15 +5,17 @@ using UnityEngine.UI;
 /// <summary>
 /// Base behaviour of the gazebutton, that can be used to interact with buttons in VR.
 /// </summary>
+[RequireComponent(typeof(Button))]
 public abstract class GazeButton : MonoBehaviour 
 {
-    [SerializeField] protected Image buttonImage;
     [SerializeField] private Image gazeFillImage;
+
+    protected Button Button;
 
     private float gazeSpeed = 1f;
     private Coroutine increaseGazeFillAmountOverTimeCoroutine;
-
     private int lastTriggeredFrameCount;
+    private GameObject targetGameObject;
 
     protected abstract void OnTrigger();
 
@@ -40,7 +42,7 @@ public abstract class GazeButton : MonoBehaviour
 
     private void StartGazeHover(GameObject _hoveredGameObject)
     {
-        if (_hoveredGameObject == buttonImage.gameObject)
+        if (_hoveredGameObject == targetGameObject)
         {
             if (increaseGazeFillAmountOverTimeCoroutine != null)
             {
@@ -52,7 +54,7 @@ public abstract class GazeButton : MonoBehaviour
 
     private void StopGazeHover(GameObject _hoveredGameObject)
     {
-        if (_hoveredGameObject == buttonImage.gameObject)
+        if (_hoveredGameObject == targetGameObject)
         {
             if(increaseGazeFillAmountOverTimeCoroutine != null)
             {
@@ -74,5 +76,11 @@ public abstract class GazeButton : MonoBehaviour
         TryToTrigger();
 
         increaseGazeFillAmountOverTimeCoroutine = null;
+    }
+
+    private void Awake()
+    {
+        Button = GetComponent<Button>();
+        targetGameObject = Button.targetGraphic.gameObject;
     }
 }
