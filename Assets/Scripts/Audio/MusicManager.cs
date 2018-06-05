@@ -35,6 +35,8 @@ public class MusicManager : MonoBehaviour
 
         Song _randomSong = RandomSong();
 
+        if (_randomSong == null) { return; }
+
         switching = true;
 
         GivePriority();
