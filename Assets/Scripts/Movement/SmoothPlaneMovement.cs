@@ -10,7 +10,7 @@ public class SmoothPlaneMovement : MonoBehaviour
     [SerializeField] [Range(0, 20)] private float nonVRSpeed = 10f;
     [SerializeField] private Vector3 offset;
 
-    protected Vector2 Delta;
+    protected Vector3 Delta;
 
     private float currentSpeed;
 
@@ -40,7 +40,6 @@ public class SmoothPlaneMovement : MonoBehaviour
 
     private void Awake()
     {
-        transform.position = new Vector3(transform.position.x, transform.position.y, LookPositionOnPlane.Instance.transform.position.z + offset.z);
         UpdateSpeedToVRSpeed();
     }
 

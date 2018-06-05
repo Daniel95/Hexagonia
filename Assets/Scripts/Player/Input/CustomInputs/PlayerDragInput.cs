@@ -14,6 +14,8 @@ public class PlayerDragInput : PlayerBaseInput
     public override void Activate()
     {
         TargetPosition = Player.Instance.transform.position;
+        TargetPosition = LookPositionOnPlane.Instance.ClampToPlane(TargetPosition);
+
         if (TargetPositionUpdatedEvent != null)
         {
             TargetPositionUpdatedEvent(TargetPosition);

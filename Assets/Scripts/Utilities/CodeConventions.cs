@@ -8,12 +8,9 @@ using UnityEngine;
 /// </summary>
 public class CodeConventions : MonoBehaviour 
 {
-    public static Action Event;
-
-    public static CodeConventions Instance { get { return GetInstance(); } }
-
     public int PublicTest { get { return privateTest ; } set { privateTest = value; } }
     public int PublicTest2 { get { return privateTest ; } set { privateTest = value; } }
+    public static CodeConventions Instance { get { return GetInstance(); } }
 
     public int PublicComplicatedTest
     {
@@ -24,6 +21,8 @@ public class CodeConventions : MonoBehaviour
             return test2;
         }
     }
+
+    public static Action Event;
 
     #region Singleton
     private static CodeConventions instance;
