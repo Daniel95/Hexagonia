@@ -5,6 +5,8 @@ public class PlayerTouchInput : PlayerBaseInput
 {
     [SerializeField] private Vector3 offset;
 
+    private Vector3 touchPosition;
+
     public override void Activate()
     {
         TargetPosition = LookPositionOnPlane.Instance.transform.position;
@@ -23,9 +25,9 @@ public class PlayerTouchInput : PlayerBaseInput
         {
             if(PlatformBaseInput.Down)
             {
-                Vector3 _touchPosition = Camera.main.ScreenToWorldPoint(new Vector3(PlatformBaseInput.CurrentDownPosition.x, PlatformBaseInput.CurrentDownPosition.y, LookPositionOnPlane.Instance.transform.position.z));
+                touchPosition = Camera.main.ScreenToWorldPoint(new Vector3(PlatformBaseInput.CurrentDownPosition.x, PlatformBaseInput.CurrentDownPosition.y, LookPositionOnPlane.Instance.transform.position.z));
 
-                TargetPosition = _touchPosition + offset;
+                TargetPosition = touchPosition + offset;
                 TargetPosition = LookPositionOnPlane.Instance.ClampToPlane(TargetPosition);
             }
 

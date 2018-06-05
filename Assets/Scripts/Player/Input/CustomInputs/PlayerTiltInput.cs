@@ -6,37 +6,26 @@ public class PlayerTiltInput : PlayerBaseInput
     [SerializeField] private float maxCameraRotation = -90;
     [SerializeField] private float minCameraRotation = 90;
     [SerializeField] private float tiltSpeed = 1;
-    //[SerializeField] [Range(-90, 90)] private float testRotation = 20;
-    [SerializeField] [Range(-1, 1)] private float testRotation = 1;
 
-    private float zRotation;
-    private Coroutine acceleratorUpdateCoroutine;
     private bool planeHit;
     private Vector3 lookPositionOnPlane;
-
-    public override void Activate()
-    {
-        //acceleratorUpdateCoroutine = StartCoroutine(AcceleratorUpdate());
-        base.Activate();
-    }
-
-    public override void Deactivate()
-    {
-        //StopCoroutine(acceleratorUpdateCoroutine);
-        base.Deactivate();
-    }
+    private float gvrZRotation;
+    private float rotationRange;
+    private float currentRange;
+    private float progress;
+    private float tilt;
 
     protected override IEnumerator InputUpdate()
     {
         while (true)
         {
-            float gvrZRotation = Camera.main.transform.rotation.eulerAngles.z;
-            float _rotationRange = Mathf.Abs(Mathf.DeltaAngle(minCameraRotation, maxCameraRotation));
-            float _currentRange = Mathf.Abs(Mathf.DeltaAngle(minCameraRotation, gvrZRotation));
-            float _progress = Mathf.InverseLerp(0, _rotationRange, _currentRange);
-            float _tilt = Mathf.Lerp(-tiltSpeed, tiltSpeed, _progress);
+            gvrZRotation = Camera.main.transform.rotation.eulerAngles.z;
+            rotationRange = Mathf.Abs(Mathf.DeltaAngle(minCameraRotation, maxCameraRotation));
+            currentRange = Mathf.Abs(Mathf.DeltaAngle(minCameraRotation, gvrZRotation));
+            progress = Mathf.InverseLerp(0, rotationRange, currentRange);
+            tilt = Mathf.Lerp(-tiltSpeed, tiltSpeed, progress);
 
-            TargetPosition.x = Player.Instance.transform.position.x + _tilt;
+            TargetPosition.x = Player.Instance.transform.position.x + tilt;
 
             lookPositionOnPlane = LookPositionOnPlane.Instance.GetLookPosition(out planeHit);
             if (planeHit)
@@ -54,65 +43,4 @@ public class PlayerTiltInput : PlayerBaseInput
             yield return null;
         }
     }
-
-    private IEnumerator AcceleratorUpdate()
-    {
-        while(true)
-        {
-            float _acceleration = Input.acceleration.x * tiltSpeed;
-            TargetPosition.x = Player.Instance.transform.position.x + _acceleration;
-
-            TargetPosition = LookPositionOnPlane.Instance.ClampToPlane(TargetPosition);
-
-            if (TargetPositionUpdatedEvent != null)
-            {
-                TargetPositionUpdatedEvent(TargetPosition);
-            }
-
-            yield return new WaitForFixedUpdate();
-        }
-
-    }
-
-    /*
-    private void Update()
-    {
-        Input.gyro.enabled = true;
-        Quaternion referenceRotation = Quaternion.identity;
-        Quaternion deviceRotation = GyroHelper.Get();
-        Quaternion eliminationOfXY = Quaternion.Inverse(
-            Quaternion.FromToRotation(referenceRotation * Vector3.forward,
-                                      deviceRotation * Vector3.forward)
-        );
-        Quaternion rotationZ = eliminationOfXY * deviceRotation;
-        float roll = rotationZ.eulerAngles.z;
-        Debug.Log("________________");
-        Debug.Log("gyro roll " + roll);
-        Debug.Log("acceleration " + Input.acceleration.x);
-        Debug.Log("Camera rotation " + Camera.main.transform.localRotation.eulerAngles);
-    }
-
-
-
-
-        //float _cameraZRotation = testRotation;
-
-    Quaternion referenceRotation = Quaternion.identity;
-    Quaternion deviceRotation = GyroHelper.Get();
-    Quaternion eliminationOfXY = Quaternion.Inverse(
-        Quaternion.FromToRotation(referenceRotation * Vector3.forward,
-                                    deviceRotation * Vector3.forward)
-    );
-    Quaternion rotationZ = eliminationOfXY * deviceRotation;
-    float roll = rotationZ.eulerAngles.z;
-
-
-    float _rotationRange = maxCameraRotation - minCameraRotation;
-    float _progress = (roll - minCameraRotation) / _rotationRange;
-    float _tilt = Mathf.Lerp(-tiltSpeed, tiltSpeed, _progress);
-
-    Debug.Log("roll " + roll);
-
-    TargetPosition.x = Player.Instance.transform.position.x + _tilt;
-    */
 }
