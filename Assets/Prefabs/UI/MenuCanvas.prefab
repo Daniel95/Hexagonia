@@ -436,7 +436,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 114659163871520664}
-        m_MethodName: OnClick
+        m_MethodName: TryToTrigger
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -542,7 +542,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 114526987634527132}
-        m_MethodName: OnClick
+        m_MethodName: TryToTrigger
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -600,8 +600,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonImage: {fileID: 114533420690673196}
   gazeFillImage: {fileID: 114628460787485720}
-  defaultColor: {r: 1, g: 1, b: 1, a: 1}
-  pressedColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  vrColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  nonVRColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &114752552688419858
 MonoBehaviour:
   m_ObjectHideFlags: 1

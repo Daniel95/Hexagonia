@@ -14,7 +14,6 @@ public class TargetPixelCoordinatesData
     public Color MaxColor;
     public TargetPixelsCoordinatesType TargetPixelCoordinatesType;
 
-    [Header("Data")]
     public List<SpriteAndPixelCoordinatesPair> spriteAndPixelCoordinatesPairs;
 
     /// <summary>
