@@ -159,6 +159,11 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8390577eb2165884893a9400cfca18d8, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1131616643 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1075022113208982, guid: 8390577eb2165884893a9400cfca18d8,
+    type: 2}
+  m_PrefabInternal: {fileID: 1131616642}
 --- !u!1 &1155678589
 GameObject:
   m_ObjectHideFlags: 0
@@ -301,6 +306,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 190014, guid: 323169e9766db69459a435e10f3feed0, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 323169e9766db69459a435e10f3feed0, type: 2}
   m_IsPrefabParent: 0
@@ -366,6 +375,7 @@ GameObject:
   - component: {fileID: 1905807180}
   - component: {fileID: 1905807181}
   - component: {fileID: 1905807182}
+  - component: {fileID: 1905807183}
   m_Layer: 0
   m_Name: SceneLoader
   m_TagString: Untagged
@@ -409,6 +419,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41a69f5297a463e43a4c15596981708b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1905807183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1905807179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 537b823b5d8f39041aca5e923fd48983, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gvrEventSystemGameObject: {fileID: 1131616643}
+  genericEventSystemGameObject: {fileID: 1155678589}
 --- !u!1 &1918761720
 GameObject:
   m_ObjectHideFlags: 0

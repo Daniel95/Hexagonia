@@ -12,6 +12,11 @@ public class SceneLoader : MonoBehaviour
     public static Action<Scenes?, Scenes> SceneSwitchStartedEvent;
     public static Action<Scenes?, Scenes> SceneSwitchCompletedEvent;
 
+    public static Action FadeSceneOutStartedEvent;
+
+    public static Action FadeSceneInStartedEvent;
+    public static Action FadeSceneInCompletedEvent;
+
     #region Singleton
     private static SceneLoader instance;
 
@@ -42,6 +47,10 @@ public class SceneLoader : MonoBehaviour
 
         if (_previousScene != null)
         {
+            if (FadeSceneOutStartedEvent != null)
+            {
+                FadeSceneOutStartedEvent();
+            }
             DefaultSceneUI.Instance.FadeSceneOut(() =>
             {
                 if (SceneSwitchStartedEvent != null)
@@ -58,7 +67,13 @@ public class SceneLoader : MonoBehaviour
                             SceneSwitchCompletedEvent(_previousScene, _newScene);
                         }
 
-                        DefaultSceneUI.Instance.FadeSceneIn();
+                        DefaultSceneUI.Instance.FadeSceneIn(() =>
+                        {
+                            if (FadeSceneInCompletedEvent != null)
+                            {
+                                FadeSceneInCompletedEvent();
+                            }
+                        });
                     });
                 });
             });
@@ -71,7 +86,19 @@ public class SceneLoader : MonoBehaviour
                 {
                     SceneSwitchCompletedEvent(_previousScene, _newScene);
                 }
-                DefaultSceneUI.Instance.FadeSceneIn();
+
+                if (FadeSceneInStartedEvent != null)
+                {
+                    FadeSceneInStartedEvent();
+                }
+
+                DefaultSceneUI.Instance.FadeSceneIn(() =>
+                {
+                    if (FadeSceneInCompletedEvent != null)
+                    {
+                        FadeSceneInCompletedEvent();
+                    }
+                });
             });
         }
     }
