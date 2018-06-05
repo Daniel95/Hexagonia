@@ -19,6 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4959316850382378}
+  - component: {fileID: 114274971420683834}
   - component: {fileID: 114261910940160688}
   - component: {fileID: 114081021219859648}
   - component: {fileID: 82640575770356706}
@@ -152,13 +153,31 @@ MonoBehaviour:
   - Scene: 1
     SongList:
     - Priority: 0
-      Clip: {fileID: 8300000, guid: c255defe0df512f4b9ed79542a0c7f8e, type: 3}
+      Clip: {fileID: 8300000, guid: 67588dd5d68f39c4e8871ea22c7bb451, type: 3}
     - Priority: 0
-      Clip: {fileID: 8300000, guid: b5e378701e7c0d94cab74034007d081f, type: 3}
+      Clip: {fileID: 8300000, guid: 530d70419e5a30d4784e66249979d167, type: 3}
   - Scene: 2
     SongList:
     - Priority: 0
-      Clip: {fileID: 8300000, guid: 6493ef072767cdd49a5fae841ffd1bcf, type: 3}
+      Clip: {fileID: 8300000, guid: 9aa74e18e3fc7f94a83bd078d79b4820, type: 3}
     - Priority: 0
-      Clip: {fileID: 8300000, guid: ca720d2861399314bb9f162968ece5e5, type: 3}
+      Clip: {fileID: 8300000, guid: d00f9efcdce5ba141b5096cbb687e772, type: 3}
+    - Priority: 0
+      Clip: {fileID: 8300000, guid: 6bc501692e6af8c4e8b022488feb4a8a, type: 3}
   fadeTime: 2
+--- !u!114 &114274971420683834
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1906092827714180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abe5b0b530f358b408189a6102f8a4e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioEffects:
+  - Clip: {fileID: 8300000, guid: 33e7d8cc428a71a429418df48b48de9b, type: 3}
+    Effect: 0
+  - Clip: {fileID: 0}
+    Effect: 1

@@ -15,11 +15,11 @@ public class UpdatePositionToPlayerPosition : MonoBehaviour
 
     private void OnEnable()
     {
-        PlayerSmoothPlaneMovement.OnMoved += UpdatePosition;    
+        Player.OnMoved += UpdatePosition;    
     }
 
     private void OnDisable()
     {
-        PlayerSmoothPlaneMovement.OnMoved -= UpdatePosition;
+        Player.OnMoved -= UpdatePosition;
     }
 }
