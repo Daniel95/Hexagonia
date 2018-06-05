@@ -21,7 +21,7 @@ public class VRModeButton : GazeButton
     /// <summary>
     /// Called when the button is activated.
     /// </summary>
-    public void OnClick()
+    protected override void OnTrigger()
     {
         bool _vrState = VRSwitch.Instance.Switch();
 
@@ -49,21 +49,16 @@ public class VRModeButton : GazeButton
         }
     }
 
-    protected override void OnGazeFilled()
-    {
-        OnClick();
-    }
-
     protected override void OnEnable()
     {
         base.OnEnable();
-        VRSwitch.VRModeSwitchedEvent += OnClick;
+        VRSwitch.VRModeSwitchedEvent += OnTrigger;
     }
 
     protected override void OnDisable()
     {
         base.OnDisable();
-        VRSwitch.VRModeSwitchedEvent -= OnClick;
+        VRSwitch.VRModeSwitchedEvent -= OnTrigger;
     }
 
     private void Start()
