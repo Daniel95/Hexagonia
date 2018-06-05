@@ -22,6 +22,13 @@ public class CameraHolder : MonoBehaviour
 	    DefaultCameraHolderTransform.ResetLocal();
 
         MainCameraGameObject.transform.parent.parent = transform;
+
+#if !UNITY_EDITOR
+        if (VRSwitch.VRState)
+        {
+            GvrCardboardHelpers.Recenter();
+        }
+#endif
     }
 
     protected virtual void ExitScene()
@@ -35,9 +42,16 @@ public class CameraHolder : MonoBehaviour
         MainCameraGameObject.transform.parent.ResetLocal();
         transform.ResetLocal();
         DefaultCameraHolderTransform.ResetLocal();
+
+#if !UNITY_EDITOR
+        if (VRSwitch.VRState)
+        {
+            GvrCardboardHelpers.Recenter();
+        }
+#endif
     }
 
-	private void Awake()
+    private void Awake()
 	{
         EnterScene();
     }
