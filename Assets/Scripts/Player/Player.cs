@@ -56,7 +56,7 @@ public class Player : SmoothPlaneMovement
 
     private void UpdateAnimation()
     {
-        ratio = VectorHelper.Divide(Delta, LookPositionOnPlane.Instance.Size) * animateSensitivity;
+        ratio = VectorHelper.Divide(Delta, (Vector2)LookPositionOnPlane.Instance.Size) * animateSensitivity;
 
         absRatioX = Mathf.Abs(ratio.x);
         absRatioY = Mathf.Abs(ratio.y);
