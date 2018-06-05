@@ -9,8 +9,10 @@ public class CameraHolderIntro : CameraHolder
 
 	protected override void EnterScene()
 	{
-		gvrPointer = GameObject.Find("GvrReticlePointer");
-		gvrPointer.SetActive(false);
+		//gvrPointer = GameObject.Find("GvrReticlePointer");
+	    gvrPointer = Resources.FindObjectsOfTypeAll<GvrReticlePointer>()[0].transform.gameObject;
+
+        gvrPointer.SetActive(false);
 		videoPlayer.targetCamera = Camera.main;
 		videoPlayer.Play();
 		videoPlayer.loopPointReached += CheckVideoPlayer;
@@ -21,7 +23,6 @@ public class CameraHolderIntro : CameraHolder
 	{ 
 		SceneLoader.Instance.SwitchScene(scene);
 		videoPlayer.loopPointReached -= CheckVideoPlayer;
-		gvrPointer.SetActive(enabled);
 	}
 
 	protected override void ExitScene()
