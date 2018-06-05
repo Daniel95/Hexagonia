@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
+
 /// <summary>
 /// Changes the lightsource with the frequence of the AudioPeer.cs
 /// </summary>
-public class Visualise : MonoBehaviour
+public class VisualiseLight : MonoBehaviour
 {
 #pragma warning disable CS0649, 
     [SerializeField] private int min, max;
