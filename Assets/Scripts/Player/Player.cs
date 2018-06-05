@@ -4,8 +4,9 @@ using UnityEngine;
 /// <summary>
 /// Controls the animations, collisions and contains several events related to the player.
 /// </summary>
-public class Player : MonoBehaviour
+public class Player : SmoothPlaneMovement
 {
+    public static Action<Vector3> OnMoved;
     public static Action DiedEvent;
     public static Action<GameObject> TriggerCollisionEvent;
     public static Player Instance { get { return GetInstance(); } }
@@ -38,14 +39,27 @@ public class Player : MonoBehaviour
     private bool playingMiddleState;
     private bool hitThisframe;
 	private Vector2 ratio;
+    private float absRatioX;
+    private float absRatioY;
 
-    private void Animate(Vector3 _targetPosition)
+    protected override void MoveToTargetPosition(Vector3 _targetPosition)
     {
-        Vector2 _delta = _targetPosition - transform.position;
-		ratio = VectorHelper.Divide(_delta, (Vector2)LookPositionOnPlane.Instance.Size) * animateSensitivity;
+        base.MoveToTargetPosition(_targetPosition);
 
-        float absRatioX = Mathf.Abs(ratio.x);
-        float absRatioY = Mathf.Abs(ratio.y);
+        if (OnMoved != null)
+        {
+            OnMoved(transform.position);
+        }
+
+        UpdateAnimation();
+    }
+
+    private void UpdateAnimation()
+    {
+        ratio = VectorHelper.Divide(Delta, (Vector2)LookPositionOnPlane.Instance.Size) * animateSensitivity;
+
+        absRatioX = Mathf.Abs(ratio.x);
+        absRatioY = Mathf.Abs(ratio.y);
         if (absRatioX > turnAnimateThreshold && absRatioX > absRatioY)
         {
             playingMiddleState = false;
@@ -75,16 +89,6 @@ public class Player : MonoBehaviour
             playingMiddleState = true;
             animator.Play(middleStateIndex);
         }
-    }
-
-    private void OnEnable()
-    {
-        LookPositionOnPlane.LookPositionUpdatedEvent += Animate;
-    }
-
-    private void OnDisable()
-    {
-        LookPositionOnPlane.LookPositionUpdatedEvent -= Animate;
     }
 
     private void OnTriggerEnter(Collider _otherCollider)
