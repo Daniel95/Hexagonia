@@ -23,40 +23,40 @@ public class MusicManager : MonoBehaviour
     /// <summary>
     /// Switches to a random song in the songlist
     /// </summary>
-    /// <param name="_fade">Depending on _fade the song fades or switches instantly</param>
-    public void SwitchSong(bool _fade = true)
+    public void SwitchSong()
     {
         if (currentSongList.Count == 0) { return; }
 
         if (switching)
         {
             StopAllCoroutines();
-            if (delayCoroutine != null)
-            {
-                CoroutineHelper.Stop(delayCoroutine);
-            }
+            DelayCoroutineCheck();
         }
 
         Song _randomSong = RandomSong();
+
+        if (_randomSong == null) { return; }
+
         switching = true;
 
         GivePriority();
-        
-        if (_fade)
-        {
-            StartCoroutine(FadeToNewSong(_randomSong));
-        }
-        else
-        {
-            source.clip = _randomSong.Clip;
-            source.Play();
-            switching = false;
-        }
 
-        float _delay = _randomSong.Clip.length + 0.1f;
+        StartCoroutine(FadeToNewSong(_randomSong));
+
+        float _delay = _randomSong.Clip.length;
+
+        DelayCoroutineCheck();
+
         delayCoroutine = CoroutineHelper.DelayTime(_delay, () => SwitchSong());
+    }
 
-        return;
+    private void DelayCoroutineCheck()
+    {
+        if (delayCoroutine != null)
+        {
+            CoroutineHelper.Stop(delayCoroutine);
+            delayCoroutine = null;
+        }
     }
 
     private void Awake()
