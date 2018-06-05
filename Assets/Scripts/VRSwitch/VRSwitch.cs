@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using UnityEngine;
 using UnityEngine.XR;
 
@@ -7,8 +8,12 @@ using UnityEngine.XR;
 /// </summary>
 public class VRSwitch : MonoBehaviour
 {
-    public static Action VRModeSwitchedEvent;
     public static VRSwitch Instance { get { return GetInstance(); } }
+    public static bool VRState { get { return vrState; } }
+
+    public static Action SwitchedEvent;
+
+    private static bool vrState;
 
     #region Singleton
     private static VRSwitch instance;
@@ -23,15 +28,13 @@ public class VRSwitch : MonoBehaviour
     }
     #endregion
 
-    public GameObject GVRReticlePointerGameObject { get { return gvrReticlePointerGameObject; } }
-    public bool VRState { get { return vrState; } }
-
     private const string VR_MODE = "VRMode";
+
+    public GameObject GVRReticlePointerGameObject { get { return gvrReticlePointerGameObject; } }
 
     [SerializeField] private GameObject gvrGameObject;
 
     private GameObject gvrReticlePointerGameObject;
-    private bool vrState;
 
     /// <summary>
     /// Switches the VR Mode, returns the VR State.
@@ -54,26 +57,26 @@ public class VRSwitch : MonoBehaviour
         }
 #endif
 
+        if(SwitchedEvent != null)
+        {
+            SwitchedEvent();
+        }
+
         return vrState;
     }
 
-    private void Awake()
+    private void Start()
     {
         gvrReticlePointerGameObject = FindObjectOfType<GvrReticlePointer>().gameObject;
-    }
 
-    private void SetVRModeAfterInitialization()
-    {
-        vrState = true;
-        XRSettings.enabled = true;
-        gvrGameObject.SetActive(true);
+        vrState = Convert.ToBoolean(PlayerPrefs.GetInt(VR_MODE));
+        XRSettings.enabled = vrState;
+        gvrGameObject.SetActive(vrState);
+        gvrReticlePointerGameObject.SetActive(vrState);
 
-        if (PlayerPrefs.GetInt(VR_MODE) == 0)
+        if (SwitchedEvent != null)
         {
-            if (VRModeSwitchedEvent != null)
-            {
-                VRModeSwitchedEvent();
-            }
+            SwitchedEvent();
         }
     }
 
@@ -87,13 +90,11 @@ public class VRSwitch : MonoBehaviour
 
     private void OnEnable()
     {
-        VRModeButton.InitializedEvent += SetVRModeAfterInitialization;
         Player.DiedEvent += SetReticlePointer;
     }
 
     private void OnDisable()
     {
-        VRModeButton.InitializedEvent -= SetVRModeAfterInitialization;
         Player.DiedEvent -= SetReticlePointer;
     }
 }

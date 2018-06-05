@@ -12,13 +12,8 @@ public class SceneLoaderButton : GazeButton
     /// <summary>
     /// Called when the button is activated.
     /// </summary>
-    public void OnClick()
+    protected override void OnTrigger()
     {
         SceneLoader.Instance.SwitchScene(scene);
-    }
-
-    protected override void OnGazeFilled()
-    {
-        OnClick();
     }
 }
