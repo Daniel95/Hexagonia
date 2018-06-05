@@ -127,11 +127,19 @@ public class MobileInput : PlatformBaseInput
         }
     }
 
-    private void Awake()
+    private void UpdateInput()
     {
-        if (PlatformHelper.PlatformIsMobile)
-        {
-            EnableInput(true);
-        }
+        bool _enable = PlatformHelper.PlatformIsMobile && !VRSwitch.VRState;
+        EnableInput(_enable);
+    }
+
+    private void OnEnable()
+    {
+        SceneLoader.FadeSceneInCompletedEvent += UpdateInput;
+    }
+
+    private void OnDisable()
+    {
+        SceneLoader.FadeSceneInCompletedEvent -= UpdateInput;
     }
 }

@@ -24,7 +24,10 @@ public class CameraHolder : MonoBehaviour
         MainCameraGameObject.transform.parent.parent = transform;
 
 #if !UNITY_EDITOR
+        if (VRSwitch.VRState)
+        {
             GvrCardboardHelpers.Recenter();
+        }
 #endif
     }
 
@@ -41,7 +44,7 @@ public class CameraHolder : MonoBehaviour
         DefaultCameraHolderTransform.ResetLocal();
 
 #if !UNITY_EDITOR
-        if (VRSwitch.Instance.VRState)
+        if (VRSwitch.VRState)
         {
             GvrCardboardHelpers.Recenter();
         }
