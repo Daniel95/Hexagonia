@@ -16,13 +16,13 @@ public class PlayerTiltInput : PlayerBaseInput
 
     public override void Activate()
     {
-        acceleratorUpdateCoroutine = StartCoroutine(AcceleratorUpdate());
+        //acceleratorUpdateCoroutine = StartCoroutine(AcceleratorUpdate());
         base.Activate();
     }
 
     public override void Deactivate()
     {
-        StopCoroutine(acceleratorUpdateCoroutine);
+        //StopCoroutine(acceleratorUpdateCoroutine);
         base.Deactivate();
     }
 
@@ -30,6 +30,14 @@ public class PlayerTiltInput : PlayerBaseInput
     {
         while (true)
         {
+            float gvrZRotation = Camera.main.transform.rotation.eulerAngles.z;
+            float _rotationRange = Mathf.Abs(Mathf.DeltaAngle(minCameraRotation, maxCameraRotation));
+            float _currentRange = Mathf.Abs(Mathf.DeltaAngle(minCameraRotation, gvrZRotation));
+            float _progress = Mathf.InverseLerp(0, _rotationRange, _currentRange);
+            float _tilt = Mathf.Lerp(-tiltSpeed, tiltSpeed, _progress);
+
+            TargetPosition.x = Player.Instance.transform.position.x + _tilt;
+
             lookPositionOnPlane = LookPositionOnPlane.Instance.GetLookPosition(out planeHit);
             if (planeHit)
             {
