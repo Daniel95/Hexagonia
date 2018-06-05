@@ -49,16 +49,6 @@ public class FPSDisplay : MonoBehaviour
         }
     }
 
-    private void OnEnable()
-    {
-        DebugLibrary.FPSCounterEnabledChangedEvent += SetFPSCounter;
-    }
-
-    private void OnDisable()
-    {
-        DebugLibrary.FPSCounterEnabledChangedEvent -= SetFPSCounter;
-    }
-
     private void Update()
     {
         accum += Time.timeScale / Time.deltaTime;

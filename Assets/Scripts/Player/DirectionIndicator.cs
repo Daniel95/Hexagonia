@@ -6,17 +6,21 @@
 [RequireComponent(typeof(LineRenderer))]
 public class DirectionIndicator : MonoBehaviour
 {
-
     [SerializeField] private float maxDistance = 100;
     [SerializeField] private LayerMask layerMask;
 
     private LineRenderer lineRenderer;
+    private bool planeHit;
+    private Vector3 lookPositionOnPlane;
 
-    private void UpdateTargetPosition(Vector3 _targetPosition)
+    private void Update()
     {
+        lookPositionOnPlane = LookPositionOnPlane.Instance.GetLookPosition(out planeHit);
+        if (!planeHit) { return; }
+
         lineRenderer.SetPosition(0, transform.position);
 
-        Vector3 _offsetToTarget = _targetPosition - transform.position;
+        Vector3 _offsetToTarget = lookPositionOnPlane - transform.position;
         Vector3 _direction = _offsetToTarget.normalized;
 
         RaycastHit _hit;
@@ -34,15 +38,5 @@ public class DirectionIndicator : MonoBehaviour
     private void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
-    }
-
-    private void OnEnable()
-    {
-        LookPositionOnPlane.LookPositionUpdatedEvent += UpdateTargetPosition;
-    }
-
-    private void OnDisable()
-    {
-        LookPositionOnPlane.LookPositionUpdatedEvent -= UpdateTargetPosition;
     }
 }
