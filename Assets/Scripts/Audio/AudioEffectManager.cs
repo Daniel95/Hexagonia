@@ -6,7 +6,7 @@ using UnityEngine;
 /// </summary>
 public class AudioEffectManager : MonoBehaviour
 {
-    public static AudioEffectManager Instance{ get { return instance; } }
+    public static AudioEffectManager Instance{ get { return GetInstance(); } }
 
     #region Singleton
     private static AudioEffectManager instance;
@@ -32,7 +32,7 @@ public class AudioEffectManager : MonoBehaviour
         {
             if (audioEffects[i].Effect == _audioType)
             {
-                AudioSource.PlayClipAtPoint(audioEffects[i].Clip, _worldPosition);
+                AudioSource.PlayClipAtPoint(audioEffects[i].Clip, _worldPosition, 10);
                 break;
             }
         }
