@@ -15,25 +15,16 @@ public partial class SROptions
 
     [Category("VR Controls")]
     [Sort(-1)]
-    public void UseDefaultVRControls()
-    {
-        DebugLibrary.UseDefaultVRPlayerInputType = true;
-    }
-
-    [Category("VR Controls")]
-    [Sort(-1)]
     public void UseLookControls()
     {
-        DebugLibrary.UseDefaultVRPlayerInputType = false;
-        DebugLibrary.VRPlayerInputType = PlayerInputType.Look;
+        PlayerInputController.VRPlayerInputType = PlayerInputType.Look;
     }
 
     [Category("VR Controls")]
     [Sort(-1)]
     public void UseTiltControls()
     {
-        DebugLibrary.UseDefaultVRPlayerInputType = false;
-        DebugLibrary.VRPlayerInputType = PlayerInputType.Tilt;
+        PlayerInputController.VRPlayerInputType = PlayerInputType.Tilt;
     }
     
     private void OnValueChanged(string _n, object _newValue)
