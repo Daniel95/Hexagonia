@@ -41,6 +41,7 @@ public class Player : SmoothPlaneMovement
 	private Vector2 ratio;
     private float absRatioX;
     private float absRatioY;
+    private Vector3 previousPosition;
 
     protected override void MoveToTargetPosition(Vector3 _targetPosition)
     {
@@ -91,7 +92,54 @@ public class Player : SmoothPlaneMovement
         }
     }
 
+    bool hitObstacleInFront;
+    private Transform obstacleInFrontTransform;
+    private Vector3 obstaclePreviousHitPosition;
+
+    private void FixedUpdate()
+    {
+        if(obstacleInFrontTransform != null)
+        {
+            Vector3 _currentObstacleHitPosition = new Vector3(obstaclePreviousHitPosition.x, obstaclePreviousHitPosition.y, obstacleInFrontTransform.position.z);
+
+            Debug.Log("_currentObstacleHitPosition " + obstacleInFrontTransform.position);
+            Debug.Log("_currentHitTransformPreviousPosition" + obstaclePreviousHitPosition);
+            Debug.DrawLine(obstaclePreviousHitPosition, _currentObstacleHitPosition, Color.green, 0);
+            Debug.Break();
+
+            RaycastHit _playerHit;
+
+            if (Physics.Linecast(obstaclePreviousHitPosition, _currentObstacleHitPosition, out _playerHit) && _playerHit.collider.gameObject == gameObject) {
+                Die();
+
+                return;
+            }
+
+            if(!hitObstacleInFront)
+            {
+                obstacleInFrontTransform = null;
+            }
+        }
+
+        RaycastHit _obstacleHit;
+
+        hitObstacleInFront = Physics.Raycast(transform.position, transform.forward, out _obstacleHit, 3) && _obstacleHit.collider.CompareTag(Tags.Obstacle);
+
+        if (hitObstacleInFront)
+        {
+            obstaclePreviousHitPosition = _obstacleHit.point;
+            obstacleInFrontTransform = _obstacleHit.collider.transform;
+        }
+    }
+
+    /*
     private void OnTriggerEnter(Collider _otherCollider)
+    {
+        Hit(_hit.collider.gameObject);
+    }
+    */
+
+    private void Hit(GameObject _gameObjectCollider)
     {
         if (hitThisframe) { return; }
         hitThisframe = true;
@@ -99,19 +147,23 @@ public class Player : SmoothPlaneMovement
 
         if (TriggerCollisionEvent != null)
         {
-            TriggerCollisionEvent(_otherCollider.gameObject);
+            TriggerCollisionEvent(gameObject);
         }
 
-        if (_otherCollider.tag == Tags.Obstacle)
+        if (_gameObjectCollider.CompareTag(Tags.Obstacle))
         {
-            LookPositionOnPlane.Instance.enabled = false;
-            SpawnDyingPlayer();
-            if (DiedEvent != null)
-            {
-                DiedEvent();
-            }
-            Destroy(gameObject);
+            Die();
         }
+    }
+
+    private void Die()
+    {
+        SpawnDyingPlayer();
+        if (DiedEvent != null)
+        {
+            DiedEvent();
+        }
+        Destroy(gameObject);
     }
 
     private void SpawnDyingPlayer()
