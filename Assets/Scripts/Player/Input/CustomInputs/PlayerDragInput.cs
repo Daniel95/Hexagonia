@@ -10,10 +10,13 @@ public class PlayerDragInput : PlayerBaseInput
     private Vector3 currentDownPositionWorldPosition;
     private Vector3 deltaFromStartTouchPosition;
     private Vector3 deltaWithSpeed;
+    private Coroutine dragUpdate;
 
     public override void Activate()
     {
         TargetPosition = Player.Instance.transform.position;
+        TargetPosition = LookPositionOnPlane.Instance.ClampToPlane(TargetPosition);
+
         if (TargetPositionUpdatedEvent != null)
         {
             TargetPositionUpdatedEvent(TargetPosition);
@@ -49,7 +52,7 @@ public class PlayerDragInput : PlayerBaseInput
                 TargetPositionUpdatedEvent(TargetPosition);
             }
 
-            yield return new WaitForFixedUpdate();
+            yield return null;
         }
     }
 }
