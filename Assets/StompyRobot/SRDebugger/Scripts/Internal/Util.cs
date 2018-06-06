@@ -63,9 +63,9 @@
                 return false;
             }
 
-            Debug.LogWarning("[SRDebugger] No EventSystem found in scene - creating a default one.");
+            //Debug.LogWarning("[SRDebugger] No EventSystem found in scene - creating a default one.");
 
-            CreateDefaultEventSystem();
+            //CreateDefaultEventSystem();
             return true;
         }
 

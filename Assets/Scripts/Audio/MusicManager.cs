@@ -1,59 +1,61 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 /// <summary>
-/// Plays and switches the current playing song
+/// Handles the audio, plays and switches the current playing song and between scenes.
 /// </summary>
 [RequireComponent(typeof(AudioSource))]
 public class MusicManager : MonoBehaviour
 {
-    public static MusicManager Instance
-    {
-        get
-        {
-            return GetInstance();
-        }
-    }
-    #region SingleTon
-    private static MusicManager instance;
-
-    private static MusicManager GetInstance()
-    {
-        if (instance == null)
-        {
-            instance = FindObjectOfType<MusicManager>();
-        }
-        return instance;
-    }
-    #endregion
-
+	[Range(0, 1)] [SerializeField] private float maxVolume = .5f;
+    [SerializeField] private Songlist[] songlists;
+	[SerializeField] private float fadeTime = 0.5f;
 
     private AudioSource source;
     private AudioClip currentClip;
-
     private bool switching = false;
-    [SerializeField] private List<Song> songList = new List<Song>();
-    
-    [Space(5)]
+    private List<Song> currentSongList = new List<Song>();
+    private Coroutine delayCoroutine;
 
-    [SerializeField] private float fadeTime = .5f;
-    
-    [Range(0,1)]
-    [SerializeField] private float maxVolume = .5f;
-
-    //Remove input, is for debug
-    private void Update()
+    /// <summary>
+    /// Switches to a random song in the songlist
+    /// </summary>
+    public void SwitchSong()
     {
-        if (source != null)
+        if (currentSongList.Count == 0) { return; }
+
+        if (switching)
         {
-            source.volume = maxVolume;
-            if (source.isPlaying == false)
-                SwitchSong();
+            StopAllCoroutines();
+            DelayCoroutineCheck();
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
-            SwitchSong();
+        Song _randomSong = RandomSong();
+
+        if (_randomSong == null) { return; }
+
+        switching = true;
+
+        GivePriority();
+
+        StartCoroutine(FadeToNewSong(_randomSong));
+
+        float _delay = _randomSong.Clip.length;
+
+        DelayCoroutineCheck();
+
+        delayCoroutine = CoroutineHelper.DelayTime(_delay, () => SwitchSong());
+    }
+
+    private void DelayCoroutineCheck()
+    {
+        if (delayCoroutine != null)
+        {
+            CoroutineHelper.Stop(delayCoroutine);
+            delayCoroutine = null;
+        }
     }
 
     private void Awake()
@@ -61,41 +63,16 @@ public class MusicManager : MonoBehaviour
         source = GetComponent<AudioSource>();
         source.volume = maxVolume;
     }
-    
-    /// <summary>
-    /// Switches to a random song in the songlist
-    /// </summary>
-    /// <param name="_fade">Depending on this the song fades or switches instantly</param>
-    public void SwitchSong(bool _fade = true)
-    {
-        if (songList.Count == 0 || switching)
-            return;
-
-        Song _randomSong = RandomSong();
-        switching = true;
-
-        GivePriority();
-        
-        if (_fade)
-        {
-            StartCoroutine(FadeToNewSong(_randomSong));
-        }
-        else
-        {
-            source.clip = _randomSong.clip;
-            source.Play();
-            switching = false;
-        }
-        return;
-    }
 
     private IEnumerator FadeToNewSong(Song _song)
     {
-        StartCoroutine(FadeOut());
+        if (source.isPlaying)
+        {
+            StartCoroutine(FadeOut());
 
-        yield return new WaitForSeconds(fadeTime / 2f);
-
-        source.clip = _song.clip;
+            yield return new WaitForSeconds(fadeTime / 2f);
+        }
+        source.clip = _song.Clip;
         source.volume = 0;
         source.Play();
         StartCoroutine(FadeIn());
@@ -115,6 +92,7 @@ public class MusicManager : MonoBehaviour
         }
         source.volume = 0;
     }
+
     private IEnumerator FadeIn()
     {
         source.volume = 0;
@@ -131,10 +109,6 @@ public class MusicManager : MonoBehaviour
         switching = false;
     }
 
-    /// <summary>
-    /// Loops trough all the songs in the songlist, trying to find one with a high (low number) priority
-    /// </summary>
-    /// <returns>A random song to use</returns>
     private Song RandomSong()
     {
         Song _randomSong = null;
@@ -142,33 +116,67 @@ public class MusicManager : MonoBehaviour
         
         while (_randomSong == null)
         {
-            Song _potentialSong = songList[Random.Range(0, songList.Count)];
+            Song _potentialSong = currentSongList[UnityEngine.Random.Range(0, currentSongList.Count)];
 
-            if (_potentialSong.priority <= _count)
+            if (_potentialSong.Priority <= _count)
             {
                 _randomSong = _potentialSong;
-                _potentialSong.priority += songList.Count;
+                _potentialSong.Priority += currentSongList.Count;
             }
             _count += 1;
 
             if (_count >= 1000)
+            {
                 break;
+            }
         }
         return _randomSong;
     }
 
-    /// <summary>
-    /// Makes it more likely for all songs to be picked again 
-    /// </summary>
     private void GivePriority()
     {
-        foreach (Song _song in songList)
+        foreach (Song _song in currentSongList)
         {
-            if (_song.priority > 0)
+            if (_song.Priority > 0)
             {
-                _song.priority -= 1;
+                _song.Priority -= 1;
             }
         }
     }
 
+    private void SceneSwitch(Scenes? _oldScene, Scenes _newScene)
+    {
+        if (_oldScene == _newScene) { return; }
+
+        foreach (Songlist _list in songlists)
+        {
+            if (_list.Scene == _newScene)
+            {
+                currentSongList = _list.SongList;
+            }
+        }
+        SwitchSong();
+    }
+
+    private void OnEnable()
+    {
+        SceneLoader.SceneSwitchCompletedEvent += SceneSwitch;
+    }
+
+    private void OnDisable()
+    {
+        SceneLoader.SceneSwitchCompletedEvent -= SceneSwitch;
+    }
+}
+
+/// <summary>
+/// Pairs a songlist to a specific scene
+/// </summary>
+[Serializable]
+internal class Songlist
+{
+    #pragma warning disable CS0649,
+    public Scenes Scene;
+    public List<Song> SongList;
+    #pragma warning restore CS0649,
 }

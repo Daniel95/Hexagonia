@@ -1,39 +1,75 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using SRF;
 using UnityEngine;
-using UnityEngine.PostProcessing;
+
+/// <summary>
+/// Handles and resets the Camera based on the scene index
+/// </summary>
 
 public class CameraHolder : MonoBehaviour
 {
-    private Transform defaultCameraHolderTransform;
-    private GameObject mainCameraGameObject;
-    private PostProcessingBehaviour postProcessingBehaviour;
-    private Gyro gyro;
+    protected Transform DefaultCameraHolderTransform;
+    protected GameObject MainCameraGameObject;
 
-	void Awake ()
+    protected virtual void EnterScene()
+    {
+        MainCameraGameObject = Camera.main.gameObject;
+
+	    MainCameraGameObject.transform.ResetLocal();
+        MainCameraGameObject.transform.parent.ResetLocal();
+	    transform.ResetLocal();
+
+        DefaultCameraHolderTransform = Camera.main.transform.root;
+	    DefaultCameraHolderTransform.ResetLocal();
+
+        MainCameraGameObject.transform.parent.parent = transform;
+
+#if !UNITY_EDITOR
+        if (VRSwitch.VRState)
+        {
+            GvrCardboardHelpers.Recenter();
+        }
+#endif
+    }
+
+    protected virtual void ExitScene()
+    {
+        MainCameraGameObject.transform.ResetLocal();
+        MainCameraGameObject.transform.parent.ResetLocal();
+
+        MainCameraGameObject.transform.parent.parent = DefaultCameraHolderTransform;
+
+        MainCameraGameObject.transform.ResetLocal();
+        MainCameraGameObject.transform.parent.ResetLocal();
+        transform.ResetLocal();
+        DefaultCameraHolderTransform.ResetLocal();
+
+#if !UNITY_EDITOR
+        if (VRSwitch.VRState)
+        {
+            GvrCardboardHelpers.Recenter();
+        }
+#endif
+    }
+
+    private void Awake()
 	{
-	    mainCameraGameObject = Camera.main.gameObject;
-	    defaultCameraHolderTransform = Camera.main.transform.root;
-        mainCameraGameObject.transform.parent.parent = transform;
+        EnterScene();
+    }
 
-	    postProcessingBehaviour = mainCameraGameObject.GetComponent<PostProcessingBehaviour>();
-	    gyro = mainCameraGameObject.GetComponent<Gyro>();
+    private void OnSceneSwitch(Scenes? _oldScene, Scenes _newScene)
+    {
+        ExitScene();
+    }
 
-	    postProcessingBehaviour.enabled = true;
+    private void ResetTransforms()
+    {
+        MainCameraGameObject.transform.position = Vector3.zero;
+        MainCameraGameObject.transform.rotation = Quaternion.identity;
+        MainCameraGameObject.transform.parent.transform.position = Vector3.zero;
 
-	    if (!VRSwitch.Instance.VrState)
-	    {
-	        gyro.enabled = true;
-        }
-	    else
-	    {
-	        VRSwitch.Instance.GvrReticlePointerGameObject.SetActive(false);
-        }
-	}
-	
-	private void Update () {
-		
-	}
+        transform.position = Vector3.zero;
+        DefaultCameraHolderTransform.position = Vector3.zero;
+    }
 
     private void OnEnable()
     {
@@ -43,16 +79,5 @@ public class CameraHolder : MonoBehaviour
     private void OnDisable()
     {
         SceneLoader.SceneSwitchStartedEvent -= OnSceneSwitch;
-    }
-
-    private void OnSceneSwitch()
-    {
-        mainCameraGameObject.transform.parent.parent = defaultCameraHolderTransform;
-
-        mainCameraGameObject.transform.position = Vector3.zero;
-        mainCameraGameObject.transform.parent.transform.position = Vector3.zero;
-
-        postProcessingBehaviour.enabled = false;
-        gyro.enabled = false;
     }
 }
