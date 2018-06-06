@@ -2,20 +2,20 @@
 
 public class UpdateEnabledToVRState : MonoBehaviour
 {
-
     [SerializeField] private bool enabledIsInvertedVRState;
 
     private void UpdateEnabled()
     {
-        enabled = enabledIsInvertedVRState ? !VRSwitch.VRState : !VRSwitch.VRState;
+        bool _enabled = enabledIsInvertedVRState ? !VRSwitch.VRState : VRSwitch.VRState;
+        gameObject.SetActive(_enabled);
     }
 
-    private void OnVRSwitched()
+    private void Awake()
     {
         UpdateEnabled();
     }
 
-    private void Awake()
+    private void OnVRSwitched()
     {
         UpdateEnabled();
     }
