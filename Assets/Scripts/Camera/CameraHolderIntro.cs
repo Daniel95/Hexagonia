@@ -7,14 +7,14 @@ public class CameraHolderIntro : CameraHolder
     [SerializeField] private VideoPlayer videoPlayer;
 	[SerializeField] private Scenes scene;
 
-	private GameObject gvrPointer;
+	//private GameObject gvrPointer;
     private float previousFOV;
 
     protected override void EnterScene()
 	{
 	    base.EnterScene();
 
-        gvrPointer = Resources.FindObjectsOfTypeAll<GvrReticlePointer>()[0].transform.gameObject;
+        //gvrPointer = Resources.FindObjectsOfTypeAll<GvrReticlePointer>()[0].transform.gameObject;
         //gvrPointer.SetActive(false);
 
 		videoPlayer.targetCamera = Camera.main;
@@ -24,7 +24,7 @@ public class CameraHolderIntro : CameraHolder
 	    if (!VRSwitch.VRState)
 	    {
 	        previousFOV = Camera.main.fieldOfView;
-	        //Camera.main.fieldOfView = nonVRFOV;
+	        Camera.main.fieldOfView = nonVRFOV;
 	    }
     }
 
@@ -40,7 +40,7 @@ public class CameraHolderIntro : CameraHolder
 
 	    if (!VRSwitch.VRState)
 	    {
-	        //Camera.main.fieldOfView = previousFOV;
+	        Camera.main.fieldOfView = previousFOV;
 	    }
     }
 }
