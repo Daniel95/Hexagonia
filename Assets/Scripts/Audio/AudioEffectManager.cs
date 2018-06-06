@@ -23,6 +23,11 @@ public class AudioEffectManager : MonoBehaviour
     
     [SerializeField] private List<AudioEffect> audioEffects = new List<AudioEffect>();
 
+    [Space(5)]
+
+
+    [SerializeField] private GameObject oneShotAudio;
+
     /// <summary>
     /// Plays an audioEffect at a certain worldposition
     /// </summary>
@@ -32,9 +37,23 @@ public class AudioEffectManager : MonoBehaviour
         {
             if (audioEffects[i].Effect == _audioType)
             {
-                AudioSource.PlayClipAtPoint(audioEffects[i].Clip, _worldPosition, 10);
+                if (audioEffects[i].Clip != null)
+                {
+                    PlayClipAtPoint(audioEffects[i].Clip);
+                }
                 break;
             }
         }
+    }
+
+    private void PlayClipAtPoint(AudioClip _audioClip)
+    {
+        GameObject tempGameobject = Instantiate(oneShotAudio, transform.position, Quaternion.identity);
+        AudioSource tempSource = tempGameobject.GetComponent<AudioSource>();
+        
+        tempSource.clip = _audioClip;
+        tempSource.Play();
+
+        Destroy(tempGameobject, _audioClip.length);
     }
 }

@@ -16,10 +16,9 @@ public enum AudioEffectType
 {
     Coin,
 	Engine,
-    Glitch,
-    BillBoard,
     Highscore,
     Multiplier,
-    Button,
-    GameOver,
+    ButtonEnter,
+    ButtonSucces,
+    Death,
 }

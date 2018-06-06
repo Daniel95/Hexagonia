@@ -105,11 +105,15 @@ public class Player : SmoothPlaneMovement
         if (_otherCollider.tag == Tags.Obstacle)
         {
             LookPositionOnPlane.Instance.enabled = false;
+            AudioEffectManager.Instance.PlayEffect(AudioEffectType.Death, transform.position);
+
             SpawnDyingPlayer();
+            
             if (DiedEvent != null)
             {
                 DiedEvent();
             }
+
             Destroy(gameObject);
         }
     }
