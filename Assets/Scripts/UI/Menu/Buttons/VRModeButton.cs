@@ -45,18 +45,6 @@ public class VRModeButton : GazeButton
         }
     }
 
-    protected override void OnEnable()
-    {
-        base.OnEnable();
-        VRSwitch.SwitchedEvent += UpdateColor;
-    }
-
-    protected override void OnDisable()
-    {
-        base.OnDisable();
-        VRSwitch.SwitchedEvent -= UpdateColor;
-    }
-
     private void UpdateColor()
     {
         if (VRSwitch.VRState)
@@ -69,8 +57,21 @@ public class VRModeButton : GazeButton
         }
     }
 
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        VRSwitch.SwitchedEvent += UpdateColor;
+    }
+
+    protected override void OnDisable()
+    {
+        base.OnDisable();
+        VRSwitch.SwitchedEvent -= UpdateColor;
+    }
+
     private void Start()
     {
         eventSystems = Resources.FindObjectsOfTypeAll<EventSystem>();
+        UpdateColor();
     }
 }

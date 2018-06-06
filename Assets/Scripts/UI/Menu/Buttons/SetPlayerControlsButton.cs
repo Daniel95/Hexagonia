@@ -25,6 +25,18 @@ public class SetPlayerControlsButton : GazeButton
         Button.targetGraphic.color = _targetColor;
     }
 
+    private void Start()
+    {
+        if (vrState)
+        {
+            OnPlayerInputTypeUpdated(PlayerInputController.VRPlayerInputType);
+        }
+        else
+        {
+            OnPlayerInputTypeUpdated(PlayerInputController.NonVRPlayerInputType);
+        }
+    }
+
     protected override void OnEnable()
     {
         base.OnEnable();
