@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class UpdateEnabledToVRState : MonoBehaviour
 {
@@ -7,7 +8,12 @@ public class UpdateEnabledToVRState : MonoBehaviour
     private void UpdateEnabled()
     {
         bool _enabled = enabledIsInvertedVRState ? !VRSwitch.VRState : VRSwitch.VRState;
-        gameObject.SetActive(_enabled);
+
+        List<Transform> _children = transform.FirstLayerChildren();
+        foreach (Transform _child in _children)
+        {
+            _child.gameObject.SetActive(_enabled);
+        }
     }
 
     private void Awake()
