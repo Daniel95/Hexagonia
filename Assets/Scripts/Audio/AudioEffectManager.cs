@@ -31,7 +31,7 @@ public class AudioEffectManager : MonoBehaviour
     /// <summary>
     /// Plays an audioEffect at a certain worldposition
     /// </summary>
-	public void PlayEffect(AudioEffectType _audioType, Vector3 _worldPosition)
+	public void PlayEffect(AudioEffectType _audioType, Vector3 _worldPosition, bool _loop = true)
     {
         for (int i = 0; i < audioEffects.Count; i++)
         {
@@ -55,5 +55,37 @@ public class AudioEffectManager : MonoBehaviour
         tempSource.Play();
 
         Destroy(tempGameobject, _audioClip.length);
+    }
+
+    private void PlayerDiedSound()
+    {
+        PlayEffect(AudioEffectType.Death, transform.position);
+    }
+
+    private void HighScoreSound()
+    {
+        if (Progression.LastScore > LocalHighscore.HighScore)
+        {
+            PlayEffect(AudioEffectType.Highscore, Camera.main.transform.position);
+        }
+    }
+
+    private void CoinCollectedSound(int _value)
+    {
+        AudioEffectManager.Instance.PlayEffect(AudioEffectType.Coin, transform.position);
+    }
+
+    private void OnEnable()
+    {
+        Player.DiedEvent += PlayerDiedSound;
+        PlayerDiedAnimation.CompletedEvent += HighScoreSound;
+        Coin.CollectedEvent += CoinCollectedSound;
+    }
+
+    private void OnDisable()
+    {
+        Player.DiedEvent -= PlayerDiedSound;
+        PlayerDiedAnimation.CompletedEvent -= HighScoreSound;
+        Coin.CollectedEvent -= CoinCollectedSound;
     }
 }

@@ -17,7 +17,7 @@ public enum AudioEffectType
     Coin,
 	Engine,
     Highscore,
-    Multiplier,
+    MultiplierMax,
     ButtonEnter,
     ButtonSucces,
     Death,

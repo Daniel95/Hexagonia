@@ -37,6 +37,7 @@ public class ScoreMultiplier : MonoBehaviour
     private void UpdateScoreMultiplier(float _value)
     {
         multiplier = Mathf.Clamp(Mathf.FloorToInt(ResourceValue.Value + 1), 1, ResourceValue.Instance.MaxValue);
+        
         if (multiplier == previousMultiplier) { return; }
         previousMultiplier = multiplier;
 

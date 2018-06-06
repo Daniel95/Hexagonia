@@ -14,13 +14,6 @@ public class GameOverUI : MonoBehaviour
     {
         localHighscoreText.text = "" + LocalHighscore.HighScore;
         obtainedScoreText.text = "" + Progression.LastScore;
-
-        AudioEffectManager.Instance.PlayEffect(AudioEffectType.Highscore, Camera.main.transform.position);
-
-        if (Progression.LastScore > LocalHighscore.HighScore)
-        {
-            AudioEffectManager.Instance.PlayEffect(AudioEffectType.Highscore, Camera.main.transform.position);
-        }
     }
 
     private void OnEnable()
