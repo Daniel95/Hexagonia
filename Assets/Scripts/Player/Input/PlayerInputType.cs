@@ -3,5 +3,4 @@
     Look,
     Tilt,
     Drag,
-    Touch,
 }
