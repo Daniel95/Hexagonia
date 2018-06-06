@@ -3,31 +3,25 @@ using UnityEngine.PostProcessing;
 
 public class CameraHolderMain : CameraHolder
 {
-    [SerializeField] private GameObject eventSystemGameobject;
+    [SerializeField] [Range(0, 90)] private float nonVRFOV = 60;
 
     private PostProcessingBehaviour postProcessingBehaviour;
-    private Gyro gyro;
+
+    private float previousFOV;
 
     protected override void EnterScene()
     {
         base.EnterScene();
 
-        postProcessingBehaviour = MainCameraGameObject.GetComponent<PostProcessingBehaviour>();
-        gyro = MainCameraGameObject.GetComponent<Gyro>();
+        if(!VRSwitch.VRState)
+        {
+            previousFOV = Camera.main.fieldOfView;
+            Camera.main.fieldOfView = nonVRFOV;
+        }
 
+        postProcessingBehaviour = MainCameraGameObject.GetComponent<PostProcessingBehaviour>();
         postProcessingBehaviour.enabled = true;
 
-        if (!VRSwitch.Instance.VRState)
-        {
-            gyro.enabled = true;
-        }
-        else
-        {
-#if !UNITY_EDITOR
-            GvrCardboardHelpers.Recenter();
-#endif
-            eventSystemGameobject.SetActive(false);
-        }
         VRSwitch.Instance.GVRReticlePointerGameObject.SetActive(false);
     }
 
@@ -35,14 +29,10 @@ public class CameraHolderMain : CameraHolder
     {
         base.ExitScene();
 
-        gyro.enabled = false;
-        postProcessingBehaviour.enabled = false;
-
-#if !UNITY_EDITOR
-        if (VRSwitch.Instance.VRState)
+        if (!VRSwitch.VRState)
         {
-            GvrCardboardHelpers.Recenter();
+            Camera.main.fieldOfView = previousFOV;
         }
-#endif
+        postProcessingBehaviour.enabled = false;
     }
 }
