@@ -16,6 +16,11 @@ public class PlayerInputController : MonoBehaviour
             UseDefaultVRPlayerInputType = false;
             PlayerPrefs.SetInt(VR_PLAYER_INPUT_TYPE, (int)value);
             PlayerPrefs.Save();
+
+            if(VRPlayerInputTypeUpdatedEvent != null)
+            {
+                VRPlayerInputTypeUpdatedEvent(value);
+            }
         }
     }
 
@@ -31,6 +36,11 @@ public class PlayerInputController : MonoBehaviour
             UseDefaultNonVRPlayerInputType = false;
             PlayerPrefs.SetInt(NON_VR_PLAYER_INPUT_TYPE, (int)value);
             PlayerPrefs.Save();
+
+            if (NonVRPlayerInputTypeUpdatedEvent != null)
+            {
+                NonVRPlayerInputTypeUpdatedEvent(value);
+            }
         }
     }
 
