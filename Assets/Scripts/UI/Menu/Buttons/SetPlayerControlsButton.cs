@@ -24,7 +24,7 @@ public class SetPlayerControlsButton : GazeButton
         bool _active = _playerInputType == targetPlayerInputType;
         Color _targetColor = _active ? activeColor : inactiveColor;
         Button.targetGraphic.color = _targetColor;
-        Button.raycastTarget = !_active;
+        Button.targetGraphic.raycastTarget = !_active;
     }
 
     private void Start()
