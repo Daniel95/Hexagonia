@@ -1,25 +1,24 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.Video;
 
 public class CameraHolderIntro : CameraHolder
 {
+    public static Action OnCompletedIntroVideoEvent;
+
     [SerializeField] [Range(0, 90)] private float nonVRFOV = 60;
     [SerializeField] private VideoPlayer videoPlayer;
 	[SerializeField] private Scenes scene;
 
-	private GameObject gvrPointer;
     private float previousFOV;
 
     protected override void EnterScene()
 	{
 	    base.EnterScene();
 
-        gvrPointer = Resources.FindObjectsOfTypeAll<GvrReticlePointer>()[0].transform.gameObject;
-        gvrPointer.SetActive(false);
-
 		videoPlayer.targetCamera = Camera.main;
 		videoPlayer.Play();
-		videoPlayer.loopPointReached += CheckVideoPlayer;
+		
 
 	    if (!VRSwitch.VRState)
 	    {
@@ -31,8 +30,9 @@ public class CameraHolderIntro : CameraHolder
 	private void CheckVideoPlayer(VideoPlayer _vp)
 	{ 
 		SceneLoader.Instance.SwitchScene(scene);
-		videoPlayer.loopPointReached -= CheckVideoPlayer;
-	}
+	    OnCompletedIntroVideoEvent();
+	    videoPlayer.loopPointReached -= CheckVideoPlayer;
+    }
 
 	protected override void ExitScene()
 	{
@@ -42,5 +42,18 @@ public class CameraHolderIntro : CameraHolder
 	    {
 	        Camera.main.fieldOfView = previousFOV;
 	    }
+    }
+
+    private void OnEnable()
+    {
+        base.OnEnable();
+        videoPlayer.loopPointReached += CheckVideoPlayer;
+    }
+
+    private void OnDisable()
+    {
+        base.OnDisable();
+        ExitScene();
+        videoPlayer.loopPointReached -= CheckVideoPlayer;
     }
 }

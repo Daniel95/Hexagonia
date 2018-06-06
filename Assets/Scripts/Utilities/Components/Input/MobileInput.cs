@@ -13,7 +13,7 @@ public class MobileInput : PlatformBaseInput
 
         while (true)
         {
-            bool startedTouching = Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began && !EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId);
+            bool startedTouching = Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began;
 
             if (startedTouching)
             {
