@@ -7,15 +7,11 @@ public class CameraHolderIntro : CameraHolder
     [SerializeField] private VideoPlayer videoPlayer;
 	[SerializeField] private Scenes scene;
 
-	//private GameObject gvrPointer;
     private float previousFOV;
 
     protected override void EnterScene()
 	{
 	    base.EnterScene();
-
-        //gvrPointer = Resources.FindObjectsOfTypeAll<GvrReticlePointer>()[0].transform.gameObject;
-        //gvrPointer.SetActive(false);
 
 		videoPlayer.targetCamera = Camera.main;
 		videoPlayer.Play();
