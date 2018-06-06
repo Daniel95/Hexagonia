@@ -148,7 +148,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxVolume: 0.5
-  defaultSongList: 1
   songlists:
   - Scene: 2
     SongList:
@@ -165,9 +164,7 @@ MonoBehaviour:
     - Priority: 0
       Clip: {fileID: 8300000, guid: 6bc501692e6af8c4e8b022488feb4a8a, type: 3}
   - Scene: 1
-    SongList:
-    - Priority: 0
-      Clip: {fileID: 0}
+    SongList: []
   fadeTime: 2
 --- !u!114 &114274971420683834
 MonoBehaviour:
