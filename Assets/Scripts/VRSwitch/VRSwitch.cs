@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.XR;
@@ -30,7 +29,6 @@ public class VRSwitch : MonoBehaviour
     #endregion
 
     private const string VR_MODE = "VRMode";
-
     private const string VR_CARDBOARD = "cardboard";
     private const string VR_NONE = "None";
 

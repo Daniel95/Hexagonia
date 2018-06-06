@@ -4,11 +4,10 @@ using UnityEngine.Video;
 public class CameraHolderIntro : CameraHolder
 {
     [SerializeField] [Range(0, 90)] private float nonVRFOV = 60;
-
     [SerializeField] private VideoPlayer videoPlayer;
 	[SerializeField] private Scenes scene;
-	private GameObject gvrPointer;
 
+	private GameObject gvrPointer;
     private float previousFOV;
 
     protected override void EnterScene()
@@ -29,7 +28,7 @@ public class CameraHolderIntro : CameraHolder
 	    }
     }
 
-	private void CheckVideoPlayer(VideoPlayer vp)
+	private void CheckVideoPlayer(VideoPlayer _vp)
 	{ 
 		SceneLoader.Instance.SwitchScene(scene);
 		videoPlayer.loopPointReached -= CheckVideoPlayer;
