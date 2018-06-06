@@ -15,5 +15,11 @@ public class AudioEffect
 public enum AudioEffectType
 {
     Coin,
-	Obstacle,
+	Engine,
+    Glitch,
+    BillBoard,
+    Highscore,
+    Multiplier,
+    Button,
+    GameOver,
 }
