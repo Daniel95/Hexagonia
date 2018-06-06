@@ -96,22 +96,22 @@ public class Player : SmoothPlaneMovement
     private Transform obstacleInFrontTransform;
     private Vector3 obstaclePreviousHitPosition;
 
-    private void FixedUpdate()
+    private void Update()
     {
         if(obstacleInFrontTransform != null)
         {
-            Vector3 _currentObstacleHitPosition = new Vector3(obstaclePreviousHitPosition.x, obstaclePreviousHitPosition.y, obstacleInFrontTransform.position.z);
+            Vector3 _currentObstacleHitPosition = new Vector3(transform.position.x, transform.position.y, obstacleInFrontTransform.position.z);
 
-            Debug.Log("_currentObstacleHitPosition " + obstacleInFrontTransform.position);
-            Debug.Log("_currentHitTransformPreviousPosition" + obstaclePreviousHitPosition);
-            Debug.DrawLine(obstaclePreviousHitPosition, _currentObstacleHitPosition, Color.green, 0);
-            Debug.Break();
+            //Debug.Log("_currentObstacleHitPosition " + obstacleInFrontTransform.position);
+            //Debug.Log("_currentHitTransformPreviousPosition" + obstaclePreviousHitPosition);
+            //Debug.DrawLine(obstaclePreviousHitPosition, _currentObstacleHitPosition, Color.green, 0);
+           //Debug.Break();
 
             RaycastHit _playerHit;
+            //Debug.Log("raycast hit " + Physics.Linecast(obstaclePreviousHitPosition, _currentObstacleHitPosition, out _playerHit));
 
-            if (Physics.Linecast(obstaclePreviousHitPosition, _currentObstacleHitPosition, out _playerHit) && _playerHit.collider.gameObject == gameObject) {
+            if (Physics.Linecast(obstaclePreviousHitPosition, _currentObstacleHitPosition, out _playerHit)) {
                 Die();
-
                 return;
             }
 
