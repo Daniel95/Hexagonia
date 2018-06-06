@@ -83,17 +83,13 @@ public class Progression : MonoBehaviour
     {
         TotalScore += score;
 
-        Debug.Log("TotalScore " + TotalScore);
-
         if (VRSwitch.VRState && score > VRHighScore)
         {
             VRHighScore = score;
-            Debug.Log("VRHighScore " + VRHighScore);
         } 
         else if(!VRSwitch.VRState && score > NonVRHighScore)
         {
             NonVRHighScore = score;
-            Debug.Log("NonVRHighScore " + NonVRHighScore);
         }
 
         if(HighscoresUpdatedEvent != null)
