@@ -72,7 +72,7 @@ public class AudioEffectManager : MonoBehaviour
 
     private void CoinCollectedSound(int _value)
     {
-        AudioEffectManager.Instance.PlayEffect(AudioEffectType.Coin, transform.position);
+        PlayEffect(AudioEffectType.Coin, transform.position);
     }
 
     private void OnEnable()
