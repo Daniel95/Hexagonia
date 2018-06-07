@@ -10,7 +10,7 @@ public class ScoreMultiplier : MonoBehaviour
     public static ScoreMultiplier Instance { get { return GetInstance(); } }
     public static int Multiplier { get { return multiplier; } }
     public static Action<int> UpdatedEvent;
-    public static Action MultiplierIncreasedEvent;
+    public static Action<float> MultiplierIncreasedEvent;
     public static Action MultiplierDecreasedEvent;
 
     #region Singleton
@@ -39,6 +39,10 @@ public class ScoreMultiplier : MonoBehaviour
         multiplier = Mathf.Clamp(Mathf.FloorToInt(ResourceValue.Value + 1), 1, ResourceValue.Instance.MaxValue);
         
         if (multiplier == previousMultiplier) { return; }
+        if (multiplier > previousMultiplier && MultiplierIncreasedEvent != null)
+        {
+            MultiplierIncreasedEvent(multiplier);
+        }
         previousMultiplier = multiplier;
 
         if (UpdatedEvent != null)

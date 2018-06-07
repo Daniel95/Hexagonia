@@ -24,15 +24,10 @@ public class AudioEffectManager : MonoBehaviour
     #endregion
     
     [SerializeField] private List<AudioEffect> audioEffects = new List<AudioEffect>();
-    [SerializeField] private float maxMultiplierEffectDelay = 5;
+    [SerializeField] private float pitchMax = 1.5f;
     [SerializeField] private GameObject oneShotAudio;
-
-    private bool maxMultiplierEffectReady = true;
     
-    /// <summary>
-    /// Plays an audioEffect at a certain worldposition
-    /// </summary>
-	public void PlayEffect(AudioEffectType _audioType, Vector3 _worldPosition, bool _loop = true)
+	public void PlayEffect(AudioEffectType _audioType, float _pitch = 1f)
     {
         for (int i = 0; i < audioEffects.Count; i++)
         {
@@ -40,19 +35,20 @@ public class AudioEffectManager : MonoBehaviour
             {
                 if (audioEffects[i].Clip != null)
                 {
-                    PlayClipAtPoint(audioEffects[i].Clip);
+                    PlayClipAtPoint(audioEffects[i].Clip, _pitch);
                 }
                 break;
             }
         }
     }
 
-    private void PlayClipAtPoint(AudioClip _audioClip)
+    private void PlayClipAtPoint(AudioClip _audioClip, float _pitch = 1f)
     {
         GameObject tempGameobject = Instantiate(oneShotAudio, transform.position, Quaternion.identity);
         AudioSource tempSource = tempGameobject.GetComponent<AudioSource>();
         
         tempSource.clip = _audioClip;
+        tempSource.pitch = _pitch;
         tempSource.Play();
 
         Destroy(tempGameobject, _audioClip.length);
@@ -60,7 +56,7 @@ public class AudioEffectManager : MonoBehaviour
 
     private void PlayerDiedSound()
     {
-        PlayEffect(AudioEffectType.Death, transform.position);
+        PlayEffect(AudioEffectType.Death);
     }
 
     private void HighScore()
@@ -69,45 +65,35 @@ public class AudioEffectManager : MonoBehaviour
         {
             if (Progression.VRHighScore > Progression.Instance.Score)
             {
-                PlayEffect(AudioEffectType.Highscore, Camera.main.transform.position);
+                PlayEffect(AudioEffectType.Highscore);
             }
         }
         else
         {
+            Debug.Log("Highscore reached");
+            PlayEffect(AudioEffectType.Highscore);
             if (Progression.NonVRHighScore > Progression.Instance.Score)
             {
-                PlayEffect(AudioEffectType.Highscore, Camera.main.transform.position);
+                PlayEffect(AudioEffectType.Highscore);
             }
         }
     }
 
-    private void MultiplierMaxCheck(int _multiplier)
+    private void MultiplierMaxCheck(float _multiplier)
     {
-        if (!maxMultiplierEffectReady) { return; }
-        
-        if (_multiplier == ResourceValue.Instance.MaxValue)
-        {
-            PlayEffect(AudioEffectType.MultiplierMax, transform.position);
+        float _pitch = 1 + (pitchMax - 1) * (_multiplier / ResourceValue.Instance.MaxValue);
 
-            maxMultiplierEffectReady = false;
-            StartCoroutine(SetSoundDelay(maxMultiplierEffectDelay, maxMultiplierEffectReady));
-        }
+        PlayEffect(AudioEffectType.MultiplierMax, _pitch);
     }
 
     private void CoinCollected(int _value)
     {
-        PlayEffect(AudioEffectType.Coin, transform.position);
+        PlayEffect(AudioEffectType.Coin);
     }
 
     private void SwitchedMenuCanvas()
     {
-        PlayEffect(AudioEffectType.SwitchedMenuCanvas, transform.position);
-    }
-
-    private IEnumerator SetSoundDelay(float _delay, bool _switch)
-    {
-        yield return new WaitForSeconds(_delay);
-        _switch = true;
+        PlayEffect(AudioEffectType.SwitchedMenuCanvas);
     }
 
     private void OnEnable()
@@ -115,7 +101,7 @@ public class AudioEffectManager : MonoBehaviour
         Player.DiedEvent += PlayerDiedSound;
         PlayerDiedAnimation.CompletedEvent += HighScore;
         Coin.CollectedEvent += CoinCollected;
-        ScoreMultiplier.UpdatedEvent += MultiplierMaxCheck;
+        ScoreMultiplier.MultiplierIncreasedEvent += MultiplierMaxCheck;
         MainMenuRotator.SwitchedEvent += SwitchedMenuCanvas;
     }
 
@@ -124,7 +110,7 @@ public class AudioEffectManager : MonoBehaviour
         Player.DiedEvent -= PlayerDiedSound;
         PlayerDiedAnimation.CompletedEvent -= HighScore;
         Coin.CollectedEvent -= CoinCollected;
-        ScoreMultiplier.UpdatedEvent -= MultiplierMaxCheck;
+        ScoreMultiplier.MultiplierIncreasedEvent -= MultiplierMaxCheck;
         MainMenuRotator.SwitchedEvent -= SwitchedMenuCanvas;
     }
 }
