@@ -8,7 +8,7 @@ public class Player : SmoothPlaneMovement
 {
     public static Action<Vector3> OnMoved;
     public static Action DiedEvent;
-    public static Action<GameObject> TriggerCollisionEvent;
+    public static Action<GameObject> CollisionEvent;
     public static Player Instance { get { return GetInstance(); } }
 
     #region Singleton
@@ -27,6 +27,7 @@ public class Player : SmoothPlaneMovement
 	public Vector2 Ratio { get { return ratio; } }
 
     [SerializeField] private GameObject dyingPlayer;
+    [SerializeField] private LayerMask collisionLayermask;
     [SerializeField] private Animator animator;
     [SerializeField] [Range(0, 30)] private float animateSensitivity = 3;
     [SerializeField] [Range(0, 1)] private float turnAnimateThreshold = 0.05f;
@@ -37,10 +38,11 @@ public class Player : SmoothPlaneMovement
     private int upStateIndex = Animator.StringToHash("up");
     private int downStateIndex = Animator.StringToHash("down");
     private bool playingMiddleState;
-    private bool hitThisframe;
 	private Vector2 ratio;
     private float absRatioX;
     private float absRatioY;
+    private Vector3 previousPosition;
+    private int lastHitFrame;
 
     protected override void MoveToTargetPosition(Vector3 _targetPosition)
     {
@@ -91,27 +93,66 @@ public class Player : SmoothPlaneMovement
         }
     }
 
+    private bool hitObstacleInFront;
+    private Collider lastObstacleInFrontCollider;
+    private float obstaclePreviousZPosition;
+
+    private void Update()
+    {
+        if(hitObstacleInFront && lastObstacleInFrontCollider != null)
+        {
+            Vector3 _obstacleColliderMin = lastObstacleInFrontCollider.bounds.min;
+            Vector3 _obstacleColliderMax = lastObstacleInFrontCollider.bounds.max;
+            _obstacleColliderMax.z = obstaclePreviousZPosition;
+
+            bool _isInPreviousCollider = transform.position.IsInBetween(_obstacleColliderMin, _obstacleColliderMax);
+
+            if (_isInPreviousCollider) {
+                Hit(lastObstacleInFrontCollider.gameObject);
+            }
+
+            lastObstacleInFrontCollider = null;
+        }
+
+        RaycastHit _obstacleHit;
+        hitObstacleInFront = Physics.Raycast(transform.position, transform.forward, out _obstacleHit, 3, collisionLayermask);
+
+        if (hitObstacleInFront)
+        {
+            obstaclePreviousZPosition = _obstacleHit.point.z;
+            lastObstacleInFrontCollider = _obstacleHit.collider;
+        }
+    }
+
     private void OnTriggerEnter(Collider _otherCollider)
     {
-        if (hitThisframe) { return; }
-        hitThisframe = true;
-        CoroutineHelper.DelayFrames(1, () => { hitThisframe = false; });
+        Hit(_otherCollider.gameObject);
+    }
 
-        if (TriggerCollisionEvent != null)
+    private void Hit(GameObject _collidingGameObject)
+    {
+        if (Time.frameCount == lastHitFrame) { return; }
+        lastHitFrame = Time.frameCount;
+
+        if (CollisionEvent != null)
         {
-            TriggerCollisionEvent(_otherCollider.gameObject);
+            CollisionEvent(_collidingGameObject);
         }
 
-        if (_otherCollider.tag == Tags.Obstacle)
+        if (_collidingGameObject.CompareTag(Tags.Obstacle))
         {
-            LookPositionOnPlane.Instance.enabled = false;
-            SpawnDyingPlayer();
-            if (DiedEvent != null)
-            {
-                DiedEvent();
-            }
-            Destroy(gameObject);
+            Die();
         }
+    }
+
+    private void Die()
+    {
+        SpawnDyingPlayer();
+        if (DiedEvent != null)
+        {
+            DiedEvent();
+        }
+        Destroy(gameObject);
     }
 
     private void SpawnDyingPlayer()

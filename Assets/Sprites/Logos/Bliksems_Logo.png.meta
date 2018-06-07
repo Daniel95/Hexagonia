@@ -1,9 +1,11 @@
 fileFormatVersion: 2
-guid: 95e5ff9ff15cb1045a4d7d741f019178
-timeCreated: 1527596261
+guid: 57c364d1665cabd4081f31d84f8b2b5b
+timeCreated: 1528357985
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: Bliksems_Logo_0
+    21300002: Bliksems_Logo_1
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -42,7 +44,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 1
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
@@ -57,50 +59,40 @@ TextureImporter:
   textureFormatSet: 0
   platformSettings:
   - buildTarget: DefaultTexturePlatform
-    maxTextureSize: 512
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 3
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
   - buildTarget: Standalone
-    maxTextureSize: 512
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 3
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-  - buildTarget: iPhone
-    maxTextureSize: 512
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 3
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
   - buildTarget: Android
-    maxTextureSize: 512
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 3
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
   - buildTarget: WebGL
-    maxTextureSize: 512
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 3
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -108,7 +100,35 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Bliksems_Logo_0
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 37
+        width: 980
+        height: 290
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 491, y: 0, z: 0, w: 130}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Bliksems_Logo_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 221
+        width: 449
+        height: 139
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
     outline: []
     physicsShape: []
   spritePackingTag: 
