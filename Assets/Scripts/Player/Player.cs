@@ -8,7 +8,7 @@ public class Player : SmoothPlaneMovement
 {
     public static Action<Vector3> OnMoved;
     public static Action DiedEvent;
-    public static Action<GameObject> TriggerCollisionEvent;
+    public static Action<GameObject> CollisionEvent;
     public static Player Instance { get { return GetInstance(); } }
 
     #region Singleton
@@ -27,6 +27,7 @@ public class Player : SmoothPlaneMovement
 	public Vector2 Ratio { get { return ratio; } }
 
     [SerializeField] private GameObject dyingPlayer;
+    [SerializeField] private LayerMask collisionLayermask;
     [SerializeField] private Animator animator;
     [SerializeField] [Range(0, 30)] private float animateSensitivity = 3;
     [SerializeField] [Range(0, 1)] private float turnAnimateThreshold = 0.05f;
@@ -37,11 +38,11 @@ public class Player : SmoothPlaneMovement
     private int upStateIndex = Animator.StringToHash("up");
     private int downStateIndex = Animator.StringToHash("down");
     private bool playingMiddleState;
-    private bool hitThisframe;
 	private Vector2 ratio;
     private float absRatioX;
     private float absRatioY;
     private Vector3 previousPosition;
+    private int lastHitFrame;
 
     protected override void MoveToTargetPosition(Vector3 _targetPosition)
     {
@@ -92,62 +93,60 @@ public class Player : SmoothPlaneMovement
         }
     }
 
-    bool hitObstacleInFront;
-    private Transform obstacleInFrontTransform;
-    private Vector3 obstaclePreviousHitPosition;
+    private bool hitObstacleInFront;
+    private Collider lastObstacleInFrontCollider;
+    private float obstaclePreviousZPosition;
 
     private void Update()
     {
-        if(obstacleInFrontTransform != null)
+        if(hitObstacleInFront && lastObstacleInFrontCollider != null)
         {
-            Vector3 _currentObstacleHitPosition = new Vector3(transform.position.x, transform.position.y, obstacleInFrontTransform.position.z);
+            Vector3 _obstacleColliderMin = lastObstacleInFrontCollider.bounds.min;
+            Vector3 _obstacleColliderMax = lastObstacleInFrontCollider.bounds.max;
+            _obstacleColliderMax.z = obstaclePreviousZPosition;
 
-            //Debug.Log("_currentObstacleHitPosition " + obstacleInFrontTransform.position);
-            //Debug.Log("_currentHitTransformPreviousPosition" + obstaclePreviousHitPosition);
-            //Debug.DrawLine(obstaclePreviousHitPosition, _currentObstacleHitPosition, Color.green, 0);
-           //Debug.Break();
+            //Debug.Log("_obstacleColliderMin " + _obstacleColliderMin);
+            //Debug.Log("_obstacleColliderMax " + _obstacleColliderMax);
 
-            RaycastHit _playerHit;
-            //Debug.Log("raycast hit " + Physics.Linecast(obstaclePreviousHitPosition, _currentObstacleHitPosition, out _playerHit));
+            bool _isInPreviousCollider = transform.position.IsInBetween(_obstacleColliderMin, _obstacleColliderMax);
 
-            if (Physics.Linecast(obstaclePreviousHitPosition, _currentObstacleHitPosition, out _playerHit)) {
-                Die();
-                return;
+            if (_isInPreviousCollider) {
+                //Debug.DrawLine(_obstacleColliderMin, _obstacleColliderMax);
+                //Debug.Log("Collision!");
+                //Debug.Break();
+                //Debug.Break();
+                Hit(lastObstacleInFrontCollider.gameObject);
             }
 
-            if(!hitObstacleInFront)
-            {
-                obstacleInFrontTransform = null;
-            }
+            lastObstacleInFrontCollider = null;
         }
 
         RaycastHit _obstacleHit;
-
-        hitObstacleInFront = Physics.Raycast(transform.position, transform.forward, out _obstacleHit, 3) && _obstacleHit.collider.CompareTag(Tags.Obstacle);
+        hitObstacleInFront = Physics.Raycast(transform.position, transform.forward, out _obstacleHit, 3, collisionLayermask);
 
         if (hitObstacleInFront)
         {
-            obstaclePreviousHitPosition = _obstacleHit.point;
-            obstacleInFrontTransform = _obstacleHit.collider.transform;
+            //Debug.Log("hit " + _obstacleHit, _obstacleHit.collider.gameObject);
+            obstaclePreviousZPosition = _obstacleHit.point.z;
+            lastObstacleInFrontCollider = _obstacleHit.collider;
         }
     }
 
     /*
     private void OnTriggerEnter(Collider _otherCollider)
     {
-        Hit(_hit.collider.gameObject);
+        Hit(_otherCollider.gameObject);
     }
     */
 
     private void Hit(GameObject _gameObjectCollider)
     {
-        if (hitThisframe) { return; }
-        hitThisframe = true;
-        CoroutineHelper.DelayFrames(1, () => { hitThisframe = false; });
+        if (Time.frameCount == lastHitFrame) { return; }
+        lastHitFrame = Time.frameCount;
 
-        if (TriggerCollisionEvent != null)
+        if (CollisionEvent != null)
         {
-            TriggerCollisionEvent(gameObject);
+            CollisionEvent(gameObject);
         }
 
         if (_gameObjectCollider.CompareTag(Tags.Obstacle))

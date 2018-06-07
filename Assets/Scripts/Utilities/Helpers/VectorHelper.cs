@@ -206,16 +206,38 @@ public static class VectorHelper
         return Vector2.Dot(myRight, direction) > 0;
     }
 
+    public static bool IsInBetween(this Vector2 vector, Vector2 min, Vector2 max)
+    {
+        bool isInBetween = vector.IsBiggerOrEquals(min) && vector.IsSmallerOrEquals(max);
+        return isInBetween;
+    }
+
+    public static bool IsInBetween(this Vector3 vector, Vector3 min, Vector3 max)
+    {
+        bool isInBetween = vector.IsBiggerOrEquals(min) && vector.IsSmallerOrEquals(max);
+        return isInBetween;
+    }
+
     public static bool IsBiggerOrEquals(this Vector2 vector, Vector2 compareVector)
     {
         bool isBiggerOrEquals = vector.x >= compareVector.x && vector.y >= compareVector.y;
         return isBiggerOrEquals;
     }
 
+    public static bool IsBiggerOrEquals(this Vector3 vector, Vector3 compareVector)
+    {
+        bool isBiggerOrEquals = vector.x >= compareVector.x && vector.y >= compareVector.y && vector.z >= compareVector.z;
+        return isBiggerOrEquals;
+    }
     public static bool IsSmallerOrEquals(this Vector2 vector, Vector2 compareVector)
     {
         bool isBiggerOrEquals = vector.x <= compareVector.x && vector.y <= compareVector.y;
         return isBiggerOrEquals;
     }
 
+    public static bool IsSmallerOrEquals(this Vector3 vector, Vector3 compareVector)
+    {
+        bool isBiggerOrEquals = vector.x <= compareVector.x && vector.y <= compareVector.y && vector.z <= compareVector.z;
+        return isBiggerOrEquals;
+    }
 }
