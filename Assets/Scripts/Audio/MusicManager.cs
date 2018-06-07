@@ -10,7 +10,6 @@ using System;
 public class MusicManager : MonoBehaviour
 {
 	[Range(0, 1)] [SerializeField] private float maxVolume = .5f;
-	[SerializeField] private Scenes defaultSongList;
     [SerializeField] private Songlist[] songlists;
 	[SerializeField] private float fadeTime = 0.5f;
 
@@ -34,6 +33,8 @@ public class MusicManager : MonoBehaviour
         }
 
         Song _randomSong = RandomSong();
+
+        if (_randomSong == null) { return; }
 
         switching = true;
 
@@ -61,15 +62,16 @@ public class MusicManager : MonoBehaviour
     {
         source = GetComponent<AudioSource>();
         source.volume = maxVolume;
-        SceneSwitch(Scenes.Default, defaultSongList);
     }
 
     private IEnumerator FadeToNewSong(Song _song)
     {
-        StartCoroutine(FadeOut());
+        if (source.isPlaying)
+        {
+            StartCoroutine(FadeOut());
 
-        yield return new WaitForSeconds(fadeTime / 2f);
-
+            yield return new WaitForSeconds(fadeTime / 2f);
+        }
         source.clip = _song.Clip;
         source.volume = 0;
         source.Play();

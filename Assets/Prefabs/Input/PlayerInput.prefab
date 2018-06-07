@@ -23,9 +23,6 @@ GameObject:
   - component: {fileID: 114554856832500068}
   - component: {fileID: 114982662604851858}
   - component: {fileID: 114046312930102048}
-  - component: {fileID: 114837483623886094}
-  - component: {fileID: 114873589620089896}
-  - component: {fileID: 114822431059257436}
   m_Layer: 0
   m_Name: PlayerInput
   m_TagString: Untagged
@@ -90,49 +87,8 @@ MonoBehaviour:
   - {fileID: 114554856832500068}
   - {fileID: 114982662604851858}
   - {fileID: 114046312930102048}
-  - {fileID: 114837483623886094}
-  vrPlayerInputType: 1
+  vrPlayerInputType: 0
   nonVRPlayerInputType: 2
---- !u!114 &114822431059257436
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1801227887308608}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cae42eb11711cf9439cdfaaf9005343f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DragTreshhold: 0
-  TimeBeforeTappedExpired: 0.15
---- !u!114 &114837483623886094
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1801227887308608}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89a60b53b87c27e428f8348eccd5e75e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerInputType: 3
-  offset: {x: 0, y: 1, z: 0}
---- !u!114 &114873589620089896
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1801227887308608}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78798dfb5f74bae47b51d3e0634d8ca5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DragTreshhold: 0
-  TimeBeforeTappedExpired: 0.15
-  input: 323
 --- !u!114 &114982662604851858
 MonoBehaviour:
   m_ObjectHideFlags: 1
