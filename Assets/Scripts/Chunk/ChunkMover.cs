@@ -29,6 +29,7 @@ public class ChunkMover : MonoBehaviour
 
 	public int ChunkCount { get { return currentChunks.Count; } }
 	public bool MoveChunks { set { moveChunks = value; } }
+	public float Speed { get { return speed; } }
 
 	[SerializeField] private float stopTime;
 	[SerializeField] private float minimumSpeed = 15;
