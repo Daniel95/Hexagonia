@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class MainMenuRotator : MonoBehaviour
 {
+
+    public static Action SwitchedEvent;
+
     [Serializable]
     public class MainMenuSectionRotation
     {
@@ -55,6 +58,11 @@ public class MainMenuRotator : MonoBehaviour
         }
 
         rotateToSectionUpdateCoroutine = StartCoroutine(RotateTo(transform.rotation, _targetRotation, rotateSpeed));
+
+        if (SwitchedEvent != null)
+        {
+            SwitchedEvent();
+        }
     }
 
     private IEnumerator RotateTo(Quaternion _startRotation, Quaternion _targetRotation, float _speed, Action _onRotationCompleted = null)

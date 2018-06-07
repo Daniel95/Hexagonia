@@ -98,7 +98,12 @@ public class AudioEffectManager : MonoBehaviour
     {
         PlayEffect(AudioEffectType.Coin, transform.position);
     }
-    
+
+    private void SwitchedMenuCanvas()
+    {
+        PlayEffect(AudioEffectType.SwitchedMenuCanvas, transform.position);
+    }
+
     private IEnumerator SetSoundDelay(float _delay, bool _switch)
     {
         yield return new WaitForSeconds(_delay);
@@ -111,6 +116,7 @@ public class AudioEffectManager : MonoBehaviour
         PlayerDiedAnimation.CompletedEvent += HighScoreSound;
         Coin.CollectedEvent += CoinCollectedSound;
         ScoreMultiplier.UpdatedEvent += MultiplierMaxCheck;
+        MainMenuRotator.SwitchedEvent += SwitchedMenuCanvas;
     }
 
     private void OnDisable()
@@ -119,5 +125,6 @@ public class AudioEffectManager : MonoBehaviour
         PlayerDiedAnimation.CompletedEvent -= HighScoreSound;
         Coin.CollectedEvent -= CoinCollectedSound;
         ScoreMultiplier.UpdatedEvent -= MultiplierMaxCheck;
+        MainMenuRotator.SwitchedEvent -= SwitchedMenuCanvas;
     }
 }

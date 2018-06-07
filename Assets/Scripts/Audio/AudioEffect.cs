@@ -21,4 +21,5 @@ public enum AudioEffectType
     ButtonEnter,
     ButtonSucces,
     Death,
+    SwitchedMenuCanvas,
 }
