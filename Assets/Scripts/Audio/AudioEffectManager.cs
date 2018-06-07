@@ -101,7 +101,6 @@ public class AudioEffectManager : MonoBehaviour
 
     private void SwitchedMenuCanvas()
     {
-        Debug.Log("Called switchmenucanvassound");
         PlayEffect(AudioEffectType.SwitchedMenuCanvas, transform.position);
     }
 
