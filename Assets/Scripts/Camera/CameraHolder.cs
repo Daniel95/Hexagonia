@@ -71,12 +71,12 @@ public class CameraHolder : MonoBehaviour
         DefaultCameraHolderTransform.position = Vector3.zero;
     }
 
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
         SceneLoader.SceneSwitchStartedEvent += OnSceneSwitch;
     }
 
-    private void OnDisable()
+    protected virtual void OnDisable()
     {
         SceneLoader.SceneSwitchStartedEvent -= OnSceneSwitch;
     }

@@ -72,10 +72,12 @@ public class ChunkMover : MonoBehaviour
 
 	private void Update ()
 	{
-        if (!moveChunks)
-            return;
+	    if (!moveChunks)
+	    {
+	        return;
+	    }
 
-        if (speed < maximumSpeed && !stopping)
+	    if (speed < maximumSpeed && !stopping)
 	    {
 	        float _speedOffset = maximumSpeed - minimumSpeed;
 	        float _speedTimeMultiplier = Progression.Timer / timeForMaximumSpeed;
@@ -131,7 +133,7 @@ public class ChunkMover : MonoBehaviour
         }
 
         speed = 0;
-        MoveChunks = false;
+        moveChunks = false;
     }
 
     private void OnEnable()

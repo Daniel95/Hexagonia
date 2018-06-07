@@ -105,11 +105,14 @@ public class Player : SmoothPlaneMovement
         if (_otherCollider.tag == Tags.Obstacle)
         {
             LookPositionOnPlane.Instance.enabled = false;
+
             SpawnDyingPlayer();
+            
             if (DiedEvent != null)
             {
                 DiedEvent();
             }
+
             Destroy(gameObject);
         }
     }
