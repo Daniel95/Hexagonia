@@ -15,6 +15,7 @@ public class SkipIntroButton : GazeButton {
         if (Convert.ToBoolean(PlayerPrefs.GetInt(NOT_FIRST_TIME_LAUNCHED)))
         {
             SceneLoader.Instance.SwitchScene(scene);
+            PlatformBaseInput.DownInputEvent -= OnInput;
         }
     }
 
