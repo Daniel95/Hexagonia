@@ -25,14 +25,10 @@ public class AudioEffectManager : MonoBehaviour
     
     [SerializeField] private List<AudioEffect> audioEffects = new List<AudioEffect>();
     [SerializeField] private float maxMultiplierEffectDelay = 5;
-
-    private bool maxMultiplierEffectReady = true;
-
-    [Space(5)]
-
-
     [SerializeField] private GameObject oneShotAudio;
 
+    private bool maxMultiplierEffectReady = true;
+    
     /// <summary>
     /// Plays an audioEffect at a certain worldposition
     /// </summary>
