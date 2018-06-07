@@ -9,8 +9,6 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Button))]
 public class VRModeButton : GazeButton
 {
-    public static Action InitializedEvent;
-        
     private const string EVENT_SYSTEM_NAME = "EventSystem";
 
     [SerializeField] private Color vrColor = Color.white;
@@ -47,6 +45,18 @@ public class VRModeButton : GazeButton
         }
     }
 
+    private void UpdateColor()
+    {
+        if (VRSwitch.VRState)
+        {
+            Button.targetGraphic.color = vrColor;
+        }
+        else
+        {
+            Button.targetGraphic.color = nonVRColor;
+        }
+    }
+
     protected override void OnEnable()
     {
         base.OnEnable();
@@ -59,24 +69,9 @@ public class VRModeButton : GazeButton
         VRSwitch.SwitchedEvent -= UpdateColor;
     }
 
-    private void UpdateColor()
-    {
-        if (VRSwitch.VRState)
-        {
-            buttonImage.color = vrColor;
-        }
-        else
-        {
-            buttonImage.color = nonVRColor;
-        }
-    }
-
     private void Start()
     {
         eventSystems = Resources.FindObjectsOfTypeAll<EventSystem>();
-        if (InitializedEvent != null)
-        {
-            InitializedEvent();
-        }
+        UpdateColor();
     }
 }
