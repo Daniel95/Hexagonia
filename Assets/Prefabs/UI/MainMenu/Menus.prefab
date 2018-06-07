@@ -272,6 +272,7 @@ GameObject:
   - component: {fileID: 223498368258322684}
   - component: {fileID: 114795254741439936}
   - component: {fileID: 114854886642615714}
+  - component: {fileID: 114415062853927258}
   m_Layer: 5
   m_Name: Scores Canvas
   m_TagString: Untagged
@@ -444,7 +445,7 @@ GameObject:
   - component: {fileID: 222195383203270220}
   - component: {fileID: 114435423850287354}
   m_Layer: 5
-  m_Name: bg
+  m_Name: background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2185,6 +2186,20 @@ MonoBehaviour:
   m_FillAmount: 0
   m_FillClockwise: 1
   m_FillOrigin: 2
+--- !u!114 &114415062853927258
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1284077555330040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf969add9111c4c4fb9d30404cd72972, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vrHighscoreText: {fileID: 114866434286559526}
+  nonVRHighscoreText: {fileID: 114834514323944328}
+  totalScoreText: {fileID: 114877120647110082}
 --- !u!114 &114433981099787816
 MonoBehaviour:
   m_ObjectHideFlags: 1
