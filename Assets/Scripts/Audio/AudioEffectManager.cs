@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
 
@@ -23,6 +24,9 @@ public class AudioEffectManager : MonoBehaviour
     #endregion
     
     [SerializeField] private List<AudioEffect> audioEffects = new List<AudioEffect>();
+    [SerializeField] private float maxMultiplierEffectDelay = 5;
+
+    private bool maxMultiplierEffectReady = true;
 
     [Space(5)]
 
@@ -81,9 +85,28 @@ public class AudioEffectManager : MonoBehaviour
         }
     }
 
+    private void MultiplierMaxCheck(int _multiplier)
+    {
+        if (!maxMultiplierEffectReady) { return; }
+        
+        if (_multiplier == ResourceValue.Instance.MaxValue)
+        {
+            PlayEffect(AudioEffectType.MultiplierMax, transform.position);
+
+            maxMultiplierEffectReady = false;
+            StartCoroutine(SetSoundDelay(maxMultiplierEffectDelay, maxMultiplierEffectReady));
+        }
+    }
+
     private void CoinCollectedSound(int _value)
     {
         PlayEffect(AudioEffectType.Coin, transform.position);
+    }
+    
+    private IEnumerator SetSoundDelay(float _delay, bool _switch)
+    {
+        yield return new WaitForSeconds(_delay);
+        _switch = true;
     }
 
     private void OnEnable()
@@ -91,6 +114,7 @@ public class AudioEffectManager : MonoBehaviour
         Player.DiedEvent += PlayerDiedSound;
         PlayerDiedAnimation.CompletedEvent += HighScoreSound;
         Coin.CollectedEvent += CoinCollectedSound;
+        ScoreMultiplier.UpdatedEvent += MultiplierMaxCheck;
     }
 
     private void OnDisable()
@@ -98,5 +122,6 @@ public class AudioEffectManager : MonoBehaviour
         Player.DiedEvent -= PlayerDiedSound;
         PlayerDiedAnimation.CompletedEvent -= HighScoreSound;
         Coin.CollectedEvent -= CoinCollectedSound;
+        ScoreMultiplier.UpdatedEvent -= MultiplierMaxCheck;
     }
 }
