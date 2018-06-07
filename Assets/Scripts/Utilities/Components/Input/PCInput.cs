@@ -16,7 +16,7 @@ public class PCInput : PlatformBaseInput
 
         while (true)
         {
-            bool startedTouching = Input.GetKeyDown(input) && !EventSystem.current.IsPointerOverGameObject();
+            bool startedTouching = Input.GetKeyDown(input);
 
             if (startedTouching)
             {

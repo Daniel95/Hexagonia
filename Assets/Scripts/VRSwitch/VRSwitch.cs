@@ -1,5 +1,5 @@
-﻿
-using System;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.XR;
 
@@ -29,6 +29,9 @@ public class VRSwitch : MonoBehaviour
     #endregion
 
     private const string VR_MODE = "VRMode";
+    private const string VR_CARDBOARD = "cardboard";
+    private const string VR_NONE = "None";
+
 
     public GameObject GVRReticlePointerGameObject { get { return gvrReticlePointerGameObject; } }
 
@@ -43,13 +46,15 @@ public class VRSwitch : MonoBehaviour
     public bool Switch()
     {
         vrState = !vrState;
-        XRSettings.enabled = vrState;
+
+        StartCoroutine(LoadDevice());
 
         PlayerPrefs.SetInt(VR_MODE, Convert.ToInt32(vrState));
         PlayerPrefs.Save();
 
         gvrGameObject.SetActive(vrState);
         gvrReticlePointerGameObject.SetActive(vrState);
+
 #if !UNITY_EDITOR
         if (vrState)
         {
@@ -57,7 +62,7 @@ public class VRSwitch : MonoBehaviour
         }
 #endif
 
-        if(SwitchedEvent != null)
+        if (SwitchedEvent != null)
         {
             SwitchedEvent();
         }
@@ -70,14 +75,35 @@ public class VRSwitch : MonoBehaviour
         gvrReticlePointerGameObject = FindObjectOfType<GvrReticlePointer>().gameObject;
 
         vrState = Convert.ToBoolean(PlayerPrefs.GetInt(VR_MODE));
-        XRSettings.enabled = vrState;
         gvrGameObject.SetActive(vrState);
         gvrReticlePointerGameObject.SetActive(vrState);
+
+        StartCoroutine(LoadDevice());
 
         if (SwitchedEvent != null)
         {
             SwitchedEvent();
         }
+    }
+
+    IEnumerator LoadDevice()
+    {
+        if (VRState)
+        {
+            XRSettings.LoadDeviceByName(VR_CARDBOARD);
+        }
+        else
+        {
+            XRSettings.LoadDeviceByName(VR_NONE);
+        }
+        yield return null;
+        XRSettings.enabled = vrState;
+#if !UNITY_EDITOR
+        if (vrState)
+        {
+            GvrCardboardHelpers.Recenter();
+        }
+#endif
     }
 
     private void SetReticlePointer()
@@ -91,10 +117,12 @@ public class VRSwitch : MonoBehaviour
     private void OnEnable()
     {
         Player.DiedEvent += SetReticlePointer;
+        VRModeButton.InitializedEvent += SetReticlePointer;
     }
 
     private void OnDisable()
     {
         Player.DiedEvent -= SetReticlePointer;
+        VRModeButton.InitializedEvent -= SetReticlePointer;
     }
 }
