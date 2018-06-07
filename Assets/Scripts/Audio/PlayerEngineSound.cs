@@ -15,12 +15,10 @@ public class PlayerEngineSound : MonoBehaviour {
 
     void Update ()
     {
-        //Doe dit thuis
-
         float _delta = SmoothPlaneMovement.Delta.sqrMagnitude;
         
         source.volume = (maxVolume * Mathf.InverseLerp(minSpeed, maxSpeed, _delta));
 
-        Debug.Log(Mathf.InverseLerp(minSpeed, maxSpeed, _delta));
+        //Debug.Log(Mathf.InverseLerp(minSpeed, maxSpeed, _delta));
     }
 }

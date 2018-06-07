@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR;
 
 /// <summary>
 /// Spawns and play's audio effects on custom positions. The script gets the audio from AudioEffect.cs
@@ -64,9 +65,19 @@ public class AudioEffectManager : MonoBehaviour
 
     private void HighScoreSound()
     {
-        if (Progression.LastScore > LocalHighscore.HighScore)
+        if (XRSettings.enabled)
         {
-            PlayEffect(AudioEffectType.Highscore, Camera.main.transform.position);
+            if (Progression.VRHighScore > Progression.Instance.Score)
+            {
+                PlayEffect(AudioEffectType.Highscore, Camera.main.transform.position);
+            }
+        }
+        else
+        {
+            if (Progression.NonVRHighScore > Progression.Instance.Score)
+            {
+                PlayEffect(AudioEffectType.Highscore, Camera.main.transform.position);
+            }
         }
     }
 
