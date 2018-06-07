@@ -12,6 +12,7 @@ using UnityEngine;
 public class ChunkDesign : MonoBehaviour
 { 
     public List<Transform> ObjectsToPool { get { return objectsToPool; } }
+    public List<Transform> ObjectsToInstance { get { return objectsToInstance; } }
 
     public float Length
     {
@@ -27,9 +28,11 @@ public class ChunkDesign : MonoBehaviour
 
     private const string POOLED_NAME = "Pooled";
 	private const string GROUND = "Ground";
+    private const string UNTAGGED = "Untagged";
 
 	[SerializeField] private List<GameObject> coinPositions;
     [SerializeField] private List<Transform> objectsToPool;
+    [SerializeField] private List<Transform> objectsToInstance;
     [SerializeField] private GameObject ground;
     [SerializeField] private int amountOfCoins;
 
@@ -91,7 +94,39 @@ public class ChunkDesign : MonoBehaviour
                 }
             }
         }
+
+        UpdateInstanceableObjects();
+
         EditorUtility.SetDirty(this);
+    }
+
+    private void UpdateInstanceableObjects()
+    {
+        objectsToInstance = new List<Transform>();
+        for (int i = 0; i < objectsToPool.Count; i++)
+        {
+            bool _instanceable = true;
+
+            if (objectsToPool[i].transform.tag == UNTAGGED)
+            {
+                foreach (var _child in objectsToPool[i].FirstLayerChildren())
+                {
+                    if (_child.transform.tag != UNTAGGED)
+                    {
+                        _instanceable = false;
+                    }
+                }
+            }
+            else
+            {
+                _instanceable = false;
+            }
+
+            if (_instanceable)
+            {
+                objectsToInstance.Add(objectsToPool[i]);
+            }
+        }
     }
 
     [ContextMenu("UpdateChunkFromPool")]
