@@ -48,6 +48,7 @@ public abstract class GazeButton : MonoBehaviour
             {
                 StopCoroutine(increaseGazeFillAmountOverTimeCoroutine);
             }
+            AudioEffectManager.Instance.PlayEffect(AudioEffectType.ButtonEnter);
             increaseGazeFillAmountOverTimeCoroutine = StartCoroutine(IncreaseGazeFillAmountOverTime());
         }
     }

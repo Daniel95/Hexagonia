@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using SRF;
+using UnityEngine;
 using Debug = UnityEngine.Debug;
 
 public partial class SROptions
@@ -11,6 +12,13 @@ public partial class SROptions
     public void GoToMenuScene()
     {
         SceneLoader.Instance.SwitchScene(Scenes.Menu);
+    }
+
+    [Category("Debug")]
+    [Sort(-1)]
+    public void DeletePlayerPrefs()
+    {
+        PlayerPrefs.DeleteAll();
     }
 
     [Category("VR Controls")]
