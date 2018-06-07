@@ -3,7 +3,8 @@
 public class VisualiseOnScale : MonoBehaviour
 {
     [SerializeField] private Angle angle;
-    [SerializeField] private float min, max;
+	[SerializeField] private float min;
+	[SerializeField] private float max;
 
     private void Update()
     {
