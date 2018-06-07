@@ -70,8 +70,6 @@ public class AudioEffectManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Highscore reached");
-            PlayEffect(AudioEffectType.Highscore);
             if (Progression.NonVRHighScore > Progression.Instance.Score)
             {
                 PlayEffect(AudioEffectType.Highscore);
