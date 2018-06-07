@@ -63,7 +63,7 @@ public class AudioEffectManager : MonoBehaviour
         PlayEffect(AudioEffectType.Death, transform.position);
     }
 
-    private void HighScoreSound()
+    private void HighScore()
     {
         if (XRSettings.enabled)
         {
@@ -94,13 +94,14 @@ public class AudioEffectManager : MonoBehaviour
         }
     }
 
-    private void CoinCollectedSound(int _value)
+    private void CoinCollected(int _value)
     {
         PlayEffect(AudioEffectType.Coin, transform.position);
     }
 
     private void SwitchedMenuCanvas()
     {
+        Debug.Log("Called switchmenucanvassound");
         PlayEffect(AudioEffectType.SwitchedMenuCanvas, transform.position);
     }
 
@@ -113,8 +114,8 @@ public class AudioEffectManager : MonoBehaviour
     private void OnEnable()
     {
         Player.DiedEvent += PlayerDiedSound;
-        PlayerDiedAnimation.CompletedEvent += HighScoreSound;
-        Coin.CollectedEvent += CoinCollectedSound;
+        PlayerDiedAnimation.CompletedEvent += HighScore;
+        Coin.CollectedEvent += CoinCollected;
         ScoreMultiplier.UpdatedEvent += MultiplierMaxCheck;
         MainMenuRotator.SwitchedEvent += SwitchedMenuCanvas;
     }
@@ -122,8 +123,8 @@ public class AudioEffectManager : MonoBehaviour
     private void OnDisable()
     {
         Player.DiedEvent -= PlayerDiedSound;
-        PlayerDiedAnimation.CompletedEvent -= HighScoreSound;
-        Coin.CollectedEvent -= CoinCollectedSound;
+        PlayerDiedAnimation.CompletedEvent -= HighScore;
+        Coin.CollectedEvent -= CoinCollected;
         ScoreMultiplier.UpdatedEvent -= MultiplierMaxCheck;
         MainMenuRotator.SwitchedEvent -= SwitchedMenuCanvas;
     }
