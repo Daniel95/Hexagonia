@@ -105,15 +105,9 @@ public class Player : SmoothPlaneMovement
             Vector3 _obstacleColliderMax = lastObstacleInFrontCollider.bounds.max;
             _obstacleColliderMax.z = obstaclePreviousZPosition;
 
-            //Debug.Log("_obstacleColliderMin " + _obstacleColliderMin);
-            //Debug.Log("_obstacleColliderMax " + _obstacleColliderMax);
-
             bool _isInPreviousCollider = transform.position.IsInBetween(_obstacleColliderMin, _obstacleColliderMax);
 
             if (_isInPreviousCollider) {
-                //Debug.DrawLine(_obstacleColliderMin, _obstacleColliderMax);
-                //Debug.Log("Collision!");
-                //Debug.Break();
                 Hit(lastObstacleInFrontCollider.gameObject);
             }
 
@@ -125,7 +119,6 @@ public class Player : SmoothPlaneMovement
 
         if (hitObstacleInFront)
         {
-            //Debug.Log("hit " + _obstacleHit, _obstacleHit.collider.gameObject);
             obstaclePreviousZPosition = _obstacleHit.point.z;
             lastObstacleInFrontCollider = _obstacleHit.collider;
         }
