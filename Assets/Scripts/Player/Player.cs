@@ -114,7 +114,6 @@ public class Player : SmoothPlaneMovement
                 //Debug.DrawLine(_obstacleColliderMin, _obstacleColliderMax);
                 //Debug.Log("Collision!");
                 //Debug.Break();
-                //Debug.Break();
                 Hit(lastObstacleInFrontCollider.gameObject);
             }
 
@@ -132,24 +131,22 @@ public class Player : SmoothPlaneMovement
         }
     }
 
-    /*
     private void OnTriggerEnter(Collider _otherCollider)
     {
         Hit(_otherCollider.gameObject);
     }
-    */
 
-    private void Hit(GameObject _gameObjectCollider)
+    private void Hit(GameObject _collidingGameObject)
     {
         if (Time.frameCount == lastHitFrame) { return; }
         lastHitFrame = Time.frameCount;
 
         if (CollisionEvent != null)
         {
-            CollisionEvent(gameObject);
+            CollisionEvent(_collidingGameObject);
         }
 
-        if (_gameObjectCollider.CompareTag(Tags.Obstacle))
+        if (_collidingGameObject.CompareTag(Tags.Obstacle))
         {
             Die();
         }
