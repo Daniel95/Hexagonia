@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4633773709061946}
   - component: {fileID: 54209924105857420}
   - component: {fileID: 114978635711108654}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -37,7 +37,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4529112739300562}
   - component: {fileID: 65919585283928600}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Collider (1)
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 212037232534344754}
   - component: {fileID: 95832091193532650}
   - component: {fileID: 114713299452994984}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Character_mid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,7 +71,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4011277855126902}
   - component: {fileID: 65191277377191208}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Collider
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -222,6 +222,9 @@ MonoBehaviour:
   offset: {x: 0, y: 0, z: -3}
   dyingPlayer: {fileID: 1694964997592600, guid: 0a03155c6d7b9514a85ce7569d8f2553,
     type: 2}
+  collisionLayermask:
+    serializedVersion: 2
+    m_Bits: 4294966527
   animator: {fileID: 95832091193532650}
   animateSensitivity: 10
   turnAnimateThreshold: 0.05
