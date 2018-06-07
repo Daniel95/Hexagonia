@@ -27,7 +27,7 @@ public class AudioEffectManager : MonoBehaviour
     [SerializeField] private float pitchMax = 1.5f;
     [SerializeField] private GameObject oneShotAudio;
     
-	public void PlayEffect(AudioEffectType _audioType, float _pitch = 1f)
+	public void PlayEffect(AudioEffectType _audioType, float _pitch = 1f, float _volume = 1)
     {
         for (int i = 0; i < audioEffects.Count; i++)
         {
@@ -35,20 +35,22 @@ public class AudioEffectManager : MonoBehaviour
             {
                 if (audioEffects[i].Clip != null)
                 {
-                    PlayClipAtPoint(audioEffects[i].Clip, _pitch);
+                    AudioEffect effect = audioEffects[i];
+                    PlayClipAtPoint(effect.Clip, _pitch, effect.Volume);
                 }
                 break;
             }
         }
     }
 
-    private void PlayClipAtPoint(AudioClip _audioClip, float _pitch = 1f)
+    private void PlayClipAtPoint(AudioClip _audioClip, float _pitch = 1f, float _volume = 1)
     {
         GameObject tempGameobject = Instantiate(oneShotAudio, transform.position, Quaternion.identity);
         AudioSource tempSource = tempGameobject.GetComponent<AudioSource>();
         
         tempSource.clip = _audioClip;
         tempSource.pitch = _pitch;
+        tempSource.volume = _volume;
         tempSource.Play();
 
         Destroy(tempGameobject, _audioClip.length);
