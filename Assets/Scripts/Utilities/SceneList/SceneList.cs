@@ -3,7 +3,8 @@
 public enum Scenes 
 {
 	Default = 0,
-	Menu = 1,
-	Main = 2
+	Intro = 1,
+	Menu = 2,
+	Main = 3
 }
 

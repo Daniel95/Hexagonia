@@ -72,6 +72,10 @@ public class VRModeButton : GazeButton
     private void Start()
     {
         eventSystems = Resources.FindObjectsOfTypeAll<EventSystem>();
+        if (InitializedEvent != null)
+        {
+            InitializedEvent();
+        }
         UpdateColor();
     }
 }
