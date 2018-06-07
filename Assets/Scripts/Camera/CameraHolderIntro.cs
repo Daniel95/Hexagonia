@@ -44,13 +44,13 @@ public class CameraHolderIntro : CameraHolder
 	    }
     }
 
-    private void OnEnable()
+    protected override void OnEnable()
     {
         base.OnEnable();
         videoPlayer.loopPointReached += CheckVideoPlayer;
     }
 
-    private void OnDisable()
+    protected override void OnDisable()
     {
         base.OnDisable();
         ExitScene();
