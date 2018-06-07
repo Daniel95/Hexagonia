@@ -43,6 +43,9 @@ public class Player : SmoothPlaneMovement
     private float absRatioY;
     private Vector3 previousPosition;
     private int lastHitFrame;
+    private bool hitObstacleInFront;
+    private Collider lastObstacleInFrontCollider;
+    private float obstaclePreviousZPosition;
 
     protected override void MoveToTargetPosition(Vector3 _targetPosition)
     {
@@ -92,10 +95,6 @@ public class Player : SmoothPlaneMovement
             animator.Play(middleStateIndex);
         }
     }
-
-    private bool hitObstacleInFront;
-    private Collider lastObstacleInFrontCollider;
-    private float obstaclePreviousZPosition;
 
     private void Update()
     {
