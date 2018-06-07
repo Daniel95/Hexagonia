@@ -40,8 +40,6 @@ public class ChunkPool : MonoBehaviour
 
     private Dictionary<ChunkType, List<ChunkDesign>> chunkListsByChunkType = new Dictionary<ChunkType, List<ChunkDesign>>();
 
-    //private Dictionary<ObjData, Transform> objDataByTransform = new Dictionary<ObjData, Transform>();
-
     private void SpawnRandomStartChunks()
     {
         for (int i = 0; i < startChunksCount; i++)
