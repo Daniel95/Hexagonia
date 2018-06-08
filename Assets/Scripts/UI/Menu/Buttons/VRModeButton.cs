@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.XR;
 
 /// <summary>
 /// Button that calls the VRSwitch Switch method to switch VR Mode.
@@ -79,5 +80,8 @@ public class VRModeButton : GazeButton
             InitializedEvent();
         }
         UpdateColor();
+#if !UNITY_EDITOR
+        SetInteractable(GyroHelper.HasGyroscope);
+#endif
     }
 }
