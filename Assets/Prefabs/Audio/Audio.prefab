@@ -147,24 +147,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 530138764895f1840ab10556399e8141, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxVolume: 0.5
+  maxVolume: 1
   songlists:
   - Scene: 2
     SongList:
     - Priority: 0
-      Clip: {fileID: 8300000, guid: 67588dd5d68f39c4e8871ea22c7bb451, type: 3}
+      Clip: {fileID: 8300000, guid: c80420a93a0cdcb429db86a2bf0f1bfd, type: 3}
     - Priority: 0
-      Clip: {fileID: 8300000, guid: 530d70419e5a30d4784e66249979d167, type: 3}
+      Clip: {fileID: 8300000, guid: 7738721c07c3cdd449413b6d63fd826a, type: 3}
   - Scene: 3
     SongList:
     - Priority: 0
-      Clip: {fileID: 8300000, guid: 9aa74e18e3fc7f94a83bd078d79b4820, type: 3}
+      Clip: {fileID: 8300000, guid: ff49fbf6ccc2b6040bc20601f471ff8c, type: 3}
     - Priority: 0
-      Clip: {fileID: 8300000, guid: d00f9efcdce5ba141b5096cbb687e772, type: 3}
+      Clip: {fileID: 8300000, guid: 2c3ff662ee3ca834d90be12db470ac5c, type: 3}
     - Priority: 0
-      Clip: {fileID: 8300000, guid: 6bc501692e6af8c4e8b022488feb4a8a, type: 3}
-  - Scene: 1
-    SongList: []
+      Clip: {fileID: 8300000, guid: 211061a16d18bb340bf167dc727007d0, type: 3}
   fadeTime: 2
 --- !u!114 &114274971420683834
 MonoBehaviour:
@@ -178,7 +176,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioEffects:
-  - Clip: {fileID: 8300000, guid: 33e7d8cc428a71a429418df48b48de9b, type: 3}
+  - Clip: {fileID: 8300000, guid: 50379747fd3dec34abcc8c83810abfbe, type: 3}
     Effect: 0
-  - Clip: {fileID: 0}
-    Effect: 1
+    Volume: 0.4
+  - Clip: {fileID: 8300000, guid: 76bdb9218f218374c8dd986ba769f793, type: 3}
+    Effect: 6
+    Volume: 1
+  - Clip: {fileID: 8300000, guid: 7139a7d992cc90f498b98da9f04a72a1, type: 3}
+    Effect: 4
+    Volume: 0.7
+  - Clip: {fileID: 8300000, guid: 29b0fb58a5bcb7549971003ddefbadac, type: 3}
+    Effect: 2
+    Volume: 1
+  - Clip: {fileID: 8300000, guid: 7b099afafa245ea409c5d9afb5e06ee6, type: 3}
+    Effect: 3
+    Volume: 1
+  - Clip: {fileID: 8300000, guid: 94b008c3eaa70e24eb915e11811e7ee1, type: 3}
+    Effect: 7
+    Volume: 1
+  pitchMax: 1.5
+  oneShotAudio: {fileID: 1986377950222482, guid: 3035ca802014f92469451c6c9fb69a6b,
+    type: 2}

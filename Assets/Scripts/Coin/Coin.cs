@@ -37,9 +37,7 @@ public class Coin : MonoBehaviour
         }
 		particle = ObjectPool.Instance.GetObjectForType(COIN_PARTICLE, false);
 		particle.transform.position = transform.position;
-
-        AudioEffectManager.Instance.PlayEffect(AudioEffectType.Coin, transform.position);
-
+        
 		Destroy(gameObject);
 	}
 
