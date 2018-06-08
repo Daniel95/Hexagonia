@@ -81,7 +81,7 @@ public class VRModeButton : GazeButton
         }
         UpdateColor();
 #if !UNITY_EDITOR
-        SetInteractable(GyroHelper.HasGyroscope);
+        SetInteractable(SystemInfo.supportsGyroscope);
 #endif
     }
 }
