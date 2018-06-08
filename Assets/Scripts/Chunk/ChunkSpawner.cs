@@ -90,7 +90,7 @@ public class ChunkSpawner : MonoBehaviour
         _chunkParent.transform.parent = transform;
         _chunkParent.name = _chunkDesign.name;
 
-        if (true)
+        if (SystemInfo.supportsInstancing
         {
             objectsToInstance = _chunkDesign.ObjectsToInstance;
             objectsToPool = _chunkDesign.ObjectsToPool.Except(objectsToInstance).ToList();
