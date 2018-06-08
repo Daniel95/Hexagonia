@@ -7,7 +7,6 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer))]
 public class MovementBoundaryLine : MonoBehaviour
 {
-
     public enum PositionType
     {
         Top,
@@ -51,6 +50,14 @@ public class MovementBoundaryLine : MonoBehaviour
         }
     }
 
+    private void StopFadeCoroutine()
+    {
+        if(fadeCoroutine != null)
+        {
+            StopCoroutine(fadeCoroutine);
+        }
+    }
+
     private void Start()
     {
         Vector3 _halfPlaneSize = LookPositionOnPlane.Instance.Size / 2;
@@ -73,14 +80,6 @@ public class MovementBoundaryLine : MonoBehaviour
         fadeCoroutine = StartCoroutine(FadeCoroutine());
     }
 
-    private void StopFadeCoroutine()
-    {
-        if(fadeCoroutine != null)
-        {
-            StopCoroutine(fadeCoroutine);
-        }
-    }
-
     private void OnEnable()
     {
         Player.DiedEvent += StopFadeCoroutine;
@@ -90,5 +89,4 @@ public class MovementBoundaryLine : MonoBehaviour
     {
         Player.DiedEvent -= StopFadeCoroutine;
     }
-
 }

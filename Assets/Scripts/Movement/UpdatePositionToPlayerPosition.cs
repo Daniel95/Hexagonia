@@ -5,7 +5,6 @@
 /// </summary>
 public class UpdatePositionToPlayerPosition : MonoBehaviour
 {
-
     [SerializeField] private Vector3 offset;
 
     private void UpdatePosition(Vector3 _position)
