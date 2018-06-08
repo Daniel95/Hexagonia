@@ -55,13 +55,6 @@ public class VRSwitch : MonoBehaviour
         gvrGameObject.SetActive(vrState);
         gvrReticlePointerGameObject.SetActive(vrState);
 
-#if !UNITY_EDITOR
-        if (vrState)
-        {
-            GvrCardboardHelpers.Recenter();
-        }
-#endif
-
         if (SwitchedEvent != null)
         {
             SwitchedEvent();
