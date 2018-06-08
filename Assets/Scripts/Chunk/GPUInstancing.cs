@@ -74,7 +74,7 @@ public class GPUInstancing : MonoBehaviour
         }
     }
 
-    public ObjData AddObj(Transform _transform, Transform _parentTransform = null)
+    public ObjData AddTransform(Transform _transform, Transform _parentTransform = null)
     {
         ObjData _objData = new ObjData(_transform.position, _transform.localScale, _transform.rotation, _parentTransform);
 
@@ -100,7 +100,7 @@ public class GPUInstancing : MonoBehaviour
         return _objData;
     }
 
-    public void RemoveObjByParent(Transform _parentTransform)
+    public void RemoveTransformsByParent(Transform _parentTransform)
     {
         List<string> _keysToRemove = new List<string>();
 
