@@ -49,6 +49,5 @@ public class EventSystemHandler : MonoBehaviour
                 genericEventSystemGameObject.SetActive(true);
             }
         }
-
     }
 }

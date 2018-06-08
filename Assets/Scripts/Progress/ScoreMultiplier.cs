@@ -9,6 +9,7 @@ public class ScoreMultiplier : MonoBehaviour
 {
     public static ScoreMultiplier Instance { get { return GetInstance(); } }
     public static int Multiplier { get { return multiplier; } }
+
     public static Action<int> UpdatedEvent;
     public static Action<float> MultiplierIncreasedEvent;
     public static Action MultiplierDecreasedEvent;

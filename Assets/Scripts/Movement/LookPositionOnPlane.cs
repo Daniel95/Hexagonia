@@ -71,18 +71,6 @@ public class LookPositionOnPlane : MonoBehaviour
         return lookPosition;
     }
 
-    private void Awake()
-    {
-        BoxCollider _boxCollider = GetComponent<BoxCollider>();
-        minBounds = _boxCollider.bounds.min;
-        maxBounds = _boxCollider.bounds.max;
-
-        size = new Vector2(maxBounds.x - minBounds.x, maxBounds.y - minBounds.y);
-        plane = new Plane(Vector3.forward, transform.position);
-
-        hmdTransform = Camera.main.transform;
-    }
-
     private void Update()
     {
         bool _hit;
@@ -93,5 +81,17 @@ public class LookPositionOnPlane : MonoBehaviour
         {
             LookPositionUpdatedEvent(_lookPosition);
         }
+    }
+
+    private void Awake()
+    {
+        BoxCollider _boxCollider = GetComponent<BoxCollider>();
+        minBounds = _boxCollider.bounds.min;
+        maxBounds = _boxCollider.bounds.max;
+
+        size = new Vector2(maxBounds.x - minBounds.x, maxBounds.y - minBounds.y);
+        plane = new Plane(Vector3.forward, transform.position);
+
+        hmdTransform = Camera.main.transform;
     }
 }

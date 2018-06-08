@@ -8,5 +8,4 @@ public class SwitchMainMenuSectionButton : GazeButton
     {
         MainMenuRotator.Instance.RotateToSection(targetMainMenuSectionType);
     }
-
 }

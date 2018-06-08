@@ -11,15 +11,15 @@ public class ScoreMultiplierUI : MonoBehaviour
 
 	private Animator multiplierTextAnimation;
 
-	private void Awake()
-	{
-		multiplierTextAnimation = multiplierText.GetComponent<Animator>();
-	}
-
 	private void UpdateMultiplierUI(int _multiplier)
 	{
         multiplierTextAnimation.SetTrigger(animTriggerName);
         multiplierText.text = "X" + _multiplier;
+	}
+
+	private void Awake()
+	{
+		multiplierTextAnimation = multiplierText.GetComponent<Animator>();
 	}
 
     private void OnEnable()

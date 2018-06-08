@@ -13,21 +13,6 @@ public class PlayerTrails : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Sprite previousSprite;
 
-    private void Awake() {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-
-        InitiateTrailPositions();
-    }
-
-    private void Update()
-    {
-        if(spriteRenderer.sprite == previousSprite) { return; }
-
-        previousSprite = spriteRenderer.sprite;
-
-        UpdateTrailPositions();
-    }
-
     private void UpdateTrailPositions()
     {
         foreach (TrailPrefabAndLabelPair trailPrefabByLabelData in trailPrefabByLabelDatas)
@@ -70,5 +55,21 @@ public class PlayerTrails : MonoBehaviour
 
             trailsByLabel.Add(trailPrefabByLabelData.Label, _trails);
         }
+    }
+
+    private void Update()
+    {
+        if (spriteRenderer.sprite == previousSprite) { return; }
+
+        previousSprite = spriteRenderer.sprite;
+
+        UpdateTrailPositions();
+    }
+
+    private void Awake()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+
+        InitiateTrailPositions();
     }
 }
