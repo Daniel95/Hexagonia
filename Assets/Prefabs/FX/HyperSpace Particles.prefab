@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4102868698815214}
   - component: {fileID: 198376736992546808}
   - component: {fileID: 199606462662986638}
+  - component: {fileID: 114998119352814766}
   m_Layer: 0
   m_Name: HyperSpace Particles
   m_TagString: Untagged
@@ -41,6 +42,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -180.355, y: 0, z: 0}
+--- !u!114 &114998119352814766
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1704492750974166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e8eb29ab424b1f4e8f0982ce803456d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0.07
 --- !u!198 &198376736992546808
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -101,7 +114,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -712583509
+  randomSeed: 1217715755
   InitialModule:
     serializedVersion: 3
     enabled: 1

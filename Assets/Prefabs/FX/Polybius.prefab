@@ -36,6 +36,7 @@ GameObject:
   - component: {fileID: 4782574716154354}
   - component: {fileID: 212037193492741526}
   - component: {fileID: 95013220150680878}
+  - component: {fileID: 114539247095785242}
   m_Layer: 0
   m_Name: Polybius
   m_TagString: Untagged
@@ -87,6 +88,17 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114539247095785242
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1363292263560062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26467531e118406478b882e71d5affb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212037193492741526
 SpriteRenderer:
   m_ObjectHideFlags: 1
