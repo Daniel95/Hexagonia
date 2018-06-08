@@ -4,8 +4,47 @@ using UnityEngine;
 
 public class PlayerInputController : MonoBehaviour
 {
+    public static PlayerInputType VRPlayerInputType
+    {
+        get
+        {
+            int _playerInputTypeIndex = PlayerPrefs.GetInt(VR_PLAYER_INPUT_TYPE, 0);
+            return (PlayerInputType)_playerInputTypeIndex;
+        }
+        set
+        {
+            UseDefaultVRPlayerInputType = false;
+            PlayerPrefs.SetInt(VR_PLAYER_INPUT_TYPE, (int)value);
+            PlayerPrefs.Save();
+
+            if(VRPlayerInputTypeUpdatedEvent != null)
+            {
+                VRPlayerInputTypeUpdatedEvent(value);
+            }
+        }
+    }
+
+    public static PlayerInputType NonVRPlayerInputType
+    {
+        get
+        {
+            int _playerInputTypeIndex = PlayerPrefs.GetInt(NON_VR_PLAYER_INPUT_TYPE, 0);
+            return (PlayerInputType)_playerInputTypeIndex;
+        }
+        set
+        {
+            UseDefaultNonVRPlayerInputType = false;
+            PlayerPrefs.SetInt(NON_VR_PLAYER_INPUT_TYPE, (int)value);
+            PlayerPrefs.Save();
+
+            if (NonVRPlayerInputTypeUpdatedEvent != null)
+            {
+                NonVRPlayerInputTypeUpdatedEvent(value);
+            }
+        }
+    }
+
     public static PlayerInputController Instance { get { return GetInstance(); } }
-    public bool State { get { return state; } }
 
     #region Singleton
     private static PlayerInputController instance;
@@ -23,16 +62,36 @@ public class PlayerInputController : MonoBehaviour
     /// <summary>
     /// Parameters: TargetPosition
     /// </summary>
+    public static Action<PlayerInputType> VRPlayerInputTypeUpdatedEvent;
+    public static Action<PlayerInputType> NonVRPlayerInputTypeUpdatedEvent;
     public static Action<Vector3> InputEvent;
 
-    private bool state;
+    private static bool UseDefaultVRPlayerInputType
+    {
+        get { return Convert.ToBoolean(PlayerPrefs.GetInt(USE_DEFAULT_VR_PLAYER_INPUT_TYPE, 1)); }
+        set { PlayerPrefs.SetInt(USE_DEFAULT_VR_PLAYER_INPUT_TYPE, Convert.ToInt16(value)); }
+    }
+
+    private static bool UseDefaultNonVRPlayerInputType
+    {
+        get { return Convert.ToBoolean(PlayerPrefs.GetInt(USE_DEFAULT_NON_VR_PLAYER_INPUT_TYPE, 1)); }
+        set { PlayerPrefs.SetInt(USE_DEFAULT_NON_VR_PLAYER_INPUT_TYPE, Convert.ToInt16(value)); }
+    }
+
+    private const string VR_PLAYER_INPUT_TYPE = "VRPlayerInputType";
+	private const string NON_VR_PLAYER_INPUT_TYPE = "NonVRPlayerInputType";
+    private const string USE_DEFAULT_VR_PLAYER_INPUT_TYPE = "UseDefaultVRPlayerInputType";
+    private const string USE_DEFAULT_NON_VR_PLAYER_INPUT_TYPE = "UseDefaultNonVRPlayerInputType";
+
+    public bool State { get { return state; } }
 
     [SerializeField] List<PlayerBaseInput> playerInputs;
-    [SerializeField] private PlayerInputType vrPlayerInputType = PlayerInputType.Tilt;
-    [SerializeField] private PlayerInputType nonVRPlayerInputType = PlayerInputType.Drag;
+    [SerializeField] private PlayerInputType defaultVRPlayerInputType = PlayerInputType.Look;
+    [SerializeField] private PlayerInputType defaultNonVRPlayerInputType = PlayerInputType.Drag;
 
     private Coroutine inputUpdateCoroutine;
     private PlayerBaseInput currentPlayerInputBase;
+    private bool state;
 
     public void SetState(bool _enabled)
     {
@@ -57,24 +116,24 @@ public class PlayerInputController : MonoBehaviour
 
         if(VRSwitch.VRState)
         {
-            if(!DebugLibrary.UseDefaultVRPlayerInputType)
+            if(!UseDefaultVRPlayerInputType)
             {
-                StartInput(DebugLibrary.VRPlayerInputType);
+                StartInput(VRPlayerInputType);
             } 
             else
             {
-                StartInput(vrPlayerInputType);
+                StartInput(defaultVRPlayerInputType);
             }
         }
         else
         {
-            if (!DebugLibrary.UseDefaultNonVRPlayerInputType)
+            if (!UseDefaultNonVRPlayerInputType)
             {
-                StartInput(DebugLibrary.NonVRPlayerInputType);
+                StartInput(NonVRPlayerInputType);
             }
             else
             {
-                StartInput(nonVRPlayerInputType);
+                StartInput(defaultNonVRPlayerInputType);
             }
         }
     }

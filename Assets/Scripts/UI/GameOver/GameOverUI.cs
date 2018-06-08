@@ -12,22 +12,33 @@ public class GameOverUI : MonoBehaviour
 
     private void UpdateScoreText()
     {
-        localHighscoreText.text = "" + LocalHighscore.HighScore;
-        obtainedScoreText.text = "" + Progression.LastScore;
+        int _modeHighscore = 0;
+
+        if(VRSwitch.VRState)
+        {
+            _modeHighscore = Progression.VRHighScore;
+        }
+        else
+        {
+            _modeHighscore = Progression.NonVRHighScore;
+        }
+
+        localHighscoreText.text = "" + _modeHighscore;
+        obtainedScoreText.text = "" + Progression.Instance.Score;
     }
 
     private void OnEnable()
     {
         PlayerDiedAnimation.CompletedEvent += Activate;
         Player.DiedEvent += RecenterUI;
-        Player.DiedEvent += UpdateScoreText;
+        Progression.HighscoresUpdatedEvent += UpdateScoreText;
     }
 
     private void OnDisable()
     {
         PlayerDiedAnimation.CompletedEvent -= Activate;
         Player.DiedEvent -= RecenterUI;
-        Player.DiedEvent -= UpdateScoreText;
+        Progression.HighscoresUpdatedEvent -= UpdateScoreText;
     }
 
     private void Activate()
