@@ -6,7 +6,7 @@ using UnityEngine;
 /// </summary>
 public class PlayerTrails : MonoBehaviour
 {
-    public Dictionary<TargetPixelCoordinatesLabel, List<Transform>> TrailsByLabel { get { return trailsByLabel; } }
+    public static PlayerTrails Instance { get { return GetInstance(); } }
 
     #region Singleton
     private static PlayerTrails instance;
@@ -20,6 +20,11 @@ public class PlayerTrails : MonoBehaviour
         return instance;
     }
     #endregion
+
+    public Vector3 TopLeftPosition { get { return trailsByLabel[TargetPixelCoordinatesLabel.Wings][3].position; } }
+    public Vector3 TopRightWingPosition { get { return trailsByLabel[TargetPixelCoordinatesLabel.Wings][2].position; } }
+    public Vector3 BottomLeftPosition { get { return trailsByLabel[TargetPixelCoordinatesLabel.Wings][1].position; } }
+    public Vector3 BottomRightPosition { get { return trailsByLabel[TargetPixelCoordinatesLabel.Wings][0].position; } }
 
     [SerializeField] private List<TrailPrefabAndLabelPair> trailPrefabByLabelDatas;
     [SerializeField] private Vector3 offset;

@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 4529112739300562}
   - component: {fileID: 65919585283928600}
   m_Layer: 9
-  m_Name: Collider (1)
+  m_Name: BottomLeftToTopRightCollider
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,7 +74,7 @@ GameObject:
   - component: {fileID: 4011277855126902}
   - component: {fileID: 65191277377191208}
   m_Layer: 9
-  m_Name: Collider
+  m_Name: TopLeftToBottomRightCollider
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -113,7 +113,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1531703829772224}
   m_LocalRotation: {x: -0, y: -0, z: 0.16286048, w: 0.98664916}
-  m_LocalPosition: {x: 0.19, y: -0.49, z: 0}
+  m_LocalPosition: {x: 0.19000053, y: -0.49000025, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4633773709061946}
@@ -160,7 +160,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 15, y: 3, z: 1}
+  m_Size: {x: 1, y: 3, z: 15}
   m_Center: {x: 0, y: 0, z: -0.9}
 --- !u!65 &65919585283928600
 BoxCollider:
@@ -172,7 +172,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 15, y: 3, z: 1}
+  m_Size: {x: 1, y: 3, z: 15}
   m_Center: {x: 0, y: 0, z: -0.9}
 --- !u!95 &95832091193532650
 Animator:
@@ -238,6 +238,8 @@ MonoBehaviour:
   collisionLayermask:
     serializedVersion: 2
     m_Bits: 4294966527
+  topLeftToBottomRightCollider: {fileID: 65191277377191208}
+  topRightToBottomLeftCollider: {fileID: 65919585283928600}
 --- !u!114 &114952627568956788
 MonoBehaviour:
   m_ObjectHideFlags: 1
