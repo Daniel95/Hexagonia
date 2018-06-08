@@ -7,18 +7,18 @@ public class UpdatePositionToPlayerPosition : MonoBehaviour
 {
     [SerializeField] private Vector3 offset;
 
-    private void UpdatePosition(Vector3 _position)
+    private void UpdatePosition(Vector3 _playerPosition, Vector3 _playerDelta)
     {
-        transform.position = _position + offset;
+        transform.position = _playerPosition + offset;
     }
 
     private void OnEnable()
     {
-        Player.OnMoved += UpdatePosition;    
+        PlayerMovement.OnMoved += UpdatePosition;    
     }
 
     private void OnDisable()
     {
-        Player.OnMoved -= UpdatePosition;
+        PlayerMovement.OnMoved -= UpdatePosition;
     }
 }

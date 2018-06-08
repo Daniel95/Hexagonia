@@ -15,7 +15,7 @@ public class PlayerTrail : MonoBehaviour
     private LineRenderer lineRenderer;
     private Vector3 trailPosition;
 
-    private void UpdateLineRenderer(Vector3 _playerPosition)
+    private void UpdateLineRenderer(Vector3 _playerPosition, Vector3 _playerDelta)
     {
         for (int i = length - 1; i > 0; i--)
         {
@@ -51,11 +51,11 @@ public class PlayerTrail : MonoBehaviour
 	
     private void OnEnable()
     {
-        Player.OnMoved += UpdateLineRenderer;       
+        PlayerMovement.OnMoved += UpdateLineRenderer;       
     }
 
     private void OnDisable()
     {
-        Player.OnMoved -= UpdateLineRenderer;
+        PlayerMovement.OnMoved -= UpdateLineRenderer;
     }
 }

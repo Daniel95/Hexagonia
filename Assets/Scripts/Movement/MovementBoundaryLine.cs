@@ -31,7 +31,7 @@ public class MovementBoundaryLine : MonoBehaviour
         {
             float _topBottomOffset = movementPlaneTopPosition - movementPlaneBottomYPosition;
 
-            float _playerPlaneLocalYPosition = Player.Instance.transform.position.y - movementPlaneBottomYPosition;
+            float _playerPlaneLocalYPosition = PlayerMovement.Position.y - movementPlaneBottomYPosition;
             float _ratioInPlane = _playerPlaneLocalYPosition / _topBottomOffset;
             float _ratioToPositionType = Mathf.Abs(_ratioInPlane - ratioPositionTypeMultiplier);
 
@@ -82,11 +82,11 @@ public class MovementBoundaryLine : MonoBehaviour
 
     private void OnEnable()
     {
-        Player.DiedEvent += StopFadeCoroutine;
+        PlayerCollisions.DiedEvent += StopFadeCoroutine;
     }
 
     private void OnDisable()
     {
-        Player.DiedEvent -= StopFadeCoroutine;
+        PlayerCollisions.DiedEvent -= StopFadeCoroutine;
     }
 }

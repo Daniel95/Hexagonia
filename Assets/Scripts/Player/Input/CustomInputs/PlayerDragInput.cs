@@ -14,7 +14,7 @@ public class PlayerDragInput : PlayerBaseInput
 
     public override void Activate()
     {
-        TargetPosition = Player.Instance.transform.position;
+        TargetPosition = PlayerMovement.Position;
         TargetPosition = LookPositionOnPlane.Instance.ClampToPlane(TargetPosition);
 
         if (TargetPositionUpdatedEvent != null)
@@ -43,7 +43,7 @@ public class PlayerDragInput : PlayerBaseInput
 
                 Vector3 _deltaWithSpeed = deltaFromStartTouchPosition * dragSpeed;
 
-                TargetPosition = Player.Instance.transform.position + _deltaWithSpeed;
+                TargetPosition = PlayerMovement.Position + _deltaWithSpeed;
                 TargetPosition = LookPositionOnPlane.Instance.ClampToPlane(TargetPosition);
             }
 
