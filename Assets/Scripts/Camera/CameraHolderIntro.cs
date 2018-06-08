@@ -2,6 +2,9 @@
 using UnityEngine;
 using UnityEngine.Video;
 
+/// <summary>
+/// Adjust camera settings in for the intro scene and start the intro video.
+/// </summary>
 public class CameraHolderIntro : CameraHolder
 {
     public static Action OnCompletedIntroVideoEvent;
@@ -19,7 +22,6 @@ public class CameraHolderIntro : CameraHolder
 		videoPlayer.targetCamera = Camera.main;
 		videoPlayer.Play();
 		
-
 	    if (!VRSwitch.VRState)
 	    {
 	        previousFOV = Camera.main.fieldOfView;
@@ -27,10 +29,15 @@ public class CameraHolderIntro : CameraHolder
 	    }
     }
 
-	private void CheckVideoPlayer(VideoPlayer _vp)
+	private void CheckVideoPlayer(VideoPlayer _videoPlayer)
 	{ 
 		SceneLoader.Instance.SwitchScene(scene);
-	    OnCompletedIntroVideoEvent();
+
+        if(OnCompletedIntroVideoEvent != null)
+        {
+	        OnCompletedIntroVideoEvent();
+        }
+
 	    videoPlayer.loopPointReached -= CheckVideoPlayer;
     }
 
