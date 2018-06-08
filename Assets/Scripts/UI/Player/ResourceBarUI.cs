@@ -10,17 +10,6 @@ public class ResourceBarUI : MonoBehaviour
 	[SerializeField] private RectTransform rotateCanvas;
 	[SerializeField] private Image resourceBarImage;
 
-	private void Awake()
-    {
-		rotateCanvas = GetComponent<RectTransform>();
-		resourceBarImage.fillAmount = 0;
-	}
-
-	private void Update()
-	{
-		RotateBar();
-	}
-
 	private void RotateBar()
 	{
 		float _x = Player.Instance.Ratio.x * Mathf.Rad2Deg;
@@ -49,6 +38,17 @@ public class ResourceBarUI : MonoBehaviour
     private void Deactivate()
     {
         gameObject.SetActive(false);
+    }
+
+    private void Awake()
+    {
+        rotateCanvas = GetComponent<RectTransform>();
+        resourceBarImage.fillAmount = 0;
+    }
+
+    private void Update()
+    {
+        RotateBar();
     }
 
     private void OnEnable()

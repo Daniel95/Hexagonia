@@ -5,9 +5,6 @@ using UnityEngine;
 
 public class MainMenuRotator : MonoBehaviour
 {
-
-    public static Action SwitchedEvent;
-
     [Serializable]
     public class MainMenuSectionRotation
     {
@@ -17,6 +14,9 @@ public class MainMenuRotator : MonoBehaviour
 
     public static MainMenuRotator Instance { get { return GetInstance(); } }
 
+    public static Action SwitchedEvent;
+
+    #region Singleton
     private static MainMenuRotator instance;
 
     private static MainMenuRotator GetInstance()
@@ -27,6 +27,7 @@ public class MainMenuRotator : MonoBehaviour
         }
         return instance;
     }
+    #endregion
 
     [SerializeField] private List<MainMenuSectionRotation> mainMenuSectionRotations;
     [SerializeField] private float rotateSpeed = 1;

@@ -27,6 +27,16 @@ public class GameOverUI : MonoBehaviour
         obtainedScoreText.text = "" + Progression.Instance.Score;
     }
 
+    private void Activate()
+    {
+        menu.SetActive(true);
+    }
+
+    private void RecenterUI()
+    {
+        menu.transform.position = new Vector3(Player.Instance.transform.position.x, Player.Instance.transform.position.y, menu.transform.position.z);
+    }
+
     private void OnEnable()
     {
         PlayerDiedAnimation.CompletedEvent += Activate;
@@ -39,15 +49,5 @@ public class GameOverUI : MonoBehaviour
         PlayerDiedAnimation.CompletedEvent -= Activate;
         Player.DiedEvent -= RecenterUI;
         Progression.HighscoresUpdatedEvent -= UpdateScoreText;
-    }
-
-    private void Activate()
-    {
-        menu.SetActive(true);
-    }
-
-    private void RecenterUI()
-    {
-        menu.transform.position = new Vector3(Player.Instance.transform.position.x, Player.Instance.transform.position.y, menu.transform.position.z);
     }
 }

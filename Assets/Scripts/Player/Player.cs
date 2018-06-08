@@ -6,10 +6,11 @@ using UnityEngine;
 /// </summary>
 public class Player : SmoothPlaneMovement
 {
+    public static Player Instance { get { return GetInstance(); } }
+
     public static Action<Vector3> OnMoved;
     public static Action DiedEvent;
     public static Action<GameObject> CollisionEvent;
-    public static Player Instance { get { return GetInstance(); } }
 
     #region Singleton
     private static Player instance;
@@ -43,6 +44,9 @@ public class Player : SmoothPlaneMovement
     private float absRatioY;
     private Vector3 previousPosition;
     private int lastHitFrame;
+    private bool hitObstacleInFront;
+    private Collider lastObstacleInFrontCollider;
+    private float obstaclePreviousZPosition;
 
     protected override void MoveToTargetPosition(Vector3 _targetPosition)
     {
@@ -92,10 +96,6 @@ public class Player : SmoothPlaneMovement
             animator.Play(middleStateIndex);
         }
     }
-
-    private bool hitObstacleInFront;
-    private Collider lastObstacleInFrontCollider;
-    private float obstaclePreviousZPosition;
 
     private void Update()
     {
