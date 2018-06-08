@@ -134,12 +134,12 @@ public class ChunkMover : MonoBehaviour
     private void OnEnable()
     {
         ChunkSpawner.ChunkSpawnedEvent += AddChunk;
-        Player.DiedEvent += StopChunkOverTime;
+        PlayerCollisions.DiedEvent += StopChunkOverTime;
     }
 
     private void OnDisable()
     {
         ChunkSpawner.ChunkSpawnedEvent -= AddChunk;
-        Player.DiedEvent -= StopChunkOverTime;
+        PlayerCollisions.DiedEvent -= StopChunkOverTime;
     }
 }

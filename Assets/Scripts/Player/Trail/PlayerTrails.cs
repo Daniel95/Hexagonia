@@ -6,6 +6,21 @@ using UnityEngine;
 /// </summary>
 public class PlayerTrails : MonoBehaviour
 {
+    public Dictionary<TargetPixelCoordinatesLabel, List<Transform>> TrailsByLabel { get { return trailsByLabel; } }
+
+    #region Singleton
+    private static PlayerTrails instance;
+
+    private static PlayerTrails GetInstance()
+    {
+        if (instance == null)
+        {
+            instance = FindObjectOfType<PlayerTrails>();
+        }
+        return instance;
+    }
+    #endregion
+
     [SerializeField] private List<TrailPrefabAndLabelPair> trailPrefabByLabelDatas;
     [SerializeField] private Vector3 offset;
 

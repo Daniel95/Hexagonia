@@ -34,20 +34,20 @@ public class GameOverUI : MonoBehaviour
 
     private void RecenterUI()
     {
-        menu.transform.position = new Vector3(Player.Instance.transform.position.x, Player.Instance.transform.position.y, menu.transform.position.z);
+        menu.transform.position = new Vector3(PlayerMovement.Position.x, PlayerMovement.Position.y, menu.transform.position.z);
     }
 
     private void OnEnable()
     {
         PlayerDiedAnimation.CompletedEvent += Activate;
-        Player.DiedEvent += RecenterUI;
+        PlayerCollisions.DiedEvent += RecenterUI;
         Progression.HighscoresUpdatedEvent += UpdateScoreText;
     }
 
     private void OnDisable()
     {
         PlayerDiedAnimation.CompletedEvent -= Activate;
-        Player.DiedEvent -= RecenterUI;
+        PlayerCollisions.DiedEvent -= RecenterUI;
         Progression.HighscoresUpdatedEvent -= UpdateScoreText;
     }
 }

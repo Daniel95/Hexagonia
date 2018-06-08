@@ -144,12 +144,12 @@ public class ResourceValue : MonoBehaviour
     private void OnEnable()
     {
         Progression.ScoreUpdatedEvent += OnScoreUpdated;
-		Player.DiedEvent += StopResources;
+        PlayerCollisions.DiedEvent += StopResources;
     }
 
     private void OnDisable()
     {
         Progression.ScoreUpdatedEvent -= OnScoreUpdated;
-		Player.DiedEvent -= StopResources;
+        PlayerCollisions.DiedEvent -= StopResources;
 	}
 }

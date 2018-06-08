@@ -105,12 +105,12 @@ public class Progression : MonoBehaviour
 	private void OnEnable()  
 	{
 		Coin.CollectedEvent += IncreaseScore;
-		Player.DiedEvent += UpdateHighscores;
+        PlayerCollisions.DiedEvent += UpdateHighscores;
 	}
 
 	private void OnDisable()
 	{
 		Coin.CollectedEvent -= IncreaseScore;
-		Player.DiedEvent -= UpdateHighscores;
+        PlayerCollisions.DiedEvent -= UpdateHighscores;
 	}
 }

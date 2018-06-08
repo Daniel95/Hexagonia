@@ -12,8 +12,8 @@ public class ResourceBarUI : MonoBehaviour
 
 	private void RotateBar()
 	{
-		float _x = Player.Instance.Ratio.x * Mathf.Rad2Deg;
-		float _y = Player.Instance.Ratio.y * Mathf.Rad2Deg;
+		float _x = PlayerAnimations.Ratio.x * Mathf.Rad2Deg;
+		float _y = PlayerAnimations.Ratio.y * Mathf.Rad2Deg;
 
 		rotateCanvas.rotation = Quaternion.Euler(-_y * rotationAmount, 0, -_x * rotationAmount);
 	}
@@ -53,14 +53,14 @@ public class ResourceBarUI : MonoBehaviour
 
     private void OnEnable()
     {
-        Player.DiedEvent += Deactivate;
+        PlayerCollisions.DiedEvent += Deactivate;
         ResourceValue.UpdatedEvent += UpdateBarValue;
         ScoreMultiplier.UpdatedEvent += OnScoreMultiplierUpdated;
     }
 
     private void OnDisable()
     {
-        Player.DiedEvent -= Deactivate;
+        PlayerCollisions.DiedEvent -= Deactivate;
         ResourceValue.UpdatedEvent -= UpdateBarValue;
         ScoreMultiplier.UpdatedEvent -= OnScoreMultiplierUpdated;
     }

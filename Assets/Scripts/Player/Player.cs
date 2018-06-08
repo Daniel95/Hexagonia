@@ -1,4 +1,5 @@
-﻿using System;
+﻿/*
+using System;
 using UnityEngine;
 
 /// <summary>
@@ -8,7 +9,10 @@ public class Player : SmoothPlaneMovement
 {
     public static Player Instance { get { return GetInstance(); } }
 
-    public static Action<Vector3> OnMoved;
+    /// <summary>
+    /// Parameters: Position, Delta
+    /// </summary>
+    public static Action<Vector3, Vector3> OnMoved;
     public static Action DiedEvent;
     public static Action<GameObject> CollisionEvent;
 
@@ -54,7 +58,7 @@ public class Player : SmoothPlaneMovement
 
         if (OnMoved != null)
         {
-            OnMoved(transform.position);
+            OnMoved(transform.position, Delta);
         }
 
         UpdateAnimation();
@@ -160,3 +164,4 @@ public class Player : SmoothPlaneMovement
         Instantiate(dyingPlayer, transform.position, transform.rotation);
     }
 }
+*/
