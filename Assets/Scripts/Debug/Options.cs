@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using SRF;
+using UnityEngine;
 using Debug = UnityEngine.Debug;
 
 public partial class SROptions
@@ -13,27 +14,25 @@ public partial class SROptions
         SceneLoader.Instance.SwitchScene(Scenes.Menu);
     }
 
-    [Category("VR Controls")]
+    [Category("Debug")]
     [Sort(-1)]
-    public void UseDefaultVRControls()
+    public void DeletePlayerPrefs()
     {
-        DebugLibrary.UseDefaultVRPlayerInputType = true;
+        PlayerPrefs.DeleteAll();
     }
 
     [Category("VR Controls")]
     [Sort(-1)]
     public void UseLookControls()
     {
-        DebugLibrary.UseDefaultVRPlayerInputType = false;
-        DebugLibrary.VRPlayerInputType = PlayerInputType.Look;
+        PlayerInputController.VRPlayerInputType = PlayerInputType.Look;
     }
 
     [Category("VR Controls")]
     [Sort(-1)]
     public void UseTiltControls()
     {
-        DebugLibrary.UseDefaultVRPlayerInputType = false;
-        DebugLibrary.VRPlayerInputType = PlayerInputType.Tilt;
+        PlayerInputController.VRPlayerInputType = PlayerInputType.Tilt;
     }
     
     private void OnValueChanged(string _n, object _newValue)
