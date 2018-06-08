@@ -26,6 +26,8 @@ public class AudioEffectManager : MonoBehaviour
     [SerializeField] private List<AudioEffect> audioEffects = new List<AudioEffect>();
     [SerializeField] private float pitchMax = 1.5f;
     [SerializeField] private GameObject oneShotAudio;
+
+    private bool playedHighscoreSound = false;
     
 	public void PlayEffect(AudioEffectType _audioType, float _pitch = 1f, float _volume = 1)
     {
@@ -61,22 +63,31 @@ public class AudioEffectManager : MonoBehaviour
         PlayEffect(AudioEffectType.Death);
     }
 
-    private void HighScore()
+    private void HighScore(int _value)
     {
+        if (playedHighscoreSound) { return; }
+        
         if (XRSettings.enabled)
         {
-            if (Progression.VRHighScore > Progression.Instance.Score)
+            if (Progression.Instance.Score > Progression.VRHighScore)
             {
                 PlayEffect(AudioEffectType.Highscore);
+                playedHighscoreSound = true;
             }
         }
         else
         {
-            if (Progression.NonVRHighScore > Progression.Instance.Score)
+            if (Progression.Instance.Score > Progression.NonVRHighScore)
             {
                 PlayEffect(AudioEffectType.Highscore);
+                playedHighscoreSound = true;
             }
         }
+    }
+
+    private void ResetHighscorePlayed()
+    {
+        playedHighscoreSound = false;
     }
 
     private void MultiplierMaxCheck(float _multiplier)
@@ -99,7 +110,8 @@ public class AudioEffectManager : MonoBehaviour
     private void OnEnable()
     {
         Player.DiedEvent += PlayerDiedSound;
-        PlayerDiedAnimation.CompletedEvent += HighScore;
+        PlayerDiedAnimation.CompletedEvent += ResetHighscorePlayed;
+        Coin.CollectedEvent += HighScore;
         Coin.CollectedEvent += CoinCollected;
         ScoreMultiplier.MultiplierIncreasedEvent += MultiplierMaxCheck;
         MainMenuRotator.SwitchedEvent += SwitchedMenuCanvas;
@@ -108,7 +120,8 @@ public class AudioEffectManager : MonoBehaviour
     private void OnDisable()
     {
         Player.DiedEvent -= PlayerDiedSound;
-        PlayerDiedAnimation.CompletedEvent -= HighScore;
+        PlayerDiedAnimation.CompletedEvent -= ResetHighscorePlayed;
+        Coin.CollectedEvent -= HighScore;
         Coin.CollectedEvent -= CoinCollected;
         ScoreMultiplier.MultiplierIncreasedEvent -= MultiplierMaxCheck;
         MainMenuRotator.SwitchedEvent -= SwitchedMenuCanvas;
