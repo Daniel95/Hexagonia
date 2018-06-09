@@ -53,7 +53,7 @@ public class PlayerSpriteDetailPositions : MonoBehaviour
         }
     }
 
-    private void InitPositionsByLabel()
+    private void InitiatePositionsByLabel()
     {
         targetPixelCoordinatesLabels = EnumHelper.GetValues<TargetPixelCoordinatesLabel>();
 
@@ -85,9 +85,9 @@ public class PlayerSpriteDetailPositions : MonoBehaviour
         UpdatePositions();
     }
 
-    private void Awake()
+    private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        InitPositionsByLabel();
+        InitiatePositionsByLabel();
     }
 }
