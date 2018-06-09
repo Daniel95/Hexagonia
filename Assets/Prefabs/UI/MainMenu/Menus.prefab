@@ -3330,7 +3330,25 @@ MonoBehaviour:
     YRotation: 90
   - MainMenuSectionType: 2
     YRotation: -90
+  mainMenuSections:
+  - MainMenuSectionType: 0
+    LeftExists: 1
+    LeftMainMenuSectionType: 1
+    RightExists: 1
+    RightMainMenuSectionType: 2
+  - MainMenuSectionType: 1
+    LeftExists: 0
+    LeftMainMenuSectionType: 0
+    RightExists: 1
+    RightMainMenuSectionType: 0
+  - MainMenuSectionType: 2
+    LeftExists: 1
+    LeftMainMenuSectionType: 0
+    RightExists: 0
+    RightMainMenuSectionType: 0
+  startMainMenuSection: 0
   rotateSpeed: 1.3
+  swipeThreshold: 50
 --- !u!114 &114947051146534374
 MonoBehaviour:
   m_ObjectHideFlags: 1

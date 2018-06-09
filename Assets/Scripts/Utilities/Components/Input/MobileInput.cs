@@ -7,13 +7,15 @@ using UnityEngine.EventSystems;
 /// </summary>
 public class MobileInput : PlatformBaseInput
 {
+    private bool DownOnUI { get { return EventSystem.current != null && EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId); } }
+
     protected override IEnumerator InputUpdate() {
         Vector2 lastTouchPosition = new Vector2();
         float touchDownTime = 0;
 
         while (true)
         {
-            bool startedTouching = Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began;
+            bool startedTouching = Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began && !DownOnUI;
 
             if (startedTouching)
             {
@@ -119,9 +121,9 @@ public class MobileInput : PlatformBaseInput
 
                     TouchState = TouchStates.None;
                 }
-            }
 
-            lastTouchPosition = CurrentDownPosition;
+                lastTouchPosition = CurrentDownPosition;
+            }
 
             yield return null; 
         }

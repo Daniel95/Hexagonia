@@ -7,6 +7,8 @@ using UnityEngine.EventSystems;
 /// </summary>
 public class PCInput : PlatformBaseInput
 {
+    private bool DownOnUI { get { return EventSystem.current != null && EventSystem.current.IsPointerOverGameObject(); } }
+
     [SerializeField] private KeyCode input = KeyCode.Mouse0;
 
     protected override IEnumerator InputUpdate()
@@ -16,7 +18,7 @@ public class PCInput : PlatformBaseInput
 
         while (true)
         {
-            bool startedTouching = Input.GetKeyDown(input);
+            bool startedTouching = Input.GetKeyDown(input) && !DownOnUI;
 
             if (startedTouching)
             {
