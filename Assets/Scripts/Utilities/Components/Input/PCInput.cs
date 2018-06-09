@@ -15,15 +15,19 @@ public class PCInput : PlatformBaseInput
     {
         Vector2 lastInputPosition = new Vector2();
         float startDownTime = 0;
+        Vector2 inputPosition = new Vector2();
+        bool startedTouching;
 
         while (true)
         {
-            bool startedTouching = Input.GetKeyDown(input) && !DownOnUI;
+            startedTouching = !DownOnUI && Input.GetKeyDown(input);
+
+            inputPosition = Camera.main.ScreenToViewportPoint(Input.mousePosition);
 
             if (startedTouching)
             {
                 TouchState = TouchStates.TouchDown;
-                StartDownPosition = lastInputPosition = CurrentDownPosition = Input.mousePosition;
+                StartDownPosition = lastInputPosition = CurrentDownPosition = inputPosition;
                 startDownTime = Time.time;
 
                 if (DownInputEvent != null)
@@ -42,7 +46,7 @@ public class PCInput : PlatformBaseInput
                 Down = !Input.GetKeyUp(input);
                 if (Down)
                 {
-                    CurrentDownPosition = Input.mousePosition;
+                    CurrentDownPosition = inputPosition;
 
                     if (InputEvent != null)
                     {
@@ -94,19 +98,19 @@ public class PCInput : PlatformBaseInput
                 {
                     if (UpInputEvent != null)
                     {
-                        UpInputEvent(Input.mousePosition);
+                        UpInputEvent(inputPosition);
                     }
 
                     if (TouchState == TouchStates.TouchDown)
                     {
                         if (TapInputEvent != null)
                         {
-                            TapInputEvent(Input.mousePosition);
+                            TapInputEvent(inputPosition);
                         }
                     }
                     else if (TouchState != TouchStates.Holding)
                     {
-                        Vector2 direction = ((Vector2)Input.mousePosition - lastInputPosition).normalized;
+                        Vector2 direction = ((Vector2)inputPosition - lastInputPosition).normalized;
 
                         if (ReleaseInDirectionInputEvent != null)
                         {
