@@ -6,8 +6,8 @@ public class PlayerDragInput : PlayerBaseInput
     [SerializeField] private float dragSpeed = 1;
     [SerializeField] private JoyStickUI joyStickUI;
 
-    private Vector3 startDownWorldPosition;
-    private Vector3 currentDownPositionWorldPosition;
+    private Vector3 startDownPosition;
+    private Vector3 currentDownPosition;
     private Vector3 deltaFromStartTouchPosition;
     private Vector3 deltaWithSpeed;
     private Coroutine dragUpdate;
@@ -22,13 +22,11 @@ public class PlayerDragInput : PlayerBaseInput
             TargetPositionUpdatedEvent(TargetPosition);
         }
 
-        joyStickUI.Activate();
         base.Activate();
     }
 
     public override void Deactivate()
     {
-        joyStickUI.Deactivate();
         base.Deactivate();
     }
 
@@ -37,9 +35,9 @@ public class PlayerDragInput : PlayerBaseInput
         while(true)
         {
             if (PlatformBaseInput.Down) {
-                startDownWorldPosition = Camera.main.ScreenToWorldPoint(new Vector3(PlatformBaseInput.StartDownPosition.x, PlatformBaseInput.StartDownPosition.y, LookPositionOnPlane.Instance.transform.position.z));
-                currentDownPositionWorldPosition = Camera.main.ScreenToWorldPoint(new Vector3(PlatformBaseInput.CurrentDownPosition.x, PlatformBaseInput.CurrentDownPosition.y, LookPositionOnPlane.Instance.transform.position.z));
-                deltaFromStartTouchPosition = currentDownPositionWorldPosition - startDownWorldPosition;
+                startDownPosition = new Vector3(PlatformBaseInput.StartDownPosition.x, PlatformBaseInput.StartDownPosition.y, LookPositionOnPlane.Instance.transform.position.z);
+                currentDownPosition = new Vector3(PlatformBaseInput.CurrentDownPosition.x, PlatformBaseInput.CurrentDownPosition.y, LookPositionOnPlane.Instance.transform.position.z);
+                deltaFromStartTouchPosition = currentDownPosition - startDownPosition;
 
                 Vector3 _deltaWithSpeed = deltaFromStartTouchPosition * dragSpeed;
 
