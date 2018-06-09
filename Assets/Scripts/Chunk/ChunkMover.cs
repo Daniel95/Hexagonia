@@ -30,6 +30,7 @@ public class ChunkMover : MonoBehaviour
 	public int ChunkCount { get { return currentChunks.Count; } }
 	public bool MoveChunks { get { return moveChunks; } set { moveChunks = value; } }
 	public float Speed { get { return speed; } }
+	public float SpeedProgress { get { return Mathf.Clamp01(Progression.Timer / timeForMaximumSpeed); } }
 
     [SerializeField] private float stopTime;
 	[SerializeField] private float minimumSpeed = 15;
@@ -70,8 +71,7 @@ public class ChunkMover : MonoBehaviour
 	    if (speed < maximumSpeed && !stopping)
 	    {
 	        float _speedOffset = maximumSpeed - minimumSpeed;
-	        float _speedTimeMultiplier = Progression.Timer / timeForMaximumSpeed;
-	        float _speedIncrement = _speedOffset * _speedTimeMultiplier;
+	        float _speedIncrement = _speedOffset * SpeedProgress;
             speed = minimumSpeed + _speedIncrement;
         }
 
