@@ -57,6 +57,7 @@ GameObject:
   - component: {fileID: 212037232534344754}
   - component: {fileID: 95832091193532650}
   - component: {fileID: 114713299452994984}
+  - component: {fileID: 114813847337676344}
   m_Layer: 9
   m_Name: Character_mid
   m_TagString: Untagged
@@ -221,7 +222,6 @@ MonoBehaviour:
     Label: 0
   - Prefab: {fileID: 1503320352362302, guid: 7b5981167177e924f9792a2bd1caa496, type: 2}
     Label: 1
-  offset: {x: 0, y: 0, z: -0}
 --- !u!114 &114801709593222924
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -240,6 +240,17 @@ MonoBehaviour:
     m_Bits: 4294966527
   topLeftToBottomRightCollider: {fileID: 65191277377191208}
   topRightToBottomLeftCollider: {fileID: 65919585283928600}
+--- !u!114 &114813847337676344
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1768670053967548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66d6c6dc59a0f4c469c86c3fa8dfe449, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114952627568956788
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -16,21 +16,6 @@ public class PlayerCollisions : MonoBehaviour
     private Collider lastObjectInFrontCollider;
     private float objectPreviousZPosition;
 
-    private void Update()
-    {
-        UpdateColliders();
-        UpdateRaycastCollisions();
-    }
-
-    private void UpdateColliders()
-    {
-        topLeftToBottomRightCollider.transform.position = (PlayerTrails.Instance.TopLeftPosition + PlayerTrails.Instance.BottomRightPosition) / 2f;
-        topLeftToBottomRightCollider.transform.rotation = Quaternion.LookRotation(PlayerTrails.Instance.TopLeftPosition - PlayerTrails.Instance.BottomRightPosition, Vector3.forward);
-
-        topRightToBottomLeftCollider.transform.position = (PlayerTrails.Instance.TopRightWingPosition + PlayerTrails.Instance.BottomLeftPosition) / 2f;
-        topRightToBottomLeftCollider.transform.rotation = Quaternion.LookRotation(PlayerTrails.Instance.TopRightWingPosition - PlayerTrails.Instance.BottomLeftPosition, Vector3.forward);
-    }
-
     private void UpdateRaycastCollisions()
     {
         if (hitObjectInFront && lastObjectInFrontCollider != null)
@@ -57,6 +42,15 @@ public class PlayerCollisions : MonoBehaviour
             objectPreviousZPosition = _obstacleHit.point.z;
             lastObjectInFrontCollider = _obstacleHit.collider;
         }
+    }
+
+    private void UpdateColliderTransforms()
+    {
+        topLeftToBottomRightCollider.transform.position = (PlayerSpriteDetailPositions.Instance.TopLeftWingPosition + PlayerSpriteDetailPositions.Instance.BottomRightWingPosition) / 2f;
+        topLeftToBottomRightCollider.transform.rotation = Quaternion.LookRotation(PlayerSpriteDetailPositions.Instance.TopLeftWingPosition - PlayerSpriteDetailPositions.Instance.BottomRightWingPosition, Vector3.forward);
+
+        topRightToBottomLeftCollider.transform.position = (PlayerSpriteDetailPositions.Instance.TopRightWingPosition + PlayerSpriteDetailPositions.Instance.BottomLeftWingPosition) / 2f;
+        topRightToBottomLeftCollider.transform.rotation = Quaternion.LookRotation(PlayerSpriteDetailPositions.Instance.TopRightWingPosition - PlayerSpriteDetailPositions.Instance.BottomLeftWingPosition, Vector3.forward);
     }
 
     private void OnTriggerEnter(Collider _otherCollider)
@@ -93,5 +87,20 @@ public class PlayerCollisions : MonoBehaviour
     private void SpawnDyingPlayer()
     {
         Instantiate(dyingPlayer, transform.position, transform.rotation);
+    }
+
+    private void Update()
+    {
+        UpdateRaycastCollisions();
+    }
+
+    private void OnEnable()
+    {
+        PlayerSpriteDetailPositions.PositionsUpdatedEvent += UpdateColliderTransforms;
+    }
+
+    private void OnDisable()
+    {
+        PlayerSpriteDetailPositions.PositionsUpdatedEvent -= UpdateColliderTransforms;
     }
 }

@@ -6,69 +6,36 @@ using UnityEngine;
 /// </summary>
 public class PlayerTrails : MonoBehaviour
 {
-    public static PlayerTrails Instance { get { return GetInstance(); } }
-
-    #region Singleton
-    private static PlayerTrails instance;
-
-    private static PlayerTrails GetInstance()
-    {
-        if (instance == null)
-        {
-            instance = FindObjectOfType<PlayerTrails>();
-        }
-        return instance;
-    }
-    #endregion
-
-    public Vector3 TopLeftPosition { get { return trailsByLabel[TargetPixelCoordinatesLabel.Wings][3].position; } }
-    public Vector3 TopRightWingPosition { get { return trailsByLabel[TargetPixelCoordinatesLabel.Wings][2].position; } }
-    public Vector3 BottomLeftPosition { get { return trailsByLabel[TargetPixelCoordinatesLabel.Wings][1].position; } }
-    public Vector3 BottomRightPosition { get { return trailsByLabel[TargetPixelCoordinatesLabel.Wings][0].position; } }
-
     [SerializeField] private List<TrailPrefabAndLabelPair> trailPrefabByLabelDatas;
-    [SerializeField] private Vector3 offset;
 
     private Dictionary<TargetPixelCoordinatesLabel, List<Transform>> trailsByLabel = new Dictionary<TargetPixelCoordinatesLabel, List<Transform>>();
-    private SpriteRenderer spriteRenderer;
-    private Sprite previousSprite;
 
     private void UpdateTrailPositions()
     {
         foreach (TrailPrefabAndLabelPair trailPrefabByLabelData in trailPrefabByLabelDatas)
         {
-            List<Vector2> _pixelCoordinates = TargetPixelCoordinatesDataLibrary.Instance.GetTargetPixelCoordinates(spriteRenderer.sprite, trailPrefabByLabelData.Label);
-
+            List<Vector3> _positions = PlayerSpriteDetailPositions.Instance.PositionsByLabel[trailPrefabByLabelData.Label];
             List<Transform> _trails = trailsByLabel[trailPrefabByLabelData.Label];
 
-            for (int i = 0; i < _pixelCoordinates.Count; i++)
+            for (int i = 0; i < _positions.Count; i++)
             {
-                Vector2 _pixelCoordinate = _pixelCoordinates[i];
-                Vector3 _worldPosition = spriteRenderer.PixelCoordinateToWorldPosition(_pixelCoordinate);
-
-                _trails[i].position = _worldPosition + offset;
+                _trails[i].position = _positions[i];
             }
-        }
+        } 
     }
 
     private void InitiateTrailPositions()
     {
         foreach (TrailPrefabAndLabelPair trailPrefabByLabelData in trailPrefabByLabelDatas)
         {
-            List<Vector2> _pixelCoordinates = TargetPixelCoordinatesDataLibrary.Instance.GetTargetPixelCoordinates(spriteRenderer.sprite, trailPrefabByLabelData.Label);
-
+            List<Vector3> _positions = PlayerSpriteDetailPositions.Instance.PositionsByLabel[trailPrefabByLabelData.Label];
             List<Transform> _trails = new List<Transform>();
 
-            for (int i = 0; i < _pixelCoordinates.Count; i++)
+            for (int i = 0; i < _positions.Count; i++)
             {
-                Vector2 _pixelCoordinate = _pixelCoordinates[i];
-                Vector3 _worldPosition = spriteRenderer.PixelCoordinateToWorldPosition(_pixelCoordinate);
-
                 Transform _trail = Instantiate(trailPrefabByLabelData.Prefab, transform).transform;
-
+                _trail.position = _positions[i];
                 _trail.name = trailPrefabByLabelData.Label + " Trail " + i;
-
-                _trail.position = _worldPosition;
 
                 _trails.Add(_trail);
             }
@@ -77,19 +44,15 @@ public class PlayerTrails : MonoBehaviour
         }
     }
 
-    private void Update()
+    private void OnEnable()
     {
-        if (spriteRenderer.sprite == previousSprite) { return; }
-
-        previousSprite = spriteRenderer.sprite;
-
-        UpdateTrailPositions();
+        PlayerSpriteDetailPositions.PositionsUpdatedEvent += UpdateTrailPositions;
+        PlayerSpriteDetailPositions.PositionsInitiatedEvent += InitiateTrailPositions;
     }
 
-    private void Awake()
+    private void OnDisable()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-
-        InitiateTrailPositions();
+        PlayerSpriteDetailPositions.PositionsUpdatedEvent -= UpdateTrailPositions;
+        PlayerSpriteDetailPositions.PositionsInitiatedEvent -= InitiateTrailPositions;
     }
 }
