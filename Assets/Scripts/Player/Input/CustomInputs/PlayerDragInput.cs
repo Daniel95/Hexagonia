@@ -22,13 +22,11 @@ public class PlayerDragInput : PlayerBaseInput
             TargetPositionUpdatedEvent(TargetPosition);
         }
 
-        joyStickUI.Activate();
         base.Activate();
     }
 
     public override void Deactivate()
     {
-        joyStickUI.Deactivate();
         base.Deactivate();
     }
 
