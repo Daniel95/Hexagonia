@@ -73,7 +73,8 @@ public class MainMenuRotator : MonoBehaviour
         while (_time < 1)
         {
             _time += _speed * Time.deltaTime;
-            transform.rotation = Quaternion.Lerp(_startRotation, _targetRotation, _time);
+            float _progress = Mathf.SmoothStep(0, 1, _time);
+            transform.rotation = Quaternion.Lerp(_startRotation, _targetRotation, _progress);
 
             yield return null;
         }
