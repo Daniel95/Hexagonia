@@ -18,11 +18,11 @@ public class PolybiusAnimations : MonoBehaviour
 
     private void OnEnable()
     {
-        Player.DiedEvent += OnDiedEvent;
+        PlayerCollisions.DiedEvent += OnDiedEvent;
     }
 
     private void OnDisable()
     {
-        Player.DiedEvent -= OnDiedEvent;
+        PlayerCollisions.DiedEvent -= OnDiedEvent;
     }
 }

@@ -70,7 +70,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerInputType: 2
-  dragSpeed: 1.5
+  dragSpeed: 12
   joyStickUI: {fileID: 0}
 --- !u!114 &114692908268844706
 MonoBehaviour:
@@ -87,8 +87,8 @@ MonoBehaviour:
   - {fileID: 114554856832500068}
   - {fileID: 114982662604851858}
   - {fileID: 114046312930102048}
-  vrPlayerInputType: 0
-  nonVRPlayerInputType: 2
+  defaultVRPlayerInputType: 0
+  defaultNonVRPlayerInputType: 2
 --- !u!114 &114982662604851858
 MonoBehaviour:
   m_ObjectHideFlags: 1

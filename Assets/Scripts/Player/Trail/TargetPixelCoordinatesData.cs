@@ -108,20 +108,20 @@ public class TargetPixelCoordinatesData
                 Vector2 _size = new Vector2(_sprite.texture.width, _sprite.texture.height);
                 Vector2 _sizeQuater = _size / 4;
 
-                Vector2 _centerOfTopRight = new Vector2(_sizeQuater.x * 3, _sizeQuater.y);
                 Vector2 _centerOfTopLeft = new Vector2(_sizeQuater.x, _sizeQuater.y);
-                Vector2 _centerOfBottomRight = new Vector2(_sizeQuater.x * 3, _sizeQuater.y * 3);
+                Vector2 _centerOfTopRight = new Vector2(_sizeQuater.x * 3, _sizeQuater.y);
                 Vector2 _centerOfBottomLeft = new Vector2(_sizeQuater.x, _sizeQuater.y * 3);
+                Vector2 _centerOfBottomRight = new Vector2(_sizeQuater.x * 3, _sizeQuater.y * 3);
 
-                Vector2 _topRight = GetClosestInList(_centerOfTopRight, _allPixelCoordinates);
                 Vector2 _topLeft = GetClosestInList(_centerOfTopLeft, _allPixelCoordinates);
-                Vector2 _bottomRight = GetClosestInList(_centerOfBottomRight, _allPixelCoordinates);
+                Vector2 _topRight = GetClosestInList(_centerOfTopRight, _allPixelCoordinates);
                 Vector2 _bottomLeft = GetClosestInList(_centerOfBottomLeft, _allPixelCoordinates);
+                Vector2 _bottomRight = GetClosestInList(_centerOfBottomRight, _allPixelCoordinates);
 
-                _targetPixelCoordinates.Add(_topRight);
                 _targetPixelCoordinates.Add(_topLeft);
-                _targetPixelCoordinates.Add(_bottomRight);
+                _targetPixelCoordinates.Add(_topRight);
                 _targetPixelCoordinates.Add(_bottomLeft);
+                _targetPixelCoordinates.Add(_bottomRight);
 
                 break;
         }

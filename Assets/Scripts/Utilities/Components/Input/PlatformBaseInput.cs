@@ -81,7 +81,10 @@ public abstract class PlatformBaseInput : MonoBehaviour
     {
         if (enable)
         {
-            StartInputUpdate();
+            if (InputUpdateCoroutine == null)
+            {
+                StartInputUpdate();
+            }
         }
         else
         {
