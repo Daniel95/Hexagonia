@@ -10,10 +10,17 @@ public class AudioEffect
 {
     public AudioClip Clip;
     public AudioEffectType Effect;
+    public float Volume = 1;
 }
 
 public enum AudioEffectType
 {
     Coin,
-	Obstacle,
+	Engine,
+    Highscore,
+    MultiplierMax,
+    ButtonEnter,
+    ButtonSucces,
+    Death,
+    SwitchedMenuCanvas,
 }

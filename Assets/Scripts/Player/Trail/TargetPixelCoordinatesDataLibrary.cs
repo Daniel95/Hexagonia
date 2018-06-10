@@ -11,7 +11,10 @@ using UnityEditor;
 public class TargetPixelCoordinatesDataLibrary : MonoBehaviour
 {
     public static TargetPixelCoordinatesDataLibrary Instance { get { return GetInstance(); } }
+
+    #region Singleton
     private static TargetPixelCoordinatesDataLibrary instance;
+
     private static TargetPixelCoordinatesDataLibrary GetInstance()
     {
         if(instance == null)
@@ -20,6 +23,7 @@ public class TargetPixelCoordinatesDataLibrary : MonoBehaviour
         }
         return instance;
     }
+    #endregion
 
     [Reorderable] [SerializeField] private List<TargetPixelCoordinatesData> targetPixelCoordinatesDatas;
 

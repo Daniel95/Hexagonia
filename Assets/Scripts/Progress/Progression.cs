@@ -6,15 +6,63 @@ using UnityEngine;
 /// </summary>
 public class Progression : MonoBehaviour
 {
-	public static float Timer { get { return Time.time - startUpTime; }  }
-	public static float LastScore { get { return lastScore; }  }
+    public static int VRHighScore
+    {
+        get { return PlayerPrefs.GetInt(VR_LOCAL_HIGHSCORE, 0); }
+        set
+        {
+            PlayerPrefs.SetInt(VR_LOCAL_HIGHSCORE, value);
+            PlayerPrefs.Save();
+        }
+    }
 
+    public static int NonVRHighScore
+    {
+        get { return PlayerPrefs.GetInt(NON_VR_LOCAL_HIGHSCORE, 0); }
+        set
+        {
+            PlayerPrefs.SetInt(NON_VR_LOCAL_HIGHSCORE, value);
+            PlayerPrefs.Save();
+        }
+    }
+
+    public static int TotalScore
+    {
+        get { return PlayerPrefs.GetInt(TOTAL_SCORE, 0); }
+        set
+        {
+            PlayerPrefs.SetInt(TOTAL_SCORE, value);
+            PlayerPrefs.Save();
+        }
+    }
+
+    public static float Timer { get { return Time.time - startUpTime; }  }
+	public float Score { get { return score; }  }
+    public static Progression Instance { get { return GetInstance(); } }
+
+    #region Singleton
+    private static Progression instance;
+
+    private static Progression GetInstance()
+    {
+        if (instance == null)
+        {
+            instance = FindObjectOfType<Progression>();
+        }
+        return instance;
+    }
+    #endregion
+
+    public static Action HighscoresUpdatedEvent;
     public static Action<int> ScoreUpdatedEvent;
 
-	private static float startUpTime;
-	private static int lastScore;
+    private static float startUpTime;
 
-	private int score;
+    private const string VR_LOCAL_HIGHSCORE = "VR_Local_HighScore";
+    private const string NON_VR_LOCAL_HIGHSCORE = "Non_VR_Local_HighScore";
+    private const string TOTAL_SCORE = "Total_Score";
+
+    private int score;
 
 	/// <summary>
 	/// Increases the score by _scoreIncrement parameter.
@@ -23,7 +71,6 @@ public class Progression : MonoBehaviour
 	public void IncreaseScore(int _scoreIncrement)
 	{
 		score += _scoreIncrement * ScoreMultiplier.Multiplier;
-	    lastScore = score;
 
         if (ScoreUpdatedEvent != null)
 		{
@@ -31,11 +78,24 @@ public class Progression : MonoBehaviour
 		}
 	}
 
-	private void ResetScore()
-	{
-		lastScore = score;
-		score = 0;
-	}
+    private void UpdateHighscores()
+    {
+        TotalScore += score;
+
+        if (VRSwitch.VRState && score > VRHighScore)
+        {
+            VRHighScore = score;
+        } 
+        else if(!VRSwitch.VRState && score > NonVRHighScore)
+        {
+            NonVRHighScore = score;
+        }
+
+        if(HighscoresUpdatedEvent != null)
+        {
+            HighscoresUpdatedEvent();
+        }
+    }
 
 	private void Awake()
 	{
@@ -45,12 +105,12 @@ public class Progression : MonoBehaviour
 	private void OnEnable()  
 	{
 		Coin.CollectedEvent += IncreaseScore;
-		Player.DiedEvent += ResetScore;
+        PlayerCollisions.DiedEvent += UpdateHighscores;
 	}
 
 	private void OnDisable()
 	{
 		Coin.CollectedEvent -= IncreaseScore;
-		Player.DiedEvent -= ResetScore;
+        PlayerCollisions.DiedEvent -= UpdateHighscores;
 	}
 }

@@ -11,9 +11,7 @@ public class SceneLoader : MonoBehaviour
     /// </summary>
     public static Action<Scenes?, Scenes> SceneSwitchStartedEvent;
     public static Action<Scenes?, Scenes> SceneSwitchCompletedEvent;
-
     public static Action FadeSceneOutStartedEvent;
-
     public static Action FadeSceneInStartedEvent;
     public static Action FadeSceneInCompletedEvent;
 
@@ -30,9 +28,9 @@ public class SceneLoader : MonoBehaviour
     }
     #endregion
 
-    [SerializeField] private Scenes startScene;
-
     private static Scenes? currentScene;
+
+    [SerializeField] private Scenes startScene;
 
     public void SwitchScene(Scenes _newScene)
     {
@@ -113,5 +111,4 @@ public class SceneLoader : MonoBehaviour
 
         SwitchScene(startScene);
     }
-
 }

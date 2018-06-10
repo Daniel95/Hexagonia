@@ -37,18 +37,16 @@ public class Coin : MonoBehaviour
         }
 		particle = ObjectPool.Instance.GetObjectForType(COIN_PARTICLE, false);
 		particle.transform.position = transform.position;
-
-        AudioEffectManager.Instance.PlayEffect(AudioEffectType.Coin, transform.position);
-
+        
 		Destroy(gameObject);
 	}
 
     private void OnEnable() 
     {
-        Player.CollisionEvent += OnPlayerTriggerCollision;
+        PlayerCollisions.CollisionEvent += OnPlayerTriggerCollision;
     }
 
     private void OnDisable() {
-        Player.CollisionEvent -= OnPlayerTriggerCollision;
+        PlayerCollisions.CollisionEvent -= OnPlayerTriggerCollision;
     }
 }

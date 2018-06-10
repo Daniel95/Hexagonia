@@ -12,22 +12,19 @@ public class GameOverUI : MonoBehaviour
 
     private void UpdateScoreText()
     {
-        localHighscoreText.text = "" + LocalHighscore.HighScore;
-        obtainedScoreText.text = "" + Progression.LastScore;
-    }
+        int _modeHighscore = 0;
 
-    private void OnEnable()
-    {
-        PlayerDiedAnimation.CompletedEvent += Activate;
-        Player.DiedEvent += RecenterUI;
-        Player.DiedEvent += UpdateScoreText;
-    }
+        if(VRSwitch.VRState)
+        {
+            _modeHighscore = Progression.VRHighScore;
+        }
+        else
+        {
+            _modeHighscore = Progression.NonVRHighScore;
+        }
 
-    private void OnDisable()
-    {
-        PlayerDiedAnimation.CompletedEvent -= Activate;
-        Player.DiedEvent -= RecenterUI;
-        Player.DiedEvent -= UpdateScoreText;
+        localHighscoreText.text = "" + _modeHighscore;
+        obtainedScoreText.text = "" + Progression.Instance.Score;
     }
 
     private void Activate()
@@ -37,6 +34,20 @@ public class GameOverUI : MonoBehaviour
 
     private void RecenterUI()
     {
-        menu.transform.position = new Vector3(Player.Instance.transform.position.x, Player.Instance.transform.position.y, menu.transform.position.z);
+        menu.transform.position = new Vector3(PlayerMovement.Position.x, PlayerMovement.Position.y, menu.transform.position.z);
+    }
+
+    private void OnEnable()
+    {
+        PlayerDiedAnimation.CompletedEvent += Activate;
+        PlayerCollisions.DiedEvent += RecenterUI;
+        Progression.HighscoresUpdatedEvent += UpdateScoreText;
+    }
+
+    private void OnDisable()
+    {
+        PlayerDiedAnimation.CompletedEvent -= Activate;
+        PlayerCollisions.DiedEvent -= RecenterUI;
+        Progression.HighscoresUpdatedEvent -= UpdateScoreText;
     }
 }

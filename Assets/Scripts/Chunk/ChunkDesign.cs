@@ -7,7 +7,6 @@ using UnityEngine;
 /// <summary>
 /// This contains the information of a specific chunk and functions to instantiate and remove itself.
 /// </summary>
-
 [RequireComponent(typeof(Renderer))]
 public class ChunkDesign : MonoBehaviour
 { 
