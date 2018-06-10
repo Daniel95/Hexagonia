@@ -184,8 +184,8 @@
                 InfoEntry.Create("Generation", UnityEngine.iOS.Device.generation),
                 InfoEntry.Create("Ad Tracking", UnityEngine.iOS.Device.advertisingTrackingEnabled),
 #else           
-                InfoEntry.Create("Generation", iPhone.generation),
-                InfoEntry.Create("Ad Tracking", iPhone.advertisingTrackingEnabled),
+                InfoEntry.Create("Generation", UnityEngine.iOS.Device.generation),
+                InfoEntry.Create("Ad Tracking", UnityEngine.iOS.Device.advertisingTrackingEnabled),
 #endif
             });
 

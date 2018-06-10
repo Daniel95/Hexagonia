@@ -281,6 +281,11 @@ PlayerSettings:
     m_Devices:
     - None
     - cardboard
+  - m_BuildTarget: iOS
+    m_Enabled: 1
+    m_Devices:
+    - None
+    - cardboard
   m_BuildTargetEnableVuforiaSettings: []
   openGLRequireES31: 1
   openGLRequireES31AEP: 1
@@ -313,7 +318,7 @@ PlayerSettings:
   enableInternalProfiler: 0
   logObjCUncaughtExceptions: 1
   enableCrashReportAPI: 0
-  cameraUsageDescription: 
+  cameraUsageDescription: Used to scan QR codes
   locationUsageDescription: 
   microphoneUsageDescription: 
   switchNetLibKey: 
