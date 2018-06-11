@@ -88,8 +88,6 @@ public class MainMenuRotator : MonoBehaviour
 
     private void OnDraggingInput(Vector2 _inputPosition, Vector2 _delta)
     {
-        if(VRSwitch.VRState) { return; }
-
         float _xDragDistance = _inputPosition.x - PlatformBaseInput.StartDownPosition.x;
         if(Mathf.Abs(_xDragDistance) < swipeThreshold) { return; }
 

@@ -1,19 +1,17 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine.UI;
 
 /// <summary>
 /// Updates the Score UI.
 /// </summary>
-public class ScoreUI : MonoBehaviour
+public class ScoreUI : FlickerableText
 {
-	[SerializeField] private Text scoreText;
-
-	private void UpdateScore(int _score)
+    private void UpdateScore(int _score)
 	{
-		scoreText.text = "" + _score;
+        Text.text = "" + _score;
+        StartFlicker();
 	}
 
-	private void OnEnable()
+    private void OnEnable()
 	{
 		Progression.ScoreUpdatedEvent += UpdateScore;
 	}

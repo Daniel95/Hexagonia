@@ -147,10 +147,12 @@ public class MobileInput : PlatformBaseInput
     private void OnEnable()
     {
         SceneLoader.FadeSceneInCompletedEvent += UpdateInput;
+        VRSwitch.SwitchedEvent += UpdateInput;
     }
 
     private void OnDisable()
     {
         SceneLoader.FadeSceneInCompletedEvent -= UpdateInput;
+        VRSwitch.SwitchedEvent -= UpdateInput;
     }
 }
