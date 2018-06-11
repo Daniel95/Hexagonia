@@ -46,15 +46,19 @@ public class DefaultSceneUI : MonoBehaviour
             Color _color = sceneFadeImage.color;
             _color.a = 0;
             sceneFadeImage.color = _color;
+            vrWarningScriptedAnimationController.StartAnimation(ScriptedAnimationType.Out, SceneLoader.Instance.LoadStartScene);
         }
         else
         {
-            Color _color = vrWarningImages.color;
-            _color.a = 0;
-            vrWarningImages.color = _color;
+            foreach (Image _image in vrWarningImages)
+            {
+                Color _color = _image.color;
+                _color.a = 0;
+                _image.color = _color;
+            }
+            SceneLoader.Instance.LoadStartScene();
         }
 
-        SceneLoader.Instance.LoadStartScene();
     }
 
     private void OnEnable()
