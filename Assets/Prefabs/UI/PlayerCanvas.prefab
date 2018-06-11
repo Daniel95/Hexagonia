@@ -196,7 +196,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95dcf5899f7aa1c4c9521a6551787684, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  multiplierText: {fileID: 114491592363872706}
+  Text: {fileID: 114491592363872706}
+  flickerColor: {r: 1, g: 0.851927, b: 0.46323532, a: 0.8627451}
+  flickerTime: 0.3
   animTriggerName: MultiplierChanged
 --- !u!114 &114423837782353008
 MonoBehaviour:
@@ -209,7 +211,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8440735fcaa6c2d4e9618eb7799c03b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreText: {fileID: 114876713409798762}
+  Text: {fileID: 114876713409798762}
+  flickerColor: {r: 1, g: 0.8509804, b: 0.4627451, a: 0.8627451}
+  flickerTime: 0.3
 --- !u!114 &114491592363872706
 MonoBehaviour:
   m_ObjectHideFlags: 1
