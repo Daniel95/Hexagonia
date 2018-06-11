@@ -4,14 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(ScriptedAnimationController))]
 public class DefaultSceneUI : MonoBehaviour
 {
-
-    public static DefaultSceneUI Instance
-    {
-        get
-        {
-            return GetInstance();
-        }
-    }
+    public static DefaultSceneUI Instance { get { return GetInstance(); } }
 
     #region Singleton
     private static DefaultSceneUI instance;
@@ -46,5 +39,4 @@ public class DefaultSceneUI : MonoBehaviour
     {
         scriptedAnimationController = GetComponent<ScriptedAnimationController>();
     }
-
 }

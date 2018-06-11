@@ -7,7 +7,6 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer))]
 public class MovementBoundaryLine : MonoBehaviour
 {
-
     public enum PositionType
     {
         Top,
@@ -32,7 +31,7 @@ public class MovementBoundaryLine : MonoBehaviour
         {
             float _topBottomOffset = movementPlaneTopPosition - movementPlaneBottomYPosition;
 
-            float _playerPlaneLocalYPosition = Player.Instance.transform.position.y - movementPlaneBottomYPosition;
+            float _playerPlaneLocalYPosition = PlayerMovement.Position.y - movementPlaneBottomYPosition;
             float _ratioInPlane = _playerPlaneLocalYPosition / _topBottomOffset;
             float _ratioToPositionType = Mathf.Abs(_ratioInPlane - ratioPositionTypeMultiplier);
 
@@ -51,7 +50,15 @@ public class MovementBoundaryLine : MonoBehaviour
         }
     }
 
-    private void Start()
+    private void StopFadeCoroutine()
+    {
+        if(fadeCoroutine != null)
+        {
+            StopCoroutine(fadeCoroutine);
+        }
+    }
+
+    private void Initiate()
     {
         Vector3 _halfPlaneSize = LookPositionOnPlane.Instance.Size / 2;
 
@@ -73,22 +80,15 @@ public class MovementBoundaryLine : MonoBehaviour
         fadeCoroutine = StartCoroutine(FadeCoroutine());
     }
 
-    private void StopFadeCoroutine()
-    {
-        if(fadeCoroutine != null)
-        {
-            StopCoroutine(fadeCoroutine);
-        }
-    }
-
     private void OnEnable()
     {
-        Player.DiedEvent += StopFadeCoroutine;
+        PlayerCollisions.DiedEvent += StopFadeCoroutine;
+        LookPositionOnPlane.InitiatedEvent += Initiate;
     }
 
     private void OnDisable()
     {
-        Player.DiedEvent -= StopFadeCoroutine;
+        PlayerCollisions.DiedEvent -= StopFadeCoroutine;
+        LookPositionOnPlane.InitiatedEvent -= Initiate;
     }
-
 }
