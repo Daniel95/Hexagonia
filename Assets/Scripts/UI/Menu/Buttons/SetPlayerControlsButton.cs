@@ -8,6 +8,7 @@ public class SetPlayerControlsButton : GazeButton
     [SerializeField] private Color inactiveColor = Color.yellow;
 
     private Animator animator;
+    private bool activeState = false;
 
     private const string ACTIVE = "active";
 
@@ -26,7 +27,10 @@ public class SetPlayerControlsButton : GazeButton
     protected override void OnEnable()
     {
         base.OnEnable();
-        if(vrState)
+
+        SetActiveState(activeState);
+
+        if (vrState)
         {
             PlayerInputController.VRPlayerInputTypeUpdatedEvent += OnPlayerInputTypeUpdated;
         }
@@ -55,14 +59,23 @@ public class SetPlayerControlsButton : GazeButton
         Color _targetColor = _active ? activeColor : inactiveColor;
         Button.targetGraphic.color = _targetColor;
         Button.targetGraphic.raycastTarget = !_active;
-        
-        animator.SetBool("active", _active);
+        SetActiveState(_active);
+    }
+
+    private void SetActiveState(bool _active)
+    {
+        animator.SetBool(ACTIVE, _active);
+        activeState = _active;
+    }
+
+    protected override void Awake()
+    {
+        base.Awake();
+        animator = GetComponent<Animator>();
     }
 
     private void Start()
     {
-        animator = GetComponent<Animator>();
-
         if (vrState)
         {
             OnPlayerInputTypeUpdated(PlayerInputController.VRPlayerInputType);
