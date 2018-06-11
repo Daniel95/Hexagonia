@@ -186,11 +186,11 @@ public class PlayerInputController : MonoBehaviour
 
     private void OnEnable()
     {
-        Player.DiedEvent += StopCurrentInput;
+        PlayerCollisions.DiedEvent += StopCurrentInput;
     }
 
     private void OnDisable()
     {
-        Player.DiedEvent -= StopCurrentInput;
+        PlayerCollisions.DiedEvent -= StopCurrentInput;
     }
 }

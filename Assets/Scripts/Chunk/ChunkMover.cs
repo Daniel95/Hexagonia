@@ -28,9 +28,11 @@ public class ChunkMover : MonoBehaviour
 	#endregion
 
 	public int ChunkCount { get { return currentChunks.Count; } }
-	public bool MoveChunks { set { moveChunks = value; } }
+	public bool MoveChunks { get { return moveChunks; } set { moveChunks = value; } }
+	public float Speed { get { return speed; } }
+	public float SpeedProgress { get { return Mathf.Clamp01(Progression.Timer / timeForMaximumSpeed); } }
 
-	[SerializeField] private float stopTime;
+    [SerializeField] private float stopTime;
 	[SerializeField] private float minimumSpeed = 15;
     [SerializeField] private float maximumSpeed = 35;
     [SerializeField] public float timeForMaximumSpeed = 60;
@@ -62,32 +64,20 @@ public class ChunkMover : MonoBehaviour
         return _chunkMoverEntry.Chunk;
     }
 
-	/// <summary>
-	/// Starts coroutine (StopChunkMovementEnum()).
-	/// </summary>
-	public void StopChunkOverTime()
-	{
-		StartCoroutine(StopChunkMovementEnum());
-	}
-
 	private void Update ()
 	{
-	    if (!moveChunks)
-	    {
-	        return;
-	    }
+	    if (!moveChunks) { return; }
 
 	    if (speed < maximumSpeed && !stopping)
 	    {
 	        float _speedOffset = maximumSpeed - minimumSpeed;
-	        float _speedTimeMultiplier = Progression.Timer / timeForMaximumSpeed;
-	        float _speedIncrement = _speedOffset * _speedTimeMultiplier;
+	        float _speedIncrement = _speedOffset * SpeedProgress;
             speed = minimumSpeed + _speedIncrement;
         }
 
         for (int i = currentChunks.Count - 1; i >= 0; i--) 
         {
-            if (currentChunks[i].Chunk.transform.position.z <= ChunkPool.Instance.ChunksZStartPosition)
+            if (currentChunks[i].Chunk.transform.position.z <= ChunkSpawner.Instance.ChunksZStartPosition)
             {
                 RemoveFirstChunk();
             }
@@ -117,9 +107,14 @@ public class ChunkMover : MonoBehaviour
         {
             ChunkRemovedEvent(_chunkMoverEntry.Chunk);
         }
-    }  
+    }
 
-    private IEnumerator StopChunkMovementEnum()
+    private void StopChunkOverTime()
+    {
+        StartCoroutine(StopChunkMovementUpdate());
+    }
+
+    private IEnumerator StopChunkMovementUpdate()
     {
         stopping = true;
         float _maxSpeed = speed;
@@ -138,23 +133,13 @@ public class ChunkMover : MonoBehaviour
 
     private void OnEnable()
     {
-        ChunkPool.ChunkSpawnedEvent += AddChunk;
-        Player.DiedEvent += StopChunkOverTime;
+        ChunkSpawner.ChunkSpawnedEvent += AddChunk;
+        PlayerCollisions.DiedEvent += StopChunkOverTime;
     }
 
     private void OnDisable()
     {
-        ChunkPool.ChunkSpawnedEvent -= AddChunk;
-        Player.DiedEvent -= StopChunkOverTime;
+        ChunkSpawner.ChunkSpawnedEvent -= AddChunk;
+        PlayerCollisions.DiedEvent -= StopChunkOverTime;
     }
-
-}
-
-/// <summary>
-/// Links the Gameobject(Chunk) with the given length of the chunk for initializing.
-/// </summary>
-public class ChunkByChunkLengthPair
-{
-    public float Length;
-    public GameObject Chunk;
 }
