@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Video;
 
@@ -25,35 +26,14 @@ public class IntroVideo : MonoBehaviour
         }
     }
 
-    /*
-    private IEnumerator WaitForVideoRead()
+    private IEnumerator PlayVideoAfterLoad()
     {
+        videoPlayer.Play();
+
         while (!videoPlayer.isPrepared)
         {
             yield return null;
         }
-
-        videoPlayer.Play();
-
-        MusicManager.Instance.StartMusic();
-
-        if (IntroVideoStartedEvent != null)
-        {
-            IntroVideoStartedEvent();
-        }
-    }
-
-    private void Start()
-    {
-        StartCoroutine(WaitForVideoRead());    
-    }
-    */
-
-    private void Start()
-    {
-        videoPlayer.targetCamera = Camera.main;
-
-        videoPlayer.Play();
 
         MusicManager.Instance.StartMusic();
 
@@ -66,6 +46,11 @@ public class IntroVideo : MonoBehaviour
     private void Awake()
     {
         videoPlayer = GetComponent<VideoPlayer>();
+    }
+
+    private void Start()
+    {
+        StartCoroutine(PlayVideoAfterLoad());
     }
 
     private void OnEnable()
