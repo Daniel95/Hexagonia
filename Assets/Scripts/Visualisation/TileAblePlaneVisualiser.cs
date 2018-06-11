@@ -2,29 +2,29 @@
 
 public class TileAblePlaneVisualiser : MonoBehaviour
 {
-	private Vector2 offset = new Vector2();
-	private Renderer render;
 	[SerializeField] private bool isInverted;
+	[SerializeField] private float speedMultiplier = 0.1f;
+
+    private Vector2 offset = new Vector2();
+	private Renderer render;
 
 	private const string MAIN_TEXTURE = "_MainTex";
 
-	private void Start () {
+	private void Awake()
+    {
 		render = GetComponent<Renderer>();
 	}
-	
-	private void Update () {
-		if(isInverted)
-		{
-			float _speed = ChunkMover.Instance.Speed * -1;
-			offset.y += (_speed / 100) * Time.deltaTime;
-			render.material.SetTextureOffset(MAIN_TEXTURE, new Vector2(0, offset.y));
 
-		}
-		if (!isInverted)
-		{
-			float _speed = ChunkMover.Instance.Speed;
-			offset.y += (_speed / 100) * Time.deltaTime;
-			render.material.SetTextureOffset(MAIN_TEXTURE, new Vector2(0, offset.y));
-		}
+    private void Update()
+    {
+        float _speed = ChunkMover.Instance.Speed;
+
+        if (isInverted)
+        {
+            _speed *= -1;
+        }
+
+        offset.y += (_speed * speedMultiplier) * Time.deltaTime;
+        render.material.SetTextureOffset(MAIN_TEXTURE, new Vector2(0, offset.y));
 	}
 }
