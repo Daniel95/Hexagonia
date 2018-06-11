@@ -197,28 +197,28 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1151619566470418}
-  m_LocalRotation: {x: 0.38268343, y: 0.92387956, z: -0, w: 0}
+  m_LocalRotation: {x: 0.49999994, y: 0.86602545, z: -0, w: 0}
   m_LocalPosition: {x: -2.36, y: -6.0049176, z: 34.739925}
   m_LocalScale: {x: 0.50000024, y: 1, z: 1}
   m_Children:
   - {fileID: 4911413102838014}
   m_Father: {fileID: 4890431155734046}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 180, y: 0, z: -135}
+  m_LocalEulerAnglesHint: {x: 180, y: 0, z: -120}
 --- !u!4 &4596195565994594
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1086459603228048}
-  m_LocalRotation: {x: -0, y: -0, z: 0.38268343, w: 0.92387956}
+  m_LocalRotation: {x: 0, y: 0, z: 0.5, w: 0.8660254}
   m_LocalPosition: {x: 9.39, y: -6.049, z: 34.739925}
   m_LocalScale: {x: 0.5, y: 1, z: 1}
   m_Children:
   - {fileID: 4918099565758986}
   m_Father: {fileID: 4890431155734046}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 60}
 --- !u!4 &4703127177119178
 Transform:
   m_ObjectHideFlags: 1
@@ -464,7 +464,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isInverted: 0
-  speedMultiplier: 0.007
+  speedMultiplier: 0.03
 --- !u!114 &114238507344905498
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -478,7 +478,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   angle: 0
   min: 0.2
-  max: 0.7
+  max: 0.65
 --- !u!114 &114434397953454298
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -492,7 +492,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   angle: 0
   min: 0.2
-  max: 0.7
+  max: 0.65
 --- !u!114 &114516619643398618
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -505,7 +505,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isInverted: 1
-  speedMultiplier: 0.007
+  speedMultiplier: 0.03
 --- !u!114 &114572045010798826
 MonoBehaviour:
   m_ObjectHideFlags: 1
