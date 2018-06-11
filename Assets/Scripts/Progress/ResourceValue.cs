@@ -7,9 +7,10 @@ using System;
 /// </summary>
 public class ResourceValue : MonoBehaviour
 {
-    public static Action<float> UpdatedEvent;
 	public static ResourceValue Instance { get { return GetInstance(); } }
 	public static float Value { get { return resourceValue; } set { resourceValue = value; } }
+
+    public static Action<float> UpdatedEvent;
 
 	#region Instance
 	private static ResourceValue instance;
@@ -39,11 +40,6 @@ public class ResourceValue : MonoBehaviour
 
 	private float targetValue;
 	private Coroutine coroutineIncrease, coroutineDecrease;
-
-	private void Awake()
-	{
-		resourceValue = 0;
-	}
 
 	private void OnScoreUpdated(int _score)
 	{
@@ -140,15 +136,20 @@ public class ResourceValue : MonoBehaviour
 		}
 	}
 
-	private void OnEnable()
+    private void Awake()
+    {
+        resourceValue = 0;
+    }
+
+    private void OnEnable()
     {
         Progression.ScoreUpdatedEvent += OnScoreUpdated;
-		Player.DiedEvent += StopResources;
+        PlayerCollisions.DiedEvent += StopResources;
     }
 
     private void OnDisable()
     {
         Progression.ScoreUpdatedEvent -= OnScoreUpdated;
-		Player.DiedEvent -= StopResources;
+        PlayerCollisions.DiedEvent -= StopResources;
 	}
 }

@@ -98,7 +98,7 @@ public class AudioEffectManager : MonoBehaviour
 
     private void OnEnable()
     {
-        Player.DiedEvent += PlayerDiedSound;
+        PlayerCollisions.DiedEvent += PlayerDiedSound;
         PlayerDiedAnimation.CompletedEvent += HighScore;
         Coin.CollectedEvent += CoinCollected;
         ScoreMultiplier.MultiplierIncreasedEvent += MultiplierMaxCheck;
@@ -107,7 +107,7 @@ public class AudioEffectManager : MonoBehaviour
 
     private void OnDisable()
     {
-        Player.DiedEvent -= PlayerDiedSound;
+        PlayerCollisions.DiedEvent -= PlayerDiedSound;
         PlayerDiedAnimation.CompletedEvent -= HighScore;
         Coin.CollectedEvent -= CoinCollected;
         ScoreMultiplier.MultiplierIncreasedEvent -= MultiplierMaxCheck;

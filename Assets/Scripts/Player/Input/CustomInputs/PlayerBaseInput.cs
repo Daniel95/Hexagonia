@@ -7,9 +7,9 @@ public abstract class PlayerBaseInput : MonoBehaviour
     public Action<Vector3> TargetPositionUpdatedEvent; 
     public PlayerInputType PlayerInputType { get { return playerInputType; } }
 
-    [SerializeField] private PlayerInputType playerInputType;
-
     protected Vector3 TargetPosition;
+
+    [SerializeField] private PlayerInputType playerInputType;
 
     private Coroutine inputUpdateCoroutine;
 

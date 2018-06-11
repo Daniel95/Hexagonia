@@ -38,7 +38,6 @@ public class Progression : MonoBehaviour
 
     public static float Timer { get { return Time.time - startUpTime; }  }
 	public float Score { get { return score; }  }
-
     public static Progression Instance { get { return GetInstance(); } }
 
     #region Singleton
@@ -106,12 +105,12 @@ public class Progression : MonoBehaviour
 	private void OnEnable()  
 	{
 		Coin.CollectedEvent += IncreaseScore;
-		Player.DiedEvent += UpdateHighscores;
+        PlayerCollisions.DiedEvent += UpdateHighscores;
 	}
 
 	private void OnDisable()
 	{
 		Coin.CollectedEvent -= IncreaseScore;
-		Player.DiedEvent -= UpdateHighscores;
+        PlayerCollisions.DiedEvent -= UpdateHighscores;
 	}
 }
