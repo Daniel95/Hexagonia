@@ -4,7 +4,6 @@ using UnityEngine;
 public class PlayerDragInput : PlayerBaseInput
 {
     [SerializeField] private float dragSpeed = 1;
-    [SerializeField] private JoyStickUI joyStickUI;
 
     private Vector3 startDownPosition;
     private Vector3 currentDownPosition;
