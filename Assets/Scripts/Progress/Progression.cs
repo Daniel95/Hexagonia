@@ -79,7 +79,7 @@ public class Progression : MonoBehaviour
 			ScoreUpdatedEvent(score);
 		}
 
-        if (!reachedHighscore && score > 0 && score > lastHighscoreScore)
+        if (!reachedHighscore && lastHighscoreScore > 0 && score > lastHighscoreScore)
         {
             reachedHighscore = true;
             AudioEffectManager.Instance.PlayEffect(AudioEffectType.Highscore);
