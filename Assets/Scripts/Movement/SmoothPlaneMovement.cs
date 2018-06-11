@@ -5,21 +5,19 @@
 /// </summary>
 public class SmoothPlaneMovement : MonoBehaviour
 {
-    public static Vector3 Delta{ get{ return delta; } }
-
     [SerializeField] [Range(0, 20)] private float vrSpeed = 10f;
     [SerializeField] [Range(0, 20)] private float nonVRSpeed = 10f;
     [SerializeField] private Vector3 offset;
     
-    private static Vector3 delta;
+    protected Vector3 Delta;
 
     private float currentSpeed;
 
     protected virtual void MoveToTargetPosition(Vector3 _targetPosition)
     {
         Vector3 _targetPositionWithOffset = _targetPosition + offset;
-        delta = _targetPositionWithOffset - transform.position;
-        Vector3 _direction = delta.normalized;
+        Delta = _targetPositionWithOffset - transform.position;
+        Vector3 _direction = Delta.normalized;
         float _distance = Vector2.Distance(_targetPositionWithOffset, transform.position);
         float _deltaSpeed = currentSpeed * Time.deltaTime;
 

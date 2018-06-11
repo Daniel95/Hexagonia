@@ -37,9 +37,9 @@ public class JoyStickUI : MonoBehaviour
 
     private void UpdateJoyStick(Vector2 _position)
     {
-        start.position = PlatformBaseInput.StartDownPosition;
+        start.position = Camera.main.ViewportToScreenPoint(PlatformBaseInput.StartDownPosition);
         uiLineRenderer.Points[0] = start.localPosition;
-        end.position = _position;
+        end.position = Camera.main.ViewportToScreenPoint(_position);
         uiLineRenderer.Points[1] = end.localPosition;
         uiLineRenderer.LineThickness = uiLineRenderer.LineThickness;
     }

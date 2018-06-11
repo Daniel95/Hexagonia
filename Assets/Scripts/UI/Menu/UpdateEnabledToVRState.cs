@@ -16,12 +16,12 @@ public class UpdateEnabledToVRState : MonoBehaviour
         }
     }
 
-    private void Awake()
+    private void OnVRSwitched()
     {
         UpdateEnabled();
     }
 
-    private void OnVRSwitched()
+    private void Awake()
     {
         UpdateEnabled();
     }

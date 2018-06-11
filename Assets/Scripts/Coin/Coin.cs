@@ -43,10 +43,10 @@ public class Coin : MonoBehaviour
 
     private void OnEnable() 
     {
-        Player.CollisionEvent += OnPlayerTriggerCollision;
+        PlayerCollisions.CollisionEvent += OnPlayerTriggerCollision;
     }
 
     private void OnDisable() {
-        Player.CollisionEvent -= OnPlayerTriggerCollision;
+        PlayerCollisions.CollisionEvent -= OnPlayerTriggerCollision;
     }
 }

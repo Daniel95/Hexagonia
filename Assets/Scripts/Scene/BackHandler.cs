@@ -5,16 +5,16 @@
 /// </summary>
 public class BackHandler : MonoBehaviour
 {
-    private void Awake()
-    {
-        Input.backButtonLeavesApp = true;
-    }
-
     private void Update()
     {
         if (Input.GetKeyUp(KeyCode.Escape))
         {
             Application.Quit();
         }
+    }
+
+    private void Awake()
+    {
+        Input.backButtonLeavesApp = true;
     }
 }

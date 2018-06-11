@@ -4,7 +4,6 @@ using UnityEngine;
 
 public abstract class LerpAnimation : ScriptedAnimation
 {
-
     [SerializeField] [Range(0, 1)] protected float TargetValue = 1;
     [SerializeField] protected float Speed = 1;
 
@@ -40,5 +39,4 @@ public abstract class LerpAnimation : ScriptedAnimation
 
         StopAnimation(true);
     }
-
 }

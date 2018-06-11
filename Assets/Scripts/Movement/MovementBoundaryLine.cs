@@ -7,7 +7,6 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer))]
 public class MovementBoundaryLine : MonoBehaviour
 {
-
     public enum PositionType
     {
         Top,
@@ -32,7 +31,7 @@ public class MovementBoundaryLine : MonoBehaviour
         {
             float _topBottomOffset = movementPlaneTopPosition - movementPlaneBottomYPosition;
 
-            float _playerPlaneLocalYPosition = Player.Instance.transform.position.y - movementPlaneBottomYPosition;
+            float _playerPlaneLocalYPosition = PlayerMovement.Position.y - movementPlaneBottomYPosition;
             float _ratioInPlane = _playerPlaneLocalYPosition / _topBottomOffset;
             float _ratioToPositionType = Mathf.Abs(_ratioInPlane - ratioPositionTypeMultiplier);
 
@@ -48,6 +47,14 @@ public class MovementBoundaryLine : MonoBehaviour
             spriteRenderer.material.color = _color;
 
             yield return null;
+        }
+    }
+
+    private void StopFadeCoroutine()
+    {
+        if(fadeCoroutine != null)
+        {
+            StopCoroutine(fadeCoroutine);
         }
     }
 
@@ -73,22 +80,13 @@ public class MovementBoundaryLine : MonoBehaviour
         fadeCoroutine = StartCoroutine(FadeCoroutine());
     }
 
-    private void StopFadeCoroutine()
-    {
-        if(fadeCoroutine != null)
-        {
-            StopCoroutine(fadeCoroutine);
-        }
-    }
-
     private void OnEnable()
     {
-        Player.DiedEvent += StopFadeCoroutine;
+        PlayerCollisions.DiedEvent += StopFadeCoroutine;
     }
 
     private void OnDisable()
     {
-        Player.DiedEvent -= StopFadeCoroutine;
+        PlayerCollisions.DiedEvent -= StopFadeCoroutine;
     }
-
 }

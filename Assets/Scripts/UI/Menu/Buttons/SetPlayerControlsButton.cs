@@ -19,26 +19,6 @@ public class SetPlayerControlsButton : GazeButton
         }
     }
 
-    private void OnPlayerInputTypeUpdated(PlayerInputType _playerInputType)
-    {
-        bool _active = _playerInputType == targetPlayerInputType;
-        Color _targetColor = _active ? activeColor : inactiveColor;
-        Button.targetGraphic.color = _targetColor;
-        Button.targetGraphic.raycastTarget = !_active;
-    }
-
-    private void Start()
-    {
-        if (vrState)
-        {
-            OnPlayerInputTypeUpdated(PlayerInputController.VRPlayerInputType);
-        }
-        else
-        {
-            OnPlayerInputTypeUpdated(PlayerInputController.NonVRPlayerInputType);
-        }
-    }
-
     protected override void OnEnable()
     {
         base.OnEnable();
@@ -62,6 +42,26 @@ public class SetPlayerControlsButton : GazeButton
         else
         {
             PlayerInputController.NonVRPlayerInputTypeUpdatedEvent -= OnPlayerInputTypeUpdated;
+        }
+    }
+
+    private void OnPlayerInputTypeUpdated(PlayerInputType _playerInputType)
+    {
+        bool _active = _playerInputType == targetPlayerInputType;
+        Color _targetColor = _active ? activeColor : inactiveColor;
+        Button.targetGraphic.color = _targetColor;
+        Button.targetGraphic.raycastTarget = !_active;
+    }
+
+    private void Start()
+    {
+        if (vrState)
+        {
+            OnPlayerInputTypeUpdated(PlayerInputController.VRPlayerInputType);
+        }
+        else
+        {
+            OnPlayerInputTypeUpdated(PlayerInputController.NonVRPlayerInputType);
         }
     }
 }
