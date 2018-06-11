@@ -69,12 +69,16 @@ public class VRSwitch : MonoBehaviour
         gvrGameObject.SetActive(vrState);
         gvrReticlePointerGameObject.SetActive(vrState);
 
-        StartCoroutine(LoadDevice());
-
         if (SwitchedEvent != null)
         {
             SwitchedEvent();
         }
+    }
+
+    private void Initialize()
+    {
+        StartCoroutine(LoadDevice());
+        SceneLoader.FadeSceneOutStartedEvent -= Initialize;
     }
 
     IEnumerator LoadDevice()
@@ -109,11 +113,13 @@ public class VRSwitch : MonoBehaviour
     {
         PlayerCollisions.DiedEvent += SetReticlePointer;
         VRModeButton.InitializedEvent += SetReticlePointer;
+        SceneLoader.FadeSceneOutStartedEvent += Initialize;
     }
 
     private void OnDisable()
     {
         PlayerCollisions.DiedEvent -= SetReticlePointer;
         VRModeButton.InitializedEvent -= SetReticlePointer;
+        SceneLoader.FadeSceneOutStartedEvent -= Initialize;
     }
 }
