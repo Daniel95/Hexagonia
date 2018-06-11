@@ -23,6 +23,8 @@ public class WaitForVideoPrepared : MonoBehaviour
 
         player.Play();
 
+        MusicManager.Instance.StartMusic();
+
         if (StartIntroEvent != null)
         {
             StartIntroEvent();

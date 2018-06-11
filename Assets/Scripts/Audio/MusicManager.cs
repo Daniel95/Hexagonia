@@ -9,18 +9,43 @@ using System;
 [RequireComponent(typeof(AudioSource))]
 public class MusicManager : MonoBehaviour
 {
-	[Range(0, 1)] [SerializeField] private float maxVolume = .5f;
+    public static MusicManager Instance { get { return GetInstance(); } }
+
+    #region Singleton
+    private static MusicManager instance;
+
+    private static MusicManager GetInstance()
+    {
+        if (instance == null)
+        {
+            instance = FindObjectOfType<MusicManager>();
+        }
+        return instance;
+    }
+    #endregion
+
+    [Range(0, 1)] [SerializeField] private float maxVolume = .5f;
     [SerializeField] private Songlist[] songlists;
 	[SerializeField] private float fadeTime = 0.5f;
 
     private AudioSource source;
     private AudioClip currentClip;
-    private bool switching = false;
     private List<Song> currentSongList = new List<Song>();
     private Coroutine delayCoroutine;
+
+    /// <summary>
+    /// Starts playing a random song for the current scene.
+    /// </summary>
+    public void StartMusic()
+    {
+        if (!source.isPlaying)
+        {
+            SwitchSong();
+        }
+    }
     
     /// <summary>
-    /// Switches to a random song in the songlist
+    /// Switches to a random song in the songlist for the current scene.
     /// </summary>
     public void SwitchSong()
     {
@@ -29,8 +54,6 @@ public class MusicManager : MonoBehaviour
         Song _randomSong = RandomSong();
 
         if (_randomSong == null) { return; }
-
-        switching = true;
 
         GivePriority();
 
@@ -100,7 +123,6 @@ public class MusicManager : MonoBehaviour
             yield return null;
         }
         source.volume = maxVolume;
-        switching = false;
     }
 
     private Song RandomSong()
@@ -154,35 +176,13 @@ public class MusicManager : MonoBehaviour
         SwitchSong();
     }
 
-    private void StartMusic()
-    {
-        if (!source.isPlaying)
-        {
-            SwitchSong();
-        }
-    }
-
     private void OnEnable()
     {
         SceneLoader.SceneSwitchCompletedEvent += SceneSwitch;
-        WaitForVideoPrepared.StartIntroEvent += StartMusic;
     }
 
     private void OnDisable()
     {
         SceneLoader.SceneSwitchCompletedEvent -= SceneSwitch;
-        WaitForVideoPrepared.StartIntroEvent -= StartMusic;
     }
-}
-
-/// <summary>
-/// Pairs a songlist to a specific scene
-/// </summary>
-[Serializable]
-internal class Songlist
-{
-    #pragma warning disable CS0649,
-    public Scenes Scene;
-    public List<Song> SongList;
-    #pragma warning restore CS0649,
 }

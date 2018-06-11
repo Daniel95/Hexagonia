@@ -29,8 +29,6 @@ public class AudioEffectManager : MonoBehaviour
     [SerializeField] private float pitchMax = 1.5f;
     [SerializeField] private GameObject oneShotAudio;
 
-    private bool playedHighscoreSound = false;
-
     public void PlayEffect(AudioEffectType _audioType, float _pitch = 1f, float _volume = 1)
     {
         for (int i = 0; i < audioEffects.Count; i++)
