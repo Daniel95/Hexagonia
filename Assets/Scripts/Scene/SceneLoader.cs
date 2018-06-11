@@ -34,7 +34,7 @@ public class SceneLoader : MonoBehaviour
 
     public void SwitchScene(Scenes _newScene)
     {
-        if (startScene == Scenes.Default)
+        if (_newScene == Scenes.Default)
         {
             Debug.LogWarning("Cannot switch to the Default scene.");
             return;

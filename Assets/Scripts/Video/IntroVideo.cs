@@ -8,18 +8,18 @@ public class IntroVideo : MonoBehaviour
     public static Action IntroVideoStartedEvent;
     public static Action IntroVideoCompletedEvent;
 
-    [SerializeField] private Scenes scene;
+    [SerializeField] private Scenes sceneToLoadAfterVideo;
 
     private VideoPlayer videoPlayer;
 
     private void OnVideoFinished(VideoPlayer _videoPlayer)
     {
+        SceneLoader.Instance.SwitchScene(sceneToLoadAfterVideo);
+
         if (IntroVideoCompletedEvent != null)
         {
             IntroVideoCompletedEvent();
         }
-
-        SceneLoader.Instance.SwitchScene(scene);
     }
 
     private void Start()
