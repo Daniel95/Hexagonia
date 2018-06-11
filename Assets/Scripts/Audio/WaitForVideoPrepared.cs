@@ -7,12 +7,12 @@ public class WaitForVideoPrepared : MonoBehaviour
     [SerializeField] private VideoPlayer player;
     [SerializeField] private AudioSource source;
 
-    void Awake ()
+    private void PlaySound()
     {
         StartCoroutine(WaitForVideoRead());
-	}
+    }
 
-    IEnumerator WaitForVideoRead()
+    private IEnumerator WaitForVideoRead()
     {
         while (!player.isPrepared)
         {
@@ -21,5 +21,15 @@ public class WaitForVideoPrepared : MonoBehaviour
 
         player.Play();
         source.Play();
+    }
+
+    private void OnEnable()
+    {
+        CameraHolderIntro.OnCompletedMobileIntoCardboardEvent += PlaySound;
+    }
+
+    private void OnDisable()
+    {
+        CameraHolderIntro.OnCompletedMobileIntoCardboardEvent -= PlaySound;
     }
 }

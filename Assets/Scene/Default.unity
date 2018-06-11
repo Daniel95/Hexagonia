@@ -120,6 +120,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 1918761721}
     m_Modifications:
+    - target: {fileID: 114750344203264550, guid: 8390577eb2165884893a9400cfca18d8,
+        type: 2}
+      propertyPath: scriptedAnimations.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4000283570069348, guid: 8390577eb2165884893a9400cfca18d8, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -156,12 +161,39 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114750344203264550, guid: 8390577eb2165884893a9400cfca18d8,
+        type: 2}
+      propertyPath: scriptedAnimations.Array.data[0]
+      value: 
+      objectReference: {fileID: 1131616645}
+    - target: {fileID: 114750344203264550, guid: 8390577eb2165884893a9400cfca18d8,
+        type: 2}
+      propertyPath: scriptedAnimations.Array.data[1]
+      value: 
+      objectReference: {fileID: 1131616644}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8390577eb2165884893a9400cfca18d8, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1131616643 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1075022113208982, guid: 8390577eb2165884893a9400cfca18d8,
+    type: 2}
+  m_PrefabInternal: {fileID: 1131616642}
+--- !u!114 &1131616644 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114172023132368146, guid: 8390577eb2165884893a9400cfca18d8,
+    type: 2}
+  m_PrefabInternal: {fileID: 1131616642}
+  m_Script: {fileID: 11500000, guid: ad3809a1d06d30047870cb5b6800f3b7, type: 3}
+--- !u!114 &1131616645 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114272159220313950, guid: 8390577eb2165884893a9400cfca18d8,
+    type: 2}
+  m_PrefabInternal: {fileID: 1131616642}
+  m_Script: {fileID: 11500000, guid: ad3809a1d06d30047870cb5b6800f3b7, type: 3}
+--- !u!1 &1131616646 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1182793941310524, guid: 8390577eb2165884893a9400cfca18d8,
     type: 2}
   m_PrefabInternal: {fileID: 1131616642}
 --- !u!1 &1155678589
@@ -254,6 +286,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gvrGameObject: {fileID: 1559727274}
+  gvrReticlePointerGameObject: {fileID: 1131616646}
 --- !u!4 &1171751737
 Transform:
   m_ObjectHideFlags: 0

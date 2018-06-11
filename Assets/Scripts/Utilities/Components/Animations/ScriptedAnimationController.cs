@@ -11,7 +11,7 @@ public class ScriptedAnimationController : MonoBehaviour {
 
     public bool IsAnimating { get { return scriptedAnimations.Exists(x => x.IsAnimating); } }
 
-    private List<ScriptedAnimation> scriptedAnimations = new List<ScriptedAnimation>();
+    [SerializeField] private List<ScriptedAnimation> scriptedAnimations = new List<ScriptedAnimation>();
 
     public void StartAnimation(ScriptedAnimationType scriptedAnimationType, Action onAnimationCompleted = null)
     {
@@ -70,10 +70,6 @@ public class ScriptedAnimationController : MonoBehaviour {
 
     private void OnDisable() {
         scriptedAnimationControllers.Remove(this);
-    }
-
-    private void Awake() {
-        scriptedAnimations = GetComponents<ScriptedAnimation>().ToList();
     }
 
 }

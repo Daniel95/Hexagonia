@@ -34,8 +34,7 @@ public class VRSwitch : MonoBehaviour
     private const string VR_NONE = "None";
 
     [SerializeField] private GameObject gvrGameObject;
-
-    private GameObject gvrReticlePointerGameObject;
+    [SerializeField] private GameObject gvrReticlePointerGameObject;
 
     /// <summary>
     /// Switches the VR Mode, returns the VR State.
@@ -61,10 +60,8 @@ public class VRSwitch : MonoBehaviour
         return vrState;
     }
 
-    private void Start()
+    private void Initialize()
     {
-        gvrReticlePointerGameObject = FindObjectOfType<GvrReticlePointer>().gameObject;
-
         vrState = Convert.ToBoolean(PlayerPrefs.GetInt(VR_MODE));
         gvrGameObject.SetActive(vrState);
         gvrReticlePointerGameObject.SetActive(vrState);
@@ -109,11 +106,13 @@ public class VRSwitch : MonoBehaviour
     {
         PlayerCollisions.DiedEvent += SetReticlePointer;
         VRModeButton.InitializedEvent += SetReticlePointer;
+        CameraHolderIntro.OnCompletedMobileIntoCardboardEvent += Initialize;
     }
 
     private void OnDisable()
     {
         PlayerCollisions.DiedEvent -= SetReticlePointer;
         VRModeButton.InitializedEvent -= SetReticlePointer;
+        CameraHolderIntro.OnCompletedMobileIntoCardboardEvent -= Initialize;
     }
 }

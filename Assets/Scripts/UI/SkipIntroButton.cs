@@ -18,11 +18,16 @@ public class SkipIntroButton : GazeButton
         }
     }
 
-    protected override void OnEnable()
+    private void SubscribeEvents()
     {
         base.OnEnable();
         PlatformBaseInput.DownInputEvent += OnInput;
         CameraHolderIntro.OnCompletedIntroVideoEvent += SetFirstTimeLaunchedPrefs;
+    }
+
+    protected override void OnEnable()
+    {
+        CameraHolderIntro.OnCompletedMobileIntoCardboardEvent += SubscribeEvents;
     }
 
     protected override void OnDisable()
@@ -30,6 +35,7 @@ public class SkipIntroButton : GazeButton
         base.OnDisable();
         PlatformBaseInput.DownInputEvent -= OnInput;
         CameraHolderIntro.OnCompletedIntroVideoEvent -= SetFirstTimeLaunchedPrefs;
+        CameraHolderIntro.OnCompletedMobileIntoCardboardEvent -= SubscribeEvents;
     }
 
     private void SetFirstTimeLaunchedPrefs()
