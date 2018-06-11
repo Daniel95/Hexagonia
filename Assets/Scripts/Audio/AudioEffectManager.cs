@@ -74,7 +74,7 @@ public class AudioEffectManager : MonoBehaviour
 
         if (XRSettings.enabled)
         {
-            if (Progression.Instance.Score > Progression.VRHighScore)
+            if (Progression.Instance.Score > Progression.VRHighScore && Progression.VRHighScore > 0)
             {
                 PlayEffect(AudioEffectType.Highscore);
                 playedHighscoreSound = true;
@@ -82,7 +82,7 @@ public class AudioEffectManager : MonoBehaviour
         }
         else
         {
-            if (Progression.Instance.Score > Progression.NonVRHighScore)
+            if (Progression.Instance.Score > Progression.NonVRHighScore && Progression.NonVRHighScore > 0)
             {
                 PlayEffect(AudioEffectType.Highscore);
                 playedHighscoreSound = true;
