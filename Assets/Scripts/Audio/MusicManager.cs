@@ -18,20 +18,14 @@ public class MusicManager : MonoBehaviour
     private bool switching = false;
     private List<Song> currentSongList = new List<Song>();
     private Coroutine delayCoroutine;
-
+    
     /// <summary>
     /// Switches to a random song in the songlist
     /// </summary>
     public void SwitchSong()
     {
         if (currentSongList.Count == 0) { return; }
-
-        if (switching)
-        {
-            StopAllCoroutines();
-            DelayCoroutineCheck();
-        }
-
+        
         Song _randomSong = RandomSong();
 
         if (_randomSong == null) { return; }
@@ -146,9 +140,6 @@ public class MusicManager : MonoBehaviour
 
     private void SceneSwitch(Scenes? _oldScene, Scenes _newScene)
     {
-        if (_oldScene == _newScene) { return; }
-        if (_oldScene == Scenes.Default) { return; }
-
         foreach (Songlist _list in songlists)
         {
             if (_list.Scene == _newScene)
@@ -156,17 +147,31 @@ public class MusicManager : MonoBehaviour
                 currentSongList = _list.SongList;
             }
         }
+
+        if (_oldScene == _newScene) { return; }
+        if (_newScene == Scenes.Intro) { return; }
+
         SwitchSong();
+    }
+
+    private void StartMusic()
+    {
+        if (!source.isPlaying)
+        {
+            SwitchSong();
+        }
     }
 
     private void OnEnable()
     {
         SceneLoader.SceneSwitchCompletedEvent += SceneSwitch;
+        WaitForVideoPrepared.StartIntroEvent += StartMusic;
     }
 
     private void OnDisable()
     {
         SceneLoader.SceneSwitchCompletedEvent -= SceneSwitch;
+        WaitForVideoPrepared.StartIntroEvent -= StartMusic;
     }
 }
 

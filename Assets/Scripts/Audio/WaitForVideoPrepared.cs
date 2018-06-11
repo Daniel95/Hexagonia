@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.Video;
+using System;
 
 public class WaitForVideoPrepared : MonoBehaviour
 {
+    public static Action StartIntroEvent;
+
     [SerializeField] private VideoPlayer player;
-    [SerializeField] private AudioSource source;
 
     void Awake ()
     {
@@ -20,6 +22,10 @@ public class WaitForVideoPrepared : MonoBehaviour
         }
 
         player.Play();
-        source.Play();
+
+        if (StartIntroEvent != null)
+        {
+            StartIntroEvent();
+        }
     }
 }
