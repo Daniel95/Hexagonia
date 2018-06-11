@@ -32,6 +32,18 @@ public class SceneLoader : MonoBehaviour
 
     [SerializeField] private Scenes startScene;
 
+    public void LoadStartScene()
+    {
+
+        if (startScene == Scenes.Default)
+        {
+            Debug.LogWarning("Cannot load the Default scene as start scene.");
+            return;
+        }
+
+        SwitchScene(startScene);
+    }
+
     public void SwitchScene(Scenes _newScene)
     {
         if (startScene == Scenes.Default)
@@ -99,16 +111,5 @@ public class SceneLoader : MonoBehaviour
                 });
             });
         }
-    }
-
-    private void Start()
-    {
-        if(startScene == Scenes.Default)
-        {
-            Debug.LogWarning("Cannot load the Default scene as start scene.");
-            return;
-        }
-
-        SwitchScene(startScene);
     }
 }
