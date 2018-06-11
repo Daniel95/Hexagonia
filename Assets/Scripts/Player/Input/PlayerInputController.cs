@@ -179,7 +179,7 @@ public class PlayerInputController : MonoBehaviour
         }
     }
 
-    private void Awake()
+    private void Initiate()
     {
         SetState(true);
     }
@@ -187,10 +187,12 @@ public class PlayerInputController : MonoBehaviour
     private void OnEnable()
     {
         PlayerCollisions.DiedEvent += StopCurrentInput;
+        LookPositionOnPlane.InitiatedEvent += Initiate;
     }
 
     private void OnDisable()
     {
         PlayerCollisions.DiedEvent -= StopCurrentInput;
+        LookPositionOnPlane.InitiatedEvent -= Initiate;
     }
 }

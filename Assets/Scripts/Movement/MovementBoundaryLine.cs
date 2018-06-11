@@ -58,7 +58,7 @@ public class MovementBoundaryLine : MonoBehaviour
         }
     }
 
-    private void Start()
+    private void Initiate()
     {
         Vector3 _halfPlaneSize = LookPositionOnPlane.Instance.Size / 2;
 
@@ -83,10 +83,12 @@ public class MovementBoundaryLine : MonoBehaviour
     private void OnEnable()
     {
         PlayerCollisions.DiedEvent += StopFadeCoroutine;
+        LookPositionOnPlane.InitiatedEvent += Initiate;
     }
 
     private void OnDisable()
     {
         PlayerCollisions.DiedEvent -= StopFadeCoroutine;
+        LookPositionOnPlane.InitiatedEvent -= Initiate;
     }
 }
