@@ -78,7 +78,7 @@ public class VRSwitch : MonoBehaviour
     private void Initialize()
     {
         StartCoroutine(LoadDevice());
-        SceneLoader.FadeSceneOutStartedEvent -= Initialize;
+        SceneLoader.FadeSceneInStartedEvent -= Initialize;
     }
 
     IEnumerator LoadDevice()
@@ -113,13 +113,13 @@ public class VRSwitch : MonoBehaviour
     {
         PlayerCollisions.DiedEvent += SetReticlePointer;
         VRModeButton.InitializedEvent += SetReticlePointer;
-        SceneLoader.FadeSceneOutStartedEvent += Initialize;
+        SceneLoader.FadeSceneInStartedEvent += Initialize;
     }
 
     private void OnDisable()
     {
         PlayerCollisions.DiedEvent -= SetReticlePointer;
         VRModeButton.InitializedEvent -= SetReticlePointer;
-        SceneLoader.FadeSceneOutStartedEvent -= Initialize;
+        SceneLoader.FadeSceneInStartedEvent -= Initialize;
     }
 }
