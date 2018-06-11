@@ -10,10 +10,9 @@ public class VRSwitch : MonoBehaviour
 {
     public static VRSwitch Instance { get { return GetInstance(); } }
     public static bool VRState { get { return vrState; } }
+    public GameObject GVRReticlePointerGameObject { get { return gvrReticlePointerGameObject; } }
 
     public static Action SwitchedEvent;
-
-    private static bool vrState;
 
     #region Singleton
     private static VRSwitch instance;
@@ -28,12 +27,11 @@ public class VRSwitch : MonoBehaviour
     }
     #endregion
 
+    private static bool vrState;
+
     private const string VR_MODE = "VRMode";
     private const string VR_CARDBOARD = "cardboard";
     private const string VR_NONE = "None";
-
-
-    public GameObject GVRReticlePointerGameObject { get { return gvrReticlePointerGameObject; } }
 
     [SerializeField] private GameObject gvrGameObject;
 
@@ -109,13 +107,13 @@ public class VRSwitch : MonoBehaviour
 
     private void OnEnable()
     {
-        Player.DiedEvent += SetReticlePointer;
+        PlayerCollisions.DiedEvent += SetReticlePointer;
         VRModeButton.InitializedEvent += SetReticlePointer;
     }
 
     private void OnDisable()
     {
-        Player.DiedEvent -= SetReticlePointer;
+        PlayerCollisions.DiedEvent -= SetReticlePointer;
         VRModeButton.InitializedEvent -= SetReticlePointer;
     }
 }

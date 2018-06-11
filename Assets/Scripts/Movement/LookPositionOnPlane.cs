@@ -13,6 +13,7 @@ public class LookPositionOnPlane : MonoBehaviour
     /// Parameters: Position, Delta
     /// </summary>
     public static Action<Vector3> LookPositionUpdatedEvent;
+    public static Action InitiatedEvent;
 
     #region Singeton
     private static LookPositionOnPlane instance;
@@ -71,7 +72,7 @@ public class LookPositionOnPlane : MonoBehaviour
         return lookPosition;
     }
 
-    private void Awake()
+    private void Start()
     {
         BoxCollider _boxCollider = GetComponent<BoxCollider>();
         minBounds = _boxCollider.bounds.min;
@@ -81,17 +82,10 @@ public class LookPositionOnPlane : MonoBehaviour
         plane = new Plane(Vector3.forward, transform.position);
 
         hmdTransform = Camera.main.transform;
-    }
 
-    private void Update()
-    {
-        bool _hit;
-        Vector3 _lookPosition = GetLookPosition(out _hit);
-        if(!_hit) { return; }
-
-        if (LookPositionUpdatedEvent != null)
+        if(InitiatedEvent != null)
         {
-            LookPositionUpdatedEvent(_lookPosition);
+            InitiatedEvent();
         }
     }
 }

@@ -4,10 +4,9 @@ using UnityEngine;
 /// <summary>
 /// Button that skips the Intro cutscene when pressed
 /// </summary>
-public class SkipIntroButton : GazeButton {
-
+public class SkipIntroButton : GazeButton
+{
     [SerializeField] private Scenes scene;
-
     [SerializeField] private const string NOT_FIRST_TIME_LAUNCHED = "FirstTimeLaunched";
 
     protected override void OnTrigger()

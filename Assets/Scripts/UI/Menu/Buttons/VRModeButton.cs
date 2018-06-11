@@ -48,18 +48,6 @@ public class VRModeButton : GazeButton
         }
     }
 
-    private void UpdateColor()
-    {
-        if (VRSwitch.VRState)
-        {
-            Button.targetGraphic.color = vrColor;
-        }
-        else
-        {
-            Button.targetGraphic.color = nonVRColor;
-        }
-    }
-
     protected override void OnEnable()
     {
         base.OnEnable();
@@ -70,6 +58,18 @@ public class VRModeButton : GazeButton
     {
         base.OnDisable();
         VRSwitch.SwitchedEvent -= UpdateColor;
+    }
+
+    private void UpdateColor()
+    {
+        if (VRSwitch.VRState)
+        {
+            Button.targetGraphic.color = vrColor;
+        }
+        else
+        {
+            Button.targetGraphic.color = nonVRColor;
+        }
     }
 
     private void Start()

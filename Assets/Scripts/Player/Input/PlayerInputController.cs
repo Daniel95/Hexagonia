@@ -179,18 +179,20 @@ public class PlayerInputController : MonoBehaviour
         }
     }
 
-    private void Awake()
+    private void Initiate()
     {
         SetState(true);
     }
 
     private void OnEnable()
     {
-        Player.DiedEvent += StopCurrentInput;
+        PlayerCollisions.DiedEvent += StopCurrentInput;
+        LookPositionOnPlane.InitiatedEvent += Initiate;
     }
 
     private void OnDisable()
     {
-        Player.DiedEvent -= StopCurrentInput;
+        PlayerCollisions.DiedEvent -= StopCurrentInput;
+        LookPositionOnPlane.InitiatedEvent -= Initiate;
     }
 }
