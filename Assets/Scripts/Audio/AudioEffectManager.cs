@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.XR;
 
 /// <summary>
 /// Spawns and play's audio effects on custom positions. The script gets the audio from AudioEffect.cs
