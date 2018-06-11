@@ -22,6 +22,8 @@ public class AudioEffectManager : MonoBehaviour
         return instance;
     }
     #endregion
+
+    public float PitchMax { get { return pitchMax; } }
     
     [SerializeField] private List<AudioEffect> audioEffects = new List<AudioEffect>();
     [SerializeField] private float pitchMax = 1.5f;
@@ -56,74 +58,5 @@ public class AudioEffectManager : MonoBehaviour
         tempSource.Play();
 
         Destroy(tempGameobject, _audioClip.length);
-    }
-
-    private void ResetHighscorePlayed()
-    {
-        playedHighscoreSound = false;
-    }
-
-    private void PlayerDiedSound()
-    {
-        PlayEffect(AudioEffectType.Death);
-    }
-
-    private void HighScore(int _value)
-    {
-        if (playedHighscoreSound) { return; }
-
-        if (XRSettings.enabled)
-        {
-            if (Progression.Instance.Score > Progression.VRHighScore && Progression.VRHighScore > 0)
-            {
-                PlayEffect(AudioEffectType.Highscore);
-                playedHighscoreSound = true;
-            }
-        }
-        else
-        {
-            if (Progression.Instance.Score > Progression.NonVRHighScore && Progression.NonVRHighScore > 0)
-            {
-                PlayEffect(AudioEffectType.Highscore);
-                playedHighscoreSound = true;
-            }
-        }
-    }
-
-    private void MultiplierMaxCheck(float _multiplier)
-    {
-        float _pitch = 1 + (pitchMax - 1) * (_multiplier / ResourceValue.Instance.MaxValue);
-
-        PlayEffect(AudioEffectType.MultiplierMax, _pitch);
-    }
-
-    private void CoinCollected(int _value)
-    {
-        PlayEffect(AudioEffectType.Coin);
-    }
-
-    private void SwitchedMenuCanvas()
-    {
-        PlayEffect(AudioEffectType.SwitchedMenuCanvas);
-    }
-
-    private void OnEnable()
-    {
-        PlayerCollisions.DiedEvent += PlayerDiedSound;
-        PlayerDiedAnimation.CompletedEvent += ResetHighscorePlayed;
-        Coin.CollectedEvent += HighScore;
-        Coin.CollectedEvent += CoinCollected;
-        ScoreMultiplier.MultiplierIncreasedEvent += MultiplierMaxCheck;
-        MainMenuRotator.SwitchedEvent += SwitchedMenuCanvas;
-    }
-
-    private void OnDisable()
-    {
-        PlayerCollisions.DiedEvent -= PlayerDiedSound;
-        PlayerDiedAnimation.CompletedEvent -= ResetHighscorePlayed;
-        Coin.CollectedEvent -= HighScore;
-        Coin.CollectedEvent -= CoinCollected;
-        ScoreMultiplier.MultiplierIncreasedEvent -= MultiplierMaxCheck;
-        MainMenuRotator.SwitchedEvent -= SwitchedMenuCanvas;
     }
 }

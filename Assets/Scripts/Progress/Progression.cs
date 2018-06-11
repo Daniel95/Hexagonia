@@ -63,6 +63,8 @@ public class Progression : MonoBehaviour
     private const string TOTAL_SCORE = "Total_Score";
 
     private int score;
+    private int lastHighscoreScore;
+    private bool reachedHighscore;
 
 	/// <summary>
 	/// Increases the score by _scoreIncrement parameter.
@@ -76,9 +78,15 @@ public class Progression : MonoBehaviour
 		{
 			ScoreUpdatedEvent(score);
 		}
+
+        if (!reachedHighscore && score > 0 && score > lastHighscoreScore)
+        {
+            reachedHighscore = true;
+            AudioEffectManager.Instance.PlayEffect(AudioEffectType.Highscore);
+        }
 	}
 
-    private void UpdateHighscores()
+    private void SaveHighscores()
     {
         TotalScore += score;
 
@@ -100,17 +108,26 @@ public class Progression : MonoBehaviour
 	private void Awake()
 	{
 		startUpTime = Time.time;
-	}
+
+        if (VRSwitch.VRState)
+        {
+            lastHighscoreScore = VRHighScore;
+        }
+        else if (!VRSwitch.VRState)
+        {
+            lastHighscoreScore = NonVRHighScore;
+        }
+    }
 
 	private void OnEnable()  
 	{
 		Coin.CollectedEvent += IncreaseScore;
-        PlayerCollisions.DiedEvent += UpdateHighscores;
+        PlayerCollisions.DiedEvent += SaveHighscores;
 	}
 
 	private void OnDisable()
 	{
 		Coin.CollectedEvent -= IncreaseScore;
-        PlayerCollisions.DiedEvent -= UpdateHighscores;
+        PlayerCollisions.DiedEvent -= SaveHighscores;
 	}
 }

@@ -77,6 +77,7 @@ public class PlayerCollisions : MonoBehaviour
     private void Die()
     {
         SpawnDyingPlayer();
+        AudioEffectManager.Instance.PlayEffect(AudioEffectType.Death);
         if (DiedEvent != null)
         {
             DiedEvent();

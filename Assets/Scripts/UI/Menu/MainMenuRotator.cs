@@ -64,6 +64,8 @@ public class MainMenuRotator : MonoBehaviour
 
         currentMainMenuSection = mainMenuSections.Find(x => x.MainMenuSectionType == _mainMenuSectionType);
 
+        AudioEffectManager.Instance.PlayEffect(AudioEffectType.SwitchedMenuCanvas);
+
         if (SwitchedEvent != null)
         {
             SwitchedEvent();
