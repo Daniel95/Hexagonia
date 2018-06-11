@@ -85,7 +85,7 @@ public abstract class GazeButton : MonoBehaviour
         increaseGazeFillAmountOverTimeCoroutine = null;
     }
 
-    private void Awake()
+    protected virtual void Awake()
     {
         Button = GetComponent<Button>();
         targetGameObject = Button.targetGraphic.gameObject;
