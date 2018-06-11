@@ -2,6 +2,8 @@
 
 public class SetPlayerControlsButton : GazeButton
 {
+    private const string ACTIVE = "active";
+
     [SerializeField] private PlayerInputType targetPlayerInputType;
     [SerializeField] private bool vrState;
     [SerializeField] private Color activeColor = Color.white;
@@ -9,9 +11,7 @@ public class SetPlayerControlsButton : GazeButton
 
     private Animator animator;
     private bool activeState = false;
-
-    private const string ACTIVE = "active";
-
+    
     protected override void OnTrigger()
     {
         if(vrState)
