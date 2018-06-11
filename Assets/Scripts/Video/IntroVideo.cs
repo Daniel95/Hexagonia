@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Video;
 
@@ -24,6 +25,30 @@ public class IntroVideo : MonoBehaviour
             IntroVideoCompletedEvent();
         }
     }
+
+    /*
+    private IEnumerator WaitForVideoRead()
+    {
+        while (!videoPlayer.isPrepared)
+        {
+            yield return null;
+        }
+
+        videoPlayer.Play();
+
+        MusicManager.Instance.StartMusic();
+
+        if (IntroVideoStartedEvent != null)
+        {
+            IntroVideoStartedEvent();
+        }
+    }
+
+    private void Start()
+    {
+        StartCoroutine(WaitForVideoRead());    
+    }
+    */
 
     private void Start()
     {
