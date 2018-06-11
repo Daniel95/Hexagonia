@@ -374,7 +374,7 @@ GameObject:
   - component: {fileID: 114448033519620210}
   - component: {fileID: 114501635102384006}
   - component: {fileID: 114915033025495460}
-  - component: {fileID: 95741829429891268}
+  - component: {fileID: 95574537152591386}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -411,7 +411,7 @@ GameObject:
   - component: {fileID: 114489314122168120}
   - component: {fileID: 114827146406285916}
   - component: {fileID: 114290794648061594}
-  - component: {fileID: 95306359617214980}
+  - component: {fileID: 95925896448281730}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -1400,23 +1400,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!95 &95306359617214980
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1497727249900072}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 5dcad01b7fac3fa47923150317ad18d0, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!95 &95541619260841148
 Animator:
   serializedVersion: 3
@@ -1434,7 +1417,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!95 &95741829429891268
+--- !u!95 &95574537152591386
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 1
@@ -1461,6 +1444,23 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: c186603848101a34f81b628e5cfa9a57, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+--- !u!95 &95925896448281730
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1497727249900072}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5dcad01b7fac3fa47923150317ad18d0, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
