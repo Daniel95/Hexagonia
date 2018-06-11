@@ -13,8 +13,7 @@ public class TargetPixelCoordinatesData
     public Color MinColor;
     public Color MaxColor;
     public TargetPixelsCoordinatesType TargetPixelCoordinatesType;
-
-    public List<SpriteAndPixelCoordinatesPair> spriteAndPixelCoordinatesPairs;
+    public List<SpriteAndPixelCoordinatesPair> SpriteAndPixelCoordinatesPairs;
 
     /// <summary>
     /// Get the target pixel coordinates of a sprite.
@@ -23,7 +22,7 @@ public class TargetPixelCoordinatesData
     /// <returns></returns>
     public List<Vector2> GetTargetPixelCoordinates(Sprite _sprite)
     {
-        SpriteAndPixelCoordinatesPair _spriteAndPixelCoordinatesPair = spriteAndPixelCoordinatesPairs.Find(x => x.Sprite == _sprite);
+        SpriteAndPixelCoordinatesPair _spriteAndPixelCoordinatesPair = SpriteAndPixelCoordinatesPairs.Find(x => x.Sprite == _sprite);
 
         if (_spriteAndPixelCoordinatesPair == null)
         {
@@ -39,7 +38,7 @@ public class TargetPixelCoordinatesData
     /// </summary>
     public void UpdateTargetPixelCoordinates()
     {
-        spriteAndPixelCoordinatesPairs.Clear();
+        SpriteAndPixelCoordinatesPairs.Clear();
         int? _pixelCount = null;
 
         foreach (Sprite _sprite in Sprites)
@@ -55,11 +54,11 @@ public class TargetPixelCoordinatesData
             if(_pixelCount == null)
             {
                 _pixelCount = _pixelCoordinates.Count;
-                spriteAndPixelCoordinatesPairs.Add(_spriteAndPixelCoordinatesPair);
+                SpriteAndPixelCoordinatesPairs.Add(_spriteAndPixelCoordinatesPair);
             }
             else if(_pixelCount == _pixelCoordinates.Count)
             {
-                spriteAndPixelCoordinatesPairs.Add(_spriteAndPixelCoordinatesPair);
+                SpriteAndPixelCoordinatesPairs.Add(_spriteAndPixelCoordinatesPair);
             }
             else
             {

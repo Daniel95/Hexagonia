@@ -2,7 +2,7 @@
 using UnityEngine;
 
 /// <summary>
-/// Spawns and play's audio effects on custom positions. The script gets the audio from AudioEffect.cs
+/// Spawns and play's audio effects on custom positions. The script gets the audio from AudioEffect.cs.
 /// </summary>
 public class AudioEffectManager : MonoBehaviour
 {
@@ -27,6 +27,12 @@ public class AudioEffectManager : MonoBehaviour
     [SerializeField] private float pitchMax = 1.5f;
     [SerializeField] private GameObject oneShotAudio;
 
+    /// <summary>
+    /// Plays the audio effect linked to the AudioEffectType. Can also adjust the pitch and volume.
+    /// </summary>
+    /// <param name="_audioType"></param>
+    /// <param name="_pitch"></param>
+    /// <param name="_volume"></param>
     public void PlayEffect(AudioEffectType _audioType, float _pitch = 1f, float _volume = 1)
     {
         for (int i = 0; i < audioEffects.Count; i++)

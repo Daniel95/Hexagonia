@@ -1,5 +1,8 @@
 ﻿using System;
 
+/// <summary>
+/// Used to indicate which menu section is to the right and to the left of this menu section
+/// </summary>
 [Serializable]
 public class MainMenuSection
 {

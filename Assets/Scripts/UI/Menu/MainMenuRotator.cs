@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Rotates the menu to different menu sections.
+/// </summary>
 public class MainMenuRotator : MonoBehaviour
 {
     [Serializable]
@@ -38,13 +41,17 @@ public class MainMenuRotator : MonoBehaviour
     private MainMenuSection currentMainMenuSection;
     private Coroutine rotateToSectionUpdateCoroutine;
 
-    public void RotateToSection(MainMenuSectionType _mainMenuSectionType)
+    /// <summary>
+    /// Rotates the menu to the menu section assigned with _targetMainMenuSectionType.
+    /// </summary>
+    /// <param name="_targetMainMenuSectionType"></param>
+    public void RotateToSection(MainMenuSectionType _targetMainMenuSectionType)
     {
-        MainMenuSectionRotation _mainMenuSectionRotation = mainMenuSectionRotations.Find(x => x.MainMenuSectionType == _mainMenuSectionType);
+        MainMenuSectionRotation _mainMenuSectionRotation = mainMenuSectionRotations.Find(x => x.MainMenuSectionType == _targetMainMenuSectionType);
         
         if(_mainMenuSectionRotation == null)
         {
-            Debug.LogError("MainMenuSectionRotation with MainMenuSectionType " + _mainMenuSectionType + " does not exist!");
+            Debug.LogError("MainMenuSectionRotation with MainMenuSectionType " + _targetMainMenuSectionType + " does not exist!");
             return;
         }
 
@@ -62,7 +69,7 @@ public class MainMenuRotator : MonoBehaviour
 
         rotateToSectionUpdateCoroutine = StartCoroutine(RotateTo(transform.rotation, _targetRotation, rotateSpeed));
 
-        currentMainMenuSection = mainMenuSections.Find(x => x.MainMenuSectionType == _mainMenuSectionType);
+        currentMainMenuSection = mainMenuSections.Find(x => x.MainMenuSectionType == _targetMainMenuSectionType);
 
         AudioEffectManager.Instance.PlayEffect(AudioEffectType.SwitchedMenuCanvas);
 

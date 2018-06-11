@@ -26,9 +26,10 @@ public class Coin : MonoBehaviour
 	private const string COIN_PARTICLE = "CoinParticle";
 
 	[SerializeField] private int value;
+
 	private GameObject particle;
 
-	private void OnPlayerTriggerCollision(GameObject _gameObject) 
+	private void OnPlayerCollision(GameObject _gameObject) 
     {
         if(_gameObject != gameObject) { return; }
 
@@ -44,10 +45,10 @@ public class Coin : MonoBehaviour
 
     private void OnEnable() 
     {
-        PlayerCollisions.CollisionEvent += OnPlayerTriggerCollision;
+        PlayerCollisions.CollisionEvent += OnPlayerCollision;
     }
 
     private void OnDisable() {
-        PlayerCollisions.CollisionEvent -= OnPlayerTriggerCollision;
+        PlayerCollisions.CollisionEvent -= OnPlayerCollision;
     }
 }

@@ -9,7 +9,6 @@ public class CameraHolderMain : CameraHolder
     [SerializeField] [Range(0, 90)] private float nonVRFOV = 60;
 
     private PostProcessingBehaviour postProcessingBehaviour;
-
     private float previousFOV;
 
     protected override void EnterScene()

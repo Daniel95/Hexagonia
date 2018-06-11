@@ -2,8 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Used to activate and deactivate an player input type.
+/// </summary>
 public class PlayerInputController : MonoBehaviour
 {
+    /// <summary>
+    /// The selected VR input type when UseDefaultVRPlayerInputType is false.
+    /// </summary>
     public static PlayerInputType VRPlayerInputType
     {
         get
@@ -24,6 +30,9 @@ public class PlayerInputController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// The selected Non VR input type when UseDefaultNonVRPlayerInputType is false.
+    /// </summary>
     public static PlayerInputType NonVRPlayerInputType
     {
         get
@@ -93,6 +102,10 @@ public class PlayerInputController : MonoBehaviour
     private PlayerBaseInput currentPlayerInputBase;
     private bool state;
 
+    /// <summary>
+    /// Enables/Disables the input controller.
+    /// </summary>
+    /// <param name="_enabled"></param>
     public void SetState(bool _enabled)
     {
         bool _previousState = state;

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 /// <summary>
-/// Pairs a songlist to a specific scene
+/// Pairs a songlist to a specific scene.
 /// </summary>
 [Serializable]
 internal class Songlist

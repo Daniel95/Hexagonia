@@ -1,5 +1,8 @@
 ﻿using System.Collections;
 
+/// <summary>
+/// Contains the logic for look controls for the player.
+/// </summary>
 public class PlayerLookInput : PlayerBaseInput
 {
     private bool hit;

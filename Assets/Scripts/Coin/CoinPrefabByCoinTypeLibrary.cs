@@ -9,10 +9,6 @@ public class CoinPrefabByCoinTypeLibrary : MonoBehaviour
 {
 	public static CoinPrefabByCoinTypeLibrary Instance { get { return GetInstance(); } }
 
-	private const string COINPREFAB_BY_COINTYPE_LIBRARY_PATH = "CoinTypeValueLibrary";
-
-	[Reorderable] [SerializeField] private List<CoinPrefabByCoinTypePair> coinPrefabByCoinTypePairs;
-
 	#region Singleton
 	private static CoinPrefabByCoinTypeLibrary instance;
 
@@ -25,6 +21,10 @@ public class CoinPrefabByCoinTypeLibrary : MonoBehaviour
 		return instance;
 	}
 #endregion
+
+	private const string COINPREFAB_BY_COINTYPE_LIBRARY_PATH = "CoinTypeValueLibrary";
+
+	[Reorderable] [SerializeField] private List<CoinPrefabByCoinTypePair> coinPrefabByCoinTypePairs;
 
 	/// <summary>
 	/// Gets the coinPrefab with the coinType in it.

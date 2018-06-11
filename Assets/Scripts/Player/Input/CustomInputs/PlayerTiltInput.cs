@@ -1,6 +1,9 @@
 ﻿using System.Collections;
 using UnityEngine;
 
+/// <summary>
+/// Contains the logic for tilt controls for the player.
+/// </summary>
 public class PlayerTiltInput : PlayerBaseInput
 {
     [SerializeField] private float maxCameraRotation = -90;

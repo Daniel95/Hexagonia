@@ -2,6 +2,9 @@
 using System.Collections;
 using UnityEngine;
 
+/// <summary>
+/// Base inputclass that provides an input update loop.
+/// </summary>
 public abstract class PlayerBaseInput : MonoBehaviour
 {
     public Action<Vector3> TargetPositionUpdatedEvent; 

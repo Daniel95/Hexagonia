@@ -5,12 +5,12 @@
 /// </summary>
 public class SmoothPlaneMovement : MonoBehaviour
 {
+    protected Vector3 Delta;
+
     [SerializeField] [Range(0, 20)] private float vrSpeed = 10f;
     [SerializeField] [Range(0, 20)] private float nonVRSpeed = 10f;
     [SerializeField] private Vector3 offset;
     
-    protected Vector3 Delta;
-
     private float currentSpeed;
 
     protected virtual void MoveToTargetPosition(Vector3 _targetPosition)

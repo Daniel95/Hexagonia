@@ -2,7 +2,7 @@
 using UnityEngine;
 
 /// <summary>
-/// Contains the progression of the game.
+/// Contains the information about progression of level.
 /// </summary>
 public class Progression : MonoBehaviour
 {

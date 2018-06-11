@@ -1,6 +1,10 @@
 ﻿using System;
 using UnityEngine;
 
+/// <summary>
+/// Can switch from scene to scene using async loading. Also plays an scen fade in/out animation when switching.
+/// The default scene should always be active so that scene is never loaded/unloaded.
+/// </summary>
 public class SceneLoader : MonoBehaviour
 {
     public static SceneLoader Instance { get { return GetInstance(); } }
@@ -32,6 +36,10 @@ public class SceneLoader : MonoBehaviour
 
     [SerializeField] private Scenes startScene;
 
+    /// <summary>
+    /// Switch to the new scene.
+    /// </summary>
+    /// <param name="_newScene"></param>
     public void SwitchScene(Scenes _newScene)
     {
         if (_newScene == Scenes.Default)

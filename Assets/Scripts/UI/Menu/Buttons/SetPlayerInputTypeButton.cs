@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 
-public class SetPlayerControlsButton : GazeButton
+/// <summary>
+/// Sets the player input type in the PlayerInputController to targetPlayerInputType when clicked or gazed.
+/// </summary>
+public class SetPlayerInputTypeButton : GazeButton
 {
     private const string ACTIVE = "active";
 

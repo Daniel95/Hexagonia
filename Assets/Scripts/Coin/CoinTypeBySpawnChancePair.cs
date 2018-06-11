@@ -1,7 +1,7 @@
 ﻿using System;
 
 /// <summary>
-/// ScriptContainer pairs CoinType with SpawnChance. Used in CoinTypeBySpawnChancesPairByTimePair.cs
+/// A class that pairs the CoinType with it's spawnChance.
 /// </summary>
 [Serializable]
 public class CoinTypeBySpawnChancePair

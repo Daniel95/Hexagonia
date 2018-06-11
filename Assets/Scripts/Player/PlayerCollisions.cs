@@ -1,6 +1,9 @@
 ﻿using System;
 using UnityEngine;
 
+/// <summary>
+/// Handles the different player collisions
+/// </summary>
 public class PlayerCollisions : MonoBehaviour
 {
     public static Action DiedEvent;

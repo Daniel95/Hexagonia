@@ -29,7 +29,7 @@ public class CoinSpawnChancesByTimeLibrary : MonoBehaviour
     private CoinType coinType;
 
 	/// <summary>
-	/// Spawns coins with a chance by time. 'common' coins will always be spawned on random locations
+	/// Spawns coins with a chance by time. 'common' coins will always be spawned on random locations.
 	/// </summary>
 	/// <param name="_coinTypesAmount"></param>
 	/// <param name="_time"></param>

@@ -1,4 +1,7 @@
-﻿public enum AudioEffectType
+﻿/// <summary>
+/// All audio effects.
+/// </summary>
+public enum AudioEffectType
 {
     Coin,
     Engine,
