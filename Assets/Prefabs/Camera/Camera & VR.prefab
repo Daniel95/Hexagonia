@@ -74,8 +74,10 @@ GameObject:
   - component: {fileID: 224436886948395040}
   - component: {fileID: 222609102051024368}
   - component: {fileID: 114434029838890876}
+  - component: {fileID: 114078408944165138}
+  - component: {fileID: 114673315784474548}
   m_Layer: 5
-  m_Name: VRWarning
+  m_Name: VRWarningFade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -142,7 +144,7 @@ GameObject:
   - component: {fileID: 114368369138835644}
   - component: {fileID: 114963912379962284}
   m_Layer: 5
-  m_Name: VRWarningFade
+  m_Name: VRWarningSceneFade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -408,6 +410,17 @@ AudioListener:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1902284427670292}
   m_Enabled: 1
+--- !u!114 &114078408944165138
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1268211803334586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdb4f253e12a11a499c5784205266c9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114260698720699094
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -487,7 +500,7 @@ MonoBehaviour:
   type: 0
   TargetValue: 1
   Speed: 1
-  image: {fileID: 114272834267568348}
+  image: {fileID: 114300984622028600}
 --- !u!114 &114373774728746478
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -511,7 +524,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneFadeScriptedAnimationController: {fileID: 114566724674667988}
-  vrWarningScriptedAnimationController: {fileID: 114515332893459414}
+  vrWarningSceneFadeScriptedAnimationController: {fileID: 114515332893459414}
+  vrWarningFadeScriptedAnimationController: {fileID: 114078408944165138}
   sceneFadeImage: {fileID: 114272834267568348}
   vrWarningImages:
   - {fileID: 114300984622028600}
@@ -631,6 +645,21 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &114673315784474548
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1268211803334586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad3809a1d06d30047870cb5b6800f3b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 1
+  TargetValue: 0
+  Speed: 0.25
+  image: {fileID: 114434029838890876}
 --- !u!114 &114679999777399626
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -687,7 +716,7 @@ MonoBehaviour:
   maxReticleDistance: 20
   reticleSegments: 20
   reticleGrowthSpeed: 8
-  reticleSortingOrder: 32767
+  reticleSortingOrder: 30000
 --- !u!114 &114772366504541810
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -732,7 +761,7 @@ MonoBehaviour:
   type: 1
   TargetValue: 0
   Speed: 1
-  image: {fileID: 114272834267568348}
+  image: {fileID: 114300984622028600}
 --- !u!124 &124189392158031972
 Behaviour:
   m_ObjectHideFlags: 1

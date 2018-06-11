@@ -23,7 +23,9 @@ public class DefaultSceneUI : MonoBehaviour
     public ScriptedAnimationController SceneFadeScriptedAnimationController { get { return sceneFadeScriptedAnimationController; } }
 
     [SerializeField] private ScriptedAnimationController sceneFadeScriptedAnimationController;
-    [SerializeField] private ScriptedAnimationController vrWarningScriptedAnimationController;
+    [SerializeField] private ScriptedAnimationController vrWarningSceneFadeScriptedAnimationController;
+    [SerializeField] private ScriptedAnimationController vrWarningFadeScriptedAnimationController;
+
     [SerializeField] private Image sceneFadeImage;
     [SerializeField] private List<Image> vrWarningImages;
 
@@ -46,7 +48,11 @@ public class DefaultSceneUI : MonoBehaviour
             Color _color = sceneFadeImage.color;
             _color.a = 0;
             sceneFadeImage.color = _color;
-            vrWarningScriptedAnimationController.StartAnimation(ScriptedAnimationType.Out, SceneLoader.Instance.LoadStartScene);
+
+            CoroutineHelper.DelayTime(3, () =>
+            {
+                vrWarningFadeScriptedAnimationController.StartAnimation(ScriptedAnimationType.Out, SwitchSceneFromVRWarning);
+            });
         }
         else
         {
@@ -59,6 +65,13 @@ public class DefaultSceneUI : MonoBehaviour
             SceneLoader.Instance.LoadStartScene();
         }
 
+        VRSwitch.SwitchedEvent -= Initialize;
+    }
+
+    private void SwitchSceneFromVRWarning()
+    {
+        SceneLoader.Instance.LoadStartScene();
+        vrWarningSceneFadeScriptedAnimationController.StartAnimation(ScriptedAnimationType.Out);
     }
 
     private void OnEnable()
