@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Contrains information about the pixel position of certain details of the player.
+/// </summary>
 [RequireComponent(typeof(SpriteRenderer))]
 public class PlayerSpriteDetailPositions : MonoBehaviour
 {

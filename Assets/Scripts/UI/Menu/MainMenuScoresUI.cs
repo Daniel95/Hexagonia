@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Displays the scores in the menu.
+/// </summary>
 public class MainMenuScoresUI : MonoBehaviour
 {
     [SerializeField] private Text vrHighscoreText;

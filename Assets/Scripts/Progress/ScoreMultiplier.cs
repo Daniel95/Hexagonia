@@ -38,11 +38,17 @@ public class ScoreMultiplier : MonoBehaviour
     private void UpdateScoreMultiplier(float _value)
     {
         multiplier = Mathf.Clamp(Mathf.FloorToInt(ResourceValue.Value + 1), 1, ResourceValue.Instance.MaxValue);
-        
         if (multiplier == previousMultiplier) { return; }
-        if (multiplier > previousMultiplier && MultiplierIncreasedEvent != null)
+
+        if (multiplier > previousMultiplier)
         {
-            MultiplierIncreasedEvent(multiplier);
+            float _pitch = 1 + (AudioEffectManager.Instance.MaxPitch - 1) * (multiplier / ResourceValue.Instance.MaxValue);
+            AudioEffectManager.Instance.PlayEffect(AudioEffectType.MultiplierMax, _pitch);
+
+            if (MultiplierIncreasedEvent != null)
+            {
+                MultiplierIncreasedEvent(multiplier);
+            }
         }
         previousMultiplier = multiplier;
 

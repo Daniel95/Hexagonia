@@ -28,8 +28,8 @@ public class LookPositionOnPlane : MonoBehaviour
     }
     #endregion
 
-    public Vector3 MinBounds { get { return maxBounds; } }
-    public Vector3 MaxBounds { get { return minBounds; } }
+    public Vector3 MinBounds { get { return minBounds; } }
+    public Vector3 MaxBounds { get { return maxBounds; } }
     public Vector3 Size { get { return size; } }
 
 	private Transform hmdTransform;

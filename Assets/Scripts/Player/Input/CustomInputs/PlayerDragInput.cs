@@ -1,6 +1,9 @@
 ﻿using System.Collections;
 using UnityEngine;
 
+/// <summary>
+/// Contains the logic for dragging controls for the player.
+/// </summary>
 public class PlayerDragInput : PlayerBaseInput
 {
     [SerializeField] private float dragSpeed = 1;
@@ -22,11 +25,6 @@ public class PlayerDragInput : PlayerBaseInput
         }
 
         base.Activate();
-    }
-
-    public override void Deactivate()
-    {
-        base.Deactivate();
     }
 
     protected override IEnumerator InputUpdate()

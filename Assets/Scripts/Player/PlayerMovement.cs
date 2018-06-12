@@ -1,8 +1,14 @@
 ﻿using System;
 using UnityEngine;
 
+/// <summary>
+/// Handles the playermovement based on the SmoothPlaneMovement parent.
+/// </summary>
 public class PlayerMovement : SmoothPlaneMovement
 {
+    /// <summary>
+    /// The current position of the player.
+    /// </summary>
     public static Vector3 Position { get { return GetInstance().transform.position; } }
 
     /// <summary>

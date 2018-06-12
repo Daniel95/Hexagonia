@@ -2,6 +2,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Fades an images in or out.
+/// </summary>
 public class ImageFadeAnimation : LerpAnimation
 {
     [SerializeField] private Image image;

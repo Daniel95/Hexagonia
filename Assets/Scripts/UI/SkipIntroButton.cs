@@ -22,14 +22,14 @@ public class SkipIntroButton : GazeButton
     {
         base.OnEnable();
         PlatformBaseInput.DownInputEvent += OnInput;
-        CameraHolderIntro.OnCompletedIntroVideoEvent += SetFirstTimeLaunchedPrefs;
+        IntroVideo.IntroVideoCompletedEvent += SetFirstTimeLaunchedPrefs;
     }
 
     protected override void OnDisable()
     {
         base.OnDisable();
         PlatformBaseInput.DownInputEvent -= OnInput;
-        CameraHolderIntro.OnCompletedIntroVideoEvent -= SetFirstTimeLaunchedPrefs;
+        IntroVideo.IntroVideoCompletedEvent -= SetFirstTimeLaunchedPrefs;
     }
 
     private void SetFirstTimeLaunchedPrefs()
