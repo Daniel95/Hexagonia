@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// DefaultSceneUI manages screen fader animations and manages wether the VR Warning screen is shown on start
+/// </summary>
 public class DefaultSceneUI : MonoBehaviour
 {
     public static DefaultSceneUI Instance { get { return GetInstance(); } }
@@ -29,12 +32,20 @@ public class DefaultSceneUI : MonoBehaviour
     [SerializeField] private Image sceneFadeImage;
     [SerializeField] private List<Image> vrWarningImages;
 
+    /// <summary>
+    /// Fades the Image in so it appears the scene is 'faded'.
+    /// </summary>
+    /// <param name="_fadeSceneOutCompleted"></param>
     public void FadeSceneOut(Action _fadeSceneOutCompleted = null)
     {
         sceneFadeScriptedAnimationController.CancelAnimation(ScriptedAnimationType.Out);
         sceneFadeScriptedAnimationController.StartAnimation(ScriptedAnimationType.In, _fadeSceneOutCompleted);
     }
 
+    /// <summary>
+    /// Fades the Image out so it appears the scene is 'clear'.
+    /// </summary>
+    /// <param name="_fadeSceneInCompleted"></param>
     public void FadeSceneIn(Action _fadeSceneInCompleted = null)
     {
         sceneFadeScriptedAnimationController.CancelAnimation(ScriptedAnimationType.In);

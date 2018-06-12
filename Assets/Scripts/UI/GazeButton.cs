@@ -24,6 +24,9 @@ public abstract class GazeButton : MonoBehaviour
         Button.interactable = _interactable;
     }
 
+    /// <summary>
+    /// Tries to trigger when fully gazed on a button
+    /// </summary>
     public void TryToTrigger()
     {
         if(!Button.interactable) { return; }
