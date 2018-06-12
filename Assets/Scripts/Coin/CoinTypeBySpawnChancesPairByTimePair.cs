@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 /// <summary>
-/// Spawns the coin with a chance over time in the level.
+/// CoinTypeBySpawnChancesPairByTimePair pairs a CoinType with a spawn chance. The chance increases over time.
 /// </summary>
 [Serializable]
 public class CoinTypeBySpawnChancesPairByTimePair
