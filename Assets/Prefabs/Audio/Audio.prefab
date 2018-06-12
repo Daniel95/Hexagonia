@@ -53,7 +53,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.2
   m_Pitch: 1
   Loop: 0
@@ -148,7 +148,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxVolume: 1
-  songsByScenePairs: []
+  songsByScenePairs:
+  - Scene: 1
+    Songs:
+    - Priority: 0
+      Clip: {fileID: 8300000, guid: 5d9f7334f3220bf4ab514c3677a972d5, type: 3}
+  - Scene: 2
+    Songs:
+    - Priority: 0
+      Clip: {fileID: 8300000, guid: 7738721c07c3cdd449413b6d63fd826a, type: 3}
+    - Priority: 0
+      Clip: {fileID: 8300000, guid: c80420a93a0cdcb429db86a2bf0f1bfd, type: 3}
+  - Scene: 3
+    Songs:
+    - Priority: 0
+      Clip: {fileID: 8300000, guid: 2c3ff662ee3ca834d90be12db470ac5c, type: 3}
+    - Priority: 0
+      Clip: {fileID: 8300000, guid: ff49fbf6ccc2b6040bc20601f471ff8c, type: 3}
+    - Priority: 0
+      Clip: {fileID: 8300000, guid: 211061a16d18bb340bf167dc727007d0, type: 3}
   fadeTime: 2
 --- !u!114 &114274971420683834
 MonoBehaviour:
