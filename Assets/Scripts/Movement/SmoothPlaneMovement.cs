@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 /// <summary>
-/// Moves the gameobject smootly along towards the targetPosition. Target Position is updated every frame by the PlayerInputController.
+/// Moves the gameobject smoothly along towards the targetPosition. Target Position is updated every frame by the PlayerInputController.
 /// </summary>
 public class SmoothPlaneMovement : MonoBehaviour
 {
