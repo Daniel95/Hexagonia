@@ -2,7 +2,7 @@
 using UnityEngine;
 
 /// <summary>
-/// Contains the progression of the game.
+/// Contains the information about progression of level.
 /// </summary>
 public class Progression : MonoBehaviour
 {
@@ -38,7 +38,6 @@ public class Progression : MonoBehaviour
 
     public static float Timer { get { return Time.time - startUpTime; }  }
 	public float Score { get { return score; }  }
-
     public static Progression Instance { get { return GetInstance(); } }
 
     #region Singleton
@@ -64,6 +63,8 @@ public class Progression : MonoBehaviour
     private const string TOTAL_SCORE = "Total_Score";
 
     private int score;
+    private int lastHighscoreScore;
+    private bool reachedHighscore;
 
 	/// <summary>
 	/// Increases the score by _scoreIncrement parameter.
@@ -77,9 +78,15 @@ public class Progression : MonoBehaviour
 		{
 			ScoreUpdatedEvent(score);
 		}
+
+        if (!reachedHighscore && lastHighscoreScore > 0 && score > lastHighscoreScore)
+        {
+            reachedHighscore = true;
+            AudioEffectManager.Instance.PlayEffect(AudioEffectType.Highscore);
+        }
 	}
 
-    private void UpdateHighscores()
+    private void SaveHighscores()
     {
         TotalScore += score;
 
@@ -101,17 +108,26 @@ public class Progression : MonoBehaviour
 	private void Awake()
 	{
 		startUpTime = Time.time;
-	}
+
+        if (VRSwitch.VRState)
+        {
+            lastHighscoreScore = VRHighScore;
+        }
+        else if (!VRSwitch.VRState)
+        {
+            lastHighscoreScore = NonVRHighScore;
+        }
+    }
 
 	private void OnEnable()  
 	{
 		Coin.CollectedEvent += IncreaseScore;
-		Player.DiedEvent += UpdateHighscores;
+        PlayerCollisions.DiedEvent += SaveHighscores;
 	}
 
 	private void OnDisable()
 	{
 		Coin.CollectedEvent -= IncreaseScore;
-		Player.DiedEvent -= UpdateHighscores;
+        PlayerCollisions.DiedEvent -= SaveHighscores;
 	}
 }

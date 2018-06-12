@@ -1,7 +1,7 @@
 ﻿using UnityEngine.PostProcessing;
 
 /// <summary>
-/// Handles and resets the Camera based on the scene index
+/// Handles and resets the Camera based on the scene index.
 /// </summary>
 public class CameraHolderMenu : CameraHolder
 {

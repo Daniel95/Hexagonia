@@ -1,6 +1,9 @@
 ﻿using System;
 using UnityEngine;
 
+/// <summary>
+/// Controls the player died animation when the player is died and despawned.
+/// </summary>
 public class PlayerDiedAnimation : MonoBehaviour
 {
     public static Action CompletedEvent;
@@ -9,7 +12,8 @@ public class PlayerDiedAnimation : MonoBehaviour
 
     private void Awake()
     {
-        float _animationLength = animator.GetCurrentAnimatorClipInfo(0)[0].clip.length;
+        AnimatorClipInfo[] _animatorClipInfos = animator.GetCurrentAnimatorClipInfo(0);
+        float _animationLength = _animatorClipInfos[0].clip.length;
 
         CoroutineHelper.DelayTime(_animationLength, () => {
             if (CompletedEvent != null)

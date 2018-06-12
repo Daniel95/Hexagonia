@@ -5,5 +5,5 @@ public enum TargetPixelsCoordinatesType
 {
     All,
     Average,
-    Corners,
+    Corners
 }

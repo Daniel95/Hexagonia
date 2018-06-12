@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 
@@ -16,6 +17,14 @@ public class FPSDisplay : MonoBehaviour
     // corstartRect overall FPS even if the interval renders something like
     // 5.5 frames.
 
+    public static bool FPSCounterEnabled
+    {
+        get { return Convert.ToBoolean(PlayerPrefs.GetInt(FPS_COUNTER_ENABLED, 0)); }
+        set { PlayerPrefs.SetInt(FPS_COUNTER_ENABLED, Convert.ToInt16(value)); }
+    }
+
+    private const string FPS_COUNTER_ENABLED = "FPSCounterEnabled";
+
     [SerializeField] private float frequency = 0.5F; // The update frequency of the fps
     [SerializeField] private int nbDecimal = 1; // How many decimal do you want to display
 
@@ -29,7 +38,7 @@ public class FPSDisplay : MonoBehaviour
     private void Awake()
     {
         text = GetComponent<Text>();
-        SetFPSCounter(DebugLibrary.FPSCounterEnabled);
+        SetFPSCounter(FPSCounterEnabled);
     }
 
     private void SetFPSCounter(bool _enabled)

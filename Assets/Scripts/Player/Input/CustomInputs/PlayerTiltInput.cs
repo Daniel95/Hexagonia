@@ -1,6 +1,9 @@
 ﻿using System.Collections;
 using UnityEngine;
 
+/// <summary>
+/// Contains the logic for tilt controls for the player.
+/// </summary>
 public class PlayerTiltInput : PlayerBaseInput
 {
     [SerializeField] private float maxCameraRotation = -90;
@@ -25,7 +28,7 @@ public class PlayerTiltInput : PlayerBaseInput
             progress = Mathf.InverseLerp(0, rotationRange, currentRange);
             tilt = Mathf.Lerp(-tiltSpeed, tiltSpeed, progress);
 
-            TargetPosition.x = Player.Instance.transform.position.x + tilt;
+            TargetPosition.x = PlayerMovement.Position.x + tilt;
 
             lookPositionOnPlane = LookPositionOnPlane.Instance.GetLookPosition(out planeHit);
             if (planeHit)

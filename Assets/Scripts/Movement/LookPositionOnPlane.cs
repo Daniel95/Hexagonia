@@ -13,6 +13,7 @@ public class LookPositionOnPlane : MonoBehaviour
     /// Parameters: Position, Delta
     /// </summary>
     public static Action<Vector3> LookPositionUpdatedEvent;
+    public static Action InitiatedEvent;
 
     #region Singeton
     private static LookPositionOnPlane instance;
@@ -27,8 +28,8 @@ public class LookPositionOnPlane : MonoBehaviour
     }
     #endregion
 
-    public Vector3 MinBounds { get { return maxBounds; } }
-    public Vector3 MaxBounds { get { return minBounds; } }
+    public Vector3 MinBounds { get { return minBounds; } }
+    public Vector3 MaxBounds { get { return maxBounds; } }
     public Vector3 Size { get { return size; } }
 
 	private Transform hmdTransform;
@@ -39,12 +40,22 @@ public class LookPositionOnPlane : MonoBehaviour
     private int latestCalculatedFrame;
     private Vector3 lookPosition;
 
+    /// <summary>
+    /// Returns a value that is within the look plane.
+    /// </summary>
+    /// <param name="_point"></param>
+    /// <returns></returns>
     public Vector3 ClampToPlane(Vector3 _point)
     {
         Vector3 _clampedPoint = VectorHelper.Clamp(_point, minBounds, maxBounds);
         return _clampedPoint;
     }
 
+    /// <summary>
+    /// Returns the center of the camera view that intersects with the look plane.
+    /// </summary>
+    /// <param name="_hit"></param>
+    /// <returns></returns>
     public Vector3 GetLookPosition(out bool _hit)
     {
         if (latestCalculatedFrame == Time.frameCount)
@@ -71,7 +82,7 @@ public class LookPositionOnPlane : MonoBehaviour
         return lookPosition;
     }
 
-    private void Awake()
+    private void Start()
     {
         BoxCollider _boxCollider = GetComponent<BoxCollider>();
         minBounds = _boxCollider.bounds.min;
@@ -81,17 +92,10 @@ public class LookPositionOnPlane : MonoBehaviour
         plane = new Plane(Vector3.forward, transform.position);
 
         hmdTransform = Camera.main.transform;
-    }
 
-    private void Update()
-    {
-        bool _hit;
-        Vector3 _lookPosition = GetLookPosition(out _hit);
-        if(!_hit) { return; }
-
-        if (LookPositionUpdatedEvent != null)
+        if(InitiatedEvent != null)
         {
-            LookPositionUpdatedEvent(_lookPosition);
+            InitiatedEvent();
         }
     }
 }

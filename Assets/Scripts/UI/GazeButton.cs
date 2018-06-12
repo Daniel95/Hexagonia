@@ -19,13 +19,22 @@ public abstract class GazeButton : MonoBehaviour
 
     protected abstract void OnTrigger();
 
+    public void SetInteractable(bool _interactable)
+    {
+        Button.interactable = _interactable;
+    }
+
+    /// <summary>
+    /// Tries to trigger when fully gazed on a button
+    /// </summary>
     public void TryToTrigger()
     {
-        if (lastTriggeredFrameCount != Time.frameCount)
-        {
-            lastTriggeredFrameCount = Time.frameCount;
-            OnTrigger();
-        }
+        if(!Button.interactable) { return; }
+        if(lastTriggeredFrameCount == Time.frameCount) { return; }
+
+        lastTriggeredFrameCount = Time.frameCount;
+
+        OnTrigger();
     }
 
     protected virtual void OnEnable()
@@ -79,7 +88,7 @@ public abstract class GazeButton : MonoBehaviour
         increaseGazeFillAmountOverTimeCoroutine = null;
     }
 
-    private void Awake()
+    protected virtual void Awake()
     {
         Button = GetComponent<Button>();
         targetGameObject = Button.targetGraphic.gameObject;

@@ -1,25 +1,23 @@
 ﻿using UnityEngine;
 
 /// <summary>
-/// Moves the gameobject smootly along towards the targetPosition. Target Position is updated every frame by the PlayerInputController.
+/// Moves the gameobject smoothly along towards the targetPosition. Target Position is updated every frame by the PlayerInputController.
 /// </summary>
 public class SmoothPlaneMovement : MonoBehaviour
 {
-    public static Vector3 Delta{ get{ return delta; } }
+    protected Vector3 Delta;
 
     [SerializeField] [Range(0, 20)] private float vrSpeed = 10f;
     [SerializeField] [Range(0, 20)] private float nonVRSpeed = 10f;
     [SerializeField] private Vector3 offset;
     
-    private static Vector3 delta;
-
     private float currentSpeed;
 
     protected virtual void MoveToTargetPosition(Vector3 _targetPosition)
     {
         Vector3 _targetPositionWithOffset = _targetPosition + offset;
-        delta = _targetPositionWithOffset - transform.position;
-        Vector3 _direction = delta.normalized;
+        Delta = _targetPositionWithOffset - transform.position;
+        Vector3 _direction = Delta.normalized;
         float _distance = Vector2.Distance(_targetPositionWithOffset, transform.position);
         float _deltaSpeed = currentSpeed * Time.deltaTime;
 

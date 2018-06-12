@@ -4,23 +4,25 @@ using UnityEngine.UI;
 /// <summary>
 /// Displays the score multiplier UI, and calculates the score multiplier value.
 /// </summary>
-public class ScoreMultiplierUI : MonoBehaviour
+public class ScoreMultiplierUI : FlickerableText
 {
-    [SerializeField] private Text multiplierText;
 	[SerializeField] private string animTriggerName = "MultiplierChanged";
 
 	private Animator multiplierTextAnimation;
 
-	private void Awake()
-	{
-		multiplierTextAnimation = multiplierText.GetComponent<Animator>();
-	}
-
 	private void UpdateMultiplierUI(int _multiplier)
 	{
         multiplierTextAnimation.SetTrigger(animTriggerName);
-        multiplierText.text = "X" + _multiplier;
+        Text.text = "X" + _multiplier;
+
+        StartFlicker();
 	}
+
+    protected override void Awake()
+    {
+        base.Awake();
+		multiplierTextAnimation = Text.GetComponent<Animator>();
+    }
 
     private void OnEnable()
     {

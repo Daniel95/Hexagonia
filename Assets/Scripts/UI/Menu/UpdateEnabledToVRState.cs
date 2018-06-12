@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Disables/enables the attached gameobject depending on the VR state.
+/// </summary>
 public class UpdateEnabledToVRState : MonoBehaviour
 {
     [SerializeField] private bool enabledIsInvertedVRState;
@@ -16,12 +19,12 @@ public class UpdateEnabledToVRState : MonoBehaviour
         }
     }
 
-    private void Awake()
+    private void OnVRSwitched()
     {
         UpdateEnabled();
     }
 
-    private void OnVRSwitched()
+    private void Awake()
     {
         UpdateEnabled();
     }

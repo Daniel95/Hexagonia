@@ -7,18 +7,29 @@ using UnityEngine.EventSystems;
 /// </summary>
 public class MobileInput : PlatformBaseInput
 {
+    private bool DownOnUI { get { return EventSystem.current != null && EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId); } }
+
     protected override IEnumerator InputUpdate() {
         Vector2 lastTouchPosition = new Vector2();
         float touchDownTime = 0;
-
+        Vector2 inputPosition = new Vector2();
+        bool startedTouching;
         while (true)
         {
-            bool startedTouching = Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began;
+            if(Input.touchCount != 0)
+            {
+                startedTouching = !DownOnUI && Input.GetTouch(0).phase == TouchPhase.Began;
+                inputPosition = Camera.main.ScreenToViewportPoint(Input.GetTouch(0).position);
+            }
+            else
+            {
+                startedTouching = false;
+            }
 
             if (startedTouching)
             {
                 TouchState = TouchStates.TouchDown;
-                StartDownPosition = lastTouchPosition = CurrentDownPosition = Input.GetTouch(0).position;
+                StartDownPosition = lastTouchPosition = CurrentDownPosition = inputPosition;
                 touchDownTime = Time.time;
 
                 if (DownInputEvent != null)
@@ -37,7 +48,7 @@ public class MobileInput : PlatformBaseInput
                 Down = Input.touchCount > 0 && Input.GetTouch(0).phase != TouchPhase.Ended && Input.GetTouch(0).phase != TouchPhase.Canceled;
                 if (Down)
                 {
-                    CurrentDownPosition = Input.GetTouch(0).position;
+                    CurrentDownPosition = inputPosition;
                     if (InputEvent != null)
                     {
                         InputEvent(CurrentDownPosition);
@@ -90,19 +101,19 @@ public class MobileInput : PlatformBaseInput
                 {
                     if (UpInputEvent != null)
                     {
-                        UpInputEvent(CurrentDownPosition);
+                        UpInputEvent(inputPosition);
                     }
 
                     if (TouchState == TouchStates.TouchDown)
                     {
                         if (TapInputEvent != null)
                         {
-                            TapInputEvent(CurrentDownPosition);
+                            TapInputEvent(inputPosition);
                         }
                     }
                     else if (TouchState == TouchStates.Dragging)
                     {
-                        Vector2 direction = (CurrentDownPosition - StartDownPosition).normalized;
+                        Vector2 direction = (inputPosition - StartDownPosition).normalized;
                         if (ReleaseInDirectionInputEvent != null)
                         {
                             ReleaseInDirectionInputEvent(direction);
@@ -119,9 +130,9 @@ public class MobileInput : PlatformBaseInput
 
                     TouchState = TouchStates.None;
                 }
-            }
 
-            lastTouchPosition = CurrentDownPosition;
+                lastTouchPosition = CurrentDownPosition;
+            }
 
             yield return null; 
         }
@@ -136,10 +147,12 @@ public class MobileInput : PlatformBaseInput
     private void OnEnable()
     {
         SceneLoader.FadeSceneInCompletedEvent += UpdateInput;
+        VRSwitch.SwitchedEvent += UpdateInput;
     }
 
     private void OnDisable()
     {
         SceneLoader.FadeSceneInCompletedEvent -= UpdateInput;
+        VRSwitch.SwitchedEvent -= UpdateInput;
     }
 }

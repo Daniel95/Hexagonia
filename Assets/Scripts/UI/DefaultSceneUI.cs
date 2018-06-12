@@ -1,17 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-[RequireComponent(typeof(ScriptedAnimationController))]
+/// <summary>
+/// DefaultSceneUI manages screen fader animations and manages wether the VR Warning screen is shown on start
+/// </summary>
 public class DefaultSceneUI : MonoBehaviour
 {
-
-    public static DefaultSceneUI Instance
-    {
-        get
-        {
-            return GetInstance();
-        }
-    }
+    public static DefaultSceneUI Instance { get { return GetInstance(); } }
 
     #region Singleton
     private static DefaultSceneUI instance;
@@ -26,25 +23,75 @@ public class DefaultSceneUI : MonoBehaviour
     }
     #endregion
 
-    public ScriptedAnimationController ScriptedAnimationController { get { return scriptedAnimationController; } }
+    public ScriptedAnimationController SceneFadeScriptedAnimationController { get { return sceneFadeScriptedAnimationController; } }
 
-    private ScriptedAnimationController scriptedAnimationController;
+    [SerializeField] private ScriptedAnimationController sceneFadeScriptedAnimationController;
+    [SerializeField] private ScriptedAnimationController vrWarningSceneFadeScriptedAnimationController;
+    [SerializeField] private ScriptedAnimationController vrWarningFadeScriptedAnimationController;
 
+    [SerializeField] private Image sceneFadeImage;
+    [SerializeField] private List<Image> vrWarningImages;
+
+    /// <summary>
+    /// Fades the Image in so it appears the scene is 'faded'.
+    /// </summary>
+    /// <param name="_fadeSceneOutCompleted"></param>
     public void FadeSceneOut(Action _fadeSceneOutCompleted = null)
     {
-        scriptedAnimationController.CancelAnimation(ScriptedAnimationType.Out);
-        scriptedAnimationController.StartAnimation(ScriptedAnimationType.In, _fadeSceneOutCompleted);
+        sceneFadeScriptedAnimationController.CancelAnimation(ScriptedAnimationType.Out);
+        sceneFadeScriptedAnimationController.StartAnimation(ScriptedAnimationType.In, _fadeSceneOutCompleted);
     }
 
+    /// <summary>
+    /// Fades the Image out so it appears the scene is 'clear'.
+    /// </summary>
+    /// <param name="_fadeSceneInCompleted"></param>
     public void FadeSceneIn(Action _fadeSceneInCompleted = null)
     {
-        scriptedAnimationController.CancelAnimation(ScriptedAnimationType.In);
-        scriptedAnimationController.StartAnimation(ScriptedAnimationType.Out, _fadeSceneInCompleted);
+        sceneFadeScriptedAnimationController.CancelAnimation(ScriptedAnimationType.In);
+        sceneFadeScriptedAnimationController.StartAnimation(ScriptedAnimationType.Out, _fadeSceneInCompleted);
     }
 
-    private void Awake()
+    private void Initialize()
     {
-        scriptedAnimationController = GetComponent<ScriptedAnimationController>();
+        if (VRSwitch.VRState)
+        {
+            Color _color = sceneFadeImage.color;
+            _color.a = 0;
+            sceneFadeImage.color = _color;
+
+            CoroutineHelper.DelayTime(3, () =>
+            {
+                vrWarningFadeScriptedAnimationController.StartAnimation(ScriptedAnimationType.Out, SwitchSceneFromVRWarning);
+            });
+        }
+        else
+        {
+            foreach (Image _image in vrWarningImages)
+            {
+                Color _color = _image.color;
+                _color.a = 0;
+                _image.color = _color;
+            }
+            SceneLoader.Instance.LoadStartScene();
+        }
+
+        VRSwitch.SwitchedEvent -= Initialize;
     }
 
+    private void SwitchSceneFromVRWarning()
+    {
+        SceneLoader.Instance.LoadStartScene();
+        vrWarningSceneFadeScriptedAnimationController.StartAnimation(ScriptedAnimationType.Out);
+    }
+
+    private void OnEnable()
+    {
+        VRSwitch.SwitchedEvent += Initialize;
+    }
+
+    private void OnDisable()
+    {
+        VRSwitch.SwitchedEvent -= Initialize;
+    }
 }

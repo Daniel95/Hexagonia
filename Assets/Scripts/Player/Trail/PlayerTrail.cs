@@ -15,13 +15,13 @@ public class PlayerTrail : MonoBehaviour
     private LineRenderer lineRenderer;
     private Vector3 trailPosition;
 
-    private void UpdateLineRenderer(Vector3 _playerPosition)
+    private void UpdateLineRenderer(Vector3 _playerPosition, Vector3 _playerDelta)
     {
         for (int i = length - 1; i > 0; i--)
         {
             Vector3 _previousPosition = lineRenderer.GetPosition(i - 1);
-            float zPosition = transform.position.z + localZPositions[i];
-            Vector3 _position = new Vector3(_previousPosition.x, _previousPosition.y, zPosition);
+            float _zPosition = transform.position.z + localZPositions[i];
+            Vector3 _position = new Vector3(_previousPosition.x, _previousPosition.y, _zPosition);
             lineRenderer.SetPosition(i, _position);
         }
 
@@ -51,11 +51,11 @@ public class PlayerTrail : MonoBehaviour
 	
     private void OnEnable()
     {
-        Player.OnMoved += UpdateLineRenderer;       
+        PlayerMovement.OnMoved += UpdateLineRenderer;       
     }
 
     private void OnDisable()
     {
-        Player.OnMoved -= UpdateLineRenderer;
+        PlayerMovement.OnMoved -= UpdateLineRenderer;
     }
 }

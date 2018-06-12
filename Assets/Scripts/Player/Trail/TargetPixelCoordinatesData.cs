@@ -13,8 +13,7 @@ public class TargetPixelCoordinatesData
     public Color MinColor;
     public Color MaxColor;
     public TargetPixelsCoordinatesType TargetPixelCoordinatesType;
-
-    public List<SpriteAndPixelCoordinatesPair> spriteAndPixelCoordinatesPairs;
+    public List<SpriteAndPixelCoordinatesPair> SpriteAndPixelCoordinatesPairs;
 
     /// <summary>
     /// Get the target pixel coordinates of a sprite.
@@ -23,7 +22,7 @@ public class TargetPixelCoordinatesData
     /// <returns></returns>
     public List<Vector2> GetTargetPixelCoordinates(Sprite _sprite)
     {
-        SpriteAndPixelCoordinatesPair _spriteAndPixelCoordinatesPair = spriteAndPixelCoordinatesPairs.Find(x => x.Sprite == _sprite);
+        SpriteAndPixelCoordinatesPair _spriteAndPixelCoordinatesPair = SpriteAndPixelCoordinatesPairs.Find(x => x.Sprite == _sprite);
 
         if (_spriteAndPixelCoordinatesPair == null)
         {
@@ -39,7 +38,7 @@ public class TargetPixelCoordinatesData
     /// </summary>
     public void UpdateTargetPixelCoordinates()
     {
-        spriteAndPixelCoordinatesPairs.Clear();
+        SpriteAndPixelCoordinatesPairs.Clear();
         int? _pixelCount = null;
 
         foreach (Sprite _sprite in Sprites)
@@ -55,11 +54,11 @@ public class TargetPixelCoordinatesData
             if(_pixelCount == null)
             {
                 _pixelCount = _pixelCoordinates.Count;
-                spriteAndPixelCoordinatesPairs.Add(_spriteAndPixelCoordinatesPair);
+                SpriteAndPixelCoordinatesPairs.Add(_spriteAndPixelCoordinatesPair);
             }
             else if(_pixelCount == _pixelCoordinates.Count)
             {
-                spriteAndPixelCoordinatesPairs.Add(_spriteAndPixelCoordinatesPair);
+                SpriteAndPixelCoordinatesPairs.Add(_spriteAndPixelCoordinatesPair);
             }
             else
             {
@@ -108,20 +107,20 @@ public class TargetPixelCoordinatesData
                 Vector2 _size = new Vector2(_sprite.texture.width, _sprite.texture.height);
                 Vector2 _sizeQuater = _size / 4;
 
-                Vector2 _centerOfTopRight = new Vector2(_sizeQuater.x * 3, _sizeQuater.y);
                 Vector2 _centerOfTopLeft = new Vector2(_sizeQuater.x, _sizeQuater.y);
-                Vector2 _centerOfBottomRight = new Vector2(_sizeQuater.x * 3, _sizeQuater.y * 3);
+                Vector2 _centerOfTopRight = new Vector2(_sizeQuater.x * 3, _sizeQuater.y);
                 Vector2 _centerOfBottomLeft = new Vector2(_sizeQuater.x, _sizeQuater.y * 3);
+                Vector2 _centerOfBottomRight = new Vector2(_sizeQuater.x * 3, _sizeQuater.y * 3);
 
-                Vector2 _topRight = GetClosestInList(_centerOfTopRight, _allPixelCoordinates);
                 Vector2 _topLeft = GetClosestInList(_centerOfTopLeft, _allPixelCoordinates);
-                Vector2 _bottomRight = GetClosestInList(_centerOfBottomRight, _allPixelCoordinates);
+                Vector2 _topRight = GetClosestInList(_centerOfTopRight, _allPixelCoordinates);
                 Vector2 _bottomLeft = GetClosestInList(_centerOfBottomLeft, _allPixelCoordinates);
+                Vector2 _bottomRight = GetClosestInList(_centerOfBottomRight, _allPixelCoordinates);
 
-                _targetPixelCoordinates.Add(_topRight);
                 _targetPixelCoordinates.Add(_topLeft);
-                _targetPixelCoordinates.Add(_bottomRight);
+                _targetPixelCoordinates.Add(_topRight);
                 _targetPixelCoordinates.Add(_bottomLeft);
+                _targetPixelCoordinates.Add(_bottomRight);
 
                 break;
         }
@@ -143,30 +142,6 @@ public class TargetPixelCoordinatesData
         }
         
         return _closestPoint;
-    }
-
-    private void SortTest()
-    {
-        List<int> numbers = new List<int>();
-        numbers.Add(4);
-        numbers.Add(0);
-        numbers.Add(10);
-        numbers.Add(50);
-        numbers.Add(1000);
-        numbers.Add(40);
-
-        // ... Sort the numbers by their first digit.
-        //     We use ToString on each number.
-        //     We access the first character of the string and compare that.
-        //     This uses a lambda expression.
-        numbers.Sort((a, b) => (a.ToString()[0].CompareTo(b.ToString()[0])));
-
-        List<Vector2> test = new List<Vector2>();
-
-        test.Sort((a, b) => {
-            int condition = a.x < b.x ? 0 : 1;
-            return condition;
-        });
     }
 
     private void GetCornerAverages(Sprite _sprite, List<Vector2Int> _pixelCoordinates, out Vector2 _averageTopRight, out Vector2 _averageTopLeft, out Vector2 _averageBottomRight, out Vector2 _averageBottomLeft)

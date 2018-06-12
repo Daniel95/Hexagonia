@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.EventSystems;
 
 /// <summary>
 /// This script prevents the user from pressing any buttons while loading between scenes
@@ -49,6 +48,5 @@ public class EventSystemHandler : MonoBehaviour
                 genericEventSystemGameObject.SetActive(true);
             }
         }
-
     }
 }
