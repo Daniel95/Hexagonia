@@ -8,7 +8,7 @@ public class PolybiusAnimations : MonoBehaviour
 {
     private const string POLYBIUS_DEAD = "Polybius dead";
 
-    private int rightStateIndex = Animator.StringToHash(POLYBIUS_DEAD);
+    private readonly int rightStateIndex = Animator.StringToHash(POLYBIUS_DEAD);
     private Animator animator;
 
     private void OnDiedEvent()

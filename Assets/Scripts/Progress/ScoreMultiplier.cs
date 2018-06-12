@@ -42,7 +42,7 @@ public class ScoreMultiplier : MonoBehaviour
 
         if (multiplier > previousMultiplier)
         {
-            float _pitch = 1 + (AudioEffectManager.Instance.PitchMax - 1) * (multiplier / ResourceValue.Instance.MaxValue);
+            float _pitch = 1 + (AudioEffectManager.Instance.MaxPitch - 1) * (multiplier / ResourceValue.Instance.MaxValue);
             AudioEffectManager.Instance.PlayEffect(AudioEffectType.MultiplierMax, _pitch);
 
             if (MultiplierIncreasedEvent != null)

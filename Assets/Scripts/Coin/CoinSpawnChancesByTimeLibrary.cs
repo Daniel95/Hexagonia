@@ -7,24 +7,24 @@ using UnityToolbag;
 /// </summary>
 public class CoinSpawnChancesByTimeLibrary : MonoBehaviour
 {
-	[Reorderable] [SerializeField] private List<CoinTypeBySpawnChancesPairByTimePair> coinTypeBySpawnChancesByTimePairs;
-
 	public static CoinSpawnChancesByTimeLibrary Instance { get { return GetInstance(); } }
 
-	private const string COIN_SPAWN_CHANCES_BY_TIME_LIBRARY = "CoinSpawnChancesByTimeLibrary";
+    #region Singleton
+    private static CoinSpawnChancesByTimeLibrary instance;
 
-	#region Singleton
-	private static CoinSpawnChancesByTimeLibrary instance;
+    private static CoinSpawnChancesByTimeLibrary GetInstance()
+    {
+        if (instance == null)
+        {
+            instance = Resources.Load<CoinSpawnChancesByTimeLibrary>(COIN_SPAWN_CHANCES_BY_TIME_LIBRARY);
+        }
+        return instance;
+    }
+    #endregion
 
-	private static CoinSpawnChancesByTimeLibrary GetInstance()
-	{
-		if (instance == null)
-		{
-			instance = Resources.Load<CoinSpawnChancesByTimeLibrary>(COIN_SPAWN_CHANCES_BY_TIME_LIBRARY);
-		}
-		return instance;
-	}
-	#endregion
+    private const string COIN_SPAWN_CHANCES_BY_TIME_LIBRARY = "CoinSpawnChancesByTimeLibrary";
+    
+    [Reorderable] [SerializeField] private List<CoinTypeBySpawnChancesPairByTimePair> coinTypeBySpawnChancesByTimePairs;
 
     private CoinType coinType;
 
