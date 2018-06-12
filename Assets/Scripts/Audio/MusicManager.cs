@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 /// <summary>
 /// Handles the audio, plays and switches the current playing song and between scenes.
@@ -24,7 +23,7 @@ public class MusicManager : MonoBehaviour
     }
     #endregion
 
-    [Range(0, 1)] [SerializeField] private float maxVolume = .5f;
+    [Range(0, 1)] [SerializeField] private float maxVolume = 0.5f;
     [SerializeField] private Songlist[] songlists;
 	[SerializeField] private float fadeTime = 0.5f;
 
