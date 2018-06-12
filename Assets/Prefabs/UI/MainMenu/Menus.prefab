@@ -374,7 +374,7 @@ GameObject:
   - component: {fileID: 114448033519620210}
   - component: {fileID: 114501635102384006}
   - component: {fileID: 114915033025495460}
-  - component: {fileID: 95574537152591386}
+  - component: {fileID: 95404387371522900}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -411,7 +411,7 @@ GameObject:
   - component: {fileID: 114489314122168120}
   - component: {fileID: 114827146406285916}
   - component: {fileID: 114290794648061594}
-  - component: {fileID: 95925896448281730}
+  - component: {fileID: 95828065857727396}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -583,7 +583,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4499703563112232}
-  - component: {fileID: 95839190835377406}
   m_Layer: 0
   m_Name: StartButton
   m_TagString: Untagged
@@ -1400,6 +1399,23 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!95 &95404387371522900
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1412798218454958}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a59760a8b54eff44992db46702f3794a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!95 &95541619260841148
 Animator:
   serializedVersion: 3
@@ -1417,41 +1433,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!95 &95574537152591386
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1412798218454958}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: a59760a8b54eff44992db46702f3794a, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
---- !u!95 &95839190835377406
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1701865363886260}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c186603848101a34f81b628e5cfa9a57, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
---- !u!95 &95925896448281730
+--- !u!95 &95828065857727396
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 1
