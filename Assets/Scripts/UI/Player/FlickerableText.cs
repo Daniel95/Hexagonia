@@ -2,6 +2,9 @@
 using System.Collections;
 using UnityEngine.UI;
 
+/// <summary>
+/// Base class that makes it easy to flicker a text component to a color for a small duration of time.
+/// </summary>
 public class FlickerableText : MonoBehaviour
 {
     [SerializeField] protected Text Text;

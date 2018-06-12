@@ -2,11 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Contrains information about the pixel position of certain details of the player.
+/// </summary>
 [RequireComponent(typeof(SpriteRenderer))]
 public class PlayerSpriteDetailPositions : MonoBehaviour
 {
     public static Action PositionsInitiatedEvent;
     public static Action PositionsUpdatedEvent;
+    
+    public static PlayerSpriteDetailPositions Instance { get { return GetInstance(); } }
 
     public Dictionary<TargetPixelCoordinatesLabel, List<Vector3>> PositionsByLabel { get { return positionsByLabel; } }
     public Vector3 TopLeftWingPosition { get { return positionsByLabel[TargetPixelCoordinatesLabel.Wings][3]; } }
@@ -14,7 +19,6 @@ public class PlayerSpriteDetailPositions : MonoBehaviour
     public Vector3 BottomLeftWingPosition { get { return positionsByLabel[TargetPixelCoordinatesLabel.Wings][1]; } }
     public Vector3 BottomRightWingPosition { get { return positionsByLabel[TargetPixelCoordinatesLabel.Wings][0]; } }
     public Vector3 EnginePosition { get { return positionsByLabel[TargetPixelCoordinatesLabel.Engine][0]; } }
-    public static PlayerSpriteDetailPositions Instance { get { return GetInstance(); } }
 
     #region Singleton
     private static PlayerSpriteDetailPositions instance;

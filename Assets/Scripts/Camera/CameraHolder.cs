@@ -1,8 +1,7 @@
-﻿using SRF;
-using UnityEngine;
+﻿using UnityEngine;
 
 /// <summary>
-/// Handles and resets the Camera based on the scene index
+/// Handles and resets the Camera based on the scene index.
 /// </summary>
 public class CameraHolder : MonoBehaviour
 {
@@ -50,9 +49,14 @@ public class CameraHolder : MonoBehaviour
 #endif
     }
 
-    private void Awake()
-	{
-        EnterScene();
+    protected virtual void OnEnable()
+    {
+        SceneLoader.SceneSwitchStartedEvent += OnSceneSwitch;
+    }
+
+    protected virtual void OnDisable()
+    {
+        SceneLoader.SceneSwitchStartedEvent -= OnSceneSwitch;
     }
 
     private void OnSceneSwitch(Scenes? _oldScene, Scenes _newScene)
@@ -70,13 +74,8 @@ public class CameraHolder : MonoBehaviour
         DefaultCameraHolderTransform.position = Vector3.zero;
     }
 
-    protected virtual void OnEnable()
-    {
-        SceneLoader.SceneSwitchStartedEvent += OnSceneSwitch;
-    }
-
-    protected virtual void OnDisable()
-    {
-        SceneLoader.SceneSwitchStartedEvent -= OnSceneSwitch;
+    private void Awake()
+	{
+        EnterScene();
     }
 }

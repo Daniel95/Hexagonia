@@ -1,6 +1,9 @@
 ﻿using System;
 using UnityEngine;
 
+/// <summary>
+/// Controls the player died animation when the player is died and despawned.
+/// </summary>
 public class PlayerDiedAnimation : MonoBehaviour
 {
     public static Action CompletedEvent;

@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// Calls the MainMenuRotator to rotate to the targetMainMenuSectionType.
+/// </summary>
 public class SwitchMainMenuSectionButton : GazeButton
 {
     [SerializeField] private MainMenuSectionType targetMainMenuSectionType;

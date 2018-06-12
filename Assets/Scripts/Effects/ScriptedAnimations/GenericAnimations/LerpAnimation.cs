@@ -2,6 +2,9 @@
 using System.Collections;
 using UnityEngine;
 
+/// <summary>
+/// This animation can be used to lerp certain values by overriding this class.
+/// </summary>
 public abstract class LerpAnimation : ScriptedAnimation
 {
     [SerializeField] [Range(0, 1)] protected float TargetValue = 1;
@@ -15,11 +18,6 @@ public abstract class LerpAnimation : ScriptedAnimation
     public override void StartAnimation(Action _animationStoppedEvent = null)
     {
         base.StartAnimation(_animationStoppedEvent);
-    }
-
-    public override void StopAnimation(bool _isCompleted)
-    {
-        base.StopAnimation(_isCompleted);
     }
 
     protected override IEnumerator Animate()

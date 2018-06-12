@@ -20,8 +20,8 @@ public class PlayerTrail : MonoBehaviour
         for (int i = length - 1; i > 0; i--)
         {
             Vector3 _previousPosition = lineRenderer.GetPosition(i - 1);
-            float zPosition = transform.position.z + localZPositions[i];
-            Vector3 _position = new Vector3(_previousPosition.x, _previousPosition.y, zPosition);
+            float _zPosition = transform.position.z + localZPositions[i];
+            Vector3 _position = new Vector3(_previousPosition.x, _previousPosition.y, _zPosition);
             lineRenderer.SetPosition(i, _position);
         }
 

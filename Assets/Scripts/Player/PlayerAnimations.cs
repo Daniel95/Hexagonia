@@ -1,7 +1,13 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// Controls which animations should be played on the player and what the current animation parameters should be.
+/// </summary>
 public class PlayerAnimations : MonoBehaviour
 {
+    /// <summary>
+    /// The ratio the player moved last frame in compared to the size of the movement field.
+    /// </summary>
     public static Vector2 Ratio { get { return ratio; } }
 
     private static Vector2 ratio;

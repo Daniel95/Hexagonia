@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityToolbag;
 using System;
 
 /// <summary>
@@ -9,28 +10,51 @@ using System;
 [RequireComponent(typeof(AudioSource))]
 public class MusicManager : MonoBehaviour
 {
-	[Range(0, 1)] [SerializeField] private float maxVolume = .5f;
-    [SerializeField] private Songlist[] songlists;
+    public static MusicManager Instance { get { return GetInstance(); } }
+
+    #region Singleton
+    private static MusicManager instance;
+
+    private static MusicManager GetInstance()
+    {
+        if (instance == null)
+        {
+            instance = FindObjectOfType<MusicManager>();
+        }
+        return instance;
+    }
+    #endregion
+
+    [Range(0, 1)] [SerializeField] private float maxVolume = .5f;
+    [SerializeField] [Reorderable] private SongsByScenesPair[] songsByScenePairs;
 	[SerializeField] private float fadeTime = 0.5f;
 
     private AudioSource source;
     private AudioClip currentClip;
-    private bool switching = false;
-    private List<Song> currentSongList = new List<Song>();
+    private List<Song> songs = new List<Song>();
     private Coroutine delayCoroutine;
+
+    /// <summary>
+    /// Starts playing a random song for the current scene.
+    /// </summary>
+    public void StartMusic()
+    {
+        if (!source.isPlaying)
+        {
+            SwitchSong();
+        }
+    }
     
     /// <summary>
-    /// Switches to a random song in the songlist
+    /// Switches to a random song in the songlist for the current scene.
     /// </summary>
     public void SwitchSong()
     {
-        if (currentSongList.Count == 0) { return; }
+        if (songs.Count == 0) { return; }
         
         Song _randomSong = RandomSong();
 
         if (_randomSong == null) { return; }
-
-        switching = true;
 
         GivePriority();
 
@@ -100,7 +124,6 @@ public class MusicManager : MonoBehaviour
             yield return null;
         }
         source.volume = maxVolume;
-        switching = false;
     }
 
     private Song RandomSong()
@@ -110,12 +133,12 @@ public class MusicManager : MonoBehaviour
         
         while (_randomSong == null)
         {
-            Song _potentialSong = currentSongList[UnityEngine.Random.Range(0, currentSongList.Count)];
+            Song _potentialSong = songs[UnityEngine.Random.Range(0, songs.Count)];
 
             if (_potentialSong.Priority <= _count)
             {
                 _randomSong = _potentialSong;
-                _potentialSong.Priority += currentSongList.Count;
+                _potentialSong.Priority += songs.Count;
             }
             _count += 1;
 
@@ -129,7 +152,7 @@ public class MusicManager : MonoBehaviour
 
     private void GivePriority()
     {
-        foreach (Song _song in currentSongList)
+        foreach (Song _song in songs)
         {
             if (_song.Priority > 0)
             {
@@ -140,11 +163,11 @@ public class MusicManager : MonoBehaviour
 
     private void SceneSwitch(Scenes? _oldScene, Scenes _newScene)
     {
-        foreach (Songlist _list in songlists)
+        foreach (SongsByScenesPair _list in songsByScenePairs)
         {
             if (_list.Scene == _newScene)
             {
-                currentSongList = _list.SongList;
+                songs = _list.Songs;
             }
         }
 
@@ -154,35 +177,13 @@ public class MusicManager : MonoBehaviour
         SwitchSong();
     }
 
-    private void StartMusic()
-    {
-        if (!source.isPlaying)
-        {
-            SwitchSong();
-        }
-    }
-
     private void OnEnable()
     {
         SceneLoader.SceneSwitchCompletedEvent += SceneSwitch;
-        WaitForVideoPrepared.StartIntroEvent += StartMusic;
     }
 
     private void OnDisable()
     {
         SceneLoader.SceneSwitchCompletedEvent -= SceneSwitch;
-        WaitForVideoPrepared.StartIntroEvent -= StartMusic;
     }
-}
-
-/// <summary>
-/// Pairs a songlist to a specific scene
-/// </summary>
-[Serializable]
-internal class Songlist
-{
-    #pragma warning disable CS0649,
-    public Scenes Scene;
-    public List<Song> SongList;
-    #pragma warning restore CS0649,
 }

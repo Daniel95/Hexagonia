@@ -2,7 +2,7 @@
 using System;
 
 /// <summary>
-///	Converts raw GetSpectrumData to array's and sends it out
+///	Converts raw GetSpectrumData to array's and sends it out.
 /// </summary>
 public class AudioPeer : MonoBehaviour
 {
@@ -19,14 +19,14 @@ public class AudioPeer : MonoBehaviour
 	private static float[] samples = new float[512];
     private static float[] bandBuffer;
 	private static float[] freqBand = new float[8];
+    private static float[] normalisedFreqBand;
 
-	private const int LAST_BAND = 7;
+    private const int LAST_BAND = 7;
 
 	[SerializeField] private float decreaseSpeed = 0.005f;
 	[SerializeField] private AudioSource audioSource;
 
     private float[] bufferDecrease;
-    private static float[] normalisedFreqBand;
     private float[] freqBandHighest;
 
     private void Awake ()

@@ -76,9 +76,9 @@ public class ChunkSpawner : MonoBehaviour
             float _latestChunkLength;
             GameObject _latestChunk = ChunkMover.Instance.GetLastestChunk(out _latestChunkLength);
             float _offset = _latestChunkLength / 2 + _chunkDesign.Length / 2;
-            float spawnZPosition = _latestChunk.transform.position.z + _offset;
+            float _spawnZPosition = _latestChunk.transform.position.z + _offset;
 
-            _spawnPosition = new Vector3(transform.position.x, transform.position.y, spawnZPosition);
+            _spawnPosition = new Vector3(transform.position.x, transform.position.y, _spawnZPosition);
         }
         else
         {

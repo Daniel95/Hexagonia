@@ -1,9 +1,14 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// Controls the polybuisAnimation that is triggered by PlayerCollisions.DiedEvent.
+/// </summary>
 [RequireComponent(typeof(Animator))]
 public class PolybiusAnimations : MonoBehaviour
 {
-    private int rightStateIndex = Animator.StringToHash("Polybius dead");
+    private const string POLYBIUS_DEAD = "Polybius dead";
+
+    private readonly int rightStateIndex = Animator.StringToHash(POLYBIUS_DEAD);
     private Animator animator;
 
     private void OnDiedEvent()

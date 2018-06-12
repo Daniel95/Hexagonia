@@ -2,6 +2,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Fades an images in or out.
+/// </summary>
 public class ImageFadeAnimation : LerpAnimation
 {
     [SerializeField] private Image image;
@@ -12,15 +15,10 @@ public class ImageFadeAnimation : LerpAnimation
         base.StartAnimation(animationStoppedEvent);
     }
 
-    public override void StopAnimation(bool isCompleted)
-    {
-        base.StopAnimation(isCompleted);
-    }
-
     protected override void Apply(float _value)
     {
-        Color tempColor = image.color;
-        tempColor.a = _value;
-        image.color = tempColor;
+        Color _tempColor = image.color;
+        _tempColor.a = _value;
+        image.color = _tempColor;
     }
 }
