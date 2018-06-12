@@ -7,6 +7,7 @@ using UnityEngine;
 public class PlayerDragInput : PlayerBaseInput
 {
     [SerializeField] private float dragSpeed = 1;
+    [SerializeField] private float maxDrag = 1;
 
     private Vector3 startDownPosition;
     private Vector3 currentDownPosition;
@@ -37,8 +38,9 @@ public class PlayerDragInput : PlayerBaseInput
                 deltaFromStartTouchPosition = currentDownPosition - startDownPosition;
 
                 Vector3 _deltaWithSpeed = deltaFromStartTouchPosition * dragSpeed;
+                Vector3 _clampedDeltaWithSpeed = VectorHelper.Clamp(_deltaWithSpeed, -maxDrag, maxDrag);
 
-                TargetPosition = PlayerMovement.Position + _deltaWithSpeed;
+                TargetPosition = PlayerMovement.Position + _clampedDeltaWithSpeed;
                 TargetPosition = LookPositionOnPlane.Instance.ClampToPlane(TargetPosition);
             }
 
