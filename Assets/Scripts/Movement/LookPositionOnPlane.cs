@@ -40,12 +40,22 @@ public class LookPositionOnPlane : MonoBehaviour
     private int latestCalculatedFrame;
     private Vector3 lookPosition;
 
+    /// <summary>
+    /// Returns a value that is within the look plane.
+    /// </summary>
+    /// <param name="_point"></param>
+    /// <returns></returns>
     public Vector3 ClampToPlane(Vector3 _point)
     {
         Vector3 _clampedPoint = VectorHelper.Clamp(_point, minBounds, maxBounds);
         return _clampedPoint;
     }
 
+    /// <summary>
+    /// Returns the center of the camera view that intersects with the look plane.
+    /// </summary>
+    /// <param name="_hit"></param>
+    /// <returns></returns>
     public Vector3 GetLookPosition(out bool _hit)
     {
         if (latestCalculatedFrame == Time.frameCount)
