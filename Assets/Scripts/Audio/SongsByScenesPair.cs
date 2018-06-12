@@ -5,10 +5,10 @@ using System.Collections.Generic;
 /// Pairs a songlist to a specific scene.
 /// </summary>
 [Serializable]
-internal class Songlist
+internal class SongsByScenesPair
 {
 #pragma warning disable CS0649,
     public Scenes Scene;
-    public List<Song> SongList;
+    public List<Song> Songs;
 #pragma warning restore CS0649,
 }
