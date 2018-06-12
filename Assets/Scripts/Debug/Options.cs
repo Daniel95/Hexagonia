@@ -5,7 +5,7 @@ using Debug = UnityEngine.Debug;
 
 public partial class SROptions
 {
-    [Category("Debug")] [Sort(-1)] public bool FPSCounterEnabled { get { return DebugLibrary.FPSCounterEnabled; } set { DebugLibrary.FPSCounterEnabled = value; } }
+    //[Category("Debug")] [Sort(-1)] public bool FPSCounterEnabled { get { return DebugLibrary.FPSCounterEnabled; } set { DebugLibrary.FPSCounterEnabled = value; } }
 
     [Category("Debug")]
     [Sort(-1)]
