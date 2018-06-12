@@ -7,7 +7,6 @@ using UnityToolbag;
 /// </summary>
 public class CoinSpawnChancesByTimeLibrary : MonoBehaviour
 {
-	[Reorderable] [SerializeField] private List<CoinTypeBySpawnChancesPairByTimePair> coinTypeBySpawnChancesByTimePairs;
 
 	public static CoinSpawnChancesByTimeLibrary Instance { get { return GetInstance(); } }
 
@@ -26,7 +25,9 @@ public class CoinSpawnChancesByTimeLibrary : MonoBehaviour
 	}
 	#endregion
 
-    private CoinType coinType;
+	[Reorderable] [SerializeField] private List<CoinTypeBySpawnChancesPairByTimePair> coinTypeBySpawnChancesByTimePairs;
+
+	private CoinType coinType;
 
 	/// <summary>
 	/// Spawns coins with a chance by time. 'common' coins will always be spawned on random locations.

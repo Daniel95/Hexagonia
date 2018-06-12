@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 /// <summary>
 /// Handles the audio, plays and switches the current playing song and between scenes.

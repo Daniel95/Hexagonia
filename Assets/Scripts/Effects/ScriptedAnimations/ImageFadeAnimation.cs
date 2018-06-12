@@ -22,8 +22,8 @@ public class ImageFadeAnimation : LerpAnimation
 
     protected override void Apply(float _value)
     {
-        Color tempColor = image.color;
-        tempColor.a = _value;
-        image.color = tempColor;
+        Color _tempColor = image.color;
+        _tempColor.a = _value;
+        image.color = _tempColor;
     }
 }

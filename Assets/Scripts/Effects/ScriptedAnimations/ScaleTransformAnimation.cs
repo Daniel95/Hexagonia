@@ -6,16 +6,16 @@ using UnityEngine;
 /// </summary>
 public class ScaleTransformAnimation : LerpAnimation
 {
-    public override void StartAnimation(Action animationStoppedEvent = null)
+    public override void StartAnimation(Action _animationStoppedEvent = null)
     {
         StartValue = transform.localScale.x;
-        base.StartAnimation(animationStoppedEvent);
+        base.StartAnimation(_animationStoppedEvent);
     }
 
-    public override void StopAnimation(bool isCompleted)
+    public override void StopAnimation(bool _isCompleted)
     {
         transform.localScale = Vector3.one;
-        base.StopAnimation(isCompleted);
+        base.StopAnimation(_isCompleted);
     }
 
     protected override void Apply(float _value)
