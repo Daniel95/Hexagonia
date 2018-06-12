@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 /// <summary>
 /// Handles the audio, plays and switches the current playing song and between scenes.
@@ -23,13 +24,13 @@ public class MusicManager : MonoBehaviour
     }
     #endregion
 
-    [Range(0, 1)] [SerializeField] private float maxVolume = 0.5f;
-    [SerializeField] private Songlist[] songlists;
+    [Range(0, 1)] [SerializeField] private float maxVolume = .5f;
+    [SerializeField] private SongsByScenesPair[] songsByScenePairs;
 	[SerializeField] private float fadeTime = 0.5f;
 
     private AudioSource source;
     private AudioClip currentClip;
-    private List<Song> currentSongList = new List<Song>();
+    private List<Song> songs = new List<Song>();
     private Coroutine delayCoroutine;
 
     /// <summary>
@@ -48,7 +49,7 @@ public class MusicManager : MonoBehaviour
     /// </summary>
     public void SwitchSong()
     {
-        if (currentSongList.Count == 0) { return; }
+        if (songs.Count == 0) { return; }
         
         Song _randomSong = RandomSong();
 
@@ -131,12 +132,12 @@ public class MusicManager : MonoBehaviour
         
         while (_randomSong == null)
         {
-            Song _potentialSong = currentSongList[UnityEngine.Random.Range(0, currentSongList.Count)];
+            Song _potentialSong = songs[UnityEngine.Random.Range(0, songs.Count)];
 
             if (_potentialSong.Priority <= _count)
             {
                 _randomSong = _potentialSong;
-                _potentialSong.Priority += currentSongList.Count;
+                _potentialSong.Priority += songs.Count;
             }
             _count += 1;
 
@@ -150,7 +151,7 @@ public class MusicManager : MonoBehaviour
 
     private void GivePriority()
     {
-        foreach (Song _song in currentSongList)
+        foreach (Song _song in songs)
         {
             if (_song.Priority > 0)
             {
@@ -161,11 +162,11 @@ public class MusicManager : MonoBehaviour
 
     private void SceneSwitch(Scenes? _oldScene, Scenes _newScene)
     {
-        foreach (Songlist _list in songlists)
+        foreach (SongsByScenesPair _list in songsByScenePairs)
         {
             if (_list.Scene == _newScene)
             {
-                currentSongList = _list.SongList;
+                songs = _list.Songs;
             }
         }
 
