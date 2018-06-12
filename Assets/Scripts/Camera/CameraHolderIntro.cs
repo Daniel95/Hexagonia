@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 /// <summary>
-/// Adjust camera settings in for the intro scene and start the intro video.
+/// Adjust camera settings for the intro scene and start the intro video.
 /// </summary>
 public class CameraHolderIntro : CameraHolder
 {

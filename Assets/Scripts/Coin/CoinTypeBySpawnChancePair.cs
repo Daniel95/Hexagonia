@@ -1,7 +1,7 @@
 ﻿using System;
 
 /// <summary>
-/// A class that pairs the CoinType with it's spawnChance.
+/// CoinTypeBySpawnChancePair pairs the CoinType with a spawn chance.
 /// </summary>
 [Serializable]
 public class CoinTypeBySpawnChancePair

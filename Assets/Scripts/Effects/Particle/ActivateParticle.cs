@@ -10,9 +10,9 @@ public class ActivateParticle : MonoBehaviour {
 
 	private void Update()
 	{
-		bool isPlaying = particleSystems.Exists(x => x.isPlaying);
+		bool _isPlaying = particleSystems.Exists(x => x.isPlaying);
 
-		if (!isPlaying)
+		if (!_isPlaying)
 		{
 			ObjectPool.Instance.PoolObject(gameObject);
 		}
