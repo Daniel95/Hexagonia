@@ -21,10 +21,10 @@ public class AudioEffectManager : MonoBehaviour
     }
     #endregion
 
-    public float PitchMax { get { return pitchMax; } }
+    public float MaxPitch { get { return maxPitch; } }
     
     [SerializeField] private List<AudioEffect> audioEffects = new List<AudioEffect>();
-    [SerializeField] private float pitchMax = 1.5f;
+    [SerializeField] private float maxPitch = 1.5f;
     [SerializeField] private GameObject oneShotAudio;
 
     /// <summary>
