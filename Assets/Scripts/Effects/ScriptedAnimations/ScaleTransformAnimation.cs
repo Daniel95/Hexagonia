@@ -1,6 +1,9 @@
 ﻿using System;
 using UnityEngine;
 
+/// <summary>
+/// Scales an transform.
+/// </summary>
 public class ScaleTransformAnimation : LerpAnimation
 {
     public override void StartAnimation(Action animationStoppedEvent = null)

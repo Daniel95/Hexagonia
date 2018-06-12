@@ -1,6 +1,9 @@
 ﻿using System;
 using UnityEngine;
 
+/// <summary>
+/// Handles the different player collisions
+/// </summary>
 public class PlayerCollisions : MonoBehaviour
 {
     public static Action DiedEvent;
@@ -77,6 +80,7 @@ public class PlayerCollisions : MonoBehaviour
     private void Die()
     {
         SpawnDyingPlayer();
+        AudioEffectManager.Instance.PlayEffect(AudioEffectType.Death);
         if (DiedEvent != null)
         {
             DiedEvent();

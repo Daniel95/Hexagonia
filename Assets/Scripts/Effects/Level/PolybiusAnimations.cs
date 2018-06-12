@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// Controls the polybuisAnimation that is triggered PlayerCollisions.DiedEvent.
+/// </summary>
 [RequireComponent(typeof(Animator))]
 public class PolybiusAnimations : MonoBehaviour
 {
