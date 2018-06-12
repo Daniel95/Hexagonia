@@ -9,5 +9,5 @@ https://github.com/Daniel95/Hexagonia/blob/master/Assets/Scripts/Utilities/CodeC
 All the documentation that we made in preparation and during our project can be found in our
 Game Design Document: https://drive.google.com/open?id=1LCwY_tD5UTdbL6cMrvkjnURjjqy5GdLo8VyAl3T-KaM
 
-Link to the final product (APK): https://drive.google.com/open?id=1D2wuhtuFCObXCBeiVPny4_xO3Y6FA_-k
+Link to the final product (APK): https://drive.google.com/open?id=1ICynooiVty_arzVA9N4COZwdkql7SZjB
 
