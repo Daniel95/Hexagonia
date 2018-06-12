@@ -2,7 +2,7 @@
 using UnityEngine;
 
 /// <summary>
-/// Lerps the hyper space effect so in increased by speed and intensity based on the speed of the chunks.
+/// Lerps the hyper space effect so it is increased by speed and intensity based on the speed of the chunks.
 /// </summary>
 [RequireComponent(typeof(ParticleSystem))]
 public class HyperSpaceEffect : MonoBehaviour

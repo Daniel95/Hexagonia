@@ -15,11 +15,6 @@ public class ImageFadeAnimation : LerpAnimation
         base.StartAnimation(animationStoppedEvent);
     }
 
-    public override void StopAnimation(bool isCompleted)
-    {
-        base.StopAnimation(isCompleted);
-    }
-
     protected override void Apply(float _value)
     {
         Color tempColor = image.color;

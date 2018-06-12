@@ -20,11 +20,6 @@ public abstract class LerpAnimation : ScriptedAnimation
         base.StartAnimation(_animationStoppedEvent);
     }
 
-    public override void StopAnimation(bool _isCompleted)
-    {
-        base.StopAnimation(_isCompleted);
-    }
-
     protected override IEnumerator Animate()
     {
         float _progress = 0;
