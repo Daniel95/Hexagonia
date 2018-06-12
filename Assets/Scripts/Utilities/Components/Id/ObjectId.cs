@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectId : MonoBehaviour {
+public class ObjectId //: MonoBehaviour {
 
     public string Id { get { return id; } }
 

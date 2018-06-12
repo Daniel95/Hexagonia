@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// This animation can be used to lerp certain values by overriding this class.
 /// </summary>
-public abstract class LerpAnimation : ScriptedAnimation
+public abstract class LerpAnimation //: ScriptedAnimation
 {
     [SerializeField] [Range(0, 1)] protected float TargetValue = 1;
     [SerializeField] protected float Speed = 1;

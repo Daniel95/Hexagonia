@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InstanceId : MonoBehaviour {
+public class InstanceId //: MonoBehaviour {
 
     public string Id { get {
             if (!GeneratedId) { GenerateId(); }

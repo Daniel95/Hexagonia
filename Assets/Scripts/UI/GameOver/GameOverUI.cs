@@ -4,7 +4,7 @@ using UnityEngine.UI;
 /// <summary>
 /// Controls game over UI.
 /// </summary>
-public class GameOverUI : MonoBehaviour
+public class GameOverUI //: MonoBehaviour
 {
     [SerializeField] private GameObject menu;
     [SerializeField] private Text localHighscoreText;

@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// Base input class which contains all input events that the game can listen to.
 /// </summary>
-public abstract class PlatformBaseInput : MonoBehaviour
+public abstract class PlatformBaseInput //: MonoBehaviour
 {
     public static Vector2 StartDownPosition { get; protected set; }
     public static Vector2 CurrentDownPosition { get; protected set; }

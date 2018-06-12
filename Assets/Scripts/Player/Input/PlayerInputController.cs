@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// Used to activate and deactivate an player input type.
 /// </summary>
-public class PlayerInputController : MonoBehaviour
+public class PlayerInputController //: MonoBehaviour
 {
     /// <summary>
     /// The selected VR input type when UseDefaultVRPlayerInputType is false.

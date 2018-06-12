@@ -5,7 +5,7 @@ using UnityEngine;
 /// Can switch from scene to scene using async loading. Also plays an scen fade in/out animation when switching.
 /// The default scene should always be active so that scene is never loaded/unloaded.
 /// </summary>
-public class SceneLoader : MonoBehaviour
+public class SceneLoader //: MonoBehaviour
 {
     public static SceneLoader Instance { get { return GetInstance(); } }
     public static Scenes CurrentScene { get { return (Scenes)currentScene; } }

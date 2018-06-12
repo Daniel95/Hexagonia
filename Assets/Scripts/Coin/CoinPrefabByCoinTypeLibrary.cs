@@ -5,7 +5,7 @@ using UnityToolbag;
 /// <summary>
 /// Sets the coinPrefab by the coinType, can be done in the editor.
 /// </summary>
-public class CoinPrefabByCoinTypeLibrary : MonoBehaviour 
+public class CoinPrefabByCoinTypeLibrary //: MonoBehaviour 
 {
 	public static CoinPrefabByCoinTypeLibrary Instance { get { return GetInstance(); } }
 

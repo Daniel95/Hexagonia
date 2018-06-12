@@ -8,7 +8,7 @@ using UnityEditor;
 /// <summary>
 /// Saves the target pixels coordinates of a within a certain color range in sprites.
 /// </summary>
-public class TargetPixelCoordinatesDataLibrary : MonoBehaviour
+public class TargetPixelCoordinatesDataLibrary //: MonoBehaviour
 {
     public static TargetPixelCoordinatesDataLibrary Instance { get { return GetInstance(); } }
 

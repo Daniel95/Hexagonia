@@ -7,8 +7,8 @@ using UnityEngine;
 /// <summary>
 /// This contains the information of a specific chunk and functions to instantiate and remove itself.
 /// </summary>
-[RequireComponent(typeof(Renderer))]
-public class ChunkDesign : MonoBehaviour
+//[RequireComponent(typeof(Renderer))]
+public class ChunkDesign //: MonoBehaviour
 { 
     public List<Transform> ObjectsToPool { get { return objectsToPool; } }
     public List<Transform> ObjectsToInstance { get { return objectsToInstance; } }

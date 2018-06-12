@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class ScriptedAnimationController : MonoBehaviour {
+public class ScriptedAnimationController //: MonoBehaviour {
 
     public static bool AreAnimating { get; private set; }
 

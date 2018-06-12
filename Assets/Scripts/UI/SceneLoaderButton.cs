@@ -4,7 +4,7 @@ using UnityEngine.UI;
 /// <summary>
 /// Button that can load a new scene.
 /// </summary>
-[RequireComponent(typeof(Button))]
+//[RequireComponent(typeof(Button))]
 public class SceneLoaderButton : GazeButton
 {
     [SerializeField] private Scenes scene;

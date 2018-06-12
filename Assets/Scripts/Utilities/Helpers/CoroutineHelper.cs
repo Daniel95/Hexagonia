@@ -2,7 +2,7 @@
 using System.Collections;
 using System;
 
-public class CoroutineHelper : MonoBehaviour
+public class CoroutineHelper //: MonoBehaviour
 {
 
     private static CoroutineHelper instance;

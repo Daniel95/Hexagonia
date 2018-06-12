@@ -5,8 +5,8 @@ using UnityEngine;
 /// <summary>
 /// Contrains information about the pixel position of certain details of the player.
 /// </summary>
-[RequireComponent(typeof(SpriteRenderer))]
-public class PlayerSpriteDetailPositions : MonoBehaviour
+//[RequireComponent(typeof(SpriteRenderer))]
+public class PlayerSpriteDetailPositions //: MonoBehaviour
 {
     public static Action PositionsInitiatedEvent;
     public static Action PositionsUpdatedEvent;

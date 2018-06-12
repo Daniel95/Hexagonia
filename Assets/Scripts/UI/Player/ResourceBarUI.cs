@@ -4,7 +4,7 @@ using UnityEngine.UI;
 /// <summary>
 /// Updates the resourcebar fill amount and color also rotates the canvas to the ratio amount of the player.
 /// </summary>
-public class ResourceBarUI : MonoBehaviour
+public class ResourceBarUI //: MonoBehaviour
 {
 	[SerializeField] private float rotationAmount = 0.5f;
 	[SerializeField] private RectTransform rotateCanvas;

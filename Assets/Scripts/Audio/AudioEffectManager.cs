@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// Spawns and play's audio effects on custom positions. The script gets the audio from AudioEffect.cs.
 /// </summary>
-public class AudioEffectManager : MonoBehaviour
+public class AudioEffectManager// : MonoBehaviour
 {
     public static AudioEffectManager Instance{ get { return GetInstance(); } }
 

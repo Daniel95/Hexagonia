@@ -4,7 +4,7 @@ using System;
 /// <summary>
 ///	Converts raw GetSpectrumData to array's and sends it out.
 /// </summary>
-public class AudioPeer : MonoBehaviour
+public class AudioPeer //: MonoBehaviour
 {
     public static Action TransmitAudioData;
     public static float SingleBand { get { return singleBand; } }

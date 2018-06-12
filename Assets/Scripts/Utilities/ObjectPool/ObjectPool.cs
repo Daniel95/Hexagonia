@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityToolbag;
 
 /// <summary>
 /// Repository of commonly used prefabs.
 /// </summary>
 
-public class ObjectPool : MonoBehaviour {
+public class ObjectPool //: MonoBehaviour {
 
 	public static ObjectPool Instance { get { return GetInstance(); } }
 

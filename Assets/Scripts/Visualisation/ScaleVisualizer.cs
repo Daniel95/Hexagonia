@@ -3,7 +3,7 @@
 /// <summary>
 /// An music visualizer effect that moves a tileable texture and scales a gameobject based on the music.
 /// </summary>
-public class ScaleVisualizer : MonoBehaviour
+public class ScaleVisualizer //: MonoBehaviour
 {
     [SerializeField] private DimensionType dimension;
 	[SerializeField] private float min;

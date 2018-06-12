@@ -5,7 +5,7 @@ using System;
 /// <summary>
 /// Contains and updates the resource value used in several elements in the game.
 /// </summary>
-public class ResourceValue : MonoBehaviour
+public class ResourceValue //: MonoBehaviour
 {
 	public static ResourceValue Instance { get { return GetInstance(); } }
 	public static float Value { get { return resourceValue; } set { resourceValue = value; } }

@@ -7,8 +7,8 @@ using System;
 /// <summary>
 /// Handles the audio, plays and switches the current playing song and between scenes.
 /// </summary>
-[RequireComponent(typeof(AudioSource))]
-public class MusicManager : MonoBehaviour
+//[RequireComponent(typeof(AudioSource))]
+public class MusicManager //: MonoBehaviour
 {
     public static MusicManager Instance { get { return GetInstance(); } }
 

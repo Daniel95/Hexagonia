@@ -3,8 +3,8 @@
 /// <summary>
 /// Controls the polybuisAnimation that is triggered by PlayerCollisions.DiedEvent.
 /// </summary>
-[RequireComponent(typeof(Animator))]
-public class PolybiusAnimations : MonoBehaviour
+//[RequireComponent(typeof(Animator))]
+public class PolybiusAnimations //: MonoBehaviour
 {
     private const string POLYBIUS_DEAD = "Polybius dead";
 

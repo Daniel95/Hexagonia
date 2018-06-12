@@ -3,7 +3,7 @@
 /// <summary>
 /// Used to move objects to the player position without stuttering in the movement.	
 /// </summary>
-public class UpdatePositionToPlayerPosition : MonoBehaviour
+public class UpdatePositionToPlayerPosition //: MonoBehaviour
 {
     [SerializeField] private Vector3 offset;
 

@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// The coin checks collision and sends an event and a value if it has been hit.
 /// </summary>
-public class Coin : MonoBehaviour
+public class Coin //: MonoBehaviour
 {
 	public static Action<int> CollectedEvent;
 

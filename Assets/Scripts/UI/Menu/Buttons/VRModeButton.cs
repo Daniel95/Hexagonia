@@ -6,8 +6,8 @@ using UnityEngine.UI;
 /// <summary>
 /// Button that calls the VRSwitch Switch method to switch VR Mode.
 /// </summary>
-[RequireComponent(typeof(Button))]
-public class VRModeButton : GazeButton
+//[RequireComponent(typeof(Button))]
+public class VRModeButton //: GazeButton
 {
     public static Action InitializedEvent;
 

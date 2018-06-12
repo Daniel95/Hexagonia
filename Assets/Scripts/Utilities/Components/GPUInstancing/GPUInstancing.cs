@@ -2,7 +2,7 @@
 using UnityEngine;
 using System.Linq;
 
-public class GPUInstancing : MonoBehaviour
+public class GPUInstancing //: MonoBehaviour
 {
     public static GPUInstancing Instance { get { return GetInstance(); } }
 

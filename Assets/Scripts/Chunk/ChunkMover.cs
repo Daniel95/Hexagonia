@@ -7,8 +7,7 @@ using UnityEngine;
 /// ChunkMover is a script responsible for moving all the spawned chunks in the level.
 /// It contains a speed variable which is influenced by the progress of the game.
 /// </summary>
-
-public class ChunkMover : MonoBehaviour
+public class ChunkMover //: MonoBehaviour
 {
     public static Action<GameObject> ChunkRemovedEvent;
 

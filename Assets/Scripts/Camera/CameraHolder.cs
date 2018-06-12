@@ -3,7 +3,7 @@
 /// <summary>
 /// Handles and resets the Camera based on the scene index.
 /// </summary>
-public class CameraHolder : MonoBehaviour
+public class CameraHolder //: MonoBehaviour
 {
     protected Transform DefaultCameraHolderTransform;
     protected GameObject MainCameraGameObject;

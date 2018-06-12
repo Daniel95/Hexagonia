@@ -3,7 +3,7 @@
 /// <summary>
 /// This script prevents the user from pressing any buttons while loading between scenes
 /// </summary>
-public class EventSystemHandler : MonoBehaviour
+public class EventSystemHandler //: MonoBehaviour
 {
     [SerializeField] private GameObject gvrEventSystemGameObject;
     [SerializeField] private GameObject genericEventSystemGameObject;

@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// Controls the trails of the player, the trails are positioned at the target pixel coordinates that are within a certain color range indicated in the TargetPixelCoordinatesDataLibrary.
 /// </summary>
-public class PlayerTrails : MonoBehaviour
+public class PlayerTrails //: MonoBehaviour
 {
     [SerializeField] private List<TrailPrefabAndLabelPair> trailPrefabByLabelDatas;
 

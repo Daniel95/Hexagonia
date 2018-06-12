@@ -6,7 +6,7 @@ using UnityEngine;
 /// <summary>
 /// Rotates the menu to different menu sections.
 /// </summary>
-public class MainMenuRotator : MonoBehaviour
+public class MainMenuRotator //: MonoBehaviour
 {
     [Serializable]
     public class MainMenuSectionRotation

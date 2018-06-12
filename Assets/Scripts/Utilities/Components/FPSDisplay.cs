@@ -3,8 +3,8 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Text))]
-public class FPSDisplay : MonoBehaviour
+//[RequireComponent(typeof(Text))]
+public class FPSDisplay //: MonoBehaviour
 {
     // Attach this to any object to make a frames/second indicator.
     //

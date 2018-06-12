@@ -9,7 +9,7 @@ using Random = UnityEngine.Random;
 /// This script is responsible for spawning the chunks when needed. 
 /// In the editor is defined which, where and how many chunks are being spawned.
 /// </summary>
-public class ChunkSpawner : MonoBehaviour
+public class ChunkSpawner //: MonoBehaviour
 {
     public static Action<GameObject, float> ChunkSpawnedEvent;
 

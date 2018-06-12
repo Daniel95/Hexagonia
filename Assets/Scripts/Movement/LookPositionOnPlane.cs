@@ -4,9 +4,9 @@ using UnityEngine;
 /// <summary>
 /// Sends a raycast to a plane, on hit it sends a event to the InstantPlaneMovement.cs what moves the player.
 /// </summary>
-[RequireComponent(typeof(MeshRenderer))]
-[RequireComponent(typeof(BoxCollider))]
-public class LookPositionOnPlane : MonoBehaviour
+//[RequireComponent(typeof(MeshRenderer))]
+//[RequireComponent(typeof(BoxCollider))]
+public class LookPositionOnPlane //: MonoBehaviour
 {
     public static LookPositionOnPlane Instance { get { return GetInstance(); } }
     /// <summary>

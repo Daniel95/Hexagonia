@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class ParticleAutoDestroy : MonoBehaviour
+public class ParticleAutoDestroy //: MonoBehaviour
 {
     [SerializeField] private List<ParticleSystem> particleSystems;
 

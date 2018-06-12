@@ -6,7 +6,7 @@ using UnityEngine.UI;
 /// <summary>
 /// DefaultSceneUI manages screen fader animations and manages wether the VR Warning screen is shown on start
 /// </summary>
-public class DefaultSceneUI : MonoBehaviour
+public class DefaultSceneUI //: MonoBehaviour
 {
     public static DefaultSceneUI Instance { get { return GetInstance(); } }
 

@@ -6,7 +6,7 @@ using UnityEngine;
 /// No usings in code, always import usings above class
 /// Remove unused usings
 /// </summary>
-public class CodeConventions : MonoBehaviour 
+public class CodeConventions //: MonoBehaviour 
 {
     public int PublicTest { get { return privateTest ; } set { privateTest = value; } }
     public int PublicTest2 { get { return privateTest ; } set { privateTest = value; } }

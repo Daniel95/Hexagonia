@@ -5,7 +5,7 @@ using UnityToolbag;
 /// <summary>
 /// CoinSpawnChancesByTimeLibrary manages the chances for different valued coins to spawn. The 'Legendary' coin has a lower chance of spawning compared to the 'Uncommon' coin.
 /// </summary>
-public class CoinSpawnChancesByTimeLibrary : MonoBehaviour
+public class CoinSpawnChancesByTimeLibrary //: MonoBehaviour
 {
 	public static CoinSpawnChancesByTimeLibrary Instance { get { return GetInstance(); } }
 

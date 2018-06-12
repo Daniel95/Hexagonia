@@ -6,8 +6,8 @@ using UnityEngine.Video;
 /// <summary>
 /// Plays the intro video and switched the scene when the video is done.
 /// </summary>
-[RequireComponent(typeof(VideoPlayer))]
-public class IntroVideo : MonoBehaviour
+//[RequireComponent(typeof(VideoPlayer))]
+public class IntroVideo //: MonoBehaviour
 {
     public static Action IntroVideoStartedEvent;
     public static Action IntroVideoCompletedEvent;

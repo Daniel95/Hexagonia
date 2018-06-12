@@ -3,7 +3,7 @@
 /// <summary>
 /// An music visualizer effect that moves a tileable texture and scales an gameobject based on the music.
 /// </summary>
-public class TileableTextureMover : MonoBehaviour
+public class TileableTextureMover //: MonoBehaviour
 {
 	private const string MAIN_TEXTURE = "_MainTex";
 

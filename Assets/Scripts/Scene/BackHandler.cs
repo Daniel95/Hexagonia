@@ -3,7 +3,7 @@
 /// <summary>
 /// Allows the user to quit the application.
 /// </summary>
-public class BackHandler : MonoBehaviour
+public class BackHandler //: MonoBehaviour
 {
     private void Update()
     {

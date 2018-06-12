@@ -3,7 +3,7 @@
 /// <summary>
 /// Moves the gameobject smoothly along towards the targetPosition. Target Position is updated every frame by the PlayerInputController.
 /// </summary>
-public class SmoothPlaneMovement : MonoBehaviour
+public class SmoothPlaneMovement //: MonoBehaviour
 {
     protected Vector3 Delta;
 

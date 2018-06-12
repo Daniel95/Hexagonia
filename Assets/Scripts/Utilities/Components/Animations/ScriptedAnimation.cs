@@ -2,8 +2,8 @@
 using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(ScriptedAnimationController))]
-public abstract class ScriptedAnimation : MonoBehaviour {
+//[RequireComponent(typeof(ScriptedAnimationController))]
+public abstract class ScriptedAnimation //: MonoBehaviour {
 
     public ScriptedAnimationType Type { get { return type; } }
 

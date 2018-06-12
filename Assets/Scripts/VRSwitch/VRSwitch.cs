@@ -6,7 +6,7 @@ using UnityEngine.XR;
 /// <summary>
 /// Contains current state of VR mode, and has public methods to switch VR mode.
 /// </summary>
-public class VRSwitch : MonoBehaviour
+public class VRSwitch //: MonoBehaviour
 {
     public static VRSwitch Instance { get { return GetInstance(); } }
     public static bool VRState { get { return vrState; } }

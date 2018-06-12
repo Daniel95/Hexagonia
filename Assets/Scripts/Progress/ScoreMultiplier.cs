@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// Displays the score multiplier UI, and calculates the score multiplier value.
 /// </summary>
-public class ScoreMultiplier : MonoBehaviour
+public class ScoreMultiplier //: MonoBehaviour
 {
     public static ScoreMultiplier Instance { get { return GetInstance(); } }
     public static int Multiplier { get { return multiplier; } }

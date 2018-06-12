@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// Pools the particle when done playing.
 /// </summary>
-public class ActivateParticle : MonoBehaviour {
+public class ActivateParticle //: MonoBehaviour {
 
 	[SerializeField] private List<ParticleSystem> particleSystems;
 

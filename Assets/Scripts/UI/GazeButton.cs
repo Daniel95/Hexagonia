@@ -5,8 +5,8 @@ using UnityEngine.UI;
 /// <summary>
 /// Base behaviour of the gazebutton, that can be used to interact with buttons in VR.
 /// </summary>
-[RequireComponent(typeof(Button))]
-public abstract class GazeButton : MonoBehaviour 
+//[RequireComponent(typeof(Button))]
+public abstract class GazeButton //: MonoBehaviour 
 {
     [SerializeField] private Image gazeFillImage;
 

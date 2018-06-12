@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// Contains the information about progression of level.
 /// </summary>
-public class Progression : MonoBehaviour
+public class Progression //: MonoBehaviour
 {
     public static int VRHighScore
     {
