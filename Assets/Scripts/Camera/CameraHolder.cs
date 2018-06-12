@@ -1,5 +1,4 @@
-﻿using SRF;
-using UnityEngine;
+﻿using UnityEngine;
 
 /// <summary>
 /// Handles and resets the Camera based on the scene index.
