@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityToolbag;
 using System;
 
 /// <summary>
@@ -25,7 +26,7 @@ public class MusicManager : MonoBehaviour
     #endregion
 
     [Range(0, 1)] [SerializeField] private float maxVolume = .5f;
-    [SerializeField] private SongsByScenesPair[] songsByScenePairs;
+    [SerializeField] [Reorderable] private SongsByScenesPair[] songsByScenePairs;
 	[SerializeField] private float fadeTime = 0.5f;
 
     private AudioSource source;
