@@ -16,11 +16,17 @@ public abstract class PlayerBaseInput : MonoBehaviour
 
     private Coroutine inputUpdateCoroutine;
 
+    /// <summary>
+    /// Activates the input loop
+    /// </summary>
     public virtual void Activate()
     {
         inputUpdateCoroutine = StartCoroutine(InputUpdate());
     }
 
+    /// <summary>
+    /// Deactivates the input loop
+    /// </summary>
     public virtual void Deactivate()
     {
         StopCoroutine(inputUpdateCoroutine);
